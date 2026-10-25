@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Mathrix PostgreSQL (quiz_db)",
+      "Group": "Mathrix Local Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "quiz_db",
+      "Username": "quiz_user",
+      "SSLMode": "prefer"
+    }
+  }
+}
