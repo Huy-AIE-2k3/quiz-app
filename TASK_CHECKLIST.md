@@ -14,7 +14,7 @@
 | Giai đoạn     | Nội dung                                   | Số Test Case |  Đã Đạt  |   Tiến độ   | Milestone                       | Trạng thái                   |
 | :-------------- | :------------------------------------------ | :-----------: | :----------: | :-------------: | :------------------------------ | :----------------------------- |
 | **P0**    | **Thiết kế UI/UX với AI & Stitch** | **30** | **30** | **100%** | **M0: Duyệt Prototype**  | 🟢 **HOÀN THÀNH**      |
-| **P1**    | Khởi tạo hạ tầng & khung dự án        |      29      |      8      |      27.6%      | M1: FE–BE–DB nối thông      | 🟡 **ĐANG TRIỂN KHAI** |
+| **P1**    | Khởi tạo hạ tầng & khung dự án        |      29      |      17      |      58.6%      | M1: FE–BE–DB nối thông      | 🟡 **ĐANG TRIỂN KHAI** |
 | **P2**    | Tài khoản, lớp, học sinh                |      28      |      0      |       0%       | M2: Quản lý lớp & Auth       | ⏳ Chờ bắt đầu             |
 | **P3**    | Soạn đề (LaTeX, ảnh, 5 dạng câu)      |      35      |      0      |       0%       | M3: Đề thi hoàn chỉnh       | ⏳ Chờ bắt đầu             |
 | **P4**    | Làm bài, autosave, chống gián đoạn    |      42      |      0      |       0%       | M4: Thi chịu gián đoạn      | ⏳ Chờ bắt đầu             |
@@ -22,7 +22,7 @@
 | **P6**    | Kiểm thử chất lượng, bảo mật, tải   |      21      |      0      |       0%       | M6: Nghiệm thu 10 kịch bản   | ⏳ Chờ bắt đầu             |
 | **P7**    | Triển khai hosting, pilot, go-live         |      35      |      0      |       0%       | M7: Pilot lớp thật            | ⏳ Chờ bắt đầu             |
 | **P8**    | Vận hành & đóng dự án                 |       7       |      0      |       0%       | M8: Bàn giao & tài liệu      | ⏳ Chờ bắt đầu             |
-| **TỔNG** | **Toàn bộ dự án**                 | **269** | **38** | **14.1%** | **8 Cột mốc**           | 🚀 **ĐANG TRIỂN KHAI** |
+| **TỔNG** | **Toàn bộ dự án**                 | **269** | **47** | **17.5%** | **8 Cột mốc**           | 🚀 **ĐANG TRIỂN KHAI** |
 
 ---
 
@@ -110,7 +110,19 @@
   - [X] **T1.1.8 [M]** Chạy đa nền tảng: Chạy qua `Makefile` và `docker-compose.yml` (PostgreSQL 16 + pgAdmin 4 Web Console).
 
   - **DoD Bước 1.1:** ✅ **ĐẠT** (Monorepo sẵn sàng, `make test` và `make lint` 100% xanh, pgAdmin web hoạt động).
-- [ ] **Bước 1.2 – Khung Backend (FastAPI, config, log, time service):** T1.2.1 -> T1.2.7 (7 test cases: `GET /healthz`, format JSON error, timing NTP drift, structured log).
+- [X] **Bước 1.2 – Khung Backend: cấu hình, lỗi thống nhất, log, thời gian:**
+
+  - [X] **T1.2.1 [I]** `GET /healthz`: 200 trong < 50 ms, không truy vấn DB.
+  - [X] **T1.2.2 [I]** `GET /readyz`: Kiểm tra DB (`SELECT 1`), trả 503 + `error.code = "db_unavailable"` khi DB ngắt kết nối.
+  - [X] **T1.2.3 [I]** `AppError("attempt_closed", 409)`: Trả về JSON đúng chuẩn `{ "error": { "code", "message" } }` và status 409.
+  - [X] **T1.2.4 [I]** Body không hợp lệ: 422 → `validation_error` kèm danh sách trường lỗi, thông điệp tiếng Việt thân thiện.
+  - [X] **T1.2.5 [I]** Lỗi hệ thống chưa bắt (`ZeroDivisionError`): 500 `internal_error`, che giấu hoàn toàn stack trace khỏi client, log chi tiết traceback ở server.
+  - [X] **T1.2.6 [I]** CORS Policy: Request từ origin không tin cậy bị từ chối cấp header `Access-Control-Allow-Origin`.
+  - [X] **T1.2.7 [U]** Nguồn thời gian duy nhất `utcnow()`: Dưới `freeze_time` trả đúng thời điểm đóng băng, có tzinfo UTC chuẩn.
+  - [X] **T1.2.8 [I]** Structured Log & Trace: Mỗi response có header `X-Request-ID`; logger ghi log cấu trúc JSON mang cùng `request_id`.
+  - [X] **T1.2.9 [U]** Biến môi trường bắt buộc: Thiếu hoặc trống `SECRET_KEY` khiến `Settings()` raise `ValidationError` rõ ràng.
+
+  - **DoD Bước 1.2:** ✅ **ĐẠT** (Coverage lõi đạt 98% ≥ 90%, không còn `datetime.now()` ngoài `core/time.py`, ruff DTZ & mypy 100% xanh).
 - [ ] **Bước 1.3 – Cơ sở dữ liệu (PostgreSQL, Alembic migration, Seed data):** T1.3.1 -> T1.3.7 (7 test cases: `alembic upgrade head`, `downgrade -1`, FK indexes, seed CLI).
 - [ ] **Bước 1.4 – Khung Frontend (Vite/React, Tailwind/CSS, Router, Axios client):** T1.4.1 -> T1.4.7 (7 test cases: Build clean, 404 page, interceptor 401, AuthGuard).
 
