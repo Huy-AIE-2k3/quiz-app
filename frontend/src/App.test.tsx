@@ -9,3 +9,4 @@ describe('TC-0.1-01: Frontend App Initial Rendering', () => {
     expect(screen.getByText(/Hệ thống kiểm tra trực tuyến nội bộ/i)).toBeInTheDocument();
   });
 });
+

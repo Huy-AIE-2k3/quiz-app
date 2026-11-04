@@ -21,3 +21,4 @@ Hệ thống Quiz nội bộ môn Toán & Tin học (FastAPI + SQLAlchemy + Alem
    ```bash
    uv run uvicorn app.main:app --reload --port 8000
    ```
+

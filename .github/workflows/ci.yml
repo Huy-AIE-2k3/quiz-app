@@ -90,3 +90,4 @@ jobs:
       - name: Build Production Assets
         working-directory: ./frontend
         run: pnpm run build
+
