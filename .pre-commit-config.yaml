@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=5000']
+      - id: check-case-conflict
+
+  # Chặn tuyệt đối việc vô tình commit tệp .env hoặc bí mật
+  - repo: local
+    hooks:
+      - id: block-env-files
+        name: Chặn commit tệp môi trường bí mật (.env)
+        entry: bash -c 'for file in "$@"; do if [[ "$file" =~ \.env$|\.env\.local$ ]]; then echo "LỖI BẢO MẬT: Không được commit file $file"; exit 1; fi; done' --
+        language: system
+        stages: [commit]
+
+  # Quét bí mật gitleaks
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  # Backend ruff linter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.7.3
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format

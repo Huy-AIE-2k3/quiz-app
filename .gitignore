@@ -1,0 +1,67 @@
+# Environments & Secrets
+.env
+.env*.local
+!.env.example
+*.pem
+*.key
+*.age
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node & Frontend
+node_modules/
+.pnpm-store/
+frontend/dist/
+frontend/build/
+.eslintcache
+*.tsbuildinfo
+
+# Test & E2E
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Databases & local stores
+postgres_data/
+minio_data/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*~
