@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mathrix Studio - Quản lý Đề thi</title>
+<!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#ffdad7",
+            "on-primary-fixed-variant": "#005236",
+            "selected-dark": "rgba(16, 185, 129, 0.10)",
+            "brand-primary-dark": "#10B981",
+            "surface-container-high": "#242c27",
+            "inverse-primary": "#006c49",
+            "text-muted-dark": "#64748B",
+            "surface-container": "#1a211d",
+            "status-wrong": "#EF4444",
+            "on-surface": "#dde4dd",
+            "border-subtle-dark": "#1E293B",
+            "outline": "#86948a",
+            "surface-tint": "#4edea3",
+            "on-background": "#dde4dd",
+            "on-secondary-fixed": "#0d1c2f",
+            "tertiary-fixed-dim": "#ffb3af",
+            "on-secondary": "#233144",
+            "on-primary-fixed": "#002113",
+            "secondary-fixed": "#d5e3fd",
+            "elevated-dark": "#1A2234",
+            "surface-variant": "#2f3632",
+            "surface-bright": "#343b36",
+            "tertiary": "#ffb3af",
+            "surface-container-low": "#161d19",
+            "text-primary-dark": "#F1F5F9",
+            "primary-fixed-dim": "#4edea3",
+            "text-secondary-dark": "#94A3B8",
+            "status-correct": "#10B981",
+            "secondary": "#b9c7e0",
+            "status-flagged": "#F59E0B",
+            "surface-container-lowest": "#09100c",
+            "outline-variant": "#3c4a42",
+            "on-tertiary-container": "#711419",
+            "error": "#ffb4ab",
+            "secondary-fixed-dim": "#b9c7e0",
+            "surface-dark": "#111726",
+            "inverse-surface": "#dde4dd",
+            "on-surface-variant": "#bbcabf",
+            "on-tertiary-fixed": "#410005",
+            "on-primary-container": "#00422b",
+            "border-strong-dark": "#334155",
+            "tertiary-container": "#fc7c78",
+            "surface-container-highest": "#2f3632",
+            "secondary-container": "#3c4a5e",
+            "on-tertiary-fixed-variant": "#842225",
+            "primary-container": "#10b981",
+            "canvas-dark": "#090D16",
+            "surface-dim": "#0e1511",
+            "on-secondary-container": "#abb9d2",
+            "on-error-container": "#ffdad6",
+            "surface": "#0e1511",
+            "on-primary": "#003824",
+            "brand-hover-dark": "#34D399",
+            "primary-fixed": "#6ffbbe",
+            "on-error": "#690005",
+            "on-tertiary": "#650911",
+            "on-secondary-fixed-variant": "#3a485c",
+            "error-container": "#93000a",
+            "primary": "#4edea3",
+            "inverse-on-surface": "#2b322d",
+            "background": "#0e1511"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "tabular": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "body-lg": ["Be Vietnam Pro"],
+            "headline-md": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "code": ["JetBrains Mono"],
+            "body-md": ["Be Vietnam Pro"]
+          },
+          "fontSize": {
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex selection:bg-brand-primary-dark selection:text-canvas-dark">
+<!-- LEFT PERSISTENT NAVIGATION SIDEBAR (Admin Portal) -->
+<aside class="w-64 bg-canvas-dark border-r border-border-subtle-dark flex-shrink-0 flex flex-col justify-between h-screen sticky top-0 z-40">
+<!-- Brand Anchor & Navigation Links -->
+<div class="flex flex-col">
+<!-- Logo Bar -->
+<div class="h-14 px-5 border-b border-border-subtle-dark flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-selected-dark border border-brand-primary-dark/40 flex items-center justify-center text-brand-primary-dark">
+<span class="material-symbols-outlined text-[20px]" data-icon="functions">functions</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight leading-none">Mathrix</span>
+</div>
+</div>
+<!-- Navigation Section -->
+<div class="px-3 py-4 space-y-1">
+<p class="px-3 text-[11px] font-code text-text-muted-dark uppercase tracking-wider mb-2">Trung tâm điều hành</p>
+<!-- Link: Tổng quan -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[19px]" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Tổng quan</span>
+</a>
+<!-- Link: Đề thi (Active state with emerald accent border & background) -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg bg-selected-dark text-primary border border-brand-primary-dark/30 font-headline-sm text-headline-sm transition-all duration-150 shadow-[inset_0_0_12px_rgba(16,185,129,0.06)]" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[19px] text-brand-primary-dark" data-icon="assignment">assignment</span>
+<span>Đề thi</span>
+</div>
+<span class="font-code text-[11px] bg-brand-primary-dark/20 text-brand-primary-dark px-1.5 py-0.5 rounded font-medium">24</span>
+</a>
+<!-- Link: Lớp học -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[19px]" data-icon="school">school</span>
+<span class="font-body-md text-body-md">Lớp học</span>
+</a>
+<!-- Link: Học sinh -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[19px]" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Học sinh</span>
+</a>
+<!-- Link: Chấm bài (4 chờ) -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[19px]" data-icon="fact_check">fact_check</span>
+<span class="font-body-md text-body-md">Chấm bài</span>
+</div>
+<span class="font-code text-[11px] bg-status-flagged/20 text-status-flagged px-1.5 py-0.5 rounded">4 chờ</span>
+</a>
+<!-- Link: Báo cáo -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[19px]" data-icon="insights">insights</span>
+<span class="font-body-md text-body-md">Báo cáo</span>
+</a>
+<!-- Link: Cài đặt -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[19px]" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Cài đặt</span>
+</a>
+</div>
+</div>
+<!-- Sidebar Technical Status Footer -->
+<div class="p-3 border-t border-border-subtle-dark bg-canvas-dark">
+<div class="p-3 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary-dark opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary-dark"></span>
+</span>
+<span class="text-[12px] font-code text-text-primary-dark font-medium">Hạ tầng Khảo thí</span>
+</div>
+<span class="text-[11px] font-code text-brand-primary-dark bg-brand-primary-dark/10 px-1 py-0.5 rounded">14ms</span>
+</div>
+<p class="text-[11px] font-code text-text-muted-dark truncate flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-text-secondary-dark" data-icon="sync">sync</span>
+          Socket v2.4 đã đồng bộ
+        </p>
+<a class="inline-flex items-center gap-1 text-[11px] text-text-secondary-dark hover:text-brand-primary-dark transition-colors pt-1 border-t border-border-subtle-dark w-full" href="#">
+<span class="material-symbols-outlined text-[13px]" data-icon="help_outline">help_outline</span>
+          Tài liệu &amp; Hướng dẫn
+        </a>
+</div>
+</div>
+</aside>
+<!-- MAIN VIEWPORT CONTAINER -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TOP HEADER BAR -->
+<header class="h-14 bg-canvas-dark border-b border-border-subtle-dark sticky top-0 z-30 px-6 flex items-center justify-between gap-4">
+<!-- Breadcrumb & Route -->
+<div class="flex items-center gap-2 text-[13px] font-code text-text-secondary-dark min-w-0">
+<span class="material-symbols-outlined text-[16px] text-text-muted-dark" data-icon="folder_open">folder_open</span>
+<span class="text-text-muted-dark hover:text-text-secondary-dark transition-colors cursor-pointer">Hệ thống quản trị</span>
+<span class="text-border-strong-dark">/</span>
+<span class="text-text-primary-dark font-medium">Đề thi</span>
+<span class="text-[11px] px-1.5 py-0.5 rounded bg-surface-dark border border-border-subtle-dark text-text-muted-dark">/a/exams</span>
+</div>
+<!-- Center Global Search Input -->
+<div class="flex-1 max-w-md relative hidden md:block">
+<span class="material-symbols-outlined text-[17px] text-text-muted-dark absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="search">search</span>
+<input class="w-full h-8 pl-9 pr-14 bg-surface-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg text-text-primary-dark placeholder:text-text-muted-dark text-[13px] font-code transition-all outline-none" placeholder="Tìm kiếm đề thi hoặc mã đề... ctrl K" type="text"/>
+<div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5 pointer-events-none">
+<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-canvas-dark text-text-muted-dark border border-border-subtle-dark rounded">⌘K</kbd>
+</div>
+</div>
+<!-- Action Cluster & User Profile -->
+<div class="flex items-center gap-3">
+<!-- Secondary Button: DOCX/LaTeX -->
+<button class="h-8 px-3 rounded-lg border border-border-strong-dark bg-elevated-dark/70 hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark text-[13px] font-medium flex items-center gap-1.5 transition-colors duration-150">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="code_blocks">code_blocks</span>
+<span>+ Nhập từ DOCX/LaTeX</span>
+</button>
+<!-- Primary Button: Tạo đề thi mới -->
+<button class="h-8 px-3.5 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-semibold text-[13px] flex items-center gap-1.5 transition-colors duration-150 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[17px] font-semibold" data-icon="add_circle">add_circle</span>
+<span>+ Tạo đề thi mới</span>
+</button>
+<div class="h-5 w-[1px] bg-border-subtle-dark"></div>
+<!-- Notification Bell -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark relative transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-4 h-4 bg-status-wrong text-text-primary-dark text-[9px] font-code rounded-full flex items-center justify-center font-bold">3</span>
+</button>
+<!-- Mode Toggle -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="dark_mode">dark_mode</span>
+</button>
+<!-- Teacher Avatar Meta -->
+<div class="flex items-center gap-2 pl-1">
+<div class="w-8 h-8 rounded-lg bg-surface-dark border border-brand-primary-dark/40 flex items-center justify-center text-primary font-code text-[12px] font-bold">
+            TĐ
+          </div>
+<div class="hidden xl:flex flex-col text-left leading-tight">
+<span class="text-[13px] font-medium text-text-primary-dark">Thầy Trần Minh Đức</span>
+<span class="text-[11px] font-code text-text-muted-dark">Môn Toán • Ban Khảo thí</span>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTENT CANVAS -->
+<main class="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+<!-- PAGE TITLE & HEADER INFO -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2 border-b border-border-subtle-dark">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-text-primary-dark tracking-tight">Quản lý Đề thi</h1>
+<p class="font-body-md text-body-md text-text-secondary-dark mt-1">
+            Năm học 2024 - 2025 <span class="text-text-muted-dark mx-1.5">•</span> Tổng số 24 đề thi được quản lý trên hệ thống khảo thí chuyên sâu
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-dark border border-border-subtle-dark text-[12px] font-code text-text-muted-dark">
+<span class="material-symbols-outlined text-[14px] text-brand-primary-dark" data-icon="verified_user">verified_user</span>
+            Bảo mật SHA-256
+          </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-dark border border-border-subtle-dark text-[12px] font-code text-text-muted-dark">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="network_check">network_check</span>
+            Latency 14ms
+          </span>
+</div>
+</div>
+<!-- METRIC STAT CARDS ROW (Bento Stats) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Stat 1: Tổng số đề thi -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between hover:border-border-strong-dark transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-code tracking-wider text-text-muted-dark uppercase">TỔNG SỐ ĐỀ THI</span>
+<div class="w-7 h-7 rounded bg-canvas-dark border border-border-subtle-dark flex items-center justify-center text-text-secondary-dark">
+<span class="material-symbols-outlined text-[16px]" data-icon="description">description</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-2xl font-tabular font-bold text-text-primary-dark">24 <span class="text-sm font-normal text-text-muted-dark">đề</span></div>
+<div class="flex items-center gap-1.5 text-[12px] font-code text-text-secondary-dark mt-1">
+<span class="material-symbols-outlined text-[14px] text-brand-primary-dark" data-icon="lock">lock</span>
+<span>100% bảo mật hash SHA-256</span>
+</div>
+</div>
+</div>
+<!-- Stat 2: Đang diễn ra -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between hover:border-brand-primary-dark/40 transition-colors relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-brand-primary-dark/5 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-code tracking-wider text-primary uppercase font-medium">ĐANG DIỄN RA</span>
+<div class="w-7 h-7 rounded bg-brand-primary-dark/10 border border-brand-primary-dark/30 flex items-center justify-center text-brand-primary-dark">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary-dark opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary-dark"></span>
+</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-2xl font-tabular font-bold text-text-primary-dark">2 <span class="text-sm font-normal text-text-muted-dark">đề</span></div>
+<div class="flex items-center gap-1.5 text-[12px] font-code text-brand-primary-dark mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="sensors">sensors</span>
+<span>3 phòng thi trực tiếp</span>
+</div>
+</div>
+</div>
+<!-- Stat 3: Đã hoàn thành -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between hover:border-border-strong-dark transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-code tracking-wider text-text-muted-dark uppercase">ĐÃ HOÀN THÀNH</span>
+<div class="w-7 h-7 rounded bg-canvas-dark border border-border-subtle-dark flex items-center justify-center text-text-secondary-dark">
+<span class="material-symbols-outlined text-[16px]" data-icon="task_alt">task_alt</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-2xl font-tabular font-bold text-text-primary-dark">10 <span class="text-sm font-normal text-text-muted-dark">đề</span></div>
+<div class="flex items-center gap-1.5 text-[12px] font-code text-text-secondary-dark mt-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted-dark" data-icon="how_to_reg">how_to_reg</span>
+<span>1,280 lượt nộp bài</span>
+</div>
+</div>
+</div>
+<!-- Stat 4: Bản nháp & Biên tập -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between hover:border-border-strong-dark transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-code tracking-wider text-text-muted-dark uppercase">BẢN NHÁP &amp; BIÊN TẬP</span>
+<div class="w-7 h-7 rounded bg-canvas-dark border border-border-subtle-dark flex items-center justify-center text-text-secondary-dark">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit_document">edit_document</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-2xl font-tabular font-bold text-text-primary-dark">4 <span class="text-sm font-normal text-text-muted-dark">đề</span></div>
+<div class="flex items-center gap-1.5 text-[12px] font-code text-status-flagged mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="pending">pending</span>
+<span>Cần duyệt trước 18/05</span>
+</div>
+</div>
+</div>
+</section>
+<!-- FILTER TABS & SEARCH CONTROLS BAR -->
+<section class="space-y-3">
+<!-- Status Tabs Bar -->
+<div class="flex items-center justify-between border-b border-border-subtle-dark overflow-x-auto pb-px">
+<div class="flex items-center gap-2">
+<!-- Tab: Tất cả -->
+<button class="px-3.5 py-2.5 font-headline-sm text-[14px] text-text-primary-dark border-b-2 border-brand-primary-dark flex items-center gap-1.5 font-medium">
+<span>Tất cả</span>
+<span class="text-[11px] font-code px-1.5 py-0.2 rounded bg-surface-dark text-text-secondary-dark border border-border-subtle-dark">24</span>
+</button>
+<!-- Tab: Bản nháp -->
+<button class="px-3.5 py-2.5 font-body-md text-[14px] text-text-secondary-dark hover:text-text-primary-dark border-b-2 border-transparent flex items-center gap-1.5 transition-colors">
+<span>Bản nháp</span>
+<span class="text-[11px] font-code px-1.5 py-0.2 rounded bg-surface-dark text-text-muted-dark">4</span>
+</button>
+<!-- Tab: Đã xuất bản -->
+<button class="px-3.5 py-2.5 font-body-md text-[14px] text-text-secondary-dark hover:text-text-primary-dark border-b-2 border-transparent flex items-center gap-1.5 transition-colors">
+<span>Đã xuất bản</span>
+<span class="text-[11px] font-code px-1.5 py-0.2 rounded bg-surface-dark text-text-muted-dark">8</span>
+</button>
+<!-- Tab: Đang diễn ra -->
+<button class="px-3.5 py-2.5 font-body-md text-[14px] text-brand-primary-dark hover:text-brand-hover-dark border-b-2 border-transparent flex items-center gap-2 transition-colors">
+<span class="relative flex h-1.5 w-1.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary-dark opacity-75"></span>
+<span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-primary-dark"></span>
+</span>
+<span>Đang diễn ra</span>
+<span class="text-[11px] font-code px-1.5 py-0.2 rounded bg-brand-primary-dark/15 text-brand-primary-dark font-semibold">2</span>
+</button>
+<!-- Tab: Đã đóng -->
+<button class="px-3.5 py-2.5 font-body-md text-[14px] text-text-secondary-dark hover:text-text-primary-dark border-b-2 border-transparent flex items-center gap-1.5 transition-colors">
+<span>Đã đóng</span>
+<span class="text-[11px] font-code px-1.5 py-0.2 rounded bg-surface-dark text-text-muted-dark">10</span>
+</button>
+</div>
+<!-- View toggles -->
+<div class="flex items-center gap-1 text-text-muted-dark pb-2">
+<button class="p-1 rounded bg-surface-dark text-brand-primary-dark border border-border-strong-dark" title="Xem dạng lưới Bento">
+<span class="material-symbols-outlined text-[18px]" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-dark text-text-muted-dark hover:text-text-primary-dark transition-colors" title="Xem dạng danh sách">
+<span class="material-symbols-outlined text-[18px]" data-icon="table_rows">table_rows</span>
+</button>
+</div>
+</div>
+<!-- Filter Dropdown & Search Controls -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 pt-1">
+<!-- Text Search Filter -->
+<div class="lg:col-span-4 relative">
+<span class="material-symbols-outlined text-[17px] text-text-muted-dark absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="filter_list">filter_list</span>
+<input class="w-full h-9 pl-9 pr-3 bg-surface-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg text-text-primary-dark placeholder:text-text-muted-dark text-[13px] font-code outline-none" placeholder="Lọc theo tên đề, mã đề MATH-..." type="text"/>
+</div>
+<!-- Subject Dropdown -->
+<div class="lg:col-span-3">
+<div class="relative">
+<select class="w-full h-9 px-3 appearance-none bg-surface-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg text-text-primary-dark text-[13px] outline-none pr-8">
+<option>Tất cả môn học (Toán, Tin)</option>
+<option>Toán học</option>
+<option>Tin học ứng dụng</option>
+<option>Khoa học máy tính</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-text-muted-dark absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Grade Dropdown -->
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full h-9 px-3 appearance-none bg-surface-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg text-text-primary-dark text-[13px] outline-none pr-8">
+<option>Tất cả khối (10, 11, 12)</option>
+<option>Khối 10</option>
+<option>Khối 11</option>
+<option>Khối 12</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-text-muted-dark absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Sort Order Dropdown -->
+<div class="lg:col-span-3">
+<div class="relative">
+<select class="w-full h-9 px-3 appearance-none bg-surface-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg text-text-primary-dark text-[13px] outline-none pr-8">
+<option>Sắp xếp: Mới cập nhật</option>
+<option>Thời gian thi gần nhất</option>
+<option>Số lượng thí sinh giảm dần</option>
+<option>Mã đề thi (A - Z)</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-text-muted-dark absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="swap_vert">swap_vert</span>
+</div>
+</div>
+</div>
+</section>
+<!-- BENTO CARD GRID OF EXAMS -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+<!-- CARD 1: LIVE EXAM (ĐANG DIỄN RA) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-brand-primary-dark/40 flex flex-col justify-between relative group hover:border-brand-primary-dark transition-all duration-150">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30">
+                TOÁN HỌC
+              </span>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 text-[11px] font-code">
+<span class="relative flex h-1.5 w-1.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary-dark opacity-75"></span>
+<span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-primary-dark"></span>
+</span>
+<span>Đang diễn ra</span>
+</div>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-primary cursor-pointer transition-colors leading-snug">
+                Khảo sát Chuyên đề Giải tích &amp; C++17 (Đợt 1)
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">MATH-CS-2024-EX</span>
+<span>•</span>
+<span>Hệ số 2.0</span>
+<span>•</span>
+<span>90 phút</span>
+</div>
+</div>
+<!-- Scope breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1">
+<div class="flex justify-between">
+<span>Cấu trúc:</span>
+<span class="text-text-primary-dark">50 câu (40 TN + 10 code C++)</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Lớp gán:</span>
+<div class="flex gap-1.5">
+<span class="px-1.5 py-0.2 rounded bg-surface-dark border border-border-strong-dark text-text-primary-dark text-[11px]">12A1 (38 HS)</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-dark border border-border-strong-dark text-text-primary-dark text-[11px]">12 Tin (35 HS)</span>
+</div>
+</div>
+</div>
+<!-- Real-time Progress Bar -->
+<div class="space-y-1.5">
+<div class="flex justify-between text-[11px] font-code">
+<span class="text-text-secondary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-brand-primary-dark" data-icon="person">person</span>
+                  Đang làm bài: <b class="text-text-primary-dark">68/73</b>
+</span>
+<span class="text-brand-primary-dark font-bold">93%</span>
+</div>
+<div class="w-full h-1.5 bg-canvas-dark rounded-full overflow-hidden border border-border-subtle-dark">
+<div class="h-full bg-brand-primary-dark rounded-full w-[93%]"></div>
+</div>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-semibold text-[12px] flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]" data-icon="videocam">videocam</span>
+<span>Giám sát trực tiếp</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center" title="Xem trước đề">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-status-flagged text-[12px] flex items-center justify-center" title="Khóa phòng thi">
+<span class="material-symbols-outlined text-[16px]" data-icon="lock_clock">lock_clock</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- CARD 2: LIVE CS OLYMPIAD (ĐANG DIỄN RA) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-cyan-500/40 flex flex-col justify-between relative group hover:border-cyan-400 transition-all duration-150">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                TIN HỌC
+              </span>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-cyan-400 text-[11px] font-code">
+<span class="relative flex h-1.5 w-1.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400"></span>
+</span>
+<span>Đang diễn ra</span>
+</div>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-cyan-400 cursor-pointer transition-colors leading-snug">
+                Lập trình C++ &amp; Cấu trúc dữ liệu nâng cao
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">CS-OLYMP-2024</span>
+<span>•</span>
+<span>180 phút</span>
+<span>•</span>
+<span>GNU C++17</span>
+</div>
+</div>
+<!-- Scope breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1">
+<div class="flex justify-between">
+<span>Thể thức:</span>
+<span class="text-text-primary-dark">4 bài thuật toán chấm tự động</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Thí sinh:</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-dark border border-border-strong-dark text-cyan-300 text-[11px]">Đội tuyển Tin 11 &amp; 12 (18 TS)</span>
+</div>
+</div>
+<!-- Submission Stats Live -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark/80 flex items-center justify-between text-[11px] font-code">
+<span class="text-text-secondary-dark">Submission Queue:</span>
+<span class="text-cyan-400 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="terminal">terminal</span>
+                42 lượt nộp (Judge: OK)
+              </span>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-canvas-dark font-semibold text-[12px] flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]" data-icon="videocam">videocam</span>
+<span>Giám sát trực tiếp</span>
+</button>
+<button class="h-8 px-3 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="data_object">data_object</span>
+<span>Xem chấm Code</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- CARD 3: PUBLISHED & SCHEDULED (ĐÃ XUẤT BẢN) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between relative group hover:border-border-strong-dark transition-all duration-150">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30">
+                TOÁN HỌC
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-code bg-surface-container-high text-secondary border border-border-subtle-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="schedule">schedule</span>
+                Bắt đầu sau 2 ngày
+              </span>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-primary cursor-pointer transition-colors leading-snug">
+                Đại số Tuyến tính &amp; Xác suất Thống kê Đại cương
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">MATH-STAT-02</span>
+<span>•</span>
+<span>60 phút</span>
+<span>•</span>
+<span>40 trắc nghiệm</span>
+</div>
+</div>
+<!-- Scope breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1">
+<div class="flex justify-between">
+<span>Quy chế:</span>
+<span class="text-text-primary-dark">Khóa toàn màn hình + Chống tab</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Phòng thi gán:</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-dark border border-border-strong-dark text-text-primary-dark text-[11px]">12 Ban A (40 HS)</span>
+</div>
+</div>
+<!-- Verification hash -->
+<div class="flex items-center justify-between text-[11px] font-code text-text-muted-dark">
+<span>Đề thi đã ký số:</span>
+<span class="text-text-secondary-dark">sha256:4a8f...b29e</span>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-primary-dark text-[12px] font-medium flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-brand-primary-dark" data-icon="edit">edit</span>
+<span>Soạn câu hỏi (LaTeX)</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center" title="Cài đặt quy chế">
+<span class="material-symbols-outlined text-[16px]" data-icon="tune">tune</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- CARD 4: DRAFT (BẢN NHÁP) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-dashed border-border-strong-dark flex flex-col justify-between relative group hover:border-brand-primary-dark/60 transition-all duration-150">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30">
+                TOÁN HỌC
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-code bg-status-flagged/10 text-status-flagged border border-status-flagged/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="edit_note">edit_note</span>
+                Bản nháp (32/50 câu)
+              </span>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-primary cursor-pointer transition-colors leading-snug">
+                Hình học Không gian &amp; Tọa độ Oxyz Nâng cao
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">MATH-GEO-12B</span>
+<span>•</span>
+<span>90 phút</span>
+<span>•</span>
+<span>Dự kiến 50 câu</span>
+</div>
+</div>
+<!-- Scope breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1">
+<div class="flex justify-between">
+<span>Tiến độ biên soạn:</span>
+<span class="text-status-flagged">Cần thêm 18 câu</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Phân công lớp:</span>
+<span class="text-text-muted-dark italic">Chưa gán lớp</span>
+</div>
+</div>
+<!-- Progress bar draft -->
+<div class="space-y-1">
+<div class="w-full h-1.5 bg-canvas-dark rounded-full overflow-hidden border border-border-subtle-dark">
+<div class="h-full bg-status-flagged rounded-full w-[64%]"></div>
+</div>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-primary-dark text-[12px] font-medium flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-status-flagged" data-icon="draw">draw</span>
+<span>Tiếp tục soạn thảo</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center" title="Nhập LaTeX">
+<span class="material-symbols-outlined text-[15px]" data-icon="code">code</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-status-wrong/70 hover:text-status-wrong flex items-center justify-center" title="Xóa bản nháp">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete">delete</span>
+</button>
+</div>
+</article>
+<!-- CARD 5: FINISHED EXAM (ĐÃ ĐÓNG) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between relative group hover:border-border-strong-dark transition-all duration-150 opacity-90 hover:opacity-100">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30">
+                TOÁN HỌC
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-code bg-surface-dark text-text-muted-dark border border-border-subtle-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
+                Đã đóng (15/05/2024)
+              </span>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-primary cursor-pointer transition-colors leading-snug">
+                Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">MATH-12-OXYZ-04</span>
+<span>•</span>
+<span>90 phút</span>
+<span>•</span>
+<span>50 câu</span>
+</div>
+</div>
+<!-- Performance breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1.5">
+<div class="flex justify-between items-center">
+<span>Kết quả nộp:</span>
+<span class="text-brand-primary-dark font-semibold">73/73 bài đã nộp (100%)</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Điểm trung bình:</span>
+<span class="text-text-primary-dark font-bold font-tabular text-[13px]">8.42 / 10</span>
+</div>
+<div class="flex justify-between items-center text-[11px] text-text-muted-dark">
+<span>Phổ điểm:</span>
+<span>Chuẩn hình chuông Gauss (σ=1.2)</span>
+</div>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-primary-dark text-[12px] font-medium flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-brand-primary-dark" data-icon="analytics">analytics</span>
+<span>Báo cáo phổ điểm &amp; Thống kê</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center" title="Xuất file Excel">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- CARD 6: FINISHED CS EXAM (ĐÃ ĐÓNG) -->
+<article class="p-5 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between relative group hover:border-border-strong-dark transition-all duration-150 opacity-90 hover:opacity-100">
+<div class="space-y-3.5">
+<!-- Header status row -->
+<div class="flex items-center justify-between gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-code font-semibold tracking-wide bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                TIN HỌC
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-code bg-surface-dark text-text-muted-dark border border-border-subtle-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="archive">archive</span>
+                Đã đóng
+              </span>
+</div>
+<!-- Title & Metadata -->
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark hover:text-cyan-400 cursor-pointer transition-colors leading-snug">
+                Nhập môn Python 3 &amp; Thuật toán đệ quy
+              </h2>
+<div class="flex items-center gap-2 mt-2 text-[12px] font-code text-text-muted-dark">
+<span class="text-text-primary-dark font-medium">CS-PY-10TIN</span>
+<span>•</span>
+<span>45 phút</span>
+<span>•</span>
+<span>Python 3.10</span>
+</div>
+</div>
+<!-- Scope breakdown -->
+<div class="p-2.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[12px] font-code text-text-secondary-dark space-y-1">
+<div class="flex justify-between">
+<span>Cấu trúc đề:</span>
+<span class="text-text-primary-dark">25 TN + 2 bài code thực hành</span>
+</div>
+<div class="flex justify-between items-center pt-1 border-t border-border-subtle-dark/60">
+<span>Lớp đã thi:</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-dark border border-border-strong-dark text-text-primary-dark text-[11px]">10 Chuyên Tin (35 HS)</span>
+</div>
+</div>
+<!-- Meta statistics -->
+<div class="flex items-center justify-between text-[11px] font-code text-text-muted-dark">
+<span>Đã hoàn thành chấm mã nguồn:</span>
+<span class="text-cyan-400 font-medium">35/35 học sinh</span>
+</div>
+</div>
+<!-- Contextual Quick Action Buttons -->
+<div class="pt-4 mt-4 border-t border-border-subtle-dark flex items-center gap-2">
+<button class="flex-1 h-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-primary-dark text-[12px] font-medium flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-cyan-400" data-icon="bar_chart">bar_chart</span>
+<span>Báo cáo phổ điểm</span>
+</button>
+<button class="h-8 px-3 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark text-[12px] flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px]" data-icon="file_download">file_download</span>
+<span>Xuất điểm</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+</section>
+<!-- SYSTEM STATUS & AUDIT FOOTER -->
+<footer class="pt-6 pb-4 border-t border-border-subtle-dark flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-code text-text-muted-dark">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5 text-brand-primary-dark">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+            Mathrix v3.8.2
+          </span>
+<span>•</span>
+<span>An toàn &amp; Ổn định</span>
+<span>•</span>
+<span>CSDL PostgreSQL 16.1</span>
+</div>
+<div class="flex items-center gap-4 text-text-secondary-dark">
+<a class="hover:text-primary transition-colors" href="#">Quy chế khảo thí</a>
+<span class="text-border-subtle-dark">|</span>
+<span class="flex items-center gap-1 text-text-muted-dark">
+<span class="material-symbols-outlined text-[13px] text-brand-primary-dark" data-icon="shield">shield</span>
+            Bảo mật đề thi (AES-256)
+          </span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

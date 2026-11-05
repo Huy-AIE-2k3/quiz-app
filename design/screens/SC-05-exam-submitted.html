@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nộp bài thi thành công - Mathrix</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#410005",
+            "primary-fixed": "#6ffbbe",
+            "on-error-container": "#ffdad6",
+            "outline-variant": "#3c4a42",
+            "tertiary-fixed": "#ffdad7",
+            "secondary-fixed-dim": "#b9c7e0",
+            "secondary-fixed": "#d5e3fd",
+            "on-tertiary": "#650911",
+            "surface-bright": "#343b36",
+            "surface-container-high": "#242c27",
+            "on-secondary-fixed-variant": "#3a485c",
+            "border-strong-dark": "#334155",
+            "on-secondary": "#233144",
+            "selected-dark": "rgba(16, 185, 129, 0.10)",
+            "on-surface-variant": "#bbcabf",
+            "error": "#ffb4ab",
+            "secondary": "#b9c7e0",
+            "on-surface": "#dde4dd",
+            "surface-container": "#1a211d",
+            "status-correct": "#10B981",
+            "primary": "#4edea3",
+            "border-subtle-dark": "#1E293B",
+            "outline": "#86948a",
+            "status-flagged": "#F59E0B",
+            "text-muted-dark": "#64748B",
+            "primary-fixed-dim": "#4edea3",
+            "background": "#0e1511",
+            "status-wrong": "#EF4444",
+            "surface-container-highest": "#2f3632",
+            "surface-dark": "#111726",
+            "on-primary-fixed": "#002113",
+            "surface-container-low": "#161d19",
+            "surface-tint": "#4edea3",
+            "on-tertiary-fixed-variant": "#842225",
+            "inverse-primary": "#006c49",
+            "brand-hover-dark": "#34D399",
+            "surface-container-lowest": "#09100c",
+            "surface-variant": "#2f3632",
+            "on-secondary-container": "#abb9d2",
+            "surface-dim": "#0e1511",
+            "on-tertiary-container": "#711419",
+            "on-primary-container": "#00422b",
+            "primary-container": "#10b981",
+            "elevated-dark": "#1A2234",
+            "tertiary": "#ffb3af",
+            "inverse-surface": "#dde4dd",
+            "tertiary-container": "#fc7c78",
+            "on-error": "#690005",
+            "secondary-container": "#3c4a5e",
+            "tertiary-fixed-dim": "#ffb3af",
+            "error-container": "#93000a",
+            "canvas-dark": "#090D16",
+            "surface": "#0e1511",
+            "inverse-on-surface": "#2b322d",
+            "brand-primary-dark": "#10B981",
+            "text-primary-dark": "#F1F5F9",
+            "text-secondary-dark": "#94A3B8",
+            "on-background": "#dde4dd",
+            "on-secondary-fixed": "#0d1c2f",
+            "on-primary-fixed-variant": "#005236",
+            "on-primary": "#003824"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "margin": "2rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Grotesk"],
+            "code": ["JetBrains Mono"],
+            "body-md": ["Be Vietnam Pro"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "tabular": ["Space Grotesk"],
+            "body-lg": ["Be Vietnam Pro"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .mathrix-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-brand-primary-dark selection:text-canvas-dark relative overflow-x-hidden mathrix-grid-pattern">
+<!-- Top Minimal Header with Shared Components Blueprint Execution -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
+<!-- Brand Anchor & System Indicator -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-surface-dark border border-border-strong-dark flex items-center justify-center text-primary font-headline-md font-semibold select-none">
+          Σ
+        </div>
+<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
+</div>
+<div class="hidden lg:flex items-center gap-2.5 px-3 py-1 rounded bg-surface-dark border border-border-subtle-dark">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary-dark"></span>
+</span>
+<span class="font-tabular text-tabular text-text-muted-dark">Hệ thống khảo thí trực tuyến</span>
+<span class="text-border-strong-dark font-mono text-xs">•</span>
+<span class="font-code text-xs text-text-secondary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary" data-icon="lock">lock</span>
+          TLS 1.3 Verified
+        </span>
+</div>
+</div>
+<!-- Active Navigation from Shared Components JSON: Kết quả is semantically prioritized for submission complete -->
+<nav class="hidden md:flex items-center gap-6 h-full pt-3.5">
+<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 hover:text-primary hover:border-border-strong-dark transition-colors duration-150" href="/s/exams">Đề thi</a>
+<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 hover:text-primary hover:border-border-strong-dark transition-colors duration-150" href="/s/practice">Luyện tập</a>
+<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5" href="/s/attempts/latest/done">Kết quả</a>
+</nav>
+<!-- Student identity pill & trailing actions -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-dark border border-border-subtle-dark">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="wifi">wifi</span>
+<div class="flex flex-col text-right">
+<span class="font-body-md text-xs font-medium text-text-primary-dark leading-tight">Nguyễn Văn An - 12A1</span>
+<span class="font-code text-[11px] text-text-muted-dark leading-tight">SBD: 120482</span>
+</div>
+</div>
+<button aria-label="Dark mode toggler" class="w-8 h-8 rounded border border-border-subtle-dark bg-surface-dark flex items-center justify-center text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="dark_mode">dark_mode</span>
+</button>
+<a class="hidden sm:inline-flex font-body-md text-xs font-medium px-2.5 py-1.5 rounded border border-border-subtle-dark text-text-secondary-dark hover:text-error hover:border-error transition-colors" href="/logout">
+        Đăng xuất
+      </a>
+</div>
+</header>
+<!-- Main Submission Confirmation Stage -->
+<main class="flex-1 flex items-center justify-center px-4 py-10">
+<div class="w-full max-w-[620px] bg-surface-dark border border-border-subtle-dark rounded-xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
+<!-- Top subtle radial glow behind checkmark -->
+<div class="absolute -top-14 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Concentric Glowing Success Badge -->
+<div class="flex flex-col items-center text-center relative z-10">
+<div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-selected-dark border border-brand-primary-dark/30 shadow-[0_0_24px_rgba(16,185,129,0.18)]">
+<div class="w-11 h-11 rounded-full bg-brand-primary-dark/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl font-semibold select-none" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary-dark tracking-tight mt-4">
+          Nộp bài thi thành công!
+        </h1>
+<p class="font-body-md text-body-md text-text-secondary-dark mt-1 max-w-md">
+          Hệ thống đã niêm phong và ghi nhận toàn bộ kết quả bài làm của bạn.
+        </p>
+</div>
+<!-- Submission Summary Data Grid / Bento Card -->
+<div class="bg-elevated-dark border border-border-subtle-dark rounded-lg p-5 mt-6 space-y-3.5 relative z-10">
+<!-- Row 1: Exam Title & Subject Badge -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-3 border-b border-border-subtle-dark/70">
+<span class="font-body-md text-xs uppercase tracking-wider text-text-muted-dark">Tên bài thi</span>
+<div class="flex items-center gap-2 sm:text-right">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-primary-container/20 text-primary border border-primary/30">TOÁN 12</span>
+<span class="font-body-md font-medium text-text-primary-dark text-sm sm:text-right truncate max-w-[260px]">
+              Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz
+            </span>
+</div>
+</div>
+<!-- Row 2: Submission Hash & Verification -->
+<div class="flex items-center justify-between py-0.5">
+<span class="font-body-md text-xs uppercase tracking-wider text-text-muted-dark">Mã bài làm</span>
+<div class="flex items-center gap-1.5">
+<span class="font-code text-xs font-medium text-text-primary-dark bg-canvas-dark px-2 py-0.5 rounded border border-border-subtle-dark">#ATT-2026-8941</span>
+<span class="inline-flex items-center text-[12px] text-primary gap-0.5 font-code" title="Chuỗi băm bài thi toàn vẹn">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+              Đã khóa hash
+            </span>
+</div>
+</div>
+<!-- Row 3: Submission Timestamp -->
+<div class="flex items-center justify-between py-0.5">
+<span class="font-body-md text-xs uppercase tracking-wider text-text-muted-dark">Thời gian nộp</span>
+<span class="font-code text-xs text-text-primary-dark flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-text-muted-dark" data-icon="schedule">schedule</span>
+            09:28:15 • 05/11/2026
+          </span>
+</div>
+<!-- Row 4: Answer Completion & Progress -->
+<div class="flex flex-col gap-1.5 py-0.5">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-xs uppercase tracking-wider text-text-muted-dark">Số câu đã trả lời</span>
+<span class="font-tabular text-xs font-semibold text-primary">50/50 câu (100% hoàn thành)</span>
+</div>
+<div class="w-full bg-canvas-dark rounded-full h-1.5 overflow-hidden border border-border-subtle-dark">
+<div class="bg-brand-primary-dark h-full rounded-full w-full"></div>
+</div>
+</div>
+<!-- Row 5: Actual Elapsed Time -->
+<div class="flex items-center justify-between pt-1 border-t border-border-subtle-dark/70">
+<span class="font-body-md text-xs uppercase tracking-wider text-text-muted-dark">Thời gian làm bài</span>
+<span class="font-code text-xs text-text-primary-dark">
+            54 phút 20 giây <span class="text-text-muted-dark">/ 90 phút</span>
+</span>
+</div>
+</div>
+<!-- Informational Alert Box -->
+<div class="rounded-lg border border-primary/20 bg-primary/5 p-4 mt-6 flex items-start gap-3 relative z-10">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="verified_user">verified_user</span>
+<p class="font-body-md text-xs sm:text-sm text-text-primary-dark/90 leading-relaxed">
+          Bài thi của bạn đã được ghi nhận vào hệ thống an toàn. Đề thi này cho phép xem kết quả và lời giải ngay lập tức.
+        </p>
+</div>
+<!-- Dual Navigation Action Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-8 pt-6 border-t border-border-subtle-dark relative z-10">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg border border-border-strong-dark bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-primary/40 font-headline-sm text-tabular transition active:scale-[0.98]" href="/s/exams">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+<span>Quay lại danh sách đề thi</span>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm font-semibold text-tabular transition shadow-lg shadow-brand-primary-dark/20 active:scale-[0.98]" href="/s/attempts/ATT-2026-8941/result">
+<span>Xem kết quả &amp; Lời giải chi tiết</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</main>
+<!-- Technical Proctoring Audit Hash & Minimal Status Bar -->
+<footer class="w-full border-t border-border-subtle-dark bg-canvas-dark px-gutter py-2.5">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+<div class="flex items-center gap-2 text-text-muted-dark font-code text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark inline-block"></span>
+<span>Checksum: sha256:4f8e6c19a0c8b21...990a</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted-dark font-code text-[11px]">
+<span>Mã phòng ảo: P.204</span>
+<span class="text-border-strong-dark">•</span>
+<span class="text-primary/80">MATHRIX PROCTOR v2.4.0-stable</span>
+</div>
+</div>
+</footer>
+</body></html>

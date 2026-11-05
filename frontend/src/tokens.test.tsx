@@ -78,3 +78,4 @@ describe('TC-1.2-05: Accessible Countdown Timer with Achromatopsia Support', () 
     expect(screen.getByText('00:00:45')).toBeInTheDocument();
   });
 });
+

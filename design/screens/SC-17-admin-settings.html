@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cài đặt Hệ thống | Mathrix</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#6ffbbe",
+            "primary-container": "#10b981",
+            "status-correct": "#10B981",
+            "outline": "#86948a",
+            "status-wrong": "#EF4444",
+            "border-strong-dark": "#334155",
+            "text-primary-dark": "#F1F5F9",
+            "inverse-on-surface": "#2b322d",
+            "secondary-fixed-dim": "#b9c7e0",
+            "on-secondary-fixed": "#0d1c2f",
+            "on-tertiary-container": "#711419",
+            "on-secondary-container": "#abb9d2",
+            "surface-bright": "#343b36",
+            "inverse-primary": "#006c49",
+            "on-secondary": "#233144",
+            "surface-tint": "#4edea3",
+            "tertiary-fixed": "#ffdad7",
+            "surface-container-low": "#161d19",
+            "on-primary-fixed-variant": "#005236",
+            "outline-variant": "#3c4a42",
+            "on-tertiary-fixed-variant": "#842225",
+            "on-primary-container": "#00422b",
+            "text-secondary-dark": "#94A3B8",
+            "surface-container": "#1a211d",
+            "border-subtle-dark": "#1E293B",
+            "tertiary-fixed-dim": "#ffb3af",
+            "selected-dark": "rgba(16, 185, 129, 0.10)",
+            "surface-container-lowest": "#09100c",
+            "on-surface-variant": "#bbcabf",
+            "on-primary": "#003824",
+            "on-primary-fixed": "#002113",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "tertiary": "#ffb3af",
+            "canvas-dark": "#090D16",
+            "secondary": "#b9c7e0",
+            "tertiary-container": "#fc7c78",
+            "brand-primary-dark": "#10B981",
+            "surface-variant": "#2f3632",
+            "surface-container-highest": "#2f3632",
+            "primary": "#4edea3",
+            "error": "#ffb4ab",
+            "surface": "#0e1511",
+            "on-background": "#dde4dd",
+            "on-surface": "#dde4dd",
+            "surface-dim": "#0e1511",
+            "brand-hover-dark": "#34D399",
+            "secondary-container": "#3c4a5e",
+            "on-secondary-fixed-variant": "#3a485c",
+            "on-error-container": "#ffdad6",
+            "primary-fixed-dim": "#4edea3",
+            "surface-container-high": "#242c27",
+            "elevated-dark": "#1A2234",
+            "on-tertiary-fixed": "#410005",
+            "background": "#0e1511",
+            "on-tertiary": "#650911",
+            "surface-dark": "#111726",
+            "text-muted-dark": "#64748B",
+            "secondary-fixed": "#d5e3fd",
+            "inverse-surface": "#dde4dd",
+            "status-flagged": "#F59E0B"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "code": ["JetBrains Mono"],
+            "tabular": ["Space Grotesk"],
+            "body-md": ["Be Vietnam Pro"],
+            "body-lg": ["Be Vietnam Pro"],
+            "headline-md": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Custom scrollbars for clean technical aesthetic */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex selection:bg-brand-primary-dark selection:text-black">
+<!-- ================= PERSISTENT LEFT SIDEBAR ================= -->
+<aside class="w-64 flex-shrink-0 bg-surface-dark border-r border-border-subtle-dark flex flex-col fixed inset-y-0 left-0 z-40">
+<!-- Brand Header (NO Slogan under logo) -->
+<div class="h-14 px-5 flex items-center border-b border-border-subtle-dark">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-brand-primary-dark flex items-center justify-center text-canvas-dark shadow-none flex-shrink-0">
+<!-- Greek Sigma math icon -->
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M19 4H5v2.5l7 5.5-7 5.5V20h14v-3h-9.2l5.7-4.5-5.7-4.5H19V4z"></path>
+</svg>
+</div>
+<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
+</div>
+</div>
+<!-- Navigation List -->
+<nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">dashboard</span>
+<span class="font-body-md text-body-md">Tổng quan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a/exams">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">assignment</span>
+<span class="font-body-md text-body-md">Đề thi</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a/classes">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">school</span>
+<span class="font-body-md text-body-md">Lớp học</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a/students">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">group</span>
+<span class="font-body-md text-body-md">Học sinh</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a/grading">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">fact_check</span>
+<span class="font-body-md text-body-md">Chấm bài</span>
+</div>
+<span class="px-2 py-0.5 rounded-full text-xs font-tabular text-amber-300 bg-amber-500/10 border border-amber-500/20 font-medium">4 chờ</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors duration-150 group" href="/a/reports">
+<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-primary-dark text-xl">insights</span>
+<span class="font-body-md text-body-md">Báo cáo</span>
+</a>
+<!-- ACTIVE LINK: Cài đặt -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-selected-dark text-brand-primary-dark border border-brand-primary-dark/30 font-medium relative group" href="/a/settings">
+<span class="material-symbols-outlined text-brand-primary-dark text-xl" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-body-md text-body-md text-text-primary-dark font-medium">Cài đặt</span>
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark ml-auto"></span>
+</a>
+</nav>
+<!-- Sidebar Footer -->
+<div class="p-3 border-t border-border-subtle-dark bg-canvas-dark/40 space-y-2.5">
+<div class="p-2.5 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-1.5 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-text-muted-dark font-body-md">Hạ tầng Khảo thí:</span>
+<div class="flex items-center gap-1.5 font-code text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark animate-pulse"></span>
+            14ms
+          </div>
+</div>
+<div class="flex items-center justify-between text-text-muted-dark">
+<span class="font-body-md">Socket v2.4:</span>
+<span class="text-text-secondary-dark font-code text-[11px]">đã đồng bộ</span>
+</div>
+</div>
+<a class="flex items-center gap-2 px-2 py-1.5 text-xs text-text-secondary-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">menu_book</span>
+<span class="font-body-md">Tài liệu &amp; Hướng dẫn</span>
+</a>
+</div>
+</aside>
+<!-- ================= MAIN WRAPPER ================= -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- Top Header Bar -->
+<header class="sticky top-0 z-30 h-14 bg-canvas-dark border-b border-border-subtle-dark px-gutter flex items-center justify-between">
+<!-- Left: Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm">
+<span class="text-text-secondary-dark font-body-md">Hệ thống quản trị</span>
+<span class="material-symbols-outlined text-text-muted-dark text-sm">chevron_right</span>
+<span class="text-text-primary-dark font-medium font-body-md">Cài đặt hệ thống</span>
+</div>
+<!-- Center: Quick Command Bar -->
+<div class="relative w-80 hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-dark text-lg pointer-events-none">search</span>
+<input class="w-full bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg pl-9 pr-3 py-1.5 text-xs font-body-md text-text-secondary-dark placeholder-text-muted-dark focus:outline-none cursor-pointer" placeholder="Tìm nhanh tham số cấu hình... (Ctrl + K)" readonly="" type="text"/>
+</div>
+<!-- Right Section -->
+<div class="flex items-center gap-3">
+<!-- Environment Badge -->
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded bg-elevated-dark border border-border-subtle-dark text-xs font-code text-text-secondary-dark">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+<span>Môi trường: <strong class="text-text-primary-dark font-semibold">Production (v3.8.2)</strong></span>
+</div>
+<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
+<!-- Notification Bell -->
+<button class="relative p-1.5 text-text-secondary-dark hover:text-text-primary-dark rounded-lg hover:bg-elevated-dark transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-status-wrong text-white text-[10px] font-tabular rounded-full flex items-center justify-center font-bold">3</span>
+</button>
+<!-- Dark Mode Indicator -->
+<div class="p-1.5 text-text-secondary-dark">
+<span class="material-symbols-outlined text-xl">dark_mode</span>
+</div>
+<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
+<!-- Admin Profile -->
+<div class="flex items-center gap-2 pl-1">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-subtle-dark flex items-center justify-center font-headline-sm text-brand-primary-dark font-bold">
+            Đ
+          </div>
+<div class="text-left text-xs hidden xl:block leading-tight">
+<p class="font-medium text-text-primary-dark font-body-md">Thầy Trần Minh Đức</p>
+<p class="text-text-muted-dark font-code text-[11px]">Root Admin</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Body Container -->
+<main class="flex-1 p-gutter pb-28 space-y-6 max-w-7xl w-full mx-auto">
+<!-- Page Title Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border-subtle-dark">
+<div>
+<h1 class="font-headline-lg text-headline-lg tracking-tight text-text-primary-dark">Cài đặt Hệ thống</h1>
+<p class="text-text-secondary-dark font-body-md mt-1">Quản lý tham số vận hành, lưu trữ dữ liệu khảo thí và chính sách bảo mật máy chủ Mathrix</p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto px-3 py-1.5 rounded-lg bg-surface-dark border border-border-subtle-dark text-xs text-text-secondary-dark font-code">
+<span class="material-symbols-outlined text-primary text-base">cloud_sync</span>
+<span>Lần sao lưu gần nhất: <strong class="text-text-primary-dark">14:00 hôm nay</strong> • CSDL: <strong class="text-text-primary-dark">PostgreSQL 16.1</strong></span>
+</div>
+</div>
+<!-- Horizontal Navigation Tabs -->
+<div class="flex items-center gap-8 border-b border-border-subtle-dark">
+<button class="flex items-center gap-2 pb-3.5 text-primary border-b-2 border-primary font-headline-sm text-headline-sm transition-colors">
+<span class="material-symbols-outlined text-lg">tune</span>
+<span>Cài đặt chung</span>
+</button>
+<button class="flex items-center gap-2 pb-3.5 text-text-secondary-dark hover:text-text-primary-dark font-body-md text-body-md transition-colors">
+<span class="material-symbols-outlined text-lg">database</span>
+<span>Lưu trữ &amp; Dữ liệu</span>
+</button>
+<button class="flex items-center gap-2 pb-3.5 text-text-secondary-dark hover:text-text-primary-dark font-body-md text-body-md transition-colors">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span>Bảo mật &amp; Phân quyền</span>
+</button>
+</div>
+<!-- ================= BENTO GRID SETTINGS SECTIONS ================= -->
+<div class="space-y-8">
+<!-- SECTION 1: CÀI ĐẶT CHUNG -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md tracking-tight flex items-center gap-2 text-text-primary-dark">
+<span class="w-2 h-2 rounded-full bg-brand-primary-dark"></span>
+              Phần 1: Cài đặt chung &amp; Vận hành
+            </h2>
+<span class="text-xs font-code text-text-muted-dark">MÃ THIẾT LẬP: CORE_CFG_01</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+<!-- Card 1: Thông tin tổ chức & Vùng địa lý -->
+<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-xl p-6 transition-colors duration-150">
+<div class="flex items-start justify-between pb-4 border-b border-border-subtle-dark mb-5">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary-dark text-xl">domain</span>
+                    Thông tin tổ chức &amp; Vùng địa lý
+                  </h3>
+<p class="text-xs text-text-secondary-dark mt-1 font-body-md">Xác thực pháp lý và chuẩn hóa thời gian kỳ thi</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-[11px] font-code text-text-muted-dark">IDENT_AUTH</span>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Tên đơn vị / trung tâm</label>
+<div class="relative">
+<input class="w-full bg-elevated-dark/70 border border-border-subtle-dark rounded-lg px-3.5 py-2 text-sm font-headline-sm font-semibold text-text-primary-dark pl-9 cursor-not-allowed" disabled="" type="text" value="Mathrix"/>
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted-dark text-base">lock</span>
+</div>
+<p class="text-[11px] text-text-muted-dark mt-1 font-body-md flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Tên bản quyền hệ thống khảo thí nội bộ
+                  </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Múi giờ hệ thống</label>
+<div class="relative">
+<select class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3 py-2 text-xs font-body-md text-text-primary-dark appearance-none pr-8">
+<option selected="">(GMT+7) Hà Nội, Băng Cốc, Jakarta</option>
+<option>(GMT+8) Singapore, Bắc Kinh</option>
+<option>(GMT+0) UTC Standard Time</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted-dark text-sm pointer-events-none">expand_more</span>
+</div>
+<div class="flex items-center gap-1 mt-1 text-[11px] text-primary font-code">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                      Đã đồng bộ NTP time.google.com
+                    </div>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Ngôn ngữ mặc định</label>
+<div class="relative">
+<select class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3 py-2 text-xs font-body-md text-text-primary-dark appearance-none pr-8">
+<option selected="">Tiếng Việt (Mặc định)</option>
+<option>English (Technical Mathematics)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted-dark text-sm pointer-events-none">expand_more</span>
+</div>
+<p class="text-[11px] text-text-muted-dark mt-1 font-body-md">Áp dụng cho toàn bộ thí sinh</p>
+</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Định dạng hiển thị ngày giờ</label>
+<input class="w-full bg-elevated-dark border border-border-subtle-dark rounded-lg px-3 py-2 text-xs font-code text-text-primary-dark" readonly="" type="text" value="DD/MM/YYYY HH:mm:ss (24h)"/>
+</div>
+</div>
+</div>
+<!-- Card 2: Tham số bài thi mặc định -->
+<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-xl p-6 transition-colors duration-150">
+<div class="flex items-start justify-between pb-4 border-b border-border-subtle-dark mb-5">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary-dark text-xl">timer</span>
+                    Tham số bài thi mặc định
+                  </h3>
+<p class="text-xs text-text-secondary-dark mt-1 font-body-md">Điều kiện kích hoạt phòng thi và kiểm soát tiến trình</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-[11px] font-code text-text-muted-dark">EXAM_RULES</span>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Cảnh báo nộp bài trước khi hết giờ</label>
+<div class="flex items-center gap-3">
+<div class="relative w-36">
+<input class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3 py-2 text-sm font-code text-text-primary-dark pr-12" max="15" min="1" type="number" value="5"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted-dark font-body-md">phút</span>
+</div>
+<span class="text-xs text-text-secondary-dark font-body-md">Hiển thị đếm ngược chuyển đỏ và phát tín hiệu rung</span>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle-dark">
+<div class="flex items-start justify-between gap-4">
+<div>
+<p class="text-sm font-medium text-text-primary-dark font-body-md">Tự động nộp bài khi mất kết nối kéo dài</p>
+<p class="text-xs text-text-muted-dark mt-0.5 font-body-md">Tự động khóa dữ liệu bài làm trên máy chủ sau 180 giây thí sinh ngắt kết nối WebSocket bất thường.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-elevated-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-primary-dark border border-border-subtle-dark"></div>
+</label>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle-dark">
+<div class="flex items-start justify-between gap-4">
+<div>
+<p class="text-sm font-medium text-text-primary-dark font-body-md">Xáo trộn câu hỏi và đáp án tự động</p>
+<p class="text-xs text-text-muted-dark mt-0.5 font-body-md">Tạo mã đề ngẫu nhiên theo thuật toán Fisher-Yates cho mỗi lượt thi của từng thí sinh.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-elevated-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-primary-dark border border-border-subtle-dark"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: LƯU TRỮ & DỮ LIỆU -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md tracking-tight flex items-center gap-2 text-text-primary-dark">
+<span class="w-2 h-2 rounded-full bg-brand-primary-dark"></span>
+              Phần 2: Cấu hình Kho lưu trữ Đề thi &amp; Dữ liệu
+            </h2>
+<span class="text-xs font-code text-text-muted-dark">STORAGE_BUCKET_MINIO</span>
+</div>
+<!-- Card: Cấu hình Kho lưu trữ Đề thi & Bài nộp (Object Storage) -->
+<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-xl p-6 transition-colors duration-150">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-border-subtle-dark mb-5 gap-3">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary-dark text-xl">folder_data</span>
+                  Cấu hình Kho lưu trữ Đề thi &amp; Bài nộp (Object Storage)
+                </h3>
+<p class="text-xs text-text-secondary-dark mt-1 font-body-md">MinIO S3 tương thích cụm lưu trữ phân tán cho bài làm dạng PDF, Code và TeX</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-code bg-brand-primary-dark/10 border border-brand-primary-dark/30 text-primary">
+<span class="w-2 h-2 rounded-full bg-brand-primary-dark animate-pulse"></span>
+                  Đã kết nối (12ms latency)
+                </span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Endpoint & Storage status (col 1 & 2) -->
+<div class="lg:col-span-2 space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">S3 Endpoint URL &amp; Bucket Name</label>
+<div class="flex items-center gap-2">
+<input class="flex-1 bg-elevated-dark border border-border-subtle-dark rounded-lg px-3 py-2 text-xs font-code text-primary" readonly="" type="text" value="http://minio.internal.mathrix.edu.vn:9000/exams-storage"/>
+<button class="px-3 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-xs text-text-secondary-dark hover:text-text-primary-dark transition-colors flex items-center gap-1 font-code">
+<span class="material-symbols-outlined text-sm">content_copy</span> Copy
+                    </button>
+</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Đường dẫn sao lưu dữ liệu máy chủ</label>
+<div class="flex items-center gap-2">
+<input class="flex-1 bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3 py-2 text-xs font-code text-text-primary-dark" type="text" value="/var/backup/mathrix/db_snapshots/"/>
+<button class="px-3.5 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-xs text-text-primary-dark hover:bg-border-subtle-dark transition-colors flex items-center gap-1 font-body-md">
+<span class="material-symbols-outlined text-sm">folder_open</span> Duyệt thư mục
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+<div class="p-3.5 rounded-lg bg-elevated-dark border border-border-subtle-dark">
+<p class="text-xs text-text-secondary-dark font-body-md">Tần suất sao lưu tự động</p>
+<p class="text-sm font-medium text-text-primary-dark font-code mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary">schedule</span>
+                      Mỗi ngày lúc 02:00 sáng
+                    </p>
+<span class="text-[11px] text-text-muted-dark font-code mt-0.5 block">Cronjob: 0 2 * * * (active)</span>
+</div>
+<div class="p-3.5 rounded-lg bg-elevated-dark border border-border-subtle-dark flex flex-col justify-between">
+<div>
+<p class="text-xs text-text-secondary-dark font-body-md">Kiểm tra toàn vẹn tệp</p>
+<p class="text-sm font-medium text-text-primary-dark font-code mt-1">SHA-256 Checksum</p>
+</div>
+<span class="text-[11px] text-primary font-code">Xác thực tự động sau sao lưu</span>
+</div>
+</div>
+</div>
+<!-- Storage capacity card (col 3) -->
+<div class="p-4 rounded-xl bg-elevated-dark border border-border-subtle-dark flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-xs text-text-secondary-dark mb-2">
+<span class="font-body-md">Dung lượng ổ đĩa phân vùng</span>
+<span class="font-code text-primary font-semibold">8.5%</span>
+</div>
+<div class="w-full bg-canvas-dark rounded-full h-2.5 overflow-hidden border border-border-subtle-dark mb-3">
+<div class="bg-brand-primary-dark h-full rounded-full" style="width: 8.52%;"></div>
+</div>
+<div class="flex items-baseline justify-between font-code mb-4">
+<span class="text-2xl font-bold text-text-primary-dark">42.6 <span class="text-xs font-normal text-text-muted-dark">GB</span></span>
+<span class="text-xs text-text-muted-dark">/ 500 GB</span>
+</div>
+<ul class="space-y-2 text-xs border-t border-border-subtle-dark pt-3 font-body-md">
+<li class="flex justify-between text-text-secondary-dark">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-brand-primary-dark"></span> Đề thi &amp; Đồ thị TeX:</span>
+<span class="font-code text-text-primary-dark">18.4 GB</span>
+</li>
+<li class="flex justify-between text-text-secondary-dark">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-primary"></span> Bài làm học sinh:</span>
+<span class="font-code text-text-primary-dark">21.9 GB</span>
+</li>
+<li class="flex justify-between text-text-secondary-dark">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-text-muted-dark"></span> Bản ghi snapshot:</span>
+<span class="font-code text-text-primary-dark">2.3 GB</span>
+</li>
+</ul>
+</div>
+<div class="pt-4 mt-3 border-t border-border-subtle-dark">
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-dark border border-border-strong-dark hover:border-brand-primary-dark hover:bg-elevated-dark text-xs text-text-primary-dark font-medium transition-all flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined text-primary text-base group-hover:rotate-180 transition-transform duration-300">backup</span>
+                    Sao lưu cơ sở dữ liệu ngay
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: BẢO MẬT & PHÂN QUYỀN -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md tracking-tight flex items-center gap-2 text-text-primary-dark">
+<span class="w-2 h-2 rounded-full bg-brand-primary-dark"></span>
+              Phần 3: Bảo mật &amp; Phân quyền Quản trị
+            </h2>
+<span class="text-xs font-code text-text-muted-dark">SECURITY_POLICIES_HIGH</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+<!-- Card 1: Xác thực & Mật khẩu Quản trị (col 7) -->
+<div class="lg:col-span-7 bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-xl p-6 transition-colors duration-150">
+<div class="flex items-start justify-between pb-4 border-b border-border-subtle-dark mb-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary-dark text-xl">key</span>
+                    Xác thực &amp; Mật khẩu Quản trị
+                  </h3>
+<p class="text-xs text-text-secondary-dark mt-1 font-body-md">Đổi mã chứng thực phiên truy cập cho tài khoản Root Admin</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-status-flagged/10 border border-status-flagged/20 text-[11px] font-code text-status-flagged">CRITICAL</span>
+</div>
+<!-- Warning Banner -->
+<div class="mb-5 p-3.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 flex items-start gap-3">
+<span class="material-symbols-outlined text-lg flex-shrink-0 mt-0.5">warning</span>
+<div class="text-xs font-body-md leading-relaxed">
+<strong class="font-semibold block mb-0.5">Lưu ý quan trọng:</strong>
+                  Tuyệt đối không sử dụng mật khẩu mặc định của hệ thống. Mật khẩu phải tối thiểu 10 ký tự gồm chữ hoa, chữ thường, chữ số và ký tự đặc biệt.
+                </div>
+</div>
+<!-- Form Fields -->
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Mật khẩu hiện tại</label>
+<div class="relative">
+<input class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3.5 py-2 text-xs font-code text-text-primary-dark pr-10" type="password" value="currentSuperAdmin2024!"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted-dark hover:text-text-primary-dark" type="button">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Mật khẩu mới</label>
+<div class="relative">
+<input class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3.5 py-2 text-xs font-code text-text-primary-dark pr-10" type="password" value="M@thrix$2025*Secured"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted-dark hover:text-text-primary-dark" type="button">
+<span class="material-symbols-outlined text-base">visibility_off</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Xác nhận mật khẩu mới</label>
+<div class="relative">
+<input class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3.5 py-2 text-xs font-code text-text-primary-dark pr-10" type="password" value="M@thrix$2025*Secured"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-primary" type="button">
+<span class="material-symbols-outlined text-base">check_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Password Strength Meter -->
+<div class="p-3 rounded-lg bg-elevated-dark/70 border border-border-subtle-dark space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="text-text-secondary-dark font-body-md">Độ mạnh mật khẩu:</span>
+<span class="font-code text-brand-primary-dark font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified_user</span> Rất mạnh
+                    </span>
+</div>
+<div class="grid grid-cols-4 gap-1.5">
+<div class="h-1.5 rounded-full bg-brand-primary-dark"></div>
+<div class="h-1.5 rounded-full bg-brand-primary-dark"></div>
+<div class="h-1.5 rounded-full bg-brand-primary-dark"></div>
+<div class="h-1.5 rounded-full bg-brand-primary-dark"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] text-text-muted-dark pt-1 font-body-md">
+<span class="text-primary flex items-center gap-1">✓ Ít nhất 10 ký tự</span>
+<span class="text-primary flex items-center gap-1">✓ Có chữ số &amp; ký tự đặc biệt</span>
+<span class="text-primary flex items-center gap-1">✓ Có chữ in hoa &amp; thường</span>
+<span class="text-primary flex items-center gap-1">✓ Không trùng khớp họ tên/email</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Chính sách Phiên làm việc (Session Policy) (col 5) -->
+<div class="lg:col-span-5 bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-xl p-6 transition-colors duration-150 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between pb-4 border-b border-border-subtle-dark mb-5">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary-dark text-xl">admin_panel_settings</span>
+                      Chính sách Phiên làm việc
+                    </h3>
+<p class="text-xs text-text-secondary-dark mt-1 font-body-md">Kiểm soát vòng đời đăng nhập &amp; bảo vệ phiên</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-[11px] font-code text-text-muted-dark">SESSION_TTL</span>
+</div>
+<div class="space-y-4">
+<!-- Session Timeout -->
+<div>
+<label class="block text-xs font-medium text-text-secondary-dark mb-1.5">Thời gian hết hạn phiên làm việc (Session timeout)</label>
+<div class="relative w-full">
+<input class="w-full bg-elevated-dark border border-border-subtle-dark focus:border-brand-primary-dark rounded-lg px-3 py-2 text-sm font-code text-text-primary-dark pr-16" type="number" value="120"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted-dark font-body-md">phút</span>
+</div>
+<p class="text-[11px] text-text-muted-dark mt-1 font-body-md">Tự động đăng xuất quản trị viên khi không có tương tác</p>
+</div>
+<!-- IP Restriction -->
+<div class="pt-3 border-t border-border-subtle-dark">
+<div class="flex items-start justify-between gap-3">
+<div>
+<p class="text-xs font-medium text-text-primary-dark font-body-md">Giới hạn IP đăng nhập quản trị</p>
+<p class="text-[11px] text-text-muted-dark mt-0.5 font-body-md">Chỉ cho phép dải mạng nội bộ trường/trung tâm</p>
+<code class="inline-block mt-1 px-2 py-0.5 rounded bg-canvas-dark border border-border-subtle-dark text-[11px] font-code text-primary">192.168.1.0/24</code>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0 mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-elevated-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-primary-dark border border-border-subtle-dark"></div>
+</label>
+</div>
+</div>
+<!-- 2FA Status -->
+<div class="pt-3 border-t border-border-subtle-dark">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs font-medium text-text-primary-dark font-body-md">Xác thực 2 bước (2FA / TOTP)</p>
+<p class="text-[11px] text-text-muted-dark mt-0.5 font-body-md">Google Authenticator hoặc YubiKey cứng</p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-brand-primary-dark/10 border border-brand-primary-dark/30 text-xs font-code text-primary font-medium">
+<span class="material-symbols-outlined text-xs">lock_open</span> Đang kích hoạt
+                      </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Terminal Diagnostic hint -->
+<div class="mt-6 pt-3 border-t border-border-subtle-dark/60 text-[11px] font-code text-text-muted-dark flex items-center justify-between">
+<span>AUDIT_LOG_STREAM: ENABLED</span>
+<span class="text-primary">100% COMPLIANT</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ================= STICKY FOOTER ACTION BAR ================= -->
+<footer class="fixed bottom-0 right-0 left-64 bg-surface-dark/95 backdrop-blur-md border-t border-border-subtle-dark px-gutter py-3 z-30 flex items-center justify-between shadow-2xl">
+<div class="flex items-center gap-2 text-xs text-text-muted-dark font-body-md">
+<span class="material-symbols-outlined text-amber-400 text-sm">info</span>
+<span>Tất cả thay đổi chưa lưu sẽ tự động hủy nếu rời trang.</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-xs text-text-secondary-dark hover:text-text-primary-dark font-medium transition-colors" type="button">
+          Đặt lại mặc định
+        </button>
+<button class="px-6 py-2.5 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-xs font-semibold shadow-none flex items-center gap-2 transition-transform active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-sm font-bold">save</span>
+<span>Lưu thay đổi cấu hình</span>
+</button>
+</div>
+</footer>
+</div>
+<!-- Micro-interaction script for tabs and keyboard shortcut simulation -->
+<script>
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector('header input');
+        if (searchInput) searchInput.focus();
+      }
+    });
+  </script>
+</body></html>

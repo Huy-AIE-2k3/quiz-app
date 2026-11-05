@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mathrix - Quản lý Học sinh (/a/students)</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#3a485c",
+            "status-wrong": "#EF4444",
+            "surface-dim": "#0e1511",
+            "status-flagged": "#F59E0B",
+            "selected-dark": "rgba(16, 185, 129, 0.10)",
+            "secondary-fixed-dim": "#b9c7e0",
+            "surface-container-highest": "#2f3632",
+            "error": "#ffb4ab",
+            "status-correct": "#10B981",
+            "outline-variant": "#3c4a42",
+            "surface-bright": "#343b36",
+            "primary": "#4edea3",
+            "on-background": "#dde4dd",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#161d19",
+            "surface-container": "#1a211d",
+            "on-surface": "#dde4dd",
+            "secondary": "#b9c7e0",
+            "inverse-on-surface": "#2b322d",
+            "on-secondary": "#233144",
+            "surface-variant": "#2f3632",
+            "on-tertiary-container": "#711419",
+            "text-secondary-dark": "#94A3B8",
+            "surface-dark": "#111726",
+            "background": "#0e1511",
+            "on-primary-container": "#00422b",
+            "secondary-container": "#3c4a5e",
+            "tertiary-container": "#fc7c78",
+            "primary-fixed": "#6ffbbe",
+            "secondary-fixed": "#d5e3fd",
+            "border-strong-dark": "#334155",
+            "outline": "#86948a",
+            "on-primary-fixed-variant": "#005236",
+            "surface-container-high": "#242c27",
+            "on-secondary-fixed": "#0d1c2f",
+            "surface": "#0e1511",
+            "tertiary-fixed-dim": "#ffb3af",
+            "primary-container": "#10b981",
+            "on-tertiary-fixed-variant": "#842225",
+            "on-tertiary-fixed": "#410005",
+            "on-tertiary": "#650911",
+            "inverse-primary": "#006c49",
+            "text-primary-dark": "#F1F5F9",
+            "tertiary-fixed": "#ffdad7",
+            "surface-tint": "#4edea3",
+            "on-primary": "#003824",
+            "primary-fixed-dim": "#4edea3",
+            "inverse-surface": "#dde4dd",
+            "elevated-dark": "#1A2234",
+            "border-subtle-dark": "#1E293B",
+            "on-surface-variant": "#bbcabf",
+            "on-secondary-container": "#abb9d2",
+            "on-error": "#690005",
+            "brand-hover-dark": "#34D399",
+            "text-muted-dark": "#64748B",
+            "canvas-dark": "#090D16",
+            "brand-primary-dark": "#10B981",
+            "tertiary": "#ffb3af",
+            "surface-container-lowest": "#09100c",
+            "error-container": "#93000a",
+            "on-primary-fixed": "#002113"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "tabular": ["Space Grotesk"],
+            "code": ["JetBrains Mono"],
+            "body-lg": ["Be Vietnam Pro"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "body-md": ["Be Vietnam Pro"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md min-h-screen flex selection:bg-brand-primary-dark selection:text-canvas-dark antialiased">
+<!-- LEFT NAVIGATION SIDEBAR -->
+<aside class="w-64 flex-shrink-0 bg-surface-dark border-r border-border-subtle-dark flex flex-col justify-between h-screen sticky top-0 z-40 select-none">
+<div class="flex flex-col">
+<!-- Logo Container (Strict: NO slogan, crisp geometric sigma mark) -->
+<div class="h-14 px-gutter flex items-center gap-2.5 border-b border-border-subtle-dark">
+<div class="w-8 h-8 rounded-lg bg-selected-dark border border-brand-primary-dark/30 flex items-center justify-center text-primary">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M19 4H5l7 8-7 8h14"></path>
+</svg>
+</div>
+<span class="font-headline-md text-headline-md tracking-tight text-text-primary-dark font-bold">Mathrix</span>
+</div>
+<!-- Navigation List -->
+<nav class="p-3 space-y-1">
+<!-- Item: Tổng quan -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Tổng quan</span>
+</a>
+<!-- Item: Đề thi -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a/exams">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+<span class="font-body-md text-body-md font-medium">Đề thi</span>
+</a>
+<!-- Item: Lớp học -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a/classes">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="font-body-md text-body-md font-medium">Lớp học</span>
+</a>
+<!-- Item: Học sinh [ACTIVE] -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg bg-selected-dark border border-brand-primary-dark/30 text-primary transition-colors duration-150" href="/a/students">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-body-md text-body-md font-semibold text-text-primary-dark">Học sinh</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+</a>
+<!-- Item: Chấm bài with badge -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a/grading">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+<span class="font-body-md text-body-md font-medium">Chấm bài</span>
+</div>
+<span class="px-2 py-0.5 rounded-full text-xs font-code bg-status-flagged/10 text-status-flagged border border-status-flagged/30">4 chờ</span>
+</a>
+<!-- Item: Báo cáo -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a/reports">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-body-md text-body-md font-medium">Báo cáo</span>
+</a>
+<!-- Item: Cài đặt -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark/60 transition-colors duration-150" href="/a/settings">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-body-md text-body-md font-medium">Cài đặt</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Bottom Status Widget -->
+<div class="p-3 border-t border-border-subtle-dark flex flex-col gap-2.5">
+<div class="p-3 rounded-lg bg-canvas-dark border border-border-subtle-dark">
+<div class="flex items-center justify-between text-xs mb-1.5">
+<span class="text-text-muted-dark font-body-md">Hạ tầng khảo thí</span>
+<span class="inline-flex items-center gap-1 font-code text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark animate-pulse"></span>
+            14ms
+          </span>
+</div>
+<div class="text-[12px] font-code text-text-secondary-dark truncate">
+          Socket v2.4 đã đồng bộ
+        </div>
+</div>
+<a class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted-dark hover:text-text-primary-dark text-xs transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+<span class="font-body-md">Tài liệu &amp; Hướng dẫn</span>
+</a>
+</div>
+</aside>
+<!-- MAIN WORKSPACE -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TOP HEADER -->
+<header class="h-14 bg-surface-dark border-b border-border-subtle-dark px-gutter flex items-center justify-between sticky top-0 z-30">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-body-md">
+<span class="text-text-muted-dark hover:text-text-secondary-dark transition-colors">Hệ thống quản trị</span>
+<span class="text-text-muted-dark font-code">/</span>
+<span class="text-text-primary-dark font-medium">Học sinh</span>
+</nav>
+<!-- Center Hotkey Search Bar -->
+<div class="relative w-80 max-w-sm hidden lg:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-dark">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-1.5 pl-9 pr-14 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm đề thi hoặc học sinh..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
+<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-elevated-dark text-text-muted-dark border border-border-subtle-dark rounded">ctrl K</kbd>
+</div>
+</div>
+<!-- Trailing Action Controls & Profile -->
+<div class="flex items-center gap-2.5">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-subtle-dark hover:border-border-strong-dark bg-surface-dark hover:bg-elevated-dark text-text-primary-dark text-xs font-medium font-body-md transition-all">
+<span class="material-symbols-outlined text-[16px]">upload_file</span>
+<span>Nhập từ CSV</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-on-primary-fixed font-headline-sm text-xs font-semibold shadow-none transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Thêm học sinh mới</span>
+</button>
+<div class="h-5 w-px bg-border-subtle-dark mx-1"></div>
+<!-- Notification Bell -->
+<button class="relative p-1.5 text-text-secondary-dark hover:text-text-primary-dark rounded-lg hover:bg-elevated-dark transition-colors" title="Thông báo">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-status-flagged ring-2 ring-surface-dark"></span>
+</button>
+<!-- Theme Toggle Icon -->
+<button class="p-1.5 text-text-secondary-dark hover:text-text-primary-dark rounded-lg hover:bg-elevated-dark transition-colors" title="Chế độ giao diện">
+<span class="material-symbols-outlined text-[20px]">dark_mode</span>
+</button>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-2.5 pl-1.5">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-bold text-primary">
+            Đ
+          </div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="text-xs font-semibold text-text-primary-dark leading-tight">Thầy Trần Minh Đức</span>
+<span class="text-[11px] text-text-muted-dark leading-tight">Môn Toán • Ban Khảo thí</span>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTENT CANVAS -->
+<main class="flex-1 p-gutter flex flex-col gap-5 max-w-[1600px] w-full mx-auto">
+<!-- PAGE HEADER -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-text-primary-dark tracking-tight">Danh sách Học sinh</h1>
+<p class="text-text-secondary-dark text-xs sm:text-body-md mt-0.5">Năm học 2024 - 2025 • Tổng số 420 học sinh đang quản lý trên hệ thống</p>
+</div>
+<div class="flex items-center gap-2 text-xs text-text-muted-dark font-code">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-elevated-dark border border-border-subtle-dark">
+<span class="w-2 h-2 rounded-full bg-brand-primary-dark"></span>
+            Đồng bộ: 1 phút trước
+          </span>
+</div>
+</div>
+<!-- KEY METRICS ROW (BENTO GRID) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric 1 -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
+<div class="flex items-center justify-between text-text-muted-dark mb-2">
+<span class="font-body-md text-xs font-medium uppercase tracking-wider text-text-muted-dark">Tổng số học sinh</span>
+<span class="material-symbols-outlined text-[18px]">group</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular text-2xl lg:text-3xl font-bold text-text-primary-dark tracking-tight">420</span>
+<span class="text-xs text-text-secondary-dark font-code">học sinh</span>
+</div>
+<div class="mt-2 text-xs font-code text-brand-primary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>100% tài khoản đã cấp</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
+<div class="flex items-center justify-between text-text-muted-dark mb-2">
+<span class="font-body-md text-xs font-medium uppercase tracking-wider text-text-muted-dark">Đang hoạt động</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular text-2xl lg:text-3xl font-bold text-primary tracking-tight">408</span>
+<span class="text-xs text-text-secondary-dark font-code">/ 420 HS</span>
+</div>
+<div class="mt-2 text-xs font-code text-text-secondary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-brand-primary-dark">trending_up</span>
+<span>97.1% online tuần này</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
+<div class="flex items-center justify-between text-text-muted-dark mb-2">
+<span class="font-body-md text-xs font-medium uppercase tracking-wider text-text-muted-dark">Điểm TB toàn khối</span>
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular text-2xl lg:text-3xl font-bold text-text-primary-dark tracking-tight">8.42</span>
+<span class="text-xs text-text-secondary-dark font-code">/ 10</span>
+</div>
+<div class="mt-2 text-xs font-code text-brand-primary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>+0.35 so với học kỳ I</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
+<div class="flex items-center justify-between text-text-muted-dark mb-2">
+<span class="font-body-md text-xs font-medium uppercase tracking-wider text-text-muted-dark">Đã khóa / Tạm dừng</span>
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular text-2xl lg:text-3xl font-bold text-status-flagged tracking-tight">12</span>
+<span class="text-xs text-text-secondary-dark font-code">tài khoản</span>
+</div>
+<div class="mt-2 text-xs font-code text-text-muted-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-flagged">error_outline</span>
+<span>Cần cập nhật hồ sơ</span>
+</div>
+</div>
+</div>
+<!-- FILTER & TOOLBAR -->
+<div class="p-3 bg-surface-dark border border-border-subtle-dark rounded-xl flex flex-wrap items-center justify-between gap-3">
+<!-- Left: Search Box -->
+<div class="relative flex-1 min-w-[280px]">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-dark">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-2 pl-9 pr-9 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm theo tên học sinh, mã HS (HS-2026-xxx) hoặc email..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
+<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-elevated-dark text-text-muted-dark border border-border-subtle-dark rounded">/</kbd>
+</div>
+</div>
+<!-- Center & Right: Filter Selects -->
+<div class="flex flex-wrap items-center gap-2">
+<!-- Class Filter -->
+<div class="relative">
+<select class="appearance-none bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg py-2 pl-3 pr-8 text-xs text-text-primary-dark font-body-md focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark outline-none cursor-pointer">
+<option value="all">Tất cả khối lớp</option>
+<option value="k10">Khối 10</option>
+<option value="k11">Khối 11</option>
+<option value="12-tin">12 Chuyên Tin</option>
+<option value="12a1">12A1</option>
+<option value="12a2">12A2</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none text-text-muted-dark">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg py-2 pl-3 pr-8 text-xs text-text-primary-dark font-body-md focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark outline-none cursor-pointer">
+<option value="all">Tất cả trạng thái</option>
+<option value="active">Đang học</option>
+<option value="locked">Đã khóa</option>
+<option value="pending">Chưa kích hoạt</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none text-text-muted-dark">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Sort Filter -->
+<div class="relative">
+<select class="appearance-none bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg py-2 pl-3 pr-8 text-xs text-text-primary-dark font-body-md focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark outline-none cursor-pointer">
+<option value="gpa_desc">Điểm TB cao nhất</option>
+<option value="updated">Mới cập nhật</option>
+<option value="code_asc">Mã HS tăng dần</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none text-text-muted-dark">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Export Button -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border-subtle-dark hover:border-border-strong-dark bg-canvas-dark hover:bg-elevated-dark text-text-primary-dark text-xs font-medium font-body-md transition-all">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Xuất Excel / CSV</span>
+</button>
+</div>
+</div>
+<!-- DATA TABLE CONTAINER -->
+<div class="rounded-xl border border-border-subtle-dark bg-surface-dark overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-canvas-dark border-b border-border-subtle-dark text-[11px] font-tabular uppercase tracking-wider text-text-muted-dark">
+<th class="py-3 px-4 w-12 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-3 px-4">Mã HS</th>
+<th class="py-3 px-4">Họ và tên</th>
+<th class="py-3 px-4">Lớp</th>
+<th class="py-3 px-4 text-center">Điểm trung bình</th>
+<th class="py-3 px-4 text-center">Số đề thi</th>
+<th class="py-3 px-4">Trạng thái</th>
+<th class="py-3 px-4 text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle-dark font-body-md text-xs">
+<!-- ROW 1: Lê Hoàng Nam -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-001</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      LN
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Lê Hoàng Nam</div>
+<div class="text-[11px] text-text-muted-dark font-code">nam.lh@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">12 Chuyên Tin</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">8.85</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">14 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Nguyễn Văn An -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-002</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      NA
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Nguyễn Văn An</div>
+<div class="text-[11px] text-text-muted-dark font-code">an.nv@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">12A1</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">9.20</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">18 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Trần Hoàng Hà -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-003</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      TH
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Trần Hoàng Hà</div>
+<div class="text-[11px] text-text-muted-dark font-code">ha.th@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">12A1</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">8.90</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">16 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Phạm Thùy Linh -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-004</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      PL
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Phạm Thùy Linh</div>
+<div class="text-[11px] text-text-muted-dark font-code">linh.pt@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">12A2</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">9.45</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">19 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 5: Đỗ Quang Khải -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-005</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      ĐK
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Đỗ Quang Khải</div>
+<div class="text-[11px] text-text-muted-dark font-code">khai.dq@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">10 Chuyên Tin</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">8.10</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">11 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 6: Lê Tuấn Khang (Locked) -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group bg-canvas-dark/40">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-muted-dark font-medium">HS-2026-006</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-text-muted-dark">
+                      LK
+                    </div>
+<div>
+<div class="font-medium text-text-secondary-dark">Lê Tuấn Khang</div>
+<div class="text-[11px] text-text-muted-dark font-code">khang.lt@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-muted-dark border border-border-subtle-dark">12A1</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">6.75</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-muted-dark">8 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-status-wrong font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-wrong"></span>
+                    Đã khóa (vi phạm quy chế)
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-primary hover:text-brand-hover-dark transition-colors" title="Mở khóa tài khoản">
+<span class="material-symbols-outlined text-[16px]">lock_open</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 7: Vũ Minh Quân -->
+<tr class="hover:bg-elevated-dark/50 transition-colors group">
+<td class="py-3 px-4 text-center">
+<input class="rounded bg-elevated-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-code text-text-secondary-dark font-medium">HS-2026-007</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-headline-sm text-xs font-semibold text-primary">
+                      VQ
+                    </div>
+<div>
+<div class="font-medium text-text-primary-dark group-hover:text-primary transition-colors">Vũ Minh Quân</div>
+<div class="text-[11px] text-text-muted-dark font-code">quan.vm@mathrix.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-text-secondary-dark border border-border-subtle-dark">11 Chuyên Tin</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-code text-xs font-semibold bg-selected-dark text-primary border border-brand-primary-dark/30">8.60</span>
+</td>
+<td class="py-3 px-4 text-center font-code text-text-secondary-dark">13 đề</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-brand-primary-dark font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
+                    Đang hoạt động
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Đặt lại MK">
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Lịch sử thi">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Thao tác khác">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- PAGINATION BAR -->
+<div class="px-4 py-3 bg-surface-dark border-t border-border-subtle-dark flex flex-wrap items-center justify-between gap-3 text-xs">
+<!-- Left: Count info & Per-page selector -->
+<div class="flex items-center gap-4 text-text-secondary-dark font-body-md">
+<span>Hiển thị <strong class="font-code text-text-primary-dark">1 - 7</strong> trong tổng số <strong class="font-code text-text-primary-dark">420</strong> học sinh</span>
+<div class="flex items-center gap-1.5">
+<span class="text-text-muted-dark">Xem:</span>
+<select class="bg-canvas-dark border border-border-subtle-dark rounded py-1 px-2 text-xs font-code text-text-primary-dark outline-none cursor-pointer focus:border-brand-primary-dark">
+<option>10 dòng / trang</option>
+<option>25 dòng / trang</option>
+<option>50 dòng / trang</option>
+</select>
+</div>
+</div>
+<!-- Right: Page Controls -->
+<div class="flex items-center gap-1 font-code">
+<button class="px-2.5 py-1 rounded border border-border-subtle-dark text-text-muted-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors disabled:opacity-40" disabled="">
+              Trang trước
+            </button>
+<button class="w-7 h-7 rounded border border-brand-primary-dark bg-selected-dark text-primary font-bold">
+              1
+            </button>
+<button class="w-7 h-7 rounded border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors">
+              2
+            </button>
+<button class="w-7 h-7 rounded border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors">
+              3
+            </button>
+<span class="px-1 text-text-muted-dark">...</span>
+<button class="w-7 h-7 rounded border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors">
+              60
+            </button>
+<button class="px-2.5 py-1 rounded border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark transition-colors">
+              Trang tiếp
+            </button>
+</div>
+</div>
+</div>
+<!-- FOOTER META BAR -->
+<footer class="pt-2 pb-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-text-muted-dark font-code border-t border-border-subtle-dark/60 gap-2">
+<div class="flex items-center gap-2">
+<span>Mathrix v3.8.2</span>
+<span>•</span>
+<span class="text-brand-primary-dark">An toàn &amp; Ổn định</span>
+<span>•</span>
+<span>CSDL PostgreSQL 16.1</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hover:text-text-secondary-dark transition-colors" href="#">Quy chế thi</a>
+<a class="hover:text-text-secondary-dark transition-colors" href="#">Bảo mật thông tin HS</a>
+<a class="hover:text-text-secondary-dark transition-colors" href="#">Nhật ký hệ thống</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

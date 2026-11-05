@@ -1,3 +1,4 @@
+
 # BẢNG THEO DÕI TIẾN ĐỘ DỰ ÁN HỆ THỐNG QUIZ NỘI BỘ TOÁN – TIN
 
 > **Tài liệu tham chiếu:** `ke-hoach-trien-khai-quiz.md` & `quiz-toan-tin-spec.md` (v1.0)**Quy ước trạng thái:**
@@ -21,7 +22,7 @@
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    33%     |
+| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    50%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
@@ -102,7 +103,6 @@
 
 ### GIAI ĐOẠN 1. THIẾT KẾ UI/UX & COMPONENT SYSTEM (5–6 NGÀY)
 
-
 - [X] **Bước 1.1 — Sơ đồ trang, Luồng người dùng & Bảng ma trận trạng thái**
 
   - [X] Viết tài liệu `docs/ux/sitemap.md` định nghĩa toàn bộ 14 route React Router và sơ đồ điều hướng.
@@ -131,19 +131,19 @@
     - [x] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
     - [x] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
     - [x] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
-- [ ] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`)**
+- [x] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`)**
 
-  - [ ] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và biến thể.
-  - [ ] Chạy prompt tổng với `stitch-loop` tự động sinh giao diện vào project Stitch `quiz-toantin`.
-  - [ ] Xuất toàn bộ file giao diện ra `design/screens/<mã>.html` và `.png`.
+  - [x] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và biến thể.
+  - [x] Chạy prompt tổng với `stitch-loop` tự động sinh giao diện vào project Stitch `quiz-toantin`.
+  - [x] Xuất toàn bộ file giao diện ra `design/screens/<mã>.html` và `.png`.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.
-    - [ ] `TC-1.3-02`: Chạy lại lệnh không sinh trùng các màn hình đã đánh dấu `[x]`.
-    - [ ] `TC-1.3-03`: Dừng giữa chừng và chạy tiếp tục đúng vị trí an toàn.
-    - [ ] `TC-1.3-04`: Gặp lỗi hạn mức MCP dừng lại có thông báo `blocked` rõ ràng.
-    - [ ] `TC-1.3-05`: Tất cả màn hình đồng nhất bảng màu và token của `DESIGN.md`.
-    - [ ] `TC-1.3-06`: Màn hình làm bài ST3 có đủ 7 biến thể (5 dạng câu, cảnh báo, offline).
+    - [x] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.
+    - [x] `TC-1.3-02`: Chạy lại lệnh không sinh trùng các màn hình đã đánh dấu `[x]`.
+    - [x] `TC-1.3-03`: Dừng giữa chừng và chạy tiếp tục đúng vị trí an toàn.
+    - [x] `TC-1.3-04`: Gặp lỗi hạn mức MCP dừng lại có thông báo `blocked` rõ ràng.
+    - [x] `TC-1.3-05`: Tất cả màn hình đồng nhất bảng màu và token của `DESIGN.md`.
+    - [x] `TC-1.3-06`: Màn hình làm bài ST3 có đủ 7 biến thể (5 dạng câu, cảnh báo, offline).
 - [ ] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
 
   - [ ] Chạy `npx impeccable detect` phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức...).

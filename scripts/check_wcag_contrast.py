@@ -121,3 +121,4 @@ def run_wcag_audit() -> int:
 
 if __name__ == "__main__":
     sys.exit(run_wcag_audit())
+

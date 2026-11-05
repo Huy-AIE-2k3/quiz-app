@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathrix - Đăng nhập hệ thống khảo thí</title>
+  <!-- Google Fonts: Be Vietnam Pro, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#090D16',
+            surface: '#111726',
+            elevated: '#1A2234',
+            'border-subtle': '#1E293B',
+            'border-strong': '#334155',
+            brand: '#10B981',
+            'brand-hover': '#34D399',
+            'brand-glow': 'rgba(16, 185, 129, 0.18)'
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* Technical Grid Ambient Background (anti-slop, clean 1px lines) */
+    .tech-bg {
+      background-color: #090D16;
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+        linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+      background-size: 100% 100%, 32px 32px, 32px 32px;
+    }
+  </style>
+</head>
+<body class="tech-bg min-h-screen text-slate-100 font-sans antialiased flex flex-col justify-between selection:bg-brand/20 selection:text-brand relative">
+
+  <!-- Top Minimal Utility Bar -->
+  <header class="w-full h-14 border-b border-border-subtle/80 px-6 sm:px-10 flex items-center justify-between z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-2 h-2 rounded-full bg-brand animate-pulse"></div>
+      <span class="font-mono text-xs text-slate-400 tracking-wider uppercase">CỔNG KHẢO THÍ TOÁN &bull; TIN HỌC</span>
+    </div>
+
+    <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
+      <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-border-subtle bg-elevated/50 text-slate-300">
+        <span class="text-brand">&bull;</span> v2.4.0-stable
+      </span>
+      <div class="flex items-center gap-1.5 px-2 py-1 rounded border border-border-subtle bg-elevated/30">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        <span class="text-slate-300">Mã hóa TLS 1.3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Centered Content Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 z-10">
+    <!-- Exactly 420px Width Card -->
+    <div class="w-full max-w-[420px] bg-surface rounded-xl border border-border-subtle p-8 shadow-none relative">
+      
+      <!-- Top Brand Header: Logo + Bold Typography "Mathrix" (NO slogan) -->
+      <div class="flex flex-col items-center text-center mb-8">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center rounded-lg border border-border-subtle bg-elevated/80 shadow-none">
+          <img src="https://lh3.googleusercontent.com/aida/AEtjO1Xj57x__N5j0uQFYjj3WfW5bJtQy-kiGxne9Z8boHMV2zPxyM7YUHR2AERgHEJVhn9TsuLlV3EJjKmAjQ5g4eQYJc_4k6b5Wz1RgOXj-4-oDRY9cleauBVo7c64vmquE2PKBy4CfaA1mN6Tzb6aYtt8CtpgMM-dPvCotIFZ6SaKW1aeNCaa72XjysPC9D4pAkOKWT8yuptvZ7Zt474Sw4lYajZZ8VK9_xEzmxgC-AFJvQJNomvsnT-beq4" alt="Mathrix Logo" class="w-9 h-9 object-contain" />
+        </div>
+        <h1 class="font-sans font-bold text-2xl tracking-tight text-white flex items-center gap-2">
+          Mathrix
+        </h1>
+      </div>
+
+      <!-- Login Form -->
+      <form class="space-y-5" onsubmit="event.preventDefault();">
+        
+        <!-- Username Field -->
+        <div>
+          <label for="username" class="block text-xs font-medium text-slate-300 uppercase tracking-wider mb-2 font-mono">
+            Tên đăng nhập
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <input 
+              type="text" 
+              id="username" 
+              name="username"
+              placeholder="Mã thí sinh (SBD) hoặc email"
+              autocomplete="username"
+              class="w-full h-11 pl-10 pr-3.5 bg-elevated rounded-lg border border-border-subtle text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand font-sans transition-colors duration-150"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="password" class="block text-xs font-medium text-slate-300 uppercase tracking-wider font-mono">
+              Mật khẩu
+            </label>
+            <a href="#" class="text-xs text-brand hover:text-brand-hover transition-colors font-medium">
+              Quên mật khẩu?
+            </a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <input 
+              type="password" 
+              id="password" 
+              name="password"
+              placeholder="••••••••••••"
+              autocomplete="current-password"
+              class="w-full h-11 pl-10 pr-11 bg-elevated rounded-lg border border-border-subtle text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand font-mono transition-colors duration-150"
+              required
+            />
+            <button 
+              type="button" 
+              id="toggle-password"
+              aria-label="Hiện hoặc ẩn mật khẩu"
+              class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors focus:outline-none"
+              onclick="
+                const input = document.getElementById('password');
+                const eyeOpen = document.getElementById('eye-icon-open');
+                const eyeClosed = document.getElementById('eye-icon-closed');
+                if (input.type === 'password') {
+                  input.type = 'text';
+                  eyeOpen.classList.add('hidden');
+                  eyeClosed.classList.remove('hidden');
+                } else {
+                  input.type = 'password';
+                  eyeOpen.classList.remove('hidden');
+                  eyeClosed.classList.add('hidden');
+                }
+              "
+            >
+              <!-- Eye Open -->
+              <svg id="eye-icon-open" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <!-- Eye Closed (hidden by default) -->
+              <svg id="eye-icon-closed" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-.722-3.25"/>
+                <path d="M2 8a10.645 10.645 0 0 0 20 0"/>
+                <path d="m20 15-1.726-2.05"/>
+                <path d="m4 15 1.726-2.05"/>
+                <path d="m9 18 .722-3.25"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Institutional Security Mode Option -->
+        <div class="pt-1 flex items-center justify-between text-xs">
+          <label class="flex items-center gap-2 text-slate-400 cursor-pointer select-none">
+            <input type="checkbox" checked class="w-3.5 h-3.5 rounded bg-elevated border-border-subtle text-brand focus:ring-0 focus:ring-offset-0 accent-emerald-500 cursor-pointer">
+            <span>Duy trì phiên thi trên thiết bị này</span>
+          </label>
+        </div>
+
+        <!-- Primary Action Button: "Đăng nhập" in solid Emerald (#10B981) -->
+        <div class="pt-2">
+          <button 
+            type="submit"
+            class="w-full h-11 bg-brand hover:bg-brand-hover text-slate-950 font-semibold text-sm rounded-lg flex items-center justify-center gap-2 transition-all duration-150 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-surface cursor-pointer"
+          >
+            <span>Đăng nhập</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Security Advisory Footer Text (Exact verbatim Vietnamese) -->
+      <div class="mt-8 pt-6 border-t border-border-subtle/80 flex items-start gap-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" x2="12" y1="8" y2="12"/>
+          <line x1="12" x2="12.01" y1="16" y2="16"/>
+        </svg>
+        <p class="text-xs text-slate-400 leading-relaxed font-sans">
+          Hệ thống khảo thí nội bộ Toán - Tin. Liên hệ giáo viên phụ trách để nhận tài khoản.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Institutional Global Footer -->
+  <footer class="w-full border-t border-border-subtle/80 py-4 px-6 text-center text-xs font-mono text-slate-500 z-10 flex flex-col sm:flex-row items-center justify-between max-w-5xl mx-auto">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+      <span>Trung tâm Khảo thí Quốc gia &bull; Bộ môn Toán - Tin</span>
+    </div>
+    <div class="mt-2 sm:mt-0 flex items-center gap-4 text-slate-400">
+      <a href="#" class="hover:text-slate-200 transition-colors">Quy chế thi</a>
+      <span>&bull;</span>
+      <a href="#" class="hover:text-slate-200 transition-colors">Hỗ trợ kỹ thuật</a>
+      <span>&bull;</span>
+      <a href="#" class="hover:text-slate-200 transition-colors">Kiểm tra thiết bị</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+{
+  "name": "projects/15546240290050457859",
+  "projectId": "15546240290050457859",
+  "title": "Quiz Toan Tin - UI System",
+  "visibility": "PRIVATE",
+  "createTime": "2026-11-04T08:46:03.775633Z",
+  "updateTime": "2026-11-05T06:57:00.000000Z",
+  "projectType": "PROJECT_DESIGN",
+  "origin": "STITCH",
+  "deviceType": "DESKTOP",
+  "designTheme": {
+    "colorMode": "DARK",
+    "font": "BE_VIETNAM_PRO",
+    "roundness": "ROUND_EIGHT",
+    "customColor": "#10b981",
+    "saturation": 3
+  },
+  "screens": {
+    "SC-01-login": {
+      "id": "36ac1aba762a445abdc990387049ba99",
+      "sourceScreen": "projects/15546240290050457859/screens/36ac1aba762a445abdc990387049ba99",
+      "title": "Mathrix - Technical Assessment Login",
+      "localHtml": "design/screens/SC-01-login.html",
+      "localPng": "design/screens/SC-01-login.png"
+    },
+    "SC-02-student-exams": {
+      "id": "bf266fd416604fc9aa3d4a2d2faa991f",
+      "sourceScreen": "projects/15546240290050457859/screens/bf266fd416604fc9aa3d4a2d2faa991f",
+      "title": "Mathrix - Student Exam Portal Dashboard (/s/exams)",
+      "localHtml": "design/screens/SC-02-student-exams.html",
+      "localPng": "design/screens/SC-02-student-exams.png"
+    },
+    "SC-03-exam-lobby": {
+      "id": "7f6b54bcda844ff5b89d93e35a0c9e93",
+      "sourceScreen": "projects/15546240290050457859/screens/7f6b54bcda844ff5b89d93e35a0c9e93",
+      "title": "Mathrix - Exam Lobby & Integrity Rules (/s/exams/:id)",
+      "localHtml": "design/screens/SC-03-exam-lobby.html",
+      "localPng": "design/screens/SC-03-exam-lobby.png"
+    },
+    "SC-04-assessment-workspace": {
+      "id": "cd9565ad580944e89a4be274353df0b6",
+      "sourceScreen": "projects/15546240290050457859/screens/cd9565ad580944e89a4be274353df0b6",
+      "title": "Assessment Workspace - Emerald Precision",
+      "localHtml": "design/screens/SC-04-assessment-workspace.html",
+      "localPng": "design/screens/SC-04-assessment-workspace.png"
+    },
+    "SC-04-offline-state": {
+      "id": "538ec2386a48475d84df7a4fb6a5703e",
+      "sourceScreen": "projects/15546240290050457859/screens/538ec2386a48475d84df7a4fb6a5703e",
+      "title": "Mathrix - Exam Workspace Offline Fallback (/s/attempts/:id)",
+      "localHtml": "design/screens/SC-04-offline-state.html",
+      "localPng": "design/screens/SC-04-offline-state.png"
+    },
+    "SC-05-exam-submitted": {
+      "id": "eac617eb34ea40b9a6a1a1dcbc31c58a",
+      "sourceScreen": "projects/15546240290050457859/screens/eac617eb34ea40b9a6a1a1dcbc31c58a",
+      "title": "Mathrix - Exam Submission Success (/s/attempts/:id/done)",
+      "localHtml": "design/screens/SC-05-exam-submitted.html",
+      "localPng": "design/screens/SC-05-exam-submitted.png"
+    },
+    "SC-06-exam-result": {
+      "id": "bc8d27582a0c4335ad58d2b6fadf832a",
+      "sourceScreen": "projects/15546240290050457859/screens/bc8d27582a0c4335ad58d2b6fadf832a",
+      "title": "Mathrix - Detailed Exam Results & Solutions (/s/attempts/:id/result)",
+      "localHtml": "design/screens/SC-06-exam-result.html",
+      "localPng": "design/screens/SC-06-exam-result.png"
+    },
+    "SC-07-admin-dashboard": {
+      "id": "e83216d34e314e0f94952e8c2d266d37",
+      "sourceScreen": "projects/15546240290050457859/screens/e83216d34e314e0f94952e8c2d266d37",
+      "title": "Mathrix - Teacher & Admin Overview Dashboard (/a)",
+      "localHtml": "design/screens/SC-07-admin-dashboard.html",
+      "localPng": "design/screens/SC-07-admin-dashboard.png"
+    },
+    "SC-08-admin-classes": {
+      "id": "e6bc2723a1ca4a44be2885230257f38e",
+      "sourceScreen": "projects/15546240290050457859/screens/e6bc2723a1ca4a44be2885230257f38e",
+      "title": "Mathrix - Class Management Dashboard (/a/classes)",
+      "localHtml": "design/screens/SC-08-admin-classes.html",
+      "localPng": "design/screens/SC-08-admin-classes.png"
+    },
+    "SC-09-class-detail-csv": {
+      "id": "0373a9b31dc74ce08ecd804dac9da3b4",
+      "sourceScreen": "projects/15546240290050457859/screens/0373a9b31dc74ce08ecd804dac9da3b4",
+      "title": "Mathrix - Class Detail with CSV Student Roster Import Wizard (/a/classes/:id)",
+      "localHtml": "design/screens/SC-09-class-detail-csv.html",
+      "localPng": "design/screens/SC-09-class-detail-csv.png"
+    },
+    "SC-10-admin-students": {
+      "id": "7d84d4e8c4c949f89c047912a3386533",
+      "sourceScreen": "projects/15546240290050457859/screens/7d84d4e8c4c949f89c047912a3386533",
+      "title": "Mathrix - Student Directory & Account Management (/a/students)",
+      "localHtml": "design/screens/SC-10-admin-students.html",
+      "localPng": "design/screens/SC-10-admin-students.png"
+    },
+    "SC-11-admin-exams": {
+      "id": "905ae25ae7984da39f9249fd0cdec6a0",
+      "sourceScreen": "projects/15546240290050457859/screens/905ae25ae7984da39f9249fd0cdec6a0",
+      "title": "Mathrix - Exam Management Studio (/a/exams)",
+      "localHtml": "design/screens/SC-11-admin-exams.html",
+      "localPng": "design/screens/SC-11-admin-exams.png"
+    },
+    "SC-12-exam-editor": {
+      "id": "f7a017e7b8f64d7f80c451d8e6aff560",
+      "sourceScreen": "projects/15546240290050457859/screens/f7a017e7b8f64d7f80c451d8e6aff560",
+      "title": "Mathrix - Fullscreen Exam Authoring Studio (/a/exams/:id/edit)",
+      "localHtml": "design/screens/SC-12-exam-editor.html",
+      "localPng": "design/screens/SC-12-exam-editor.png"
+    },
+    "SC-13-exam-preview": {
+      "id": "8243b33557f340ec8675f9c89c3d8c34",
+      "sourceScreen": "projects/15546240290050457859/screens/8243b33557f340ec8675f9c89c3d8c34",
+      "title": "Mathrix - Teacher Exam Preview Simulator (/a/exams/:id/preview)",
+      "localHtml": "design/screens/SC-13-exam-preview.html",
+      "localPng": "design/screens/SC-13-exam-preview.png"
+    },
+    "SC-14-exam-monitor": {
+      "id": "41c6299a95e345309fd837950444d369",
+      "sourceScreen": "projects/15546240290050457859/screens/41c6299a95e345309fd837950444d369",
+      "title": "Mathrix - Real-time Live Exam Proctoring Monitor (/a/exams/:id/monitor)",
+      "localHtml": "design/screens/SC-14-exam-monitor.html",
+      "localPng": "design/screens/SC-14-exam-monitor.png"
+    },
+    "SC-15-exam-grading": {
+      "id": "18f49e1a17d24cf8a18de1ebd5acaaa4",
+      "sourceScreen": "projects/15546240290050457859/screens/18f49e1a17d24cf8a18de1ebd5acaaa4",
+      "title": "Mathrix - Teacher Essay & Programming Grading Workstation (/a/exams/:id/grading)",
+      "localHtml": "design/screens/SC-15-exam-grading.html",
+      "localPng": "design/screens/SC-15-exam-grading.png"
+    },
+    "SC-16-exam-analytics": {
+      "id": "17e6a4a1cffc4e7cb239520fe378368b",
+      "sourceScreen": "projects/15546240290050457859/screens/17e6a4a1cffc4e7cb239520fe378368b",
+      "title": "Mathrix - Exam Analytics & Grade Export (/a/exams/:id/results)",
+      "localHtml": "design/screens/SC-16-exam-analytics.html",
+      "localPng": "design/screens/SC-16-exam-analytics.png"
+    },
+    "SC-17-admin-settings": {
+      "id": "ffaa8382d18748a0ae01a5068603735f",
+      "sourceScreen": "projects/15546240290050457859/screens/ffaa8382d18748a0ae01a5068603735f",
+      "title": "Mathrix - System Settings & Preferences (/a/settings)",
+      "localHtml": "design/screens/SC-17-admin-settings.html",
+      "localPng": "design/screens/SC-17-admin-settings.png"
+    }
+  }
+}

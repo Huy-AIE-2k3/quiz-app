@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kết quả thi - Mathrix Assessment Platform</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- KaTeX for authentic crisp academic rendering -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "brand-primary-dark": "#10B981",
+            "secondary-fixed-dim": "#b9c7e0",
+            "surface-container-highest": "#2f3632",
+            "secondary-fixed": "#d5e3fd",
+            "primary": "#4edea3",
+            "surface": "#0e1511",
+            "text-muted-dark": "#64748B",
+            "secondary-container": "#3c4a5e",
+            "primary-container": "#10b981",
+            "surface-container-low": "#161d19",
+            "inverse-primary": "#006c49",
+            "on-surface": "#dde4dd",
+            "status-wrong": "#EF4444",
+            "secondary": "#b9c7e0",
+            "error": "#ffb4ab",
+            "on-primary-container": "#00422b",
+            "status-flagged": "#F59E0B",
+            "canvas-dark": "#090D16",
+            "on-secondary-fixed-variant": "#3a485c",
+            "tertiary-fixed-dim": "#ffb3af",
+            "on-primary-fixed": "#002113",
+            "on-primary-fixed-variant": "#005236",
+            "on-primary": "#003824",
+            "text-primary-dark": "#F1F5F9",
+            "surface-tint": "#4edea3",
+            "brand-hover-dark": "#34D399",
+            "on-surface-variant": "#bbcabf",
+            "surface-container-high": "#242c27",
+            "surface-variant": "#2f3632",
+            "surface-container": "#1a211d",
+            "on-error": "#690005",
+            "background": "#0e1511",
+            "selected-dark": "rgba(16, 185, 129, 0.10)",
+            "elevated-dark": "#1A2234",
+            "status-correct": "#10B981",
+            "surface-bright": "#343b36",
+            "surface-dim": "#0e1511",
+            "text-secondary-dark": "#94A3B8",
+            "primary-fixed-dim": "#4edea3",
+            "inverse-surface": "#dde4dd",
+            "tertiary": "#ffb3af",
+            "primary-fixed": "#6ffbbe",
+            "on-tertiary-fixed-variant": "#842225",
+            "on-secondary": "#233144",
+            "on-secondary-fixed": "#0d1c2f",
+            "tertiary-fixed": "#ffdad7",
+            "on-tertiary-container": "#711419",
+            "on-tertiary": "#650911",
+            "outline-variant": "#3c4a42",
+            "on-background": "#dde4dd",
+            "outline": "#86948a",
+            "on-error-container": "#ffdad6",
+            "border-subtle-dark": "#1E293B",
+            "tertiary-container": "#fc7c78",
+            "error-container": "#93000a",
+            "on-tertiary-fixed": "#410005",
+            "inverse-on-surface": "#2b322d",
+            "on-secondary-container": "#abb9d2",
+            "border-strong-dark": "#334155",
+            "surface-dark": "#111726",
+            "surface-container-lowest": "#09100c"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Be Vietnam Pro", "sans-serif"],
+            "code": ["JetBrains Mono", "monospace"],
+            "tabular": ["Space Grotesk", "sans-serif"],
+            "body-md": ["Be Vietnam Pro", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "headline-sm": ["Space Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Monospace math & code blocks */
+    .math-sym {
+      font-family: 'JetBrains Mono', monospace;
+      font-style: normal;
+    }
+    /* Custom scrollbar for technical surface */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen selection:bg-brand-primary-dark selection:text-black">
+<!-- TOP APP BAR (from Shared Components JSON: TopNavBar) -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
+<!-- Brand & Primary Contextual Nav -->
+<div class="flex items-center space-x-6">
+<div class="flex items-center space-x-2">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
+</div>
+<nav class="hidden md:flex items-center space-x-6">
+<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#de-thi">Đề thi</a>
+<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#luyen-tap">Luyện tập</a>
+<!-- Active link: Kết quả -->
+<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 pt-3.5" href="#ket-qua">Kết quả</a>
+</nav>
+</div>
+<!-- Trailing Actions Cluster -->
+<div class="flex items-center space-x-4">
+<!-- Status Icons -->
+<div class="hidden sm:flex items-center space-x-2 text-text-muted-dark">
+<span class="material-symbols-outlined text-sm text-brand-primary-dark" title="Hệ thống trực tuyến ổn định">wifi</span>
+<span class="material-symbols-outlined text-sm hover:text-text-primary-dark transition-colors cursor-pointer">dark_mode</span>
+</div>
+<div class="h-4 w-[1px] bg-border-subtle-dark hidden sm:block"></div>
+<!-- User Info & Score Badge -->
+<div class="flex items-center space-x-2.5">
+<div class="flex flex-col text-right">
+<span class="text-xs text-text-muted-dark font-tabular text-tabular">Thí sinh</span>
+<span class="text-sm font-medium text-text-primary-dark">Nguyễn Văn An - 12A1</span>
+</div>
+<span class="px-2 py-0.5 text-xs font-semibold font-tabular text-tabular bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30 rounded">9.20</span>
+</div>
+<!-- Trailing Action: Log Out -->
+<button class="text-xs font-medium text-text-secondary-dark hover:text-status-wrong transition-colors duration-150 active:scale-[0.98] border border-border-subtle-dark px-2.5 py-1.5 rounded bg-surface-dark">
+        Đăng xuất
+      </button>
+</div>
+</header>
+<!-- SUBHEADER: Context Bar & Exam Identity -->
+<div class="border-b border-border-subtle-dark bg-surface-dark/60 backdrop-blur-sm px-gutter py-3">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-center space-x-3">
+<a class="inline-flex items-center space-x-1.5 text-xs text-text-muted-dark hover:text-primary transition-colors border border-border-subtle-dark hover:border-border-strong-dark bg-surface-dark px-2.5 py-1 rounded" href="#/s/exams">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span>Về danh sách đề thi</span>
+</a>
+<div class="h-4 w-[1px] bg-border-subtle-dark hidden sm:block"></div>
+<div class="flex items-center space-x-2">
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-surface-container-high text-primary border border-border-strong-dark">TOÁN 12</span>
+<h1 class="text-sm md:text-base font-semibold text-text-primary-dark tracking-tight">Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz</h1>
+</div>
+</div>
+<div class="flex items-center space-x-3 text-xs text-text-muted-dark font-tabular text-tabular">
+<span>Mã phòng: <span class="text-text-primary-dark font-code">MX-2024-OX9</span></span>
+<span>•</span>
+<span>Thời gian nộp: 10:44:12 - Hôm nay</span>
+</div>
+</div>
+</div>
+<!-- MAIN VIEWPORT CONTAINER -->
+<main class="max-w-7xl mx-auto px-gutter py-space-lg space-y-6">
+<!-- HERO SCORE SUMMARY BENTO CARD -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+<!-- Primary Score Bento Column (4 cols) -->
+<div class="lg:col-span-5 bg-surface-dark border border-border-subtle-dark rounded-lg p-5 flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle technical corner grid mark -->
+<div class="absolute -right-8 -top-8 w-28 h-28 bg-brand-primary-dark/5 rounded-full pointer-events-none blur-xl"></div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold uppercase tracking-wider text-text-muted-dark">Điểm tổng kết</span>
+<span class="px-2 py-0.5 text-xs rounded bg-status-correct/15 text-status-correct font-semibold border border-status-correct/25">ĐẠT LOẠI GIỎI</span>
+</div>
+<div class="my-4">
+<div class="flex items-baseline space-x-2">
+<span class="font-headline-lg text-headline-lg font-bold text-text-primary-dark tracking-tight">9.20</span>
+<span class="text-xl text-text-muted-dark font-tabular text-tabular font-medium">/ 10.0</span>
+</div>
+<p class="text-sm text-brand-hover-dark font-medium mt-1 flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-base">military_tech</span>
+<span>Top 3.2% toàn khóa (Hạng 14/450)</span>
+</p>
+</div>
+<!-- Performance Bar Breakdown -->
+<div class="space-y-1.5 pt-3 border-t border-border-subtle-dark">
+<div class="flex justify-between text-xs text-text-muted-dark font-tabular text-tabular">
+<span>Tỷ lệ chính xác</span>
+<span class="text-status-correct font-semibold">92.0%</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-highest flex overflow-hidden">
+<div class="bg-status-correct h-full transition-all duration-500" style="width: 92%" title="46 Câu đúng"></div>
+<div class="bg-status-wrong h-full transition-all duration-500" style="width: 8%" title="4 Câu sai"></div>
+</div>
+<div class="flex justify-between items-center text-[11px] text-text-muted-dark">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-correct inline-block"></span> 46 câu đúng</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-wrong inline-block"></span> 4 câu sai</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-text-muted-dark inline-block"></span> 0 bỏ qua</span>
+</div>
+</div>
+</div>
+<!-- Technical Metrics Bento Column (7 cols) -->
+<div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-3">
+<!-- Metric 1: Correct -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Câu đúng</span>
+<span class="material-symbols-outlined text-status-correct text-lg">check_circle</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-status-correct font-bold">46</div>
+<div class="text-[11px] text-text-muted-dark mt-0.5">+9.2 điểm đạt được</div>
+</div>
+</div>
+<!-- Metric 2: Wrong -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Câu sai</span>
+<span class="material-symbols-outlined text-status-wrong text-lg">cancel</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-status-wrong font-bold">04</div>
+<div class="text-[11px] text-text-muted-dark mt-0.5">-0.8 điểm trừ tiếc nuối</div>
+</div>
+</div>
+<!-- Metric 3: Skipped -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Bỏ qua</span>
+<span class="material-symbols-outlined text-text-muted-dark text-lg">radio_button_unchecked</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-text-muted-dark font-bold">00</div>
+<div class="text-[11px] text-text-muted-dark mt-0.5">Hoàn thành 100% đề</div>
+</div>
+</div>
+<!-- Metric 4: Duration -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Thời gian làm bài</span>
+<span class="material-symbols-outlined text-text-secondary-dark text-lg">timer</span>
+</div>
+<div class="mt-2">
+<div class="font-tabular text-tabular text-base font-semibold text-text-primary-dark">74m 12s</div>
+<div class="text-[11px] text-text-muted-dark mt-0.5">Quy định: 90 phút</div>
+</div>
+</div>
+<!-- Metric 5: Average Pace -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Tốc độ trung bình</span>
+<span class="material-symbols-outlined text-text-secondary-dark text-lg">speed</span>
+</div>
+<div class="mt-2">
+<div class="font-tabular text-tabular text-base font-semibold text-text-primary-dark">1m 29s</div>
+<div class="text-[11px] text-text-muted-dark mt-0.5">Nhanh hơn 12% mức chuẩn</div>
+</div>
+</div>
+<!-- Metric 6: Algorithmic Verification -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted-dark text-xs">
+<span>Giải thuật C++</span>
+<span class="material-symbols-outlined text-brand-primary-dark text-lg">terminal</span>
+</div>
+<div class="mt-2">
+<div class="font-tabular text-tabular text-base font-semibold text-text-primary-dark">8 câu</div>
+<div class="text-[11px] text-brand-primary-dark mt-0.5">Đã nhúng code mô phỏng</div>
+</div>
+</div>
+</div>
+</section>
+<!-- WORKSPACE 8:4 SPLIT: QUESTIONS STREAM & BENTO PALETTE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT STREAM: FILTER TABS & DETAILED SOLUTIONS (8 cols) -->
+<section class="lg:col-span-8 space-y-4">
+<!-- Filter Tabs Sub-Bar -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-1.5 flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center space-x-1">
+<button class="px-3 py-1.5 rounded text-xs font-semibold bg-brand-primary-dark text-canvas-dark flex items-center space-x-1.5 shadow-none">
+<span>Tất cả</span>
+<span class="px-1.5 py-0.2 rounded bg-black/20 text-canvas-dark text-[11px]">50</span>
+</button>
+<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<span>Câu đúng</span>
+<span class="px-1.5 py-0.2 rounded bg-status-correct/10 text-status-correct border border-status-correct/20 text-[11px]">46</span>
+</button>
+<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<span>Câu sai</span>
+<span class="px-1.5 py-0.2 rounded bg-status-wrong/10 text-status-wrong border border-status-wrong/20 text-[11px]">4</span>
+</button>
+<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<span>Có giải thuật C++</span>
+<span class="px-1.5 py-0.2 rounded bg-elevated-dark text-brand-primary-dark border border-border-subtle-dark text-[11px]">8</span>
+</button>
+</div>
+<div class="flex items-center space-x-2 text-xs text-text-muted-dark px-2">
+<span class="material-symbols-outlined text-sm">unfold_more</span>
+<span class="cursor-pointer hover:text-text-primary-dark">Mở rộng tất cả lời giải</span>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- QUESTION CARD 1: QUESTION 14 (WRONG ANSWER) -->
+<!-- ============================================== -->
+<article class="bg-surface-dark border border-status-wrong/40 rounded-lg overflow-hidden transition-all duration-150" id="cau-14">
+<!-- Card Header Bar -->
+<div class="bg-elevated-dark/70 border-b border-border-subtle-dark px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark">Câu 14</span>
+<span class="text-xs text-text-muted-dark">/ 50</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container-high text-secondary-fixed-dim border border-border-subtle-dark uppercase">Vận dụng cao - Tích phân &amp; Giới hạn</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-xs font-tabular text-tabular text-status-wrong font-semibold">Điểm: 0.0 / 0.2</span>
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-xs font-semibold bg-status-wrong/15 text-status-wrong border border-status-wrong/30">
+<span class="material-symbols-outlined text-xs">close</span>
+<span>Sai</span>
+</span>
+</div>
+</div>
+<!-- Problem Statement -->
+<div class="p-5 space-y-4">
+<p class="font-body-md text-body-md text-text-primary-dark leading-relaxed">
+              Cho hàm số <span class="math-sym text-primary">f(x)</span> liên tục và xác định trên tập số thực <span class="math-sym text-primary">ℝ</span>. Biết rằng hàm số thỏa mãn giới hạn hữu hạn và biểu thức giải tích xác định. Hãy tính giá trị của biểu thức:
+            </p>
+<!-- Formal Formula KaTeX Container -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded p-4 text-center my-3 overflow-x-auto">
+<div class="font-code text-base text-text-primary-dark">
+                P = \lim_{x \to +\infty} \left( \frac{2x^3 - 3x + 1}{x^3 + 4x^2} \right) + \int_{0}^{1} (3x^2 - 2x + e^x)\,dx
+              </div>
+</div>
+<!-- Options Review Grid -->
+<div class="space-y-2.5 pt-2">
+<div class="text-xs font-semibold uppercase tracking-wider text-text-muted-dark">Lựa chọn của các phương án:</div>
+<!-- Option A (Correct Answer) -->
+<div class="p-3 rounded border border-status-correct/40 bg-status-correct/10 flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-status-correct text-canvas-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">A</span>
+<span class="font-code text-text-primary-dark font-medium">P = e + 1</span>
+</div>
+<div class="flex items-center space-x-1.5 text-xs text-status-correct font-semibold">
+<span class="material-symbols-outlined text-sm">check</span>
+<span>Đáp án đúng</span>
+</div>
+</div>
+<!-- Option B (User Selected - Wrong) -->
+<div class="p-3 rounded border border-status-wrong bg-status-wrong/10 flex items-start justify-between ring-1 ring-status-wrong/30">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-status-wrong text-white font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">B</span>
+<span class="font-code text-text-primary-dark font-medium">P = e + 2</span>
+</div>
+<div class="flex items-center space-x-1.5 text-xs text-status-wrong font-semibold">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+<span>Đáp án bạn chọn (Chưa chính xác)</span>
+</div>
+</div>
+<!-- Option C -->
+<div class="p-3 rounded border border-border-subtle-dark bg-canvas-dark/50 flex items-start justify-between opacity-60">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-surface-container-highest text-text-muted-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">C</span>
+<span class="font-code text-text-secondary-dark">P = 2e</span>
+</div>
+</div>
+<!-- Option D -->
+<div class="p-3 rounded border border-border-subtle-dark bg-canvas-dark/50 flex items-start justify-between opacity-60">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-surface-container-highest text-text-muted-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">D</span>
+<span class="font-code text-text-secondary-dark">P = e - 1</span>
+</div>
+</div>
+</div>
+<!-- Detailed Explanation & Solution Steps -->
+<div class="mt-4 pt-4 border-t border-border-subtle-dark space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-text-primary-dark uppercase tracking-wider flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-sm text-brand-primary-dark">auto_stories</span>
+<span>Lời giải chi tiết &amp; Phương pháp giải</span>
+</span>
+<span class="text-xs text-text-muted-dark font-tabular text-tabular">Thời gian làm: 2m 45s</span>
+</div>
+<div class="bg-elevated-dark/50 border border-border-subtle-dark rounded p-4 space-y-3 text-sm">
+<!-- Step 1 -->
+<div class="flex space-x-2">
+<span class="font-code text-brand-primary-dark font-bold">01.</span>
+<div>
+<span class="font-medium text-text-primary-dark">Phân tích giới hạn hữu hạn của hàm phân thức bậc 3:</span>
+<p class="font-code text-xs text-text-secondary-dark mt-1 bg-canvas-dark p-2 rounded">
+                      \lim_{x \to +\infty} \frac{2x^3 - 3x + 1}{x^3 + 4x^2} = \lim_{x \to +\infty} \frac{2 - \frac{3}{x^2} + \frac{1}{x^3}}{1 + \frac{4}{x}} = \frac{2}{1} = 2
+                    </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex space-x-2">
+<span class="font-code text-brand-primary-dark font-bold">02.</span>
+<div>
+<span class="font-medium text-text-primary-dark">Tính tích phân xác định thành phần đại số và hàm mũ:</span>
+<p class="font-code text-xs text-text-secondary-dark mt-1 bg-canvas-dark p-2 rounded">
+                      \int_{0}^{1} (3x^2 - 2x + e^x)\,dx = \left[ x^3 - x^2 + e^x \right]_{0}^{1} = (1 - 1 + e^1) - (0 - 0 + e^0) = e - 1
+                    </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex space-x-2">
+<span class="font-code text-brand-primary-dark font-bold">03.</span>
+<div>
+<span class="font-medium text-text-primary-dark">Tổng hợp giá trị của biểu thức P:</span>
+<p class="font-code text-xs text-status-correct mt-1">
+                      P = 2 + (e - 1) = e + 1 \implies \text{Đáp án chính xác là [A]}
+                    </p>
+</div>
+</div>
+<!-- Common Mistake Warning Callout -->
+<div class="mt-3 p-3 rounded bg-status-wrong/10 border-l-2 border-status-wrong text-xs text-text-primary-dark flex items-start space-x-2">
+<span class="material-symbols-outlined text-status-wrong text-base shrink-0">warning</span>
+<div>
+<strong class="text-status-wrong">Lưu ý lỗi sai kinh điển của học sinh:</strong>
+<span class="text-text-secondary-dark"> Rất nhiều bạn nhầm lẫn cận dưới của tích phân khi thay x = 0: tính <span class="font-code">e^0 = 0</span> thay vì <span class="font-code">e^0 = 1</span>, dẫn đến kết quả sai <span class="font-code">P = 2 + e = e + 2</span> (Phương án B).</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- ============================================== -->
+<!-- QUESTION CARD 2: QUESTION 28 (CORRECT + C++ CODE) -->
+<!-- ============================================== -->
+<article class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg overflow-hidden transition-all duration-150" id="cau-28">
+<!-- Card Header Bar -->
+<div class="bg-elevated-dark/70 border-b border-border-subtle-dark px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark">Câu 28</span>
+<span class="text-xs text-text-muted-dark">/ 50</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container-high text-primary border border-border-subtle-dark uppercase">Toán Tin - Hình học tọa độ Oxyz</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-xs font-tabular text-tabular text-status-correct font-semibold">Điểm: 0.2 / 0.2</span>
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-xs font-semibold bg-status-correct/15 text-status-correct border border-status-correct/30">
+<span class="material-symbols-outlined text-xs">check</span>
+<span>Đúng</span>
+</span>
+</div>
+</div>
+<!-- Problem Statement -->
+<div class="p-5 space-y-4">
+<p class="font-body-md text-body-md text-text-primary-dark leading-relaxed">
+              Trong không gian với hệ tọa độ <span class="font-code text-primary">Oxyz</span>, cho ba điểm <span class="font-code">A(1, 0, 2)</span>, <span class="font-code">B(-1, 2, 4)</span> và đường thẳng <span class="font-code">d: \frac{x-1}{1} = \frac{y+2}{-2} = \frac{z}{2}</span>. Tìm khoảng cách từ điểm đối xứng của A qua đường thẳng d đến mặt phẳng đi qua gốc tọa độ vuông góc với AB.
+            </p>
+<!-- Options Review Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+<!-- Option A -->
+<div class="p-3 rounded border border-border-subtle-dark bg-canvas-dark/40 flex items-center space-x-3 opacity-60">
+<span class="w-6 h-6 rounded bg-surface-container-highest text-text-muted-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">A</span>
+<span class="font-code text-sm text-text-secondary-dark">d = 3\sqrt{2} / 4</span>
+</div>
+<!-- Option B -->
+<div class="p-3 rounded border border-border-subtle-dark bg-canvas-dark/40 flex items-center space-x-3 opacity-60">
+<span class="w-6 h-6 rounded bg-surface-container-highest text-text-muted-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">B</span>
+<span class="font-code text-sm text-text-secondary-dark">d = \sqrt{5} / 3</span>
+</div>
+<!-- Option C (User Selected & Correct) -->
+<div class="p-3 rounded border border-status-correct bg-status-correct/10 flex items-center justify-between ring-1 ring-status-correct/40">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-status-correct text-canvas-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">C</span>
+<span class="font-code text-sm text-text-primary-dark font-semibold">d = 2\sqrt{6} / 3</span>
+</div>
+<span class="material-symbols-outlined text-status-correct text-sm" title="Bạn chọn đáp án này">check_circle</span>
+</div>
+<!-- Option D -->
+<div class="p-3 rounded border border-border-subtle-dark bg-canvas-dark/40 flex items-center space-x-3 opacity-60">
+<span class="w-6 h-6 rounded bg-surface-container-highest text-text-muted-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">D</span>
+<span class="font-code text-sm text-text-secondary-dark">d = 4</span>
+</div>
+</div>
+<!-- Algorithmic Simulation & Code View -->
+<div class="mt-4 pt-4 border-t border-border-subtle-dark space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-text-primary-dark uppercase tracking-wider flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-sm text-brand-primary-dark">code</span>
+<span>Giải thuật tính toán hình học 3D (C++17 Engine)</span>
+</span>
+<div class="flex items-center space-x-2">
+<span class="text-[11px] font-code text-text-muted-dark bg-canvas-dark px-2 py-0.5 rounded border border-border-subtle-dark">GCC 13.2 | O(1) Time | O(1) Space</span>
+</div>
+</div>
+<!-- IDE Code Block -->
+<div class="border border-border-subtle-dark rounded overflow-hidden bg-canvas-dark">
+<!-- Terminal Tab Bar -->
+<div class="bg-surface-dark border-b border-border-subtle-dark px-3 py-2 flex items-center justify-between text-xs">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-wrong/70 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-status-flagged/70 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-status-correct/70 inline-block"></span>
+<span class="font-code text-text-muted-dark ml-2">solution_geometry_oxyz.cpp</span>
+</div>
+<button class="flex items-center space-x-1 text-[11px] text-text-muted-dark hover:text-text-primary-dark transition-colors border border-border-subtle-dark px-2 py-0.5 rounded bg-elevated-dark" onclick="navigator.clipboard.writeText('// Copied C++ snippet');">
+<span class="material-symbols-outlined text-xs">content_copy</span>
+<span>Sao chép code</span>
+</button>
+</div>
+<!-- Syntax Highlighted Container with Line Numbers -->
+<div class="p-3 text-xs font-code overflow-x-auto leading-relaxed">
+<div class="grid grid-cols-12 gap-2 text-text-muted-dark">
+<div class="col-span-1 select-none text-right pr-2 border-r border-border-subtle-dark opacity-50 space-y-0.5">
+<div>01</div><div>02</div><div>03</div><div>04</div><div>05</div><div>06</div><div>07</div><div>08</div><div>09</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+</div>
+<div class="col-span-11 pl-2 space-y-0.5 text-text-primary-dark">
+<div><span class="text-[#EF4444]">#include</span> <span class="text-[#4edea3]">&lt;iostream&gt;</span></div>
+<div><span class="text-[#EF4444]">#include</span> <span class="text-[#4edea3]">&lt;cmath&gt;</span></div>
+<div><span class="text-text-muted-dark">// Vector3 cấu trúc biểu diễn tọa độ không gian</span></div>
+<div><span class="text-[#b9c7e0]">struct</span> <span class="text-[#6ffbbe]">Vec3</span> { <span class="text-[#b9c7e0]">double</span> x, y, z; };</div>
+<div></div>
+<div><span class="text-[#6ffbbe]">Vec3</span> <span class="text-brand-primary-dark">projectPointOnLine</span>(<span class="text-[#6ffbbe]">Vec3</span> A, <span class="text-[#6ffbbe]">Vec3</span> M0, <span class="text-[#6ffbbe]">Vec3</span> u) {</div>
+<div class="pl-4"><span class="text-[#b9c7e0]">double</span> t = ((A.x - M0.x)*u.x + (A.y - M0.y)*u.y + (A.z - M0.z)*u.z) / (u.x*u.x + u.y*u.y + u.z*u.z);</div>
+<div class="pl-4"><span class="text-[#EF4444]">return</span> { M0.x + t * u.x, M0.y + t * u.y, M0.z + t * u.z };</div>
+<div>}</div>
+<div></div>
+<div><span class="text-[#b9c7e0]">int</span> <span class="text-brand-primary-dark">main</span>() {</div>
+<div class="pl-4"><span class="text-[#6ffbbe]">Vec3</span> A = {1, 0, 2}, M0 = {1, -2, 0}, u = {1, -2, 2};</div>
+<div class="pl-4"><span class="text-[#6ffbbe]">Vec3</span> H = projectPointOnLine(A, M0, u);</div>
+<div class="pl-4"><span class="text-[#6ffbbe]">Vec3</span> A_prime = {2*H.x - A.x, 2*H.y - A.y, 2*H.z - A.z}; <span class="text-text-muted-dark">// Điểm đối xứng</span></div>
+<div class="pl-4">std::cout &lt;&lt; <span class="text-[#4edea3]">"Distance d = "</span> &lt;&lt; <span class="text-[#6ffbbe]">2*sqrt(6)/3</span> &lt;&lt; std::endl;</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mathematical Analytical Conclusion -->
+<div class="p-3 bg-elevated-dark/40 rounded border border-border-subtle-dark text-xs space-y-1">
+<span class="font-semibold text-text-primary-dark">Chứng minh hình học giải tích:</span>
+<p class="text-text-secondary-dark">
+                  Hình chiếu <span class="font-code text-primary">H</span> của <span class="font-code">A(1, 0, 2)</span> lên <span class="font-code">d</span> thỏa mãn <span class="font-code">\vec{AH} \cdot \vec{u_d} = 0 \implies H(5/3, -10/3, 4/3)</span>. Tọa độ điểm đối xứng <span class="font-code">A'(7/3, -20/3, 2/3)</span>. Mặt phẳng qua O vuông góc AB có VTPT <span class="font-code">\vec{n} = (-2, 2, 2) \sim (-1, 1, 1)</span> có phương trình <span class="font-code">-x + y + z = 0</span>. Khoảng cách thu được là <span class="font-code text-status-correct">d = 2\sqrt{6}/3</span>.
+                </p>
+</div>
+</div>
+</div>
+</article>
+<!-- ============================================== -->
+<!-- QUESTION CARD 3: QUESTION 01 (CORRECT - GRAPH) -->
+<!-- ============================================== -->
+<article class="bg-surface-dark border border-border-subtle-dark rounded-lg overflow-hidden transition-all duration-150" id="cau-1">
+<div class="bg-elevated-dark/70 border-b border-border-subtle-dark px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark">Câu 01</span>
+<span class="text-xs text-text-muted-dark">/ 50</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container-high text-secondary-fixed-dim border border-border-subtle-dark uppercase">Nhận biết - Khảo sát đồ thị hàm số</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-xs font-tabular text-tabular text-status-correct font-semibold">Điểm: 0.2 / 0.2</span>
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-xs font-semibold bg-status-correct/15 text-status-correct border border-status-correct/30">
+<span class="material-symbols-outlined text-xs">check</span>
+<span>Đúng</span>
+</span>
+</div>
+</div>
+<div class="p-5 space-y-4">
+<p class="font-body-md text-body-md text-text-primary-dark leading-relaxed">
+              Cho hàm số bậc ba <span class="font-code text-primary">y = ax^3 + bx^2 + cx + d</span> có đồ thị như hình vẽ có hai điểm cực trị <span class="font-code">x_1 = -1, x_2 = 1</span> và cắt trục tung tại điểm <span class="font-code">(0, -2)</span>. Mệnh đề nào sau đây đúng về dấu các hệ số?
+            </p>
+<div class="p-3 rounded border border-status-correct/40 bg-status-correct/10 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<span class="w-6 h-6 rounded bg-status-correct text-canvas-dark font-headline-sm text-sm font-bold flex items-center justify-center shrink-0">D</span>
+<span class="font-code text-text-primary-dark font-medium">a &gt; 0, b = 0, c &lt; 0, d &lt; 0</span>
+</div>
+<span class="text-xs text-status-correct font-semibold flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm">check</span>
+<span>Chính xác</span>
+</span>
+</div>
+<div class="p-3 bg-canvas-dark rounded border border-border-subtle-dark text-xs text-text-secondary-dark">
+<span class="text-text-primary-dark font-semibold">Giải thích ngắn:</span> Nhánh cuối cùng đi lên suy ra <span class="font-code">a &gt; 0</span>; hai điểm cực trị đối xứng qua trục Oy suy ra <span class="font-code">b = 0</span>; tích hai nghiệm <span class="font-code">x_1 x_2 = -1 = c / (3a) &lt; 0 \implies c &lt; 0</span>; giao điểm Oy có <span class="font-code">y = d = -2 &lt; 0</span>. Chọn D.
+            </div>
+</div>
+</article>
+</section>
+<!-- RIGHT SIDEBAR: BENTO QUESTION PALETTE (4 cols) -->
+<aside class="lg:col-span-4 space-y-4 sticky top-20">
+<!-- Palette Bento Container -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle-dark">
+<h2 class="text-xs font-bold uppercase tracking-wider text-text-primary-dark flex items-center space-x-2">
+<span class="material-symbols-outlined text-base text-brand-primary-dark">apps</span>
+<span>Bảng câu hỏi (50)</span>
+</h2>
+<div class="text-[11px] font-tabular text-tabular text-text-muted-dark">Nhấp để xem câu hỏi</div>
+</div>
+<!-- Color Coding Status Legend -->
+<div class="grid grid-cols-2 gap-2 my-3 text-[11px] text-text-muted-dark">
+<div class="flex items-center space-x-1.5">
+<span class="w-2.5 h-2.5 rounded bg-status-correct inline-block"></span>
+<span>Đúng (46 câu)</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2.5 h-2.5 rounded bg-status-wrong inline-block"></span>
+<span>Sai (4 câu)</span>
+</div>
+</div>
+<!-- 50-Item Responsive Quick Jump Grid -->
+<!-- 4 wrong questions: 14, 22, 39, 47 -->
+<div class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-1.5 pt-1">
+<!-- 01 - 10 -->
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-1">01</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-2">02</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-3">03</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-4">04</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-5">05</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-6">06</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-7">07</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-8">08</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-9">09</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-10">10</a>
+<!-- 11 - 20 (14 wrong) -->
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-11">11</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-12">12</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-13">13</a>
+<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-14">14</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-15">15</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-16">16</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-17">17</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-18">18</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-19">19</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-20">20</a>
+<!-- 21 - 30 (22 wrong, 28 highlighted correct) -->
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-21">21</a>
+<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-22">22</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-23">23</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-24">24</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-25">25</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-26">26</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-27">27</a>
+<a class="h-8 rounded bg-status-correct/25 text-status-correct border border-status-correct hover:bg-status-correct hover:text-black flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-correct/50" href="#cau-28">28</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-29">29</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-30">30</a>
+<!-- 31 - 40 (39 wrong) -->
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-31">31</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-32">32</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-33">33</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-34">34</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-35">35</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-36">36</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-37">37</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-38">38</a>
+<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-39">39</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-40">40</a>
+<!-- 41 - 50 (47 wrong) -->
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-41">41</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-42">42</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-43">43</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-44">44</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-45">45</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-46">46</a>
+<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-47">47</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-48">48</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-49">49</a>
+<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-50">50</a>
+</div>
+<!-- Quick Palette Actions -->
+<div class="mt-4 pt-3 border-t border-border-subtle-dark flex items-center justify-between text-xs">
+<button class="text-status-wrong hover:underline font-medium flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span>Chỉ hiển thị câu sai (4)</span>
+</button>
+<button class="text-text-muted-dark hover:text-text-primary-dark transition-colors flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm">print</span>
+<span>Xuất PDF</span>
+</button>
+</div>
+</div>
+<!-- Academic Assessment Card (Knowledge Gaps) -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-4 space-y-3">
+<div class="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-text-primary-dark">
+<span class="material-symbols-outlined text-base text-status-flagged">insights</span>
+<span>Chẩn đoán kiến thức chuyên đề</span>
+</div>
+<div class="space-y-2.5 text-xs">
+<div>
+<div class="flex justify-between text-text-muted-dark mb-1">
+<span>Khảo sát hàm số &amp; Cực trị</span>
+<span class="text-status-correct font-semibold">100% (15/15)</span>
+</div>
+<div class="w-full h-1.5 rounded bg-surface-container-highest overflow-hidden">
+<div class="bg-status-correct h-full" style="width: 100%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-text-muted-dark mb-1">
+<span>Hình học tọa độ Oxyz</span>
+<span class="text-status-correct font-semibold">95% (19/20)</span>
+</div>
+<div class="w-full h-1.5 rounded bg-surface-container-highest overflow-hidden">
+<div class="bg-status-correct h-full" style="width: 95%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-text-muted-dark mb-1">
+<span>Tích phân &amp; Giới hạn hàm</span>
+<span class="text-status-flagged font-semibold">80% (12/15)</span>
+</div>
+<div class="w-full h-1.5 rounded bg-surface-container-highest overflow-hidden">
+<div class="bg-status-flagged h-full" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded bg-canvas-dark border border-border-subtle-dark text-[11px] text-text-secondary-dark mt-2">
+            💡 <strong class="text-text-primary-dark">Gợi ý học tập:</strong> Bạn cần rèn luyện thêm dạng bài <span class="text-brand-primary-dark">Tích phân hàm ẩn và thế cận Euler</span> để tối ưu 0.8 điểm còn lại.
+          </div>
+</div>
+</aside>
+</div>
+</main>
+<!-- BOTTOM UTILITY SHORTCUT BAR -->
+<footer class="border-t border-border-subtle-dark bg-canvas-dark text-text-muted-dark py-2 px-gutter mt-8">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs gap-2">
+<div class="flex items-center space-x-4">
+<span>Mathrix Academic Assessment Core v4.2.1</span>
+<span>•</span>
+<span>Anti-AI Integrity Verified</span>
+</div>
+<div class="flex items-center space-x-3 font-code text-[11px]">
+<span>Phím tắt:</span>
+<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">J</kbd>
+<span>Câu tiếp theo</span>
+<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">K</kbd>
+<span>Câu trước</span>
+<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">E</kbd>
+<span>Mở rộng lời giải</span>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions JavaScript -->
+<script>
+    // Keyboard navigation (J for next, K for prev)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'j' || e.key === 'J') {
+        const nextAnchor = document.querySelector('#cau-28');
+        if (nextAnchor) nextAnchor.scrollIntoView({ behavior: 'smooth' });
+      } else if (e.key === 'k' || e.key === 'K') {
+        const prevAnchor = document.querySelector('#cau-14');
+        if (prevAnchor) prevAnchor.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  </script>
+</body></html>
