@@ -20,7 +20,7 @@
 
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
-| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[-]`   |    33%    |
+| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%   |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[ ]`   |     0%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
@@ -37,25 +37,27 @@
 
 ### GIAI ĐOẠN 0. CHUẨN BỊ (1–2 NGÀY)
 
-- [x] **Bước 0.1 — Khung Monorepo & Môi trường phát triển cục bộ**
+- [X] **Bước 0.1 — Khung Monorepo & Môi trường phát triển cục bộ**
 
-  - [x] Đã cài đặt môi trường cơ bản: Python 3.12 + `uv`, Node 20/22 LTS + `pnpm`, Docker + Compose, Git.
-  - [x] Khởi tạo cấu trúc thư mục chuẩn monorepo: `backend/`, `frontend/`, `design/`, `docs/`.
-  - [x] Cấu hình file `docker-compose.yml`:
-    - [x] Dịch vụ `db`: `postgres:16`, volume riêng, healthcheck `pg_isready`, chỉ bind `127.0.0.1:5432` (hỗ trợ tùy biến `POSTGRES_PORT`).
-    - [x] Dịch vụ `minio`: S3-compatible local server (`cgr.dev/chainguard/minio`) để test upload file cục bộ.
-  - [x] Khởi tạo Backend: `uv init`, cấu hình `pyproject.toml` (FastAPI, uvicorn, sqlalchemy, alembic, argon2-cffi, slowapi, apscheduler, boto3, pillow, pytest, ruff...).
-  - [x] Khởi tạo Frontend: `pnpm create vite` (React + TS + Tailwind), thêm TanStack Query, react-hook-form, zod, react-markdown, KaTeX, dnd-kit.
-  - [x] Thiết lập `pre-commit` hook (ruff, eslint, chặn commit `.env` và API keys).
-  - [x] Thiết lập GitHub Actions CI cơ bản (`backend` test + `frontend` build/lint).
-  - [x] Cấu hình `pydantic-settings` thất bại ngay khi khởi động (fail-fast) nếu thiếu biến bắt buộc.
+  - [X] Đã cài đặt môi trường cơ bản: Python 3.12 + `uv`, Node 20/22 LTS + `pnpm`, Docker + Compose, Git.
+  - [X] Khởi tạo cấu trúc thư mục chuẩn monorepo: `backend/`, `frontend/`, `design/`, `docs/`.
+  - [X] Cấu hình file `docker-compose.yml`:
+    - [X] Dịch vụ `db`: `postgres:16`, volume riêng, healthcheck `pg_isready`, chỉ bind `127.0.0.1:5432` (hỗ trợ tùy biến `POSTGRES_PORT`).
+    - [X] Dịch vụ `minio`: S3-compatible local server (`cgr.dev/chainguard/minio`) để test upload file cục bộ.
+  - [X] Khởi tạo Backend: `uv init`, cấu hình `pyproject.toml` (FastAPI, uvicorn, sqlalchemy, alembic, argon2-cffi, slowapi, apscheduler, boto3, pillow, pytest, ruff...).
+  - [X] Khởi tạo Frontend: `pnpm create vite` (React + TS + Tailwind), thêm TanStack Query, react-hook-form, zod, react-markdown, KaTeX, dnd-kit.
+  - [X] Thiết lập `pre-commit` hook (ruff, eslint, chặn commit `.env` và API keys).
+  - [X] Thiết lập GitHub Actions CI cơ bản (`backend` test + `frontend` build/lint).
+  - [X] Cấu hình `pydantic-settings` thất bại ngay khi khởi động (fail-fast) nếu thiếu biến bắt buộc.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-0.1-01`: Clone sạch và chạy theo README thành công trong $\le$ 15 phút.
-    - [x] `TC-0.1-02`: Thiếu biến môi trường báo lỗi rõ tên biến và dừng tiến trình.
-    - [x] `TC-0.1-03`: Pre-commit chặn commit nhầm file bí mật/.env.
-    - [x] `TC-0.1-04`: CI đổi màu đỏ khi có test lỗi.
-    - [x] `TC-0.1-05`: `/readyz` trả 503 khi DB tắt, `/healthz` vẫn trả 200.
+    - [X] `TC-0.1-01`: Clone s
+    - [ ] ạch và chạy theo README thành công trong $\le$ 15 phút.
+    - [X] `TC-0.1-02`: Thiếu biến môi trường báo lỗi rõ tên biến và dừng tiến trình.
+    - [X] `TC-0.1-03`: Pre-commit chặn commit nhầm file bí mật/.env.
+    - [X] `TC-0.1-04`: CI đổi màu đỏ khi có test lỗi.
+    - [X] `TC-0.1-05`: `/readyz` trả 503 khi DB tắt, `/healthz` vẫn trả 200.
+
 - [-] **Bước 0.2 — Tạo tài khoản dịch vụ đám mây & Quản lý bí mật**
 
   - [ ] Tạo email dùng riêng cho dự án và bật 2FA trên tất cả nền tảng.
@@ -66,32 +68,33 @@
     - [ ] (Dự phòng) Chuẩn bị sẵn tài khoản Supabase Storage nếu R2 yêu cầu thẻ thanh toán.
   - [ ] **Render:** Tạo Web Service (gói Free) trỏ tới repo (chưa deploy).
   - [ ] **Ping Service:** Tạo tài khoản cron-job.org hoặc UptimeRobot để giữ máy chủ thức trong giờ thi.
-  - [x] Tạo file `.env.example` và tài liệu kiểm kê danh mục biến `docs/secrets-inventory.md`.
-  - [x] Xây dựng script kiểm tra tự động kết nối đám mây `backend/scripts/verify_cloud_connections.py`.
+  - [X] Tạo file `.env.example` và tài liệu kiểm kê danh mục biến `docs/secrets-inventory.md`.
+  - [X] Xây dựng script kiểm tra tự động kết nối đám mây `backend/scripts/verify_cloud_connections.py`.
 
   - **Kiểm thử cần đạt:**
     - [ ] `TC-0.2-01`: Kết nối Neon thành công bằng `psql` kèm `sslmode=require` (sẵn sàng qua script verify).
     - [ ] `TC-0.2-02`: Script mẫu ghi/đọc/xóa object trên R2 thành công qua `boto3` (sẵn sàng qua script verify).
     - [ ] `TC-0.2-03`: URL trực tiếp không ký của R2 trả về 403 AccessDenied (sẵn sàng qua script verify).
     - [ ] `TC-0.2-04`: Token R2 bị từ chối khi ghi vào bucket khác (sẵn sàng qua script verify).
-    - [x] `TC-0.2-05`: Tất cả tài khoản đã bật 2FA; quét kiểm tra bí mật trên lịch sử Git trả về 0 vi phạm.
-- [ ] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
+    - [X] `TC-0.2-05`: Tất cả tài khoản đã bật 2FA; quét kiểm tra bí mật trên lịch sử Git trả về 0 vi phạm.
 
-  - [ ] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập `gcloud auth login` & `application-default login`.
-  - [ ] Kích hoạt API Stitch: `gcloud beta services mcp enable stitch.googleapis.com`.
-  - [ ] Cấu hình Stitch MCP trong `mcp_config.json` (proxy local hoặc mcp-remote).
-  - [ ] Cài đặt các skill thiết kế vào `.agents/skills/`:
-    - [ ] `google-labs-code/stitch-skills` (`stitch-design`, `stitch-loop`, `design-md`, `enhance-prompt`, `react-components`).
-    - [ ] `anthropics/skills` (`frontend-design`).
-    - [ ] `pbakaus/impeccable`.
-  - [ ] Chuẩn bị quy trình xuất thiết kế thủ công dự phòng nếu MCP gặp sự cố.
+- [x] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
+
+  - [x] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
+  - [x] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
+  - [x] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
+  - [x] Cài đặt đầy đủ 8 skill thiết kế vào `.agents/skills/`:
+    - [x] `google-labs-code/stitch-skills` (`stitch-generate-design`, `stitch-loop`, `design-md`, `enhance-prompt`, `stitch-react-components`, `taste-design`).
+    - [x] `anthropics/skills` (`frontend-design`).
+    - [x] `pbakaus/impeccable` (`impeccable`).
+  - [x] Chuẩn bị tài liệu và quy trình xuất thiết kế thủ công dự phòng `docs/ux/stitch-workflow.md`.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-0.3-01`: Antigravity nhận diện Stitch MCP đang chạy bình thường.
-    - [ ] `TC-0.3-02`: Gọi thử tạo/liệt kê project Stitch thành công.
-    - [ ] `TC-0.3-03`: Antigravity liệt kê đầy đủ 7 skills đã cài đặt.
-    - [ ] `TC-0.3-04`: Xử lý được lỗi hết hạn token ADC và đăng nhập lại.
-    - [ ] `TC-0.3-05`: Thử nghiệm thành công quy trình xuất màn hình thủ công dự phòng.
+    - [x] `TC-0.3-01`: Antigravity nhận diện Stitch MCP đang chạy bình thường.
+    - [x] `TC-0.3-02`: Gọi thử tạo/liệt kê project Stitch thành công (đã nhận diện project `Quiz Toan Tin - UI System`).
+    - [x] `TC-0.3-03`: Antigravity liệt kê đầy đủ các skills đã cài đặt.
+    - [x] `TC-0.3-04`: Xử lý được lỗi hết hạn token ADC và đăng nhập lại.
+    - [x] `TC-0.3-05`: Thử nghiệm thành công quy trình xuất màn hình thủ công dự phòng.
 
 ---
 

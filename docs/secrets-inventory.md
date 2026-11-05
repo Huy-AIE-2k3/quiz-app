@@ -110,3 +110,4 @@
    - Pre-commit hook đã được cấu hình chặn commit `.env` và các định dạng khóa phổ biến.
    - Nếu xảy ra trường hợp ngoại lệ bị lọt vào commit cục bộ: **Tuyệt đối không push lên remote**. Chạy `git reset HEAD~1` để hủy commit, xóa bí mật và commit lại.
    - Nếu đã push lên GitHub: Coi như bí mật đó đã bị lộ công khai $\to$ Tiến hành thu hồi ngay lập tức trên trang quản trị dịch vụ đám mây, sau đó dùng `git filter-repo` hoặc BFG Repo-Cleaner để làm sạch lịch sử Git.
+

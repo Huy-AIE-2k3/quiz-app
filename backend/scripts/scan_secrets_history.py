@@ -40,10 +40,18 @@ def scan_git_history() -> int:
     for line in diff_text.splitlines():
         if line.startswith("+") and not line.startswith("+++"):
             added_content = line[1:].strip()
-            # Ignore test mocks, examples, and placeholders
+            # Ignore test mocks, examples, regex patterns, and placeholders
             if any(
                 skip in added_content.lower()
-                for skip in ("mock", "example", "your_", "change_this")
+                for skip in (
+                    "mock",
+                    "example",
+                    "your_",
+                    "change_this",
+                    "user:pass",
+                    "ep-xyz",
+                    "r\"postgresql",
+                )
             ):
                 continue
 
