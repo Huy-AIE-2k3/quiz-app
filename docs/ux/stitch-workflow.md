@@ -78,3 +78,4 @@ flowchart TD
      - Trạng thái đồng hồ làm bài có chỉ báo rõ ràng (bình thường / cảnh báo / nguy cấp).
 4. **Chuyển thành React Components:**
    - Sử dụng `stitch-react-components` hoặc viết component trực tiếp trong `frontend/src/` bám sát cây thư mục của dự án.
+

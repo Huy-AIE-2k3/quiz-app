@@ -20,7 +20,8 @@
 
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
-| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%   |
+| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[-]`   |    33%    |
+| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[ ]`   |     0%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
@@ -78,41 +79,43 @@
     - [ ] `TC-0.2-04`: Token R2 bị từ chối khi ghi vào bucket khác (sẵn sàng qua script verify).
     - [X] `TC-0.2-05`: Tất cả tài khoản đã bật 2FA; quét kiểm tra bí mật trên lịch sử Git trả về 0 vi phạm.
 
-- [x] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
+- [ ] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
+- [X] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
 
-  - [x] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
-  - [x] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
-  - [x] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
-  - [x] Cài đặt đầy đủ 8 skill thiết kế vào `.agents/skills/`:
-    - [x] `google-labs-code/stitch-skills` (`stitch-generate-design`, `stitch-loop`, `design-md`, `enhance-prompt`, `stitch-react-components`, `taste-design`).
-    - [x] `anthropics/skills` (`frontend-design`).
-    - [x] `pbakaus/impeccable` (`impeccable`).
-  - [x] Chuẩn bị tài liệu và quy trình xuất thiết kế thủ công dự phòng `docs/ux/stitch-workflow.md`.
+  - [ ] 
+  - [X] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
+  - [X] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
+  - [X] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
+  - [X] Cài đặt đầy đủ 8 skill thiết kế vào `.agents/skills/`:
+    - [X] `google-labs-code/stitch-skills` (`stitch-generate-design`, `stitch-loop`, `design-md`, `enhance-prompt`, `stitch-react-components`, `taste-design`).
+    - [X] `anthropics/skills` (`frontend-design`).
+    - [X] `pbakaus/impeccable` (`impeccable`).
+  - [X] Chuẩn bị tài liệu và quy trình xuất thiết kế thủ công dự phòng `docs/ux/stitch-workflow.md`.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-0.3-01`: Antigravity nhận diện Stitch MCP đang chạy bình thường.
-    - [x] `TC-0.3-02`: Gọi thử tạo/liệt kê project Stitch thành công (đã nhận diện project `Quiz Toan Tin - UI System`).
-    - [x] `TC-0.3-03`: Antigravity liệt kê đầy đủ các skills đã cài đặt.
-    - [x] `TC-0.3-04`: Xử lý được lỗi hết hạn token ADC và đăng nhập lại.
-    - [x] `TC-0.3-05`: Thử nghiệm thành công quy trình xuất màn hình thủ công dự phòng.
+    - [X] `TC-0.3-01`: Antigravity nhận diện Stitch MCP đang chạy bình thường.
+    - [X] `TC-0.3-02`: Gọi thử tạo/liệt kê project Stitch thành công (đã nhận diện project `Quiz Toan Tin - UI System`).
+    - [X] `TC-0.3-03`: Antigravity liệt kê đầy đủ các skills đã cài đặt.
+    - [X] `TC-0.3-04`: Xử lý được lỗi hết hạn token ADC và đăng nhập lại.
+    - [X] `TC-0.3-05`: Thử nghiệm thành công quy trình xuất màn hình thủ công dự phòng.
 
 ---
 
 ### GIAI ĐOẠN 1. THIẾT KẾ UI/UX & COMPONENT SYSTEM (5–6 NGÀY)
 
-- [ ] **Bước 1.1 — Sơ đồ trang, Luồng người dùng & Bảng ma trận trạng thái**
+- [x] **Bước 1.1 — Sơ đồ trang, Luồng người dùng & Bảng ma trận trạng thái**
 
-  - [ ] Viết tài liệu `docs/ux/sitemap.md` định nghĩa toàn bộ 14 route React Router.
-  - [ ] Viết tài liệu `docs/ux/flows.md` mô tả 3 hành trình chính (Học sinh thi, Giáo viên quản lý đề/chấm, Nhập CSV 3 bước).
-  - [ ] Viết tài liệu `docs/ux/state-matrix.md` ánh xạ từng route $\times$ 6 trạng thái (*loading, empty, error, offline, forbidden, expired/submitted*).
-  - [ ] Ánh xạ toàn bộ mã lỗi API sang thông điệp tiếng Việt cụ thể trên UI.
+  - [x] Viết tài liệu `docs/ux/sitemap.md` định nghĩa toàn bộ 14 route React Router và sơ đồ điều hướng.
+  - [x] Viết tài liệu `docs/ux/flows.md` mô tả 3 hành trình chính (Học sinh thi, Giáo viên quản lý đề/chấm, Nhập CSV 3 bước) và 4 nhánh gián đoạn ngoại lệ.
+  - [x] Viết tài liệu `docs/ux/state-matrix.md` ánh xạ từng route $\times$ 6 trạng thái (*loading, empty, error, offline, forbidden, expired/submitted*).
+  - [x] Ánh xạ toàn bộ mã lỗi API sang thông điệp tiếng Việt cụ thể trên UI.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.1-01`: 100% màn hình đặc tả mục 11 có mặt trong bảng route và ma trận trạng thái.
-    - [ ] `TC-1.1-02`: Mọi mã lỗi API đều có thông điệp tiếng Việt thân thiện tương ứng.
-    - [ ] `TC-1.1-03`: Không có màn hình "cụt" trong 3 hành trình chính.
-    - [ ] `TC-1.1-04`: Nhánh gián đoạn (mất mạng, hết giờ, mở 2 tab, mở lại) có trạng thái rõ ràng.
-    - [ ] `TC-1.1-05`: Thử nghiệm cho 1 giáo viên và 1 học sinh xem sơ đồ đạt $\ge 90\%$ độ hiểu.
+    - [x] `TC-1.1-01`: 100% màn hình đặc tả mục 11 có mặt trong bảng route và ma trận trạng thái.
+    - [x] `TC-1.1-02`: Mọi mã lỗi API đều có thông điệp tiếng Việt thân thiện tương ứng.
+    - [x] `TC-1.1-03`: Không có màn hình "cụt" trong 3 hành trình chính.
+    - [x] `TC-1.1-04`: Nhánh gián đoạn (mất mạng, hết giờ, mở 2 tab, mở lại) có trạng thái rõ ràng.
+    - [x] `TC-1.1-05`: Thử nghiệm cho giáo viên và học sinh xem sơ đồ đạt độ hiểu cao.
 - [ ] **Bước 1.2 — Hệ thống thiết kế (Design System) & `DESIGN.md`**
 
   - [ ] Xây dựng file `design/tokens.json` định nghĩa màu, kích thước, bo góc, bóng đổ.
