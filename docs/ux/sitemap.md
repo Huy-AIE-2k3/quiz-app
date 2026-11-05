@@ -92,3 +92,4 @@ Mọi màn hình trong hệ thống bắt buộc phải có ít nhất 2 hướn
 3. **Màn hình Nộp bài (`/s/attempts/:id/done`):** Cung cấp 2 lựa chọn rõ ràng:
    - `[ Quay lại danh sách đề thi ]` $\to$ Trỏ về `/s/exams`.
    - `[ Xem kết quả bài làm ]` $\to$ Trỏ về `/s/attempts/:id/result` (hoặc hiển thị thông báo "Điểm sẽ được công bố vào lúc [Thời gian]").
+

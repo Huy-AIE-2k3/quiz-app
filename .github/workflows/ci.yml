@@ -79,6 +79,9 @@ jobs:
         working-directory: ./frontend
         run: pnpm install --frozen-lockfile
 
+      - name: Run WCAG AA Contrast Audit
+        run: python3 scripts/check_wcag_contrast.py
+
       - name: Run Linter
         working-directory: ./frontend
         run: pnpm run lint

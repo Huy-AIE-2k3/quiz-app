@@ -20,9 +20,8 @@
 
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
-| **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[-]`   |    33%    |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[ ]`   |     0%     |
+| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    33%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
@@ -82,7 +81,7 @@
 - [ ] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
 - [X] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
 
-  - [ ] 
+  - [ ]
   - [X] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
   - [X] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
   - [X] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
@@ -103,34 +102,35 @@
 
 ### GIAI ĐOẠN 1. THIẾT KẾ UI/UX & COMPONENT SYSTEM (5–6 NGÀY)
 
-- [x] **Bước 1.1 — Sơ đồ trang, Luồng người dùng & Bảng ma trận trạng thái**
 
-  - [x] Viết tài liệu `docs/ux/sitemap.md` định nghĩa toàn bộ 14 route React Router và sơ đồ điều hướng.
-  - [x] Viết tài liệu `docs/ux/flows.md` mô tả 3 hành trình chính (Học sinh thi, Giáo viên quản lý đề/chấm, Nhập CSV 3 bước) và 4 nhánh gián đoạn ngoại lệ.
-  - [x] Viết tài liệu `docs/ux/state-matrix.md` ánh xạ từng route $\times$ 6 trạng thái (*loading, empty, error, offline, forbidden, expired/submitted*).
-  - [x] Ánh xạ toàn bộ mã lỗi API sang thông điệp tiếng Việt cụ thể trên UI.
+- [X] **Bước 1.1 — Sơ đồ trang, Luồng người dùng & Bảng ma trận trạng thái**
 
-  - **Kiểm thử cần đạt:**
-    - [x] `TC-1.1-01`: 100% màn hình đặc tả mục 11 có mặt trong bảng route và ma trận trạng thái.
-    - [x] `TC-1.1-02`: Mọi mã lỗi API đều có thông điệp tiếng Việt thân thiện tương ứng.
-    - [x] `TC-1.1-03`: Không có màn hình "cụt" trong 3 hành trình chính.
-    - [x] `TC-1.1-04`: Nhánh gián đoạn (mất mạng, hết giờ, mở 2 tab, mở lại) có trạng thái rõ ràng.
-    - [x] `TC-1.1-05`: Thử nghiệm cho giáo viên và học sinh xem sơ đồ đạt độ hiểu cao.
-- [ ] **Bước 1.2 — Hệ thống thiết kế (Design System) & `DESIGN.md`**
-
-  - [ ] Xây dựng file `design/tokens.json` định nghĩa màu, kích thước, bo góc, bóng đổ.
-  - [ ] Tự host phông chữ tiếng Việt qua `@fontsource` (Be Vietnam Pro, JetBrains Mono, KaTeX font).
-  - [ ] Thiết kế chỉ báo đồng hồ: Bình thường / Cảnh báo (< 5p) / Nguy cấp (< 1p) kèm icon + chữ (không chỉ dùng màu).
-  - [ ] Viết file `DESIGN.md` theo quy chuẩn `design-md` định hướng chống "AI slop".
-  - [ ] Viết script đồng bộ `design/tokens.json` ra `tailwind.config.ts` và `tokens.css`.
-  - [ ] Viết script kiểm tra độ tương phản WCAG AA chạy trong CI.
+  - [X] Viết tài liệu `docs/ux/sitemap.md` định nghĩa toàn bộ 14 route React Router và sơ đồ điều hướng.
+  - [X] Viết tài liệu `docs/ux/flows.md` mô tả 3 hành trình chính (Học sinh thi, Giáo viên quản lý đề/chấm, Nhập CSV 3 bước) và 4 nhánh gián đoạn ngoại lệ.
+  - [X] Viết tài liệu `docs/ux/state-matrix.md` ánh xạ từng route $\times$ 6 trạng thái (*loading, empty, error, offline, forbidden, expired/submitted*).
+  - [X] Ánh xạ toàn bộ mã lỗi API sang thông điệp tiếng Việt cụ thể trên UI.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.2-01`: Mọi cặp màu chữ/nền đều đạt tỉ lệ tương phản $\ge 4.5:1$ (chữ thường).
-    - [ ] `TC-1.2-02`: Chuỗi ký tự tiếng Việt đầy đủ dấu không vỡ phông, không lệch dấu.
-    - [ ] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
-    - [ ] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
-    - [ ] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
+    - [X] `TC-1.1-01`: 100% màn hình đặc tả mục 11 có mặt trong bảng route và ma trận trạng thái.
+    - [X] `TC-1.1-02`: Mọi mã lỗi API đều có thông điệp tiếng Việt thân thiện tương ứng.
+    - [X] `TC-1.1-03`: Không có màn hình "cụt" trong 3 hành trình chính.
+    - [X] `TC-1.1-04`: Nhánh gián đoạn (mất mạng, hết giờ, mở 2 tab, mở lại) có trạng thái rõ ràng.
+    - [X] `TC-1.1-05`: Thử nghiệm cho giáo viên và học sinh xem sơ đồ đạt độ hiểu cao.
+- [x] **Bước 1.2 — Hệ thống thiết kế (Design System) & `DESIGN.md`**
+
+  - [x] Xây dựng file `design/tokens.json` định nghĩa màu, kích thước, bo góc, bóng đổ.
+  - [x] Tự host phông chữ tiếng Việt qua `@fontsource` (Be Vietnam Pro, JetBrains Mono, KaTeX font).
+  - [x] Thiết kế chỉ báo đồng hồ: Bình thường / Cảnh báo (< 5p) / Nguy cấp (< 1p) kèm icon + chữ (không chỉ dùng màu).
+  - [x] Viết file `DESIGN.md` theo quy chuẩn `design-md` định hướng chống "AI slop".
+  - [x] Viết script đồng bộ `design/tokens.json` ra `tailwind.config.ts` và `tokens.css`.
+  - [x] Viết script kiểm tra độ tương phản WCAG AA chạy trong CI.
+
+  - **Kiểm thử cần đạt:**
+    - [x] `TC-1.2-01`: Mọi cặp màu chữ/nền đều đạt tỉ lệ tương phản $\ge 4.5:1$ (chữ thường).
+    - [x] `TC-1.2-02`: Chuỗi ký tự tiếng Việt đầy đủ dấu không vỡ phông, không lệch dấu.
+    - [x] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
+    - [x] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
+    - [x] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
 - [ ] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`)**
 
   - [ ] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và biến thể.

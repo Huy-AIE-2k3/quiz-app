@@ -48,3 +48,4 @@
 | `validation_error` | 422 | Dữ liệu nhập vào chưa đúng định dạng hoặc thiếu thông tin bắt buộc. | Inline Form Error | Đánh dấu đỏ các trường bị lỗi kèm hướng dẫn cụ thể |
 | `server_error` | 500 | Máy chủ gặp sự cố xử lý nội bộ. Bài làm cục bộ của bạn vẫn an toàn. | Toast Đỏ góc dưới | Nút `[ Thử lại sau ít phút ]` |
 | `db_unavailable` | 503 | Dịch vụ cơ sở dữ liệu tạm thời gián đoạn. Đang tự động kết nối lại... | Sticky Banner Cam trên đỉnh | Tự động thử lại mỗi 3 giây (Backoff) |
+

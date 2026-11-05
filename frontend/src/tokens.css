@@ -1,0 +1,150 @@
+/* ==============================================================================
+ * MATHRIX DESIGN SYSTEM: TOKENS & ATOMIC STYLES (AUTO-GENERATED)
+ * Do not edit manually. Run 'python3 scripts/sync_tokens.py' to regenerate.
+ * ============================================================================== */
+
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
+@import "katex/dist/katex.min.css";
+
+:root {
+  /* Fonts */
+  --font-sans: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-math: 'KaTeX_Main', 'Times New Roman', serif;
+
+  /* Light Theme */
+  --bg-canvas: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+  --bg-subtle-accent: #ECFDF5;
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-accent: #059669;
+
+  --brand-primary: #059669;
+  --brand-hover: #047857;
+  --brand-glow: rgba(5, 150, 105, 0.12);
+
+  --status-correct-bg: #ECFDF5;
+  --status-correct-border: #10B981;
+  --status-correct-text: #065F46;
+
+  --status-wrong-bg: #FEF2F2;
+  --status-wrong-border: #EF4444;
+  --status-wrong-text: #991B1B;
+
+  --status-flag-bg: #FFFBEB;
+  --status-flag-border: #F59E0B;
+  --status-flag-text: #92400E;
+
+  --timer-normal-text: #065F46;
+  --timer-normal-border: #10B981;
+  --timer-normal-bg: #ECFDF5;
+  --timer-normal-dot: #059669;
+
+  --timer-warning-text: #92400E;
+  --timer-warning-border: #F59E0B;
+  --timer-warning-bg: #FFFBEB;
+  --timer-warning-dot: #D97706;
+
+  --timer-critical-text: #991B1B;
+  --timer-critical-border: #EF4444;
+  --timer-critical-bg: #FEF2F2;
+  --timer-critical-dot: #DC2626;
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+}
+
+.dark {
+  /* Dark Theme */
+  --bg-canvas: #090D16;
+  --bg-surface: #111726;
+  --bg-elevated: #1A2234;
+  --bg-subtle-accent: rgba(16, 185, 129, 0.10);
+
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --border-subtle: #1E293B;
+  --border-strong: #334155;
+  --border-accent: #10B981;
+
+  --brand-primary: #10B981;
+  --brand-hover: #34D399;
+  --brand-glow: rgba(16, 185, 129, 0.18);
+
+  --status-correct-bg: rgba(16, 185, 129, 0.12);
+  --status-correct-border: #10B981;
+  --status-correct-text: #6EE7B7;
+
+  --status-wrong-bg: rgba(239, 68, 68, 0.12);
+  --status-wrong-border: #EF4444;
+  --status-wrong-text: #FCA5A5;
+
+  --status-flag-bg: rgba(245, 158, 11, 0.12);
+  --status-flag-border: #F59E0B;
+  --status-flag-text: #FCD34D;
+
+  --timer-normal-text: #F1F5F9;
+  --timer-normal-border: #1E293B;
+  --timer-normal-bg: #1A2234;
+  --timer-normal-dot: #10B981;
+
+  --timer-warning-text: #FCD34D;
+  --timer-warning-border: #F59E0B;
+  --timer-warning-bg: rgba(245, 158, 11, 0.15);
+  --timer-warning-dot: #F59E0B;
+
+  --timer-critical-text: #FCA5A5;
+  --timer-critical-border: #EF4444;
+  --timer-critical-bg: rgba(239, 68, 68, 0.20);
+  --timer-critical-dot: #EF4444;
+}
+
+/* Typography Ergonomics */
+.question-prose {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+}
+
+.question-prose .katex {
+  font-size: 1.08em !important;
+  color: inherit !important;
+}
+
+.question-prose .katex-display {
+  margin: 1.25rem 0;
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

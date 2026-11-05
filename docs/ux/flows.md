@@ -141,3 +141,4 @@ graph LR
    - Hệ thống sinh mật khẩu ngẫu nhiên an toàn cho từng học sinh mới.
    - Bắt buộc giáo viên bấm nút `[ Tải xuống bảng mật khẩu tài khoản (CSV) ]` trước khi đóng hộp thoại.
    - Cảnh báo: *"Mật khẩu chỉ hiển thị một lần duy nhất tại đây. Hãy lưu trữ cẩn thận và phát cho từng học sinh."*
+
