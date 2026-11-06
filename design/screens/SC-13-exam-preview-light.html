@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Xem trước đề thi (Giao diện sáng)</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- KaTeX CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#F8FAFC",
+            surface: "#FFFFFF",
+            elevated: "#0F172A",
+            "border-subtle": "#E2E8F0",
+            "border-strong": "#CBD5E1",
+            brand: "#059669",
+            "brand-hover": "#047857",
+            "status-wrong": "#EF4444",
+            "status-flagged": "#F59E0B",
+            "text-primary": "#0F172A",
+            "text-secondary": "#475569",
+            "text-muted": "#94A3B8"
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- ================= TOP TEACHER PREVIEW BANNER ================= -->
+  <div class="w-full bg-elevated border-b border-border-strong px-6 py-2 flex items-center justify-between text-xs">
+    <div class="flex items-center gap-2">
+      <span class="px-2 py-0.5 rounded font-mono font-bold bg-brand/20 text-brand border border-brand/40 uppercase">CHẾ ĐỘ XEM TRƯỚC</span>
+      <span class="text-text-secondary">Giao diện hiển thị trực quan như màn hình của học sinh (Đáp án đúng được phủ xanh để đối chiếu).</span>
+    </div>
+    <a href="/a/exams/1/edit" class="px-3 py-1 rounded bg-surface border border-border-subtle hover:border-border-strong text-text-primary font-medium flex items-center gap-1.5 transition-colors">
+      <span class="material-symbols-outlined text-sm">edit</span>
+      <span>Quay lại chỉnh sửa</span>
+    </a>
+  </div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <!-- View chuẩn học sinh -->
+  <header class="sticky top-0 z-40 h-14 bg-surface border-b border-border-subtle px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="font-display font-bold text-sm text-brand tracking-wider">Mathrix</span>
+      <span class="text-text-muted font-mono text-xs">/</span>
+      <h1 class="font-display font-semibold text-sm text-text-primary">
+        Khảo sát Chuyên đề Giải tích &amp; C++17
+      </h1>
+    </div>
+
+    <!-- Countdown Timer (Simulated) -->
+    <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-elevated border border-border-subtle font-mono text-xs font-semibold text-brand">
+      <span class="material-symbols-outlined text-sm">schedule</span>
+      <span>01:30:00</span>
+    </div>
+
+    <div class="text-xs font-mono text-text-secondary">
+      Giáo viên: Thầy Trần Minh Đức
+    </div>
+  </header>
+
+  <!-- ================= MAIN WORKSPACE ================= -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 lg:px-6 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT COLUMN: NỘI DUNG CÂU HỎI (8 cols) -->
+      <!-- Yêu cầu: Bỏ lời giải chi tiết, chỉ hiện câu hỏi, hình ảnh và đáp án, PHỦ XANH ĐÁP ÁN ĐÚNG. Thanh STT chỉ ghi STT, điểm, mức độ -->
+      <section class="lg:col-span-8 space-y-6">
+
+        <article class="bg-surface border border-border-subtle rounded-xl p-6 space-y-5">
+          <!-- Thanh STT câu hỏi: CHỈ GHI SỐ THỨ TỰ, SỐ ĐIỂM VÀ MỨC ĐỘ -->
+          <div class="flex items-center justify-between pb-3 border-b border-border-subtle">
+            <div class="flex items-center gap-3 font-mono text-xs">
+              <span class="font-display font-bold text-lg text-text-primary">Câu 01</span>
+              <span class="px-2 py-0.5 rounded bg-brand/10 text-brand border border-brand/30 font-semibold">0.2 điểm</span>
+              <span class="px-2 py-0.5 rounded bg-elevated text-text-secondary border border-border-subtle">Vận dụng</span>
+            </div>
+          </div>
+
+          <!-- Nội dung câu hỏi + Hình minh họa cùng hàng -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <!-- Box câu hỏi -->
+            <div class="md:col-span-8 space-y-2 text-sm text-text-primary leading-relaxed">
+              <p>
+                Cho hàm số \( y = f(x) \) có đồ thị như hình vẽ bên. Tìm tất cả các giá trị thực của tham số \( m \) để phương trình \( f(x) = m \) có đúng 3 nghiệm phân biệt.
+              </p>
+            </div>
+
+            <!-- Box hình vẽ minh họa (bên phải, cùng hàng) -->
+            <div class="md:col-span-4 p-2 bg-canvas rounded-lg border border-border-subtle flex flex-col items-center justify-center">
+              <svg class="w-full h-32 text-brand stroke-current" viewBox="0 0 200 120" fill="none" stroke-width="2">
+                <line x1="10" y1="60" x2="190" y2="60" stroke="#CBD5E1" stroke-width="1.5" />
+                <line x1="100" y1="10" x2="100" y2="110" stroke="#CBD5E1" stroke-width="1.5" />
+                <path d="M 20 100 Q 60 10 100 60 T 180 20" fill="none" stroke="#059669" stroke-width="2.5" />
+              </svg>
+              <span class="text-[10px] font-mono text-text-muted mt-1">Hình 1.1: Đồ thị hàm số y = f(x)</span>
+            </div>
+          </div>
+
+          <!-- Danh sách đáp án: PHỦ XANH ĐÁP ÁN ĐÚNG (Đáp án B đúng) -->
+          <div class="space-y-2.5 pt-2">
+            <!-- Option A (Sai) -->
+            <div class="flex items-center gap-3.5 p-3.5 rounded-lg border border-border-subtle bg-elevated/40">
+              <span class="w-7 h-7 rounded border border-border-subtle flex items-center justify-center font-display text-xs font-bold text-text-secondary">A</span>
+              <span class="text-sm text-text-secondary font-mono">m &lt; -2</span>
+            </div>
+
+            <!-- Option B (ĐÁP ÁN ĐÚNG - PHỦ XANH) -->
+            <div class="flex items-center gap-3.5 p-3.5 rounded-lg border-2 border-brand bg-brand/10">
+              <span class="w-7 h-7 rounded border border-brand bg-brand text-canvas flex items-center justify-center font-display text-xs font-bold">B</span>
+              <span class="text-sm text-text-primary font-mono font-bold flex-1">-2 &lt; m &lt; 2</span>
+              <span class="px-2 py-0.5 rounded font-mono text-xs bg-brand text-canvas font-bold">ĐÁP ÁN ĐÚNG</span>
+            </div>
+
+            <!-- Option C (Sai) -->
+            <div class="flex items-center gap-3.5 p-3.5 rounded-lg border border-border-subtle bg-elevated/40">
+              <span class="w-7 h-7 rounded border border-border-subtle flex items-center justify-center font-display text-xs font-bold text-text-secondary">C</span>
+              <span class="text-sm text-text-secondary font-mono">m &gt; 2</span>
+            </div>
+
+            <!-- Option D (Sai) -->
+            <div class="flex items-center gap-3.5 p-3.5 rounded-lg border border-border-subtle bg-elevated/40">
+              <span class="w-7 h-7 rounded border border-border-subtle flex items-center justify-center font-display text-xs font-bold text-text-secondary">D</span>
+              <span class="text-sm text-text-secondary font-mono">m = -2 \text{ hoặc } m = 2</span>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Palette câu hỏi (4 cols) -->
+      <aside class="lg:col-span-4 space-y-4">
+        <div class="bg-surface border border-border-subtle rounded-xl p-5 space-y-3">
+          <div class="flex items-center justify-between pb-3 border-b border-border-subtle">
+            <span class="font-display font-semibold text-sm text-text-primary">Điều hướng xem trước</span>
+            <span class="font-mono text-xs text-text-muted">Tổng: 50 câu</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2 font-mono text-xs text-center">
+            <button class="h-9 rounded border border-brand bg-brand text-canvas font-bold">01</button>
+            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">02</button>
+            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">03</button>
+            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">04</button>
+            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">05</button>
+            <div class="col-span-5 py-2 text-center text-text-muted text-[11px] font-mono">
+              ... xem trước các câu từ 06 đến 50 ...
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-3 px-6 bg-surface border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

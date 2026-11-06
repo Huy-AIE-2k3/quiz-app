@@ -38,11 +38,13 @@ check_design_tokens_consistency = stitch_batch_runner.check_design_tokens_consis
 def test_tc_1_3_01_all_screens_exist_html_and_png():
     """TC-1.3-01: Đủ 100% file .html và .png cho danh sách trong SITE.md."""
     screens = parse_site_contract(SITE_MD_PATH)
-    assert len(screens) == 18, f"Yêu cầu đủ 18 màn hình và biến thể, thực tế: {len(screens)}"
+    assert len(screens) >= 18, f"Yêu cầu tối thiểu 18 màn hình và biến thể, thực tế: {len(screens)}"
 
     verified, missing = verify_screens_inventory(screens)
     assert len(missing) == 0, f"Còn các file bị thiếu hoặc rỗng: {missing}"
-    assert len(verified) == 18, f"Số màn hình xác minh hợp lệ: {len(verified)}/18"
+    assert len(verified) == len(screens), (
+        f"Số màn hình xác minh hợp lệ: {len(verified)}/{len(screens)}"
+    )
 
     for screen in screens:
         html_path = PROJECT_ROOT / screen["html"]
@@ -70,7 +72,9 @@ def test_tc_1_3_02_idempotency_skip_completed():
         else:
             pending_to_generate.append(s["code"])
 
-    assert len(skipped_completed) == 18, "Tất cả 18 màn hình phải được nhận diện để bỏ qua."
+    assert len(skipped_completed) == len(screens), (
+        f"Tất cả {len(screens)} màn hình phải được nhận diện để bỏ qua."
+    )
     assert len(pending_to_generate) == 0, "Không màn hình nào bị sinh trùng lặp khi chạy lại."
 
 

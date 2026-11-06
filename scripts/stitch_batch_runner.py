@@ -99,7 +99,9 @@ def check_design_tokens_consistency(screens: List[Dict[str, str]]) -> Tuple[bool
     violations = []
     required_brand_elements = ["Mathrix"]
     # Bảng màu Emerald & Dark theme
-    color_patterns = ["10b981", "10B981", "emerald", "090D16", "111726", "1e293b", "1E293B"]
+    dark_color_patterns = ["10b981", "10B981", "emerald", "090D16", "111726", "1e293b", "1E293B"]
+    # Bảng màu Emerald & Light theme
+    light_color_patterns = ["059669", "047857", "F8FAFC", "f8fafc", "E2E8F0", "e2e8f0", "emerald", "10b981", "10B981"]
     
     for item in screens:
         html_file = ROOT_DIR / item["html"]
@@ -111,10 +113,13 @@ def check_design_tokens_consistency(screens: List[Dict[str, str]]) -> Tuple[bool
         if "Mathrix" not in content and "mathrix" not in content.lower():
             violations.append(f"{item['code']}: Không tìm thấy nhận diện thương hiệu Mathrix trong HTML")
             
-        # 2. Kiểm tra có ít nhất 1 màu Emerald hoặc token chuẩn
-        has_color = any(c in content for c in color_patterns)
+        # 2. Kiểm tra có ít nhất 1 màu Emerald hoặc token chuẩn theo theme
+        is_light = "-LIGHT" in item["code"] or "light" in item["html"]
+        patterns = light_color_patterns if is_light else dark_color_patterns
+        has_color = any(c in content for c in patterns)
         if not has_color:
-            violations.append(f"{item['code']}: Không áp dụng bảng màu Emerald Precision (#10B981 / Dark Canvas)")
+            theme_name = "Light Mode (#059669 / #F8FAFC)" if is_light else "Emerald Precision (#10B981 / Dark Canvas)"
+            violations.append(f"{item['code']}: Không áp dụng bảng màu {theme_name}")
             
     return (len(violations) == 0), violations
 
@@ -148,3 +153,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

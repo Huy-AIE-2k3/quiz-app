@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathrix - Phòng thi làm bài (Mất kết nối mạng) (Giao diện sáng)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#059669",
+              hover: "#047857",
+              dark: '#059669',
+            },
+            surface: {
+              canvas: "#F8FAFC",
+              card: "#FFFFFF",
+              elevated: "#0F172A",
+            },
+            line: {
+              subtle: "#E2E8F0",
+              strong: "#CBD5E1"
+            },
+            status: {
+              flag: '#F59E0B',
+              wrong: '#EF4444'
+            }
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-canvas text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- ================= OFFLINE ALERT BANNER ================= -->
+  <div class="w-full bg-status-wrong/20 border-b border-status-wrong/50 px-6 py-2.5 flex items-center justify-between text-xs text-status-wrong font-medium">
+    <div class="flex items-center gap-2">
+      <i data-lucide="wifi-off" class="w-4 h-4"></i>
+      <span>MẤT KẾT NỐI MẠNG - Đáp án đang được lưu an toàn trong máy. Vui lòng không tải lại trang!</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-status-wrong animate-ping"></span>
+      <span class="font-mono text-[11px]">Outbox: 2 câu chờ gửi</span>
+    </div>
+  </div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <!-- Chỉ hiện: Tên bài thi, Tên thí sinh, Thời gian còn lại và Nút nộp bài thi -->
+  <header class="sticky top-0 z-50 h-14 bg-surface-card border-b border-line-subtle px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="font-display font-bold text-sm text-brand tracking-wider">Mathrix</span>
+      <span class="text-slate-500 font-mono text-xs">/</span>
+      <h1 class="font-display font-semibold text-sm text-slate-800">
+        Khảo sát Chuyên đề Giải tích &amp; C++17
+      </h1>
+    </div>
+
+    <!-- Center: Countdown Timer Pill -->
+    <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-elevated border border-line-subtle">
+      <i data-lucide="clock" class="w-4 h-4 text-brand"></i>
+      <span class="font-mono text-sm tracking-widest text-slate-800 font-semibold tabular-nums" id="countdown">01:24:35</span>
+    </div>
+
+    <!-- Right: Tên thí sinh + Nút nộp bài thi -->
+    <div class="flex items-center gap-4">
+      <span class="text-xs font-mono text-slate-600 hidden sm:inline">
+        Nguyễn Văn An - 12A1
+      </span>
+      <a href="/s/attempts/1/done" class="h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
+        <i data-lucide="check-circle-2" class="w-4 h-4 stroke-[2.2]"></i>
+        <span>Nộp bài thi</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ASSESSMENT WORKSPACE ================= -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 lg:px-6 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT COLUMN: CHỈ HIỆN 1 CÂU HỎI DUY NHẤT (8 cols) -->
+      <section class="lg:col-span-8 space-y-6">
+
+        <article class="bg-surface-card border border-line-subtle rounded-xl p-6 space-y-5">
+          <!-- Question Header: CHỈ HIỆN SỐ THỨ TỰ VÀ ĐIỂM SỐ -->
+          <div class="flex items-center justify-between pb-4 border-b border-line-subtle">
+            <div class="flex items-center gap-2.5">
+              <span class="font-display font-bold text-lg text-slate-800 tracking-tight">Câu 01</span>
+              <span class="text-xs text-brand font-mono px-2 py-0.5 rounded bg-brand/10 border border-brand/30">0.2 điểm</span>
+            </div>
+
+            <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium text-amber-400 bg-amber-950/20 border border-amber-500/40 hover:bg-amber-950/40 transition-colors">
+              <i data-lucide="flag" class="w-3.5 h-3.5 fill-amber-400/20"></i>
+              <span>Đánh dấu câu hỏi</span>
+            </button>
+          </div>
+
+          <!-- Question Content -->
+          <div class="text-slate-700 text-sm leading-relaxed space-y-3">
+            <p>
+              Cho hàm số \( f(x) \) liên tục trên tập số thực \( \mathbb{R} \) thỏa mãn điều kiện tích phân sau:
+            </p>
+
+            <div class="bg-surface-elevated border border-line-subtle rounded-lg p-4 font-mono text-emerald-400 text-center text-base" id="katex-math-target">
+              \int_{0}^{3} f(x) \, dx = 12 \quad \text{và} \quad \int_{0}^{1} f(3x) \, dx = ?
+            </div>
+
+            <p>
+              Giá trị của biểu thức tích phân \( I = \int_{0}^{1} f(3x) \, dx \) bằng bao nhiêu?
+            </p>
+          </div>
+
+          <!-- Answer Options -->
+          <div class="space-y-3 pt-2">
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">A</span>
+              <span class="text-sm text-slate-700 font-mono">\( I = 36 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-brand bg-brand/5 cursor-pointer transition-all">
+              <input type="radio" name="q1" checked class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-brand bg-brand text-surface-canvas flex items-center justify-center font-display text-xs font-bold">B</span>
+              <span class="text-sm text-slate-800 font-mono font-medium">\( I = 4 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">C</span>
+              <span class="text-sm text-slate-700 font-mono">\( I = 6 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">D</span>
+              <span class="text-sm text-slate-700 font-mono">\( I = 12 \)</span>
+            </label>
+          </div>
+
+          <!-- Bottom Navigation -->
+          <div class="flex items-center justify-between pt-4 border-t border-line-subtle">
+            <button class="px-4 py-2 rounded-lg border border-line-subtle text-slate-400 opacity-50 cursor-not-allowed text-xs font-medium" disabled>
+              Câu trước
+            </button>
+            <button class="px-5 py-2 rounded-lg bg-surface-elevated hover:bg-line-strong border border-line-subtle text-slate-700 text-xs font-medium transition-colors">
+              Câu tiếp theo
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Bento Question Palette (4 cols) -->
+      <aside class="lg:col-span-4 space-y-4">
+        <div class="bg-surface-card border border-line-subtle rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-line-subtle">
+            <h2 class="font-display font-semibold text-sm text-slate-800 flex items-center gap-2">
+              <i data-lucide="layout-grid" class="w-4 h-4 text-brand"></i>
+              <span>Danh sách câu hỏi</span>
+            </h2>
+            <span class="text-xs font-mono text-brand font-medium">Đã làm: 1/50</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2 font-mono text-xs text-center" id="question-grid">
+            <button class="h-9 rounded border border-brand bg-brand text-surface-canvas font-bold">01</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">02</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">03</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">04</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">05</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">06</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">07</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">08</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">09</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">10</button>
+            <!-- 11-20 -->
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">11</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">12</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">13</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">14</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">15</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">16</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">17</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">18</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">19</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">20</button>
+            <div class="col-span-5 py-2 text-center text-slate-500 text-[11px] font-mono border-t border-line-subtle/50">
+              ... các câu từ 21 đến 50 ...
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-surface-card border-t border-line-subtle flex items-center justify-center text-slate-500 font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      lucide.createIcons();
+      if (typeof katex !== 'undefined') {
+        const el = document.getElementById('katex-math-target');
+        if (el) {
+          katex.render("\\int_{0}^{3} f(x) \\, dx = 12 \\quad \\Rightarrow \\quad I = \\int_{0}^{1} f(3x) \\, dx = 4", el, {
+            throwOnError: false,
+            displayMode: true
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

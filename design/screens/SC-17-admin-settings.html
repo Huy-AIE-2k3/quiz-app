@@ -191,24 +191,10 @@
 </a>
 </nav>
 <!-- Sidebar Footer -->
-<div class="p-3 border-t border-border-subtle-dark bg-canvas-dark/40 space-y-2.5">
-<div class="p-2.5 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-1.5 text-xs">
-<div class="flex items-center justify-between">
-<span class="text-text-muted-dark font-body-md">Hạ tầng Khảo thí:</span>
-<div class="flex items-center gap-1.5 font-code text-primary">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark animate-pulse"></span>
-            14ms
-          </div>
+<div class="p-3 border-t border-border-subtle-dark bg-canvas-dark/40">
+<div class="px-3 py-2 text-xs font-mono text-text-muted-dark text-center">
+  Mathrix Admin
 </div>
-<div class="flex items-center justify-between text-text-muted-dark">
-<span class="font-body-md">Socket v2.4:</span>
-<span class="text-text-secondary-dark font-code text-[11px]">đã đồng bộ</span>
-</div>
-</div>
-<a class="flex items-center gap-2 px-2 py-1.5 text-xs text-text-secondary-dark hover:text-primary transition-colors" href="#">
-<span class="material-symbols-outlined text-sm">menu_book</span>
-<span class="font-body-md">Tài liệu &amp; Hướng dẫn</span>
-</a>
 </div>
 </aside>
 <!-- ================= MAIN WRAPPER ================= -->
@@ -224,7 +210,7 @@
 <!-- Center: Quick Command Bar -->
 <div class="relative w-80 hidden md:block">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-dark text-lg pointer-events-none">search</span>
-<input class="w-full bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg pl-9 pr-3 py-1.5 text-xs font-body-md text-text-secondary-dark placeholder-text-muted-dark focus:outline-none cursor-pointer" placeholder="Tìm nhanh tham số cấu hình... (Ctrl + K)" readonly="" type="text"/>
+<input class="w-full bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark rounded-lg pl-9 pr-3 py-1.5 text-xs font-body-md text-text-secondary-dark placeholder-text-muted-dark focus:outline-none cursor-pointer" placeholder="Tìm nhanh tham số cấu hình..." readonly="" type="text"/>
 </div>
 <!-- Right Section -->
 <div class="flex items-center gap-3">
@@ -655,9 +641,8 @@
 </main>
 <!-- ================= STICKY FOOTER ACTION BAR ================= -->
 <footer class="fixed bottom-0 right-0 left-64 bg-surface-dark/95 backdrop-blur-md border-t border-border-subtle-dark px-gutter py-3 z-30 flex items-center justify-between shadow-2xl">
-<div class="flex items-center gap-2 text-xs text-text-muted-dark font-body-md">
-<span class="material-symbols-outlined text-amber-400 text-sm">info</span>
-<span>Tất cả thay đổi chưa lưu sẽ tự động hủy nếu rời trang.</span>
+<div class="flex items-center gap-4 text-xs font-mono text-text-muted-dark">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="px-4 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-xs text-text-secondary-dark hover:text-text-primary-dark font-medium transition-colors" type="button">
@@ -670,14 +655,4 @@
 </div>
 </footer>
 </div>
-<!-- Micro-interaction script for tabs and keyboard shortcut simulation -->
-<script>
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        const searchInput = document.querySelector('header input');
-        if (searchInput) searchInput.focus();
-      }
-    });
-  </script>
 </body></html>

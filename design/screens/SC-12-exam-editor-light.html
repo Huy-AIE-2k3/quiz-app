@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Soạn thảo đề thi (Giao diện sáng)</title>
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Be Vietnam Pro -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- KaTeX CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#F8FAFC",
+            surface: "#FFFFFF",
+            elevated: "#0F172A",
+            "border-subtle": "#E2E8F0",
+            "border-strong": "#CBD5E1",
+            brand: "#059669",
+            "brand-hover": "#047857",
+            "status-wrong": "#EF4444",
+            "status-flagged": "#F59E0B",
+            "text-primary": "#0F172A",
+            "text-secondary": "#475569",
+            "text-muted": "#94A3B8"
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- ================= TOP CONFIGURATION BAR ================= -->
+  <!-- Chứa: Nhập tên đề, thời gian làm đề, giới hạn các lớp làm bài (dropbox) -->
+  <header class="sticky top-0 z-50 bg-surface border-b border-border-subtle px-6 py-2.5 flex flex-wrap items-center justify-between gap-4">
+    <!-- Brand + Tên đề thi -->
+    <div class="flex items-center gap-3 flex-1 min-w-[300px]">
+      <a class="flex items-center gap-2 font-display text-base font-bold text-text-primary tracking-tight shrink-0" href="/a/exams">
+        <span class="w-7 h-7 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
+          Σ
+        </span>
+        <span>Mathrix</span>
+      </a>
+      <span class="text-text-muted font-mono">/</span>
+      <input type="text" value="Khảo sát Chuyên đề Giải tích & C++17" placeholder="Nhập tên đề thi..." class="w-full max-w-md h-9 px-3 bg-canvas rounded-lg border border-border-subtle text-sm font-semibold text-text-primary focus:border-brand focus:outline-none" />
+    </div>
+
+    <!-- Cấu hình: Thời gian + Giới hạn các lớp (Dropbox) + Nút tác vụ -->
+    <div class="flex items-center gap-3 flex-wrap">
+      <!-- Nhập thời gian làm bài -->
+      <div class="flex items-center gap-1.5 bg-canvas px-3 py-1.5 rounded-lg border border-border-subtle">
+        <span class="material-symbols-outlined text-sm text-text-muted">schedule</span>
+        <span class="text-xs text-text-secondary">Thời gian:</span>
+        <input type="number" value="90" class="w-12 bg-transparent text-xs font-mono font-semibold text-brand text-right focus:outline-none" />
+        <span class="text-xs text-text-muted">phút</span>
+      </div>
+
+      <!-- Giới hạn các lớp làm bài (Dropbox) -->
+      <div class="flex items-center gap-1.5 bg-canvas px-3 py-1.5 rounded-lg border border-border-subtle">
+        <span class="material-symbols-outlined text-sm text-text-muted">school</span>
+        <span class="text-xs text-text-secondary">Lớp áp dụng:</span>
+        <select class="bg-transparent text-xs font-mono text-text-primary focus:outline-none cursor-pointer">
+          <option value="12tin,12a1" class="bg-surface">12 Chuyên Tin, 12A1 (2 lớp)</option>
+          <option value="12tin" class="bg-surface">Chỉ lớp 12 Chuyên Tin</option>
+          <option value="all" class="bg-surface">Tất cả các lớp Khối 12</option>
+        </select>
+      </div>
+
+      <!-- Tách giao diện xem trước sang SC-13 -->
+      <a href="/a/exams/1/preview" class="h-9 px-3 rounded-lg border border-border-subtle bg-elevated hover:bg-border-subtle text-text-secondary hover:text-text-primary text-xs font-medium flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm">visibility</span>
+        <span>Xem trước đề</span>
+      </a>
+
+      <!-- Xuất bản -->
+      <button class="h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-xs flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm font-bold">check</span>
+        <span>Xuất bản đề thi</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN SPLIT WORKSPACE ================= -->
+  <main class="flex-1 flex overflow-hidden">
+
+    <!-- CỘT TRÁI: DANH SÁCH CÂU HỎI ĐÃ NHẬP (w-72) -->
+    <!-- Trên mỗi card ghi: STT câu, loại câu, số điểm, nút đã nhập đủ đáp án (dấu v) hay chưa (dấu !) -->
+    <aside class="w-72 border-r border-border-subtle bg-surface/50 flex flex-col shrink-0">
+      <div class="p-3 border-b border-border-subtle flex items-center justify-between">
+        <span class="font-display text-xs font-bold text-text-primary uppercase tracking-wider">Danh sách câu hỏi</span>
+        <button class="px-2 py-1 rounded bg-brand/10 border border-brand/30 text-brand text-xs font-medium flex items-center gap-1 hover:bg-brand/20 transition-colors">
+          <span class="material-symbols-outlined text-xs">add</span>
+          <span>Thêm câu</span>
+        </button>
+      </div>
+
+      <!-- Danh sách câu hỏi cuộn -->
+      <div class="flex-1 overflow-y-auto p-2 space-y-1.5 font-mono text-xs">
+        <!-- Câu 1 (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-brand bg-brand/5 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-brand">01.</span>
+            <span class="text-text-primary">Trắc nghiệm</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">0.2đ</span>
+            <!-- Dấu v: Đã nhập đủ đáp án -->
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+
+        <!-- Câu 2: Đúng / Sai (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-border-subtle bg-surface hover:bg-elevated flex items-center justify-between cursor-pointer transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-text-primary">02.</span>
+            <span class="text-text-secondary">Đúng / Sai</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">1.0đ</span>
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+
+        <!-- Câu 3: Điền số (Chưa đủ: dấu !) -->
+        <div class="p-2.5 rounded-lg border border-status-flagged/40 bg-status-flagged/5 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-status-flagged">03.</span>
+            <span class="text-text-primary">Điền số</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">0.5đ</span>
+            <!-- Dấu !: Chưa nhập đủ đáp án -->
+            <span class="w-5 h-5 rounded-full bg-status-flagged/20 text-status-flagged flex items-center justify-center font-bold" title="Chưa nhập đủ đáp án">!</span>
+          </div>
+        </div>
+
+        <!-- Câu 4: Lập trình C++ (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-border-subtle bg-surface hover:bg-elevated flex items-center justify-between cursor-pointer transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-text-primary">04.</span>
+            <span class="text-text-secondary">Lập trình C++</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">2.0đ</span>
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CỘT CHÍNH: FORM SOẠN CÂU HỎI -->
+    <section class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- Hàng cấu hình câu hỏi: Loại câu, Mức độ, Điểm số -->
+      <div class="p-4 rounded-xl bg-surface border border-border-subtle flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="font-display font-bold text-lg text-text-primary">Câu 01</span>
+          <select class="h-9 px-3 bg-canvas border border-border-subtle rounded-lg text-xs font-mono text-text-primary focus:outline-none">
+            <option>Trắc nghiệm 4 lựa chọn</option>
+            <option>Đúng / Sai 4 ý mệnh đề</option>
+            <option>Điền số (Trả lời ngắn)</option>
+            <option>Lập trình Tin học C++</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Chọn mức độ -->
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-text-secondary">Mức độ:</span>
+            <select class="h-9 px-3 bg-canvas border border-border-subtle rounded-lg font-sans text-xs text-text-primary focus:outline-none">
+              <option>Nhận biết</option>
+              <option>Thông hiểu</option>
+              <option selected>Vận dụng</option>
+              <option>Vận dụng cao</option>
+            </select>
+          </div>
+
+          <!-- Nhập điểm số của câu hỏi -->
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-text-secondary">Điểm số:</span>
+            <input type="number" step="0.1" value="0.2" class="w-16 h-9 px-2 bg-canvas border border-border-subtle rounded-lg font-mono text-xs font-semibold text-brand text-right focus:outline-none" />
+            <span class="text-text-muted">điểm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD NHẬP NỘI DUNG CÂU HỎI & HÌNH MINH HỌA -->
+      <!-- Yêu cầu: Nếu có ảnh thì (tổng độ dài box câu hỏi + box hình + padding) = độ dài box khi không có hình; 2 box riêng cạnh nhau -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold text-text-secondary uppercase tracking-wider font-mono">
+            Nội dung câu hỏi (Hỗ trợ text thường &amp; công thức KaTeX dạng $f(x)$)
+          </label>
+          <span class="text-[11px] font-mono text-text-muted">Kèm hình minh họa (Tối đa 1 ảnh 640×640)</span>
+        </div>
+
+        <!-- 2 box riêng biệt nằm cạnh nhau -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          <!-- Box nhập nội dung câu hỏi (8 cols khi có ảnh) -->
+          <div class="lg:col-span-8 flex flex-col">
+            <textarea rows="6" placeholder="Nhập đề bài ở đây... Ví dụ: Cho hàm số $f(x) = \int_0^x \sqrt{t^2+1}dt$. Tính giá trị của $f'(1)$..." class="w-full flex-1 p-3.5 bg-canvas border border-border-subtle rounded-lg text-sm font-sans text-text-primary placeholder:text-text-muted focus:border-brand focus:outline-none leading-relaxed"></textarea>
+          </div>
+
+          <!-- Box hình minh họa (4 cols - kích cỡ phù hợp 640×640) -->
+          <div class="lg:col-span-4 border border-dashed border-border-strong rounded-lg bg-canvas/60 p-4 flex flex-col items-center justify-center text-center">
+            <span class="material-symbols-outlined text-3xl text-text-muted mb-2">image</span>
+            <p class="text-xs text-text-secondary font-medium">Kéo thả hoặc tải ảnh minh họa</p>
+            <p class="text-[10px] text-text-muted font-mono mt-1">Kích cỡ tối đa 640×640 px (PNG/JPG)</p>
+            <button class="mt-3 px-3 py-1.5 rounded bg-elevated border border-border-subtle text-xs text-text-primary hover:bg-border-subtle transition-colors">
+              Chọn tệp ảnh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ĐỐI VỚI CÂU HỎI ĐÚNG / SAI (2 OPTIONS) -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <span class="font-display font-bold text-sm text-text-primary">Cấu hình câu hỏi Đúng / Sai</span>
+          <!-- 2 Options cho Đúng/Sai -->
+          <div class="flex items-center gap-2">
+            <label class="flex items-center gap-1.5 text-xs text-text-secondary cursor-pointer">
+              <input type="radio" name="tf_opt" checked class="text-brand accent-emerald-500" />
+              <span>Option 1: Nhập điểm từng ý / lũy tiến</span>
+            </label>
+            <label class="flex items-center gap-1.5 text-xs text-text-secondary cursor-pointer ml-3">
+              <input type="radio" name="tf_opt" class="text-brand accent-emerald-500" />
+              <span>Option 2: 2 box nhấn Đúng, Sai cơ bản</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Danh sách 4 ý a, b, c, d -->
+        <div class="space-y-2.5 font-sans text-xs">
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+            <span class="font-mono font-bold text-brand">a)</span>
+            <input type="text" value="Hàm số nghịch biến trên khoảng (-\infty; 0)" class="flex-1 bg-transparent text-text-primary focus:outline-none" />
+            <div class="flex items-center gap-1.5 font-mono">
+              <button class="px-2.5 py-1 rounded bg-brand text-canvas font-bold">ĐÚNG</button>
+              <button class="px-2.5 py-1 rounded bg-elevated text-text-secondary hover:text-text-primary">SAI</button>
+              <input type="number" step="0.05" value="0.25" class="w-14 px-1.5 py-1 bg-surface rounded border border-border-subtle text-right text-brand font-mono" title="Điểm ý a" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+            <span class="font-mono font-bold text-brand">b)</span>
+            <input type="text" value="Đồ thị hàm số có đúng một điểm cực trị tại x = 0" class="flex-1 bg-transparent text-text-primary focus:outline-none" />
+            <div class="flex items-center gap-1.5 font-mono">
+              <button class="px-2.5 py-1 rounded bg-elevated text-text-secondary hover:text-text-primary">ĐÚNG</button>
+              <button class="px-2.5 py-1 rounded bg-status-wrong text-canvas font-bold">SAI</button>
+              <input type="number" step="0.05" value="0.25" class="w-14 px-1.5 py-1 bg-surface rounded border border-border-subtle text-right text-brand font-mono" title="Điểm ý b" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ĐỐI VỚI MÔN TIN: TEST CASE VÍ DỤ VÀ TEST CASE CHÍNH THỨC (ẨN) -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <div>
+            <h3 class="font-display font-bold text-sm text-text-primary">Cấu hình Test Case Lập trình (Môn Tin)</h3>
+            <p class="text-[11px] text-text-muted mt-0.5">Test case ví dụ hiển thị cho học sinh. Test case chính thức được dùng để chấm điểm tự động.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Bảng 1: Test case ví dụ (Hiển thị cho HS tham khảo) -->
+          <div class="p-3.5 rounded-lg bg-canvas border border-border-subtle space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-semibold text-brand">1. Test case ví dụ (Công khai)</span>
+              <button class="text-[11px] text-brand hover:underline">+ Thêm ví dụ</button>
+            </div>
+            <textarea rows="3" class="w-full p-2 bg-surface border border-border-subtle rounded font-mono text-xs text-text-primary" placeholder="Input mẫu...&#10;5&#10;1 2 3 4 5"></textarea>
+            <textarea rows="2" class="w-full p-2 bg-surface border border-border-subtle rounded font-mono text-xs text-text-primary" placeholder="Output kỳ vọng...&#10;15"></textarea>
+          </div>
+
+          <!-- Bảng 2: Test case chính thức (Chấm điểm, Ẩn bí mật) -->
+          <div class="p-3.5 rounded-lg bg-canvas border border-border-subtle space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-semibold text-status-flagged">2. Test case chấm thi (Bí mật / Ẩn)</span>
+              <span class="text-[10px] font-mono text-text-muted">Đã tự động gồm ví dụ + 4 test ẩn</span>
+            </div>
+            <div class="space-y-1.5 font-mono text-[11px]">
+              <div class="p-2 rounded bg-surface border border-border-subtle flex items-center justify-between">
+                <span>Test 1: Kế thừa từ Ví dụ</span>
+                <span class="text-brand font-semibold">Tự động nạp</span>
+              </div>
+              <div class="p-2 rounded bg-surface border border-border-subtle flex items-center justify-between">
+                <span>Test 2: N = 10^5 (Giới hạn lớn)</span>
+                <span class="text-status-flagged font-semibold">Test bí mật</span>
+              </div>
+            </div>
+            <button class="w-full py-1.5 rounded bg-elevated border border-border-subtle text-xs text-text-secondary hover:text-text-primary transition-colors">
+              + Nhập thêm test case bí mật
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="w-full py-3 px-6 bg-surface border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

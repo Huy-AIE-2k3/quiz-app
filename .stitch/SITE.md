@@ -32,7 +32,16 @@
 
 ---
 
-## 2. DANH MỤC HỢP ĐỒNG 18 MÀN HÌNH & BIẾN THỂ (SCREEN INVENTORY)
+## 2. DANH MỤC HỢP ĐỒNG MÀN HÌNH (SCREEN INVENTORY: DARK & LIGHT)
+
+> **Ghi chú cập nhật phản hồi (RCM):**
+> 1. Toàn bộ các trang tuân thủ footer chuẩn duy nhất: `Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài`.
+> 2. Triệt để loại bỏ mọi hỗ trợ phím tắt trên toàn bộ các màn hình.
+> 3. Tinh gọn, loại bỏ các box, button và thông số hạ tầng/bảo mật không cần thiết.
+> 4. Màn 6 (`SC-06` - Học sinh xem kết quả chi tiết) đã được lược bỏ khỏi luồng học sinh theo chỉ đạo (học sinh nộp bài ở Màn 5 xong chỉ hiển thị xác nhận và nút quay lại, không xem đáp án/kết quả). File `SC-06` được lưu trữ nội bộ.
+> 5. Toàn bộ 17 màn hình đang hoạt động đều có phiên bản Sáng (Light Mode) đạt chuẩn độ tương phản WCAG AA.
+
+### 2.1. Danh mục Màn hình Dark Mode
 
 | STT | Mã màn hình | Route tương ứng | Nhóm phân quyền | Tên màn hình | File HTML | File PNG | Trạng thái |
 | :---: | :--- | :--- | :---: | :--- | :--- | :--- | :---: |
@@ -42,7 +51,7 @@
 | 4 | `SC-04` | `/s/attempts/:id` | Học sinh | Phòng thi - Không gian làm bài | `design/screens/SC-04-assessment-workspace.html` | `design/screens/SC-04-assessment-workspace.png` | `[x]` |
 | 5 | `SC-04-VAR-OFFLINE` | `/s/attempts/:id#offline` | Học sinh | Phòng thi - Cảnh báo mất mạng & Outbox | `design/screens/SC-04-offline-state.html` | `design/screens/SC-04-offline-state.png` | `[x]` |
 | 6 | `SC-05` | `/s/attempts/:id/done` | Học sinh | Nộp bài thành công | `design/screens/SC-05-exam-submitted.html` | `design/screens/SC-05-exam-submitted.png` | `[x]` |
-| 7 | `SC-06` | `/s/attempts/:id/result` | Học sinh | Kết quả & Lời giải chi tiết | `design/screens/SC-06-exam-result.html` | `design/screens/SC-06-exam-result.png` | `[x]` |
+| 7 | `SC-06` | `/s/attempts/:id/result` | Lưu trữ | Kết quả & Lời giải (Đã lược bỏ khỏi luồng HS) | `design/screens/SC-06-exam-result.html` | `design/screens/SC-06-exam-result.png` | `[x]` |
 | 8 | `SC-07` | `/a` | Giáo viên / Admin | Bảng điều khiển Quản trị | `design/screens/SC-07-admin-dashboard.html` | `design/screens/SC-07-admin-dashboard.png` | `[x]` |
 | 9 | `SC-08` | `/a/classes` | Giáo viên / Admin | Quản lý Lớp học | `design/screens/SC-08-admin-classes.html` | `design/screens/SC-08-admin-classes.png` | `[x]` |
 | 10 | `SC-09` | `/a/classes/:id` | Giáo viên / Admin | Chi tiết Lớp học & Wizard CSV 3 bước | `design/screens/SC-09-class-detail-csv.html` | `design/screens/SC-09-class-detail-csv.png` | `[x]` |
@@ -54,6 +63,28 @@
 | 16 | `SC-15` | `/a/exams/:id/grading` | Giáo viên / Admin | Chấm bài Tự luận (Dual Pane) | `design/screens/SC-15-exam-grading.html` | `design/screens/SC-15-exam-grading.png` | `[x]` |
 | 17 | `SC-16` | `/a/exams/:id/results` | Giáo viên / Admin | Báo cáo Phổ điểm & Xuất CSV | `design/screens/SC-16-exam-analytics.html` | `design/screens/SC-16-exam-analytics.png` | `[x]` |
 | 18 | `SC-17` | `/a/settings` | Giáo viên / Admin | Cài đặt Hệ thống Quản trị | `design/screens/SC-17-admin-settings.html` | `design/screens/SC-17-admin-settings.png` | `[x]` |
+
+### 2.2. Danh mục Màn hình Định dạng Sáng (Light Mode Variants)
+
+| STT | Mã màn hình | Route tương ứng | Nhóm phân quyền | Tên màn hình (Light Mode) | File HTML Sáng | File PNG Sáng | Trạng thái |
+| :---: | :--- | :--- | :---: | :--- | :--- | :--- | :---: |
+| 1 | `SC-01-LIGHT` | `/login` | Public | Đăng nhập Hệ thống (Sáng) | `design/screens/SC-01-login-light.html` | `design/screens/SC-01-login-light.png` | `[x]` |
+| 2 | `SC-02-LIGHT` | `/s/exams` | Học sinh | Danh sách Đề thi của tôi (Sáng) | `design/screens/SC-02-student-exams-light.html` | `design/screens/SC-02-student-exams-light.png` | `[x]` |
+| 3 | `SC-03-LIGHT` | `/s/exams/:id` | Học sinh | Giới thiệu Đề & Quy chế thi (Sáng) | `design/screens/SC-03-exam-lobby-light.html` | `design/screens/SC-03-exam-lobby-light.png` | `[x]` |
+| 4 | `SC-04-LIGHT` | `/s/attempts/:id` | Học sinh | Phòng thi - Không gian làm bài (Sáng) | `design/screens/SC-04-assessment-workspace-light.html` | `design/screens/SC-04-assessment-workspace-light.png` | `[x]` |
+| 5 | `SC-04-VAR-OFFLINE-LIGHT` | `/s/attempts/:id#offline` | Học sinh | Phòng thi - Cảnh báo mất mạng (Sáng) | `design/screens/SC-04-offline-state-light.html` | `design/screens/SC-04-offline-state-light.png` | `[x]` |
+| 6 | `SC-05-LIGHT` | `/s/attempts/:id/done` | Học sinh | Nộp bài thành công (Sáng) | `design/screens/SC-05-exam-submitted-light.html` | `design/screens/SC-05-exam-submitted-light.png` | `[x]` |
+| 7 | `SC-07-LIGHT` | `/a` | Giáo viên / Admin | Bảng điều khiển Quản trị (Sáng) | `design/screens/SC-07-admin-dashboard-light.html` | `design/screens/SC-07-admin-dashboard-light.png` | `[x]` |
+| 8 | `SC-08-LIGHT` | `/a/classes` | Giáo viên / Admin | Quản lý Lớp học (Sáng) | `design/screens/SC-08-admin-classes-light.html` | `design/screens/SC-08-admin-classes-light.png` | `[x]` |
+| 9 | `SC-09-LIGHT` | `/a/classes/:id` | Giáo viên / Admin | Chi tiết Lớp học & CSV (Sáng) | `design/screens/SC-09-class-detail-csv-light.html` | `design/screens/SC-09-class-detail-csv-light.png` | `[x]` |
+| 10 | `SC-10-LIGHT` | `/a/students` | Giáo viên / Admin | Tra cứu Học sinh (Sáng) | `design/screens/SC-10-admin-students-light.html` | `design/screens/SC-10-admin-students-light.png` | `[x]` |
+| 11 | `SC-11-LIGHT` | `/a/exams` | Giáo viên / Admin | Quản lý Đề thi (Sáng) | `design/screens/SC-11-admin-exams-light.html` | `design/screens/SC-11-admin-exams-light.png` | `[x]` |
+| 12 | `SC-12-LIGHT` | `/a/exams/:id/edit` | Giáo viên / Admin | Soạn thảo Đề thi 5 dạng câu (Sáng) | `design/screens/SC-12-exam-editor-light.html` | `design/screens/SC-12-exam-editor-light.png` | `[x]` |
+| 13 | `SC-13-LIGHT` | `/a/exams/:id/preview` | Giáo viên / Admin | Xem trước Đề thi (Sáng) | `design/screens/SC-13-exam-preview-light.html` | `design/screens/SC-13-exam-preview-light.png` | `[x]` |
+| 14 | `SC-14-LIGHT` | `/a/exams/:id/monitor` | Giáo viên / Admin | Giám sát Trực tiếp phòng thi (Sáng) | `design/screens/SC-14-exam-monitor-light.html` | `design/screens/SC-14-exam-monitor-light.png` | `[x]` |
+| 15 | `SC-15-LIGHT` | `/a/exams/:id/grading` | Giáo viên / Admin | Chấm bài Tự luận (Sáng) | `design/screens/SC-15-exam-grading-light.html` | `design/screens/SC-15-exam-grading-light.png` | `[x]` |
+| 16 | `SC-16-LIGHT` | `/a/exams/:id/results` | Giáo viên / Admin | Báo cáo Phổ điểm (Sáng) | `design/screens/SC-16-exam-analytics-light.html` | `design/screens/SC-16-exam-analytics-light.png` | `[x]` |
+| 17 | `SC-17-LIGHT` | `/a/settings` | Giáo viên / Admin | Cài đặt Quản trị (Sáng) | `design/screens/SC-17-admin-settings-light.html` | `design/screens/SC-17-admin-settings-light.png` | `[x]` |
 
 ---
 

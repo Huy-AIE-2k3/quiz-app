@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathrix - Nộp bài thi thành công (Giao diện sáng)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#059669",
+              hover: "#047857",
+            },
+            surface: {
+              canvas: "#F8FAFC",
+              card: "#FFFFFF",
+              elevated: "#0F172A",
+            },
+            line: {
+              subtle: "#E2E8F0",
+              strong: "#CBD5E1"
+            }
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-canvas text-slate-800 font-sans min-h-screen flex flex-col justify-between antialiased selection:bg-brand selection:text-slate-900">
+
+  <!-- Top Minimal Bar -->
+  <header class="h-14 border-b border-line-subtle px-6 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <span class="w-8 h-8 rounded border border-line-strong bg-surface-elevated flex items-center justify-center text-brand font-mono font-bold">
+        Σ
+      </span>
+      <span class="font-display font-bold text-sm text-slate-800">Mathrix</span>
+    </div>
+  </header>
+
+  <!-- Main Centered Content -->
+  <!-- Chỉ hiện: Tên bài thi, Số câu đã trả lời, Thời gian làm bài và Nút quay lại -->
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-[560px] bg-surface-card border border-line-subtle rounded-xl p-8 flex flex-col items-center text-center space-y-6">
+
+      <!-- Success Icon -->
+      <div class="w-14 h-14 rounded-full bg-brand/10 border border-brand/30 flex items-center justify-center text-brand">
+        <i data-lucide="check" class="w-7 h-7 stroke-[2.5]"></i>
+      </div>
+
+      <!-- Headline -->
+      <div class="space-y-1">
+        <h1 class="font-display font-bold text-2xl text-slate-800">
+          Nộp bài thi thành công
+        </h1>
+        <p class="text-sm text-slate-400">
+          Bài làm của bạn đã được hệ thống lưu trữ an toàn.
+        </p>
+      </div>
+
+      <!-- Summary Details: Chỉ hiện Tên bài thi, Số câu đã trả lời, Thời gian làm bài -->
+      <div class="w-full bg-surface-elevated/50 border border-line-subtle rounded-lg p-5 space-y-3.5 text-left font-sans text-sm">
+        <div class="flex items-center justify-between border-b border-line-subtle pb-2.5">
+          <span class="text-slate-400">Tên bài thi</span>
+          <span class="font-semibold text-slate-800 text-right">Khảo sát Chuyên đề Giải tích &amp; C++17</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-line-subtle pb-2.5">
+          <span class="text-slate-400">Số câu đã trả lời</span>
+          <span class="font-mono font-semibold text-brand">50 / 50 câu</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Thời gian làm bài</span>
+          <span class="font-mono text-slate-700">74 phút 12 giây</span>
+        </div>
+      </div>
+
+      <!-- Single Action: Nút quay lại (bỏ tất cả các nội dung còn lại kể cả nút xem đáp án) -->
+      <div class="w-full pt-2">
+        <a href="/s/exams" class="w-full h-11 bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-sm rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer">
+          <i data-lucide="arrow-left" class="w-4 h-4 stroke-[2.2]"></i>
+          <span>Quay lại danh sách đề thi</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="w-full py-4 px-6 border-t border-line-subtle text-center text-xs font-mono text-slate-500">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

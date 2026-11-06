@@ -1,645 +1,325 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mathrix - Đề thi của tôi</title>
-<!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Đề thi của tôi</title>
+  <!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          "colors": {
-            "secondary": "#b9c7e0",
-            "surface-variant": "#2f3632",
-            "surface-bright": "#343b36",
-            "on-secondary": "#233144",
-            "surface": "#0e1511",
-            "on-error-container": "#ffdad6",
-            "inverse-primary": "#006c49",
-            "on-error": "#690005",
-            "on-tertiary-container": "#711419",
-            "on-background": "#dde4dd",
-            "text-muted-dark": "#64748B",
-            "surface-container-lowest": "#09100c",
-            "tertiary-fixed-dim": "#ffb3af",
-            "surface-container-low": "#161d19",
-            "status-correct": "#10B981",
-            "outline": "#86948a",
-            "on-secondary-fixed": "#0d1c2f",
-            "surface-tint": "#4edea3",
-            "inverse-surface": "#dde4dd",
-            "on-tertiary-fixed": "#410005",
-            "secondary-container": "#3c4a5e",
-            "outline-variant": "#3c4a42",
-            "on-secondary-fixed-variant": "#3a485c",
-            "brand-primary-dark": "#10B981",
-            "tertiary-fixed": "#ffdad7",
-            "tertiary": "#ffb3af",
-            "inverse-on-surface": "#2b322d",
-            "on-secondary-container": "#abb9d2",
-            "surface-dark": "#111726",
+          colors: {
+            canvas: "#090D16",
+            surface: "#111726",
+            elevated: "#1A2234",
+            "border-subtle": "#1E293B",
+            "border-strong": "#334155",
+            brand: "#10B981",
+            "brand-hover": "#34D399",
             "status-wrong": "#EF4444",
-            "surface-dim": "#0e1511",
-            "border-strong-dark": "#334155",
-            "secondary-fixed-dim": "#b9c7e0",
-            "on-primary": "#003824",
-            "text-secondary-dark": "#94A3B8",
             "status-flagged": "#F59E0B",
-            "on-tertiary": "#650911",
-            "on-surface-variant": "#bbcabf",
-            "canvas-dark": "#090D16",
-            "background": "#0e1511",
-            "on-primary-fixed": "#002113",
-            "primary": "#4edea3",
-            "on-primary-container": "#00422b",
-            "error-container": "#93000a",
-            "primary-fixed-dim": "#4edea3",
-            "error": "#ffb4ab",
-            "primary-container": "#10b981",
-            "selected-dark": "rgba(16, 185, 129, 0.10)",
-            "elevated-dark": "#1A2234",
-            "surface-container-high": "#242c27",
-            "secondary-fixed": "#d5e3fd",
-            "primary-fixed": "#6ffbbe",
-            "on-surface": "#dde4dd",
-            "tertiary-container": "#fc7c78",
-            "on-primary-fixed-variant": "#005236",
-            "surface-container-highest": "#2f3632",
-            "surface-container": "#1a211d",
-            "brand-hover-dark": "#34D399",
-            "text-primary-dark": "#F1F5F9",
-            "on-tertiary-fixed-variant": "#842225",
-            "border-subtle-dark": "#1E293B"
+            "text-primary": "#F1F5F9",
+            "text-secondary": "#94A3B8",
+            "text-muted": "#64748B"
           },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
-          },
-          "spacing": {
-            "space-xs": "0.25rem",
-            "space-xl": "2rem",
-            "space-md": "1rem",
-            "space-sm": "0.5rem",
-            "margin": "2rem",
-            "gutter": "1.5rem",
-            "space-lg": "1.5rem"
-          },
-          "fontFamily": {
-            "headline-sm": [
-              "Space Grotesk", "sans-serif"
-            ],
-            "body-md": [
-              "Be Vietnam Pro", "sans-serif"
-            ],
-            "body-lg": [
-              "Be Vietnam Pro", "sans-serif"
-            ],
-            "tabular": [
-              "Space Grotesk", "monospace"
-            ],
-            "headline-md": [
-              "Space Grotesk", "sans-serif"
-            ],
-            "headline-lg": [
-              "Space Grotesk", "sans-serif"
-            ],
-            "code": [
-              "JetBrains Mono", "monospace"
-            ]
-          },
-          "fontSize": {
-            "headline-sm": [
-              "18px",
-              {
-                "lineHeight": "1.4",
-                "fontWeight": "500"
-              }
-            ],
-            "body-md": [
-              "15px",
-              {
-                "lineHeight": "1.6",
-                "fontWeight": "400"
-              }
-            ],
-            "body-lg": [
-              "17px",
-              {
-                "lineHeight": "1.8",
-                "fontWeight": "400"
-              }
-            ],
-            "tabular": [
-              "14px",
-              {
-                "lineHeight": "1.4",
-                "fontWeight": "500"
-              }
-            ],
-            "headline-md": [
-              "24px",
-              {
-                "lineHeight": "1.3",
-                "fontWeight": "600"
-              }
-            ],
-            "headline-lg": [
-              "32px",
-              {
-                "lineHeight": "1.2",
-                "fontWeight": "600"
-              }
-            ],
-            "code": [
-              "14px",
-              {
-                "lineHeight": "1.6",
-                "fontWeight": "400"
-              }
-            ]
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           }
-        },
-      },
-    }
+        }
+      }
+    };
   </script>
-<style>
+  <style>
     .mathrix-grid {
-      background-image: linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+      background-color: #090D16;
+      background-image: 
+        linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
       background-size: 32px 32px;
     }
   </style>
 </head>
-<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md min-h-screen flex flex-col antialiased mathrix-grid selection:bg-brand-primary-dark selection:text-canvas-dark">
-<!-- TopNavBar (Shared Component JSON Blueprint) -->
-<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
-<!-- Brand / Logo & Navigation Links -->
-<div class="flex items-center gap-8 h-full">
-<a class="flex items-center gap-2.5 font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight focus:outline-none" href="/s/exams">
-<!-- Technical Sigma / Matrix Glyph Icon -->
-<span class="w-7 h-7 rounded border border-border-strong-dark bg-elevated-dark flex items-center justify-center text-brand-primary-dark">
-<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
-<path d="M4 4h16v3.5h-9.5l5.5 5.5-5.5 5.5H20V22H4l8-8L4 6V4z"></path>
-</svg>
-</span>
-<span>Mathrix</span>
-</a>
-<!-- Navigation links (Strict labels from JSON) -->
-<nav class="hidden md:flex items-center gap-6 h-full pt-3.5">
-<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 flex items-center gap-1.5" href="/s/exams">
-<span>Đề thi</span>
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5" href="/s/practice">
-          Luyện tập
+<body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased mathrix-grid">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-6 bg-canvas/90 backdrop-blur border-b border-border-subtle">
+    <!-- Brand Logo & Navigation Links -->
+    <div class="flex items-center gap-8 h-full">
+      <a class="flex items-center gap-2.5 font-display text-lg font-bold text-text-primary tracking-tight focus:outline-none" href="/s/exams">
+        <span class="w-8 h-8 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
+          Σ
+        </span>
+        <span>Mathrix</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 h-full pt-3.5">
+        <a class="text-brand border-b-2 border-brand font-medium pb-3.5 flex items-center gap-1.5" href="/s/exams">
+          <span>Đề thi</span>
         </a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5" href="/s/results">
-          Kết quả
-        </a>
-</nav>
-</div>
-<!-- Trailing Actions & Student Profile -->
-<div class="flex items-center gap-4">
-<!-- Network / Telemetry Status -->
-<div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark font-code text-xs">
-<span class="w-2 h-2 rounded-full bg-brand-primary-dark animate-pulse"></span>
-<span>Đã đồng bộ máy chủ</span>
-<span class="text-text-muted-dark">•</span>
-<span class="text-brand-primary-dark">14ms</span>
-</div>
-<!-- Trailing icon actions from JSON: wifi, dark_mode -->
-<div class="flex items-center gap-1">
-<button aria-label="Wifi" class="p-1.5 text-text-secondary-dark hover:text-primary transition-colors rounded border border-transparent hover:border-border-subtle-dark focus:outline-none" title="Kết nối mạng ổn định">
-<span class="material-symbols-outlined text-lg leading-none" data-icon="wifi">wifi</span>
-</button>
-<button aria-label="Giao diện tối" class="p-1.5 text-text-secondary-dark hover:text-primary transition-colors rounded border border-transparent hover:border-border-subtle-dark focus:outline-none" title="Chế độ giao diện">
-<span class="material-symbols-outlined text-lg leading-none" data-icon="dark_mode">dark_mode</span>
-</button>
-</div>
-<div class="h-4 w-px bg-border-subtle-dark hidden sm:block"></div>
-<!-- Student profile chip (trailing_secondary_action: Nguyễn Văn An - 12A1) -->
-<div class="flex items-center gap-2.5 pl-1">
-<div class="w-7 h-7 rounded bg-selected-dark border border-brand-primary-dark/40 text-brand-primary-dark font-code text-xs font-semibold flex items-center justify-center tracking-tight">
+      </nav>
+    </div>
+
+    <!-- Student Profile & Logout -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded bg-brand/10 border border-brand/40 text-brand font-mono text-xs font-semibold flex items-center justify-center">
           AN
         </div>
-<div class="hidden sm:flex flex-col text-left">
-<span class="font-body-md text-sm font-medium text-text-primary-dark leading-tight">Nguyễn Văn An - 12A1</span>
-<span class="font-code text-[11px] text-text-muted-dark leading-tight">SBD: 120482</span>
-</div>
-</div>
-<!-- Logout Button (trailing_primary_action: Đăng xuất) -->
-<a class="flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-subtle-dark bg-elevated-dark text-text-secondary-dark hover:text-status-wrong hover:border-status-wrong/40 text-xs font-code font-medium transition-colors" href="/logout">
-<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
-<span class="hidden md:inline">Đăng xuất</span>
-</a>
-</div>
-</header>
-<!-- Main Canvas Content -->
-<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-gutter py-6 flex flex-col gap-6">
-<!-- Page Header & Control Toolbar -->
-<section class="flex flex-col gap-4">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-border-subtle-dark pb-4">
-<div>
-<div class="flex items-center gap-2 mb-1">
-<span class="font-code text-xs text-brand-primary-dark uppercase tracking-wider font-semibold">Cổng Khảo Thí Học Sinh</span>
-<span class="text-text-muted-dark font-code text-xs">•</span>
-<span class="font-code text-xs text-text-muted-dark">Học kỳ II / 2024 - 2025</span>
-</div>
-<h1 class="font-headline-lg text-headline-lg text-text-primary-dark tracking-tight">Đề thi của tôi</h1>
-<p class="text-text-secondary-dark font-body-md text-sm mt-0.5">Kỳ thi Khảo sát Năng lực Chuyên biệt &amp; Đánh giá Định kỳ năm học 2024 - 2025</p>
-</div>
-<!-- Quick Telemetry Counters -->
-<div class="flex items-center gap-3 font-code text-xs">
-<div class="px-3 py-1.5 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark">
-            Mã định danh: <span class="text-text-primary-dark font-semibold">HS-HN-120482</span>
-</div>
-<div class="px-3 py-1.5 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-            Phòng giám sát số 4
+        <div class="hidden sm:flex flex-col text-left">
+          <span class="text-sm font-medium text-text-primary leading-tight">Nguyễn Văn An - 12A1</span>
+          <span class="font-mono text-[11px] text-text-muted leading-tight">SBD: 120482</span>
+        </div>
+      </div>
+      <div class="h-4 w-px bg-border-subtle hidden sm:block"></div>
+      <a class="flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-subtle bg-elevated text-text-secondary hover:text-status-wrong hover:border-status-wrong/40 text-xs font-mono font-medium transition-colors" href="/login">
+        <span class="material-symbols-outlined text-sm">logout</span>
+        <span class="hidden md:inline">Đăng xuất</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Canvas Content -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+    <!-- Page Header -->
+    <section class="flex flex-col gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-border-subtle pb-4">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-text-primary tracking-tight">Đề thi của tôi</h1>
+          <p class="text-text-secondary text-sm mt-0.5">Danh sách các bài thi được phân công</p>
+        </div>
+      </div>
+
+      <!-- Controls & Search Toolbar -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+        <!-- Search Input -->
+        <div class="md:col-span-8 relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+            <span class="material-symbols-outlined text-lg">search</span>
           </div>
-</div>
-</div>
-<!-- Controls & Search Toolbar -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-<!-- Search Input with shortcut hint -->
-<div class="md:col-span-6 relative">
-<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-dark">
-<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
-</div>
-<input class="w-full h-10 pl-9 pr-14 bg-surface-dark border border-border-subtle-dark text-text-primary-dark placeholder:text-text-muted-dark rounded text-sm font-body-md focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark focus:outline-none transition-colors" placeholder="Tìm kiếm mã đề hoặc chuyên đề thi..." type="text"/>
-<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
-<kbd class="font-code text-[11px] px-1.5 py-0.5 rounded border border-border-strong-dark bg-elevated-dark text-text-secondary-dark">
-              /
-            </kbd>
-</div>
-</div>
-<!-- Subject Filter Segmented/Pill buttons -->
-<div class="md:col-span-4 flex items-center p-0.5 rounded bg-surface-dark border border-border-subtle-dark">
-<button class="flex-1 py-1.5 px-3 rounded text-xs font-body-md font-medium text-brand-primary-dark bg-selected-dark border border-brand-primary-dark/30 transition-all text-center">
+          <input class="w-full h-10 pl-9 pr-4 bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted rounded text-sm font-sans focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-colors" placeholder="Tìm kiếm tên bài thi..." type="text"/>
+        </div>
+
+        <!-- Subject Filter -->
+        <div class="md:col-span-4 flex items-center p-0.5 rounded bg-surface border border-border-subtle">
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-brand bg-brand/10 border border-brand/30 text-center">
             Tất cả
           </button>
-<button class="flex-1 py-1.5 px-3 rounded text-xs font-body-md font-medium text-text-secondary-dark hover:text-text-primary-dark transition-colors text-center">
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
             Toán học
           </button>
-<button class="flex-1 py-1.5 px-3 rounded text-xs font-body-md font-medium text-text-secondary-dark hover:text-text-primary-dark transition-colors text-center">
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
             Tin học
           </button>
-</div>
-<!-- Sorter & Grid view action -->
-<div class="md:col-span-2 flex items-center justify-end gap-2">
-<button class="w-full h-10 px-3 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark text-xs font-body-md flex items-center justify-between transition-colors">
-<span class="truncate">Hạn chót gần nhất</span>
-<span class="material-symbols-outlined text-sm ml-1" data-icon="expand_more">expand_more</span>
-</button>
-</div>
-</div>
-</section>
-<!-- Status Tabs -->
-<section class="border-b border-border-subtle-dark flex items-center gap-6">
-<button class="pb-3 border-b-2 border-brand-primary-dark text-brand-primary-dark font-headline-sm text-sm font-semibold flex items-center gap-2">
-<span>Đang diễn ra</span>
-<span class="px-1.5 py-0.2 rounded font-code text-xs bg-selected-dark text-brand-primary-dark border border-brand-primary-dark/40 font-bold">1</span>
-</button>
-<button class="pb-3 border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark font-body-md text-sm font-medium flex items-center gap-2 transition-colors">
-<span>Sắp tới</span>
-<span class="px-1.5 py-0.2 rounded font-code text-xs bg-surface-dark text-text-muted-dark border border-border-subtle-dark">2</span>
-</button>
-<button class="pb-3 border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark font-body-md text-sm font-medium flex items-center gap-2 transition-colors">
-<span>Đã hoàn thành</span>
-<span class="px-1.5 py-0.2 rounded font-code text-xs bg-surface-dark text-text-muted-dark border border-border-subtle-dark">8</span>
-</button>
-</section>
-<!-- Bento Grid 8:4 Desktop Workspace -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-<!-- LEFT COLUMN: Exam Cards (8 cols) -->
-<div class="lg:col-span-8 flex flex-col gap-5">
-<!-- Card 1 (Active Exam - Primary Bento Hero Card) -->
-<article class="relative p-5 sm:p-6 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-brand-primary-dark/60 transition-colors flex flex-col gap-4 group">
-<!-- Top Row Badges -->
-<div class="flex flex-wrap items-center justify-between gap-2">
-<div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded font-code text-xs font-semibold bg-selected-dark text-brand-primary-dark border border-brand-primary-dark/40 flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-                [TOÁN HỌC]
-              </span>
-<span class="px-2.5 py-0.5 rounded font-code text-xs font-semibold bg-selected-dark text-brand-primary-dark border border-brand-primary-dark/40 flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-brand-primary-dark animate-ping"></span>
-                ĐANG MỞ PHÒNG THI
-              </span>
-</div>
-<!-- Active Countdown Pill -->
-<div class="flex items-center gap-2 px-3 py-1 rounded bg-canvas-dark border border-brand-primary-dark/40 text-brand-primary-dark font-code text-xs">
-<span class="material-symbols-outlined text-sm animate-pulse" data-icon="timer">timer</span>
-<span class="text-text-secondary-dark font-body-md">Thời gian còn lại:</span>
-<span class="font-tabular font-bold text-sm tracking-wide">01:24:35</span>
-</div>
-</div>
-<!-- Title & Exam Code -->
-<div>
-<h2 class="font-headline-md text-xl sm:text-2xl font-bold text-text-primary-dark tracking-tight group-hover:text-primary transition-colors">
-              Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz
-            </h2>
-<div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-text-secondary-dark">
-<span class="font-code text-text-muted-dark">Mã đề:</span>
-<span class="font-code text-text-primary-dark bg-elevated-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">MATH-12-OXYZ-04</span>
-<span>•</span>
-<span class="font-body-md text-text-muted-dark">Ban Giám khảo Trung tâm Khảo thí Quốc gia</span>
-</div>
-</div>
-<!-- Meta specifications badges -->
-<div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle-dark/70 font-code text-xs">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-base text-text-muted-dark" data-icon="quiz">quiz</span>
-<span>50 câu hỏi</span>
-</div>
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-base text-text-muted-dark" data-icon="schedule">schedule</span>
-<span>90 phút làm bài</span>
-</div>
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-base text-text-muted-dark" data-icon="grade">grade</span>
-<span>Thang điểm 10.0</span>
-</div>
-</div>
-<!-- Proctoring status notice -->
-<div class="flex items-center gap-2 p-2.5 rounded bg-canvas-dark border border-border-subtle-dark font-body-md text-xs text-text-secondary-dark">
-<span class="material-symbols-outlined text-sm text-status-flagged" data-icon="security">security</span>
-<span>Chưa nộp bài • Phòng thi ảo <strong class="text-text-primary-dark font-code">P.204</strong> • Giám sát Camera &amp; Tab Lock bật</span>
-</div>
-<!-- Actions Footer -->
-<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
-<button class="font-code text-xs text-text-muted-dark hover:text-text-primary-dark flex items-center gap-1.5 py-2">
-<span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
-<span>Xem quy chế phòng thi</span>
-<kbd class="px-1 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-[10px]">F1</kbd>
-</button>
-<a class="h-11 px-6 rounded bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition-colors active:scale-[0.99]" href="/s/exam/MATH-12-OXYZ-04">
-<span>Vào thi ngay</span>
-<span class="material-symbols-outlined text-base font-bold" data-icon="arrow_forward">arrow_forward</span>
-</a>
-</div>
-</article>
-<!-- Card 2 (Upcoming Exam - CS) -->
-<article class="p-5 sm:p-6 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark transition-colors flex flex-col gap-3.5">
-<div class="flex flex-wrap items-center justify-between gap-2">
-<div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded font-code text-xs font-semibold bg-secondary-container/40 text-secondary border border-secondary-container flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                [TIN HỌC]
-              </span>
-<span class="px-2.5 py-0.5 rounded font-code text-xs font-medium text-secondary bg-surface-dark border border-border-subtle-dark">
-                BẮT ĐẦU SAU 2 NGÀY
-              </span>
-</div>
-<span class="font-code text-xs text-text-muted-dark">Hạn đăng ký: Đã xác nhận</span>
-</div>
-<div>
-<h2 class="font-headline-sm text-lg sm:text-xl font-semibold text-text-primary-dark">
-              Lập trình C++ và Cấu trúc dữ liệu nâng cao
-            </h2>
-<div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-text-secondary-dark">
-<span class="font-code text-text-muted-dark">Mã đề:</span>
-<span class="font-code text-text-primary-dark bg-elevated-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">CS-OLYMP-2024</span>
-<span>•</span>
-<span class="font-body-md text-text-muted-dark">4 bài toán thuật toán (I/O, Graph, DP)</span>
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 border-y border-border-subtle-dark/50 font-code text-xs text-text-secondary-dark">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark" data-icon="schedule">schedule</span>
-<span>180 phút</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark" data-icon="terminal">terminal</span>
-<span>GNU C++17 / Clang</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark" data-icon="calendar_today">calendar_today</span>
-<span>08:00 - Thứ Bảy (18/05)</span>
-</div>
-</div>
-<div class="flex items-center justify-between gap-3 pt-1">
-<span class="font-code text-xs text-text-muted-dark flex items-center gap-1">
-<span class="material-symbols-outlined text-xs" data-icon="lock_clock">lock_clock</span>
-              Mở cổng phòng thi đúng 07:45
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Tabs -->
+    <section class="border-b border-border-subtle flex items-center gap-6">
+      <button class="pb-3 border-b-2 border-brand text-brand text-sm font-semibold flex items-center gap-2">
+        <span>Đang diễn ra</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-brand/10 text-brand border border-brand/40 font-bold">1</span>
+      </button>
+      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+        <span>Chưa đến hạn</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
+      </button>
+      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+        <span>Đã làm</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
+      </button>
+    </section>
+
+    <!-- Bento Grid Workspace: Left (Cards 8 cols) & Right (Lịch thi 4 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- LEFT COLUMN: Exam Cards (8 cols) -->
+      <div class="lg:col-span-8 flex flex-col gap-5">
+
+        <!-- Card 1: VÀO LÀM BÀI (Màu xanh lá cây) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle hover:border-brand/60 transition-colors flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-brand/10 text-brand border border-brand/40">
+              TOÁN HỌC
             </span>
-<button class="h-9 px-4 rounded bg-elevated-dark border border-border-subtle-dark text-text-muted-dark font-body-md text-xs font-medium cursor-not-allowed flex items-center gap-1.5" disabled="">
-<span class="material-symbols-outlined text-sm" data-icon="notifications">notifications</span>
-<span>Đặt lịch nhắc nhở</span>
-</button>
-</div>
-</article>
-<!-- Card 3 (Upcoming Exam 2 - Math) -->
-<article class="p-5 sm:p-6 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark transition-colors flex flex-col gap-3.5">
-<div class="flex flex-wrap items-center justify-between gap-2">
-<div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded font-code text-xs font-semibold bg-selected-dark text-brand-primary-dark border border-brand-primary-dark/40 flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-                [TOÁN HỌC]
-              </span>
-<span class="px-2.5 py-0.5 rounded font-code text-xs font-medium text-text-secondary-dark bg-surface-dark border border-border-subtle-dark">
-                BẮT ĐẦU SAU 5 NGÀY (21/05)
-              </span>
-</div>
-<span class="font-code text-xs text-text-muted-dark">Đề thi tập trung</span>
-</div>
-<div>
-<h2 class="font-headline-sm text-lg sm:text-xl font-semibold text-text-primary-dark">
-              Đại số Tuyến tính &amp; Xác suất Thống kê Đại cương
-            </h2>
-<div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-text-secondary-dark">
-<span class="font-code text-text-muted-dark">Mã đề:</span>
-<span class="font-code text-text-primary-dark bg-elevated-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">MATH-STAT-02</span>
-<span>•</span>
-<span class="font-body-md text-text-muted-dark">40 câu hỏi trắc nghiệm &amp; điền số tự do</span>
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 py-2 border-y border-border-subtle-dark/50 font-code text-xs text-text-secondary-dark">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark" data-icon="schedule">schedule</span>
-<span>60 phút làm bài</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark" data-icon="calculate">calculate</span>
-<span>Được phép dùng máy tính cầm tay FX-580</span>
-</div>
-</div>
-<div class="flex items-center justify-between gap-3 pt-1">
-<a class="font-body-md text-xs text-brand-primary-dark hover:underline flex items-center gap-1" href="#syllabus">
-<span class="material-symbols-outlined text-sm" data-icon="menu_book">menu_book</span>
-<span>Xem đề cương ôn tập</span>
-</a>
-<button class="h-9 px-4 rounded bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark font-body-md text-xs transition-colors">
-              Chi tiết kỳ thi
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>50 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>90 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Vào làm bài (Màu xanh lá cây) -->
+          <div class="flex items-center justify-end pt-1">
+            <a class="h-10 px-6 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer" href="/s/exams/1">
+              <span>Vào làm bài</span>
+              <span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 2: ĐÃ LÀM (Màu đỏ) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-status-wrong/10 text-status-wrong border border-status-wrong/40">
+              TIN HỌC
+            </span>
+            <span class="font-mono text-xs text-status-wrong font-medium">Đã hoàn thành bài nộp</span>
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Lập trình C++ và Cấu trúc dữ liệu nâng cao
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>40 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>120 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Đã làm (Màu đỏ) -->
+          <div class="flex items-center justify-end pt-1">
+            <button class="h-10 px-6 rounded-lg bg-status-wrong/20 text-status-wrong border border-status-wrong/50 font-semibold text-sm flex items-center justify-center gap-2 cursor-default">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              <span>Đã làm</span>
             </button>
-</div>
-</article>
-</div>
-<!-- RIGHT COLUMN: Supplementary Bento Widgets (4 cols) -->
-<aside class="lg:col-span-4 flex flex-col gap-5">
-<!-- Student Academic Progress Bento Widget -->
-<div class="p-5 rounded-lg bg-surface-dark border border-border-subtle-dark flex flex-col gap-4">
-<div class="flex items-center justify-between border-b border-border-subtle-dark pb-3">
-<h3 class="font-headline-sm text-sm font-semibold text-text-primary-dark flex items-center gap-2">
-<span class="material-symbols-outlined text-brand-primary-dark text-lg" data-icon="analytics">analytics</span>
-              Tiến độ học tập
-            </h3>
-<span class="font-code text-xs text-brand-primary-dark bg-selected-dark px-2 py-0.5 rounded border border-brand-primary-dark/30">Học lực: Giỏi</span>
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div class="p-3 rounded bg-canvas-dark border border-border-subtle-dark flex flex-col">
-<span class="font-body-md text-xs text-text-muted-dark">Điểm trung bình</span>
-<span class="font-tabular text-2xl font-bold text-brand-primary-dark mt-1">8.8<span class="text-xs text-text-muted-dark font-normal"> / 10</span></span>
-<span class="font-code text-[11px] text-text-secondary-dark mt-1">Đã thi 8 bài</span>
-</div>
-<div class="p-3 rounded bg-canvas-dark border border-border-subtle-dark flex flex-col">
-<span class="font-body-md text-xs text-text-muted-dark">Xếp hạng Khối 12</span>
-<span class="font-tabular text-2xl font-bold text-text-primary-dark mt-1">#14<span class="text-xs text-text-muted-dark font-normal"> / 450</span></span>
-<span class="font-code text-[11px] text-brand-primary-dark mt-1">Top 3.1% toàn trường</span>
-</div>
-</div>
-<div class="flex flex-col gap-2 pt-1 font-body-md text-xs">
-<div class="flex justify-between text-text-secondary-dark">
-<span>Độ chính xác Toán học</span>
-<span class="font-code text-text-primary-dark font-medium">91.4%</span>
-</div>
-<div class="w-full h-1.5 bg-canvas-dark rounded-full overflow-hidden border border-border-subtle-dark">
-<div class="h-full bg-brand-primary-dark w-[91.4%]"></div>
-</div>
-<div class="flex justify-between text-text-secondary-dark mt-1">
-<span>Độ chính xác Tin học</span>
-<span class="font-code text-text-primary-dark font-medium">84.2%</span>
-</div>
-<div class="w-full h-1.5 bg-canvas-dark rounded-full overflow-hidden border border-border-subtle-dark">
-<div class="h-full bg-secondary w-[84.2%]"></div>
-</div>
-</div>
-</div>
-<!-- Hardware & Security Diagnostics Widget -->
-<div class="p-5 rounded-lg bg-surface-dark border border-border-subtle-dark flex flex-col gap-3.5">
-<div class="flex items-center justify-between border-b border-border-subtle-dark pb-3">
-<h3 class="font-headline-sm text-sm font-semibold text-text-primary-dark flex items-center gap-2">
-<span class="material-symbols-outlined text-brand-primary-dark text-lg" data-icon="verified_user">verified_user</span>
-              Kiểm tra thiết bị &amp; Môi trường
-            </h3>
-<span class="w-2 h-2 rounded-full bg-brand-primary-dark"></span>
-</div>
-<div class="flex flex-col gap-2.5 font-code text-xs">
-<div class="flex items-center justify-between p-2 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-sm text-brand-primary-dark" data-icon="videocam">videocam</span>
-<span>Camera giám sát</span>
-</div>
-<span class="text-brand-primary-dark font-semibold">SẴN SÀNG</span>
-</div>
-<div class="flex items-center justify-between p-2 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-sm text-brand-primary-dark" data-icon="mic">mic</span>
-<span>Micro thu âm</span>
-</div>
-<span class="text-brand-primary-dark font-semibold">CHUẨN ĐỘ OK</span>
-</div>
-<div class="flex items-center justify-between p-2 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-sm text-brand-primary-dark" data-icon="speed">speed</span>
-<span>Băng thông máy chủ</span>
-</div>
-<span class="text-text-primary-dark">42ms (Rất tốt)</span>
-</div>
-<div class="flex items-center justify-between p-2 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="material-symbols-outlined text-sm text-brand-primary-dark" data-icon="screen_lock_rotation">screen_lock_rotation</span>
-<span>Khóa chuyển tab (Anti-Cheat)</span>
-</div>
-<span class="text-brand-primary-dark">BẬT</span>
-</div>
-</div>
-<p class="font-body-md text-[11px] text-text-muted-dark leading-relaxed">
-            Hệ thống tự động ghi nhận dữ liệu thi và chụp hình đối chiếu khuôn mặt ngẫu nhiên mỗi 3 phút.
-          </p>
-</div>
-<!-- Upcoming Schedule Mini-Calendar Widget -->
-<div class="p-5 rounded-lg bg-surface-dark border border-border-subtle-dark flex flex-col gap-3">
-<div class="flex items-center justify-between border-b border-border-subtle-dark pb-2.5">
-<h3 class="font-headline-sm text-sm font-semibold text-text-primary-dark flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary text-lg" data-icon="event">event</span>
+          </div>
+        </article>
+
+        <!-- Card 3: CHƯA ĐẾN HẠN LÀM (Tối mờ disabled) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle opacity-75 flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-border-subtle text-text-muted border border-border-strong">
+              TOÁN HỌC
+            </span>
+            <span class="font-mono text-xs text-text-muted">Mở vào 08:00 ngày 21/05</span>
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Đại số Tuyến tính &amp; Xác suất Thống kê Đại cương
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>40 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>60 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Chưa đến hạn làm (Tối mờ disabled) -->
+          <div class="flex items-center justify-end pt-1">
+            <button class="h-10 px-6 rounded-lg bg-elevated border border-border-subtle text-text-muted font-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed" disabled>
+              <span class="material-symbols-outlined text-base">lock</span>
+              <span>Chưa đến hạn làm</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- RIGHT COLUMN: CHỈ GIỮ CARD LỊCH THI (4 cols) -->
+      <aside class="lg:col-span-4 flex flex-col gap-5">
+        <div class="p-5 rounded-xl bg-surface border border-border-subtle flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+            <h3 class="font-display text-sm font-semibold text-text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined text-brand text-lg">event</span>
               Lịch thi đợt này
             </h3>
-<span class="font-code text-xs text-text-muted-dark">Tháng 05/2025</span>
-</div>
-<div class="flex flex-col gap-2 font-body-md text-xs">
-<div class="flex items-start gap-3 p-2 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex flex-col items-center justify-center w-10 py-1 bg-selected-dark border border-brand-primary-dark/30 rounded font-code">
-<span class="text-[10px] text-text-muted-dark">T.5</span>
-<span class="text-sm font-bold text-brand-primary-dark leading-tight">16</span>
-</div>
-<div class="flex-1 truncate">
-<p class="font-medium text-text-primary-dark truncate">Tích phân &amp; Oxyz</p>
-<p class="text-text-muted-dark font-code text-[11px]">08:30 • P.204</p>
-</div>
-<span class="px-1.5 py-0.5 rounded font-code text-[10px] bg-brand-primary-dark text-canvas-dark font-bold">HÔM NAY</span>
-</div>
-<div class="flex items-start gap-3 p-2 rounded bg-canvas-dark border border-border-subtle-dark opacity-80">
-<div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated-dark border border-border-subtle-dark rounded font-code">
-<span class="text-[10px] text-text-muted-dark">T.7</span>
-<span class="text-sm font-bold text-text-secondary-dark leading-tight">18</span>
-</div>
-<div class="flex-1 truncate">
-<p class="font-medium text-text-primary-dark truncate">Lập trình C++ Nâng cao</p>
-<p class="text-text-muted-dark font-code text-[11px]">08:00 • Lab CS-3</p>
-</div>
-</div>
-<div class="flex items-start gap-3 p-2 rounded bg-canvas-dark border border-border-subtle-dark opacity-80">
-<div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated-dark border border-border-subtle-dark rounded font-code">
-<span class="text-[10px] text-text-muted-dark">T.3</span>
-<span class="text-sm font-bold text-text-secondary-dark leading-tight">21</span>
-</div>
-<div class="flex-1 truncate">
-<p class="font-medium text-text-primary-dark truncate">Đại số Tuyến tính &amp; XS</p>
-<p class="text-text-muted-dark font-code text-[11px]">14:00 • P.102</p>
-</div>
-</div>
-</div>
-</div>
-</aside>
-</div>
-</main>
-<!-- Bottom Technical Bar -->
-<footer class="mt-auto w-full h-8 px-gutter bg-canvas-dark border-t border-border-subtle-dark flex items-center justify-between text-text-muted-dark font-code text-xs select-none">
-<div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-<span>Đã đồng bộ máy chủ (12ms)</span>
-<span>•</span>
-<span>TLS 1.3</span>
-<span>•</span>
-<span class="hidden sm:inline">Hệ thống khảo thí Mathrix v2.4.0-stable</span>
-</div>
-<div class="hidden md:flex items-center gap-4 text-[11px]">
-<span>Phím tắt:</span>
-<span class="flex items-center gap-1">
-<kbd class="px-1 py-0.2 rounded border border-border-strong-dark bg-elevated-dark text-text-secondary-dark">[/]</kbd>
-<span>Tìm kiếm</span>
-</span>
-<span class="flex items-center gap-1">
-<kbd class="px-1 py-0.2 rounded border border-border-strong-dark bg-elevated-dark text-text-secondary-dark">Tab</kbd>
-<span>Chuyển thẻ</span>
-</span>
-<span class="flex items-center gap-1">
-<kbd class="px-1 py-0.2 rounded border border-border-strong-dark bg-elevated-dark text-text-secondary-dark">Esc</kbd>
-<span>Đóng cửa sổ</span>
-</span>
-</div>
-</footer>
-</body></html>
+            <span class="font-mono text-xs text-text-muted">Tháng 05/2026</span>
+          </div>
+
+          <div class="flex flex-col gap-2.5 font-sans text-xs">
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-brand/10 border border-brand/30 rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.5</span>
+                <span class="text-sm font-bold text-brand leading-tight">16</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Tích phân &amp; Oxyz</p>
+                <p class="text-text-muted font-mono text-[11px]">08:30 • Ca 1</p>
+              </div>
+              <span class="px-2 py-0.5 rounded font-mono text-[10px] bg-brand text-canvas font-bold">HÔM NAY</span>
+            </div>
+
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated border border-border-subtle rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.7</span>
+                <span class="text-sm font-bold text-text-secondary leading-tight">18</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Lập trình C++ Nâng cao</p>
+                <p class="text-text-muted font-mono text-[11px]">08:00 • Ca 2</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated border border-border-subtle rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.3</span>
+                <span class="text-sm font-bold text-text-secondary leading-tight">21</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Đại số Tuyến tính &amp; XS</p>
+                <p class="text-text-muted font-mono text-[11px]">14:00 • Ca 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-canvas border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

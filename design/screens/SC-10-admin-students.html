@@ -177,24 +177,11 @@
 </a>
 </nav>
 </div>
-<!-- Sidebar Bottom Status Widget -->
-<div class="p-3 border-t border-border-subtle-dark flex flex-col gap-2.5">
-<div class="p-3 rounded-lg bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center justify-between text-xs mb-1.5">
-<span class="text-text-muted-dark font-body-md">Hạ tầng khảo thí</span>
-<span class="inline-flex items-center gap-1 font-code text-brand-primary-dark font-medium">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark animate-pulse"></span>
-            14ms
-          </span>
+<!-- Bottom Sidebar Profile/Info -->
+<div class="p-3 border-t border-border-subtle-dark">
+<div class="px-3 py-2 text-xs font-mono text-text-muted-dark text-center">
+  Mathrix Admin
 </div>
-<div class="text-[12px] font-code text-text-secondary-dark truncate">
-          Socket v2.4 đã đồng bộ
-        </div>
-</div>
-<a class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted-dark hover:text-text-primary-dark text-xs transition-colors" href="#">
-<span class="material-symbols-outlined text-[18px]">help_outline</span>
-<span class="font-body-md">Tài liệu &amp; Hướng dẫn</span>
-</a>
 </div>
 </aside>
 <!-- MAIN WORKSPACE -->
@@ -207,15 +194,12 @@
 <span class="text-text-muted-dark font-code">/</span>
 <span class="text-text-primary-dark font-medium">Học sinh</span>
 </nav>
-<!-- Center Hotkey Search Bar -->
+<!-- Center Search Bar -->
 <div class="relative w-80 max-w-sm hidden lg:block">
 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-dark">
 <span class="material-symbols-outlined text-[18px]">search</span>
 </div>
-<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-1.5 pl-9 pr-14 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm đề thi hoặc học sinh..." type="text"/>
-<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
-<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-elevated-dark text-text-muted-dark border border-border-subtle-dark rounded">ctrl K</kbd>
-</div>
+<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-1.5 pl-9 pr-4 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm đề thi hoặc học sinh..." type="text"/>
 </div>
 <!-- Trailing Action Controls & Profile -->
 <div class="flex items-center gap-2.5">
@@ -276,10 +260,6 @@
 <span class="font-tabular text-2xl lg:text-3xl font-bold text-text-primary-dark tracking-tight">420</span>
 <span class="text-xs text-text-secondary-dark font-code">học sinh</span>
 </div>
-<div class="mt-2 text-xs font-code text-brand-primary-dark flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">check_circle</span>
-<span>100% tài khoản đã cấp</span>
-</div>
 </div>
 <!-- Metric 2 -->
 <div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
@@ -290,10 +270,6 @@
 <div class="flex items-baseline gap-2">
 <span class="font-tabular text-2xl lg:text-3xl font-bold text-primary tracking-tight">408</span>
 <span class="text-xs text-text-secondary-dark font-code">/ 420 HS</span>
-</div>
-<div class="mt-2 text-xs font-code text-text-secondary-dark flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px] text-brand-primary-dark">trending_up</span>
-<span>97.1% online tuần này</span>
 </div>
 </div>
 <!-- Metric 3 -->
@@ -306,10 +282,6 @@
 <span class="font-tabular text-2xl lg:text-3xl font-bold text-text-primary-dark tracking-tight">8.42</span>
 <span class="text-xs text-text-secondary-dark font-code">/ 10</span>
 </div>
-<div class="mt-2 text-xs font-code text-brand-primary-dark flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-<span>+0.35 so với học kỳ I</span>
-</div>
 </div>
 <!-- Metric 4 -->
 <div class="p-4 rounded-xl bg-surface-dark border border-border-subtle-dark flex flex-col justify-between transition-colors hover:border-border-strong-dark">
@@ -321,10 +293,6 @@
 <span class="font-tabular text-2xl lg:text-3xl font-bold text-status-flagged tracking-tight">12</span>
 <span class="text-xs text-text-secondary-dark font-code">tài khoản</span>
 </div>
-<div class="mt-2 text-xs font-code text-text-muted-dark flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px] text-status-flagged">error_outline</span>
-<span>Cần cập nhật hồ sơ</span>
-</div>
 </div>
 </div>
 <!-- FILTER & TOOLBAR -->
@@ -334,10 +302,7 @@
 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-dark">
 <span class="material-symbols-outlined text-[18px]">search</span>
 </div>
-<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-2 pl-9 pr-9 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm theo tên học sinh, mã HS (HS-2026-xxx) hoặc email..." type="text"/>
-<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
-<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-elevated-dark text-text-muted-dark border border-border-subtle-dark rounded">/</kbd>
-</div>
+<input class="w-full bg-canvas-dark border border-border-subtle-dark focus:border-brand-primary-dark focus:ring-1 focus:ring-brand-primary-dark rounded-lg py-2 pl-9 pr-4 text-xs text-text-primary-dark placeholder-text-muted-dark outline-none font-body-md transition-all" placeholder="Tìm kiếm theo tên học sinh, mã HS hoặc email..." type="text"/>
 </div>
 <!-- Center & Right: Filter Selects -->
 <div class="flex flex-wrap items-center gap-2">
@@ -753,20 +718,9 @@
 </div>
 </div>
 </div>
-<!-- FOOTER META BAR -->
-<footer class="pt-2 pb-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-text-muted-dark font-code border-t border-border-subtle-dark/60 gap-2">
-<div class="flex items-center gap-2">
-<span>Mathrix v3.8.2</span>
-<span>•</span>
-<span class="text-brand-primary-dark">An toàn &amp; Ổn định</span>
-<span>•</span>
-<span>CSDL PostgreSQL 16.1</span>
-</div>
-<div class="flex items-center gap-4">
-<a class="hover:text-text-secondary-dark transition-colors" href="#">Quy chế thi</a>
-<a class="hover:text-text-secondary-dark transition-colors" href="#">Bảo mật thông tin HS</a>
-<a class="hover:text-text-secondary-dark transition-colors" href="#">Nhật ký hệ thống</a>
-</div>
+<!-- Global Standard Footer -->
+<footer class="mt-auto w-full py-3 px-6 bg-surface-dark border-t border-border-subtle-dark flex items-center justify-center text-text-muted-dark font-mono text-xs">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </footer>
 </main>
 </div>

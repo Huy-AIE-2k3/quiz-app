@@ -1,418 +1,178 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lobby Phòng Thi | Mathrix</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Hướng dẫn &amp; Vào thi</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          "colors": {
-            "surface": "#0e1511",
-            "status-flagged": "#F59E0B",
-            "primary-fixed": "#6ffbbe",
-            "text-muted-dark": "#64748B",
-            "on-surface": "#dde4dd",
-            "border-strong-dark": "#334155",
-            "outline": "#86948a",
-            "secondary": "#b9c7e0",
-            "on-secondary": "#233144",
-            "on-primary": "#003824",
-            "surface-dark": "#111726",
-            "secondary-fixed": "#d5e3fd",
-            "brand-hover-dark": "#34D399",
-            "on-primary-container": "#00422b",
-            "error-container": "#93000a",
-            "outline-variant": "#3c4a42",
-            "border-subtle-dark": "#1E293B",
-            "text-primary-dark": "#F1F5F9",
-            "inverse-primary": "#006c49",
-            "inverse-on-surface": "#2b322d",
-            "on-primary-fixed": "#002113",
-            "secondary-container": "#3c4a5e",
-            "surface-dim": "#0e1511",
-            "inverse-surface": "#dde4dd",
-            "on-tertiary-fixed": "#410005",
-            "text-secondary-dark": "#94A3B8",
-            "on-tertiary-container": "#711419",
-            "on-surface-variant": "#bbcabf",
-            "status-correct": "#10B981",
-            "surface-container-lowest": "#09100c",
-            "surface-container-high": "#242c27",
-            "background": "#0e1511",
-            "tertiary-fixed": "#ffdad7",
-            "surface-container": "#1a211d",
-            "secondary-fixed-dim": "#b9c7e0",
-            "selected-dark": "rgba(16, 185, 129, 0.10)",
-            "primary-fixed-dim": "#4edea3",
-            "on-secondary-fixed": "#0d1c2f",
-            "on-error-container": "#ffdad6",
-            "tertiary-fixed-dim": "#ffb3af",
-            "surface-container-highest": "#2f3632",
-            "error": "#ffb4ab",
-            "on-background": "#dde4dd",
-            "brand-primary-dark": "#10B981",
-            "primary-container": "#10b981",
-            "elevated-dark": "#1A2234",
-            "surface-variant": "#2f3632",
-            "on-tertiary": "#650911",
-            "on-secondary-container": "#abb9d2",
-            "on-secondary-fixed-variant": "#3a485c",
-            "primary": "#4edea3",
-            "tertiary-container": "#fc7c78",
-            "tertiary": "#ffb3af",
-            "on-tertiary-fixed-variant": "#842225",
-            "surface-tint": "#4edea3",
+          colors: {
+            canvas: "#090D16",
+            surface: "#111726",
+            elevated: "#1A2234",
+            "border-subtle": "#1E293B",
+            "border-strong": "#334155",
+            brand: "#10B981",
+            "brand-hover": "#34D399",
             "status-wrong": "#EF4444",
-            "canvas-dark": "#090D16",
-            "surface-bright": "#343b36",
-            "on-error": "#690005",
-            "surface-container-low": "#161d19",
-            "on-primary-fixed-variant": "#005236"
+            "status-flagged": "#F59E0B",
+            "text-primary": "#F1F5F9",
+            "text-secondary": "#94A3B8",
+            "text-muted": "#64748B"
           },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
-          },
-          "spacing": {
-            "space-lg": "1.5rem",
-            "space-xs": "0.25rem",
-            "space-md": "1rem",
-            "space-xl": "2rem",
-            "space-sm": "0.5rem",
-            "margin": "2rem",
-            "gutter": "1.5rem"
-          },
-          "fontFamily": {
-            "headline-lg": ["Space Grotesk"],
-            "body-md": ["Be Vietnam Pro"],
-            "code": ["JetBrains Mono"],
-            "tabular": ["Space Grotesk"],
-            "body-lg": ["Be Vietnam Pro"],
-            "headline-sm": ["Space Grotesk"],
-            "headline-md": ["Space Grotesk"]
-          },
-          "fontSize": {
-            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
-            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
-            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           }
-        },
-      },
-    }
+        }
+      }
+    };
   </script>
-<style>
+  <style>
     .math-grid-bg {
       background-color: #090D16;
       background-image: 
-        linear-gradient(to right, rgba(30, 41, 59, 0.45) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(30, 41, 59, 0.45) 1px, transparent 1px);
+        linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
       background-size: 32px 32px;
-    }
-    .custom-checkbox {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 1px solid #334155;
-      border-radius: 0.25rem;
-      background-color: #111726;
-      display: inline-grid;
-      place-content: center;
-      cursor: pointer;
-      transition: all 150ms ease-in-out;
-    }
-    .custom-checkbox:checked {
-      background-color: #10B981;
-      border-color: #10B981;
-    }
-    .custom-checkbox:checked::after {
-      content: "";
-      width: 0.35rem;
-      height: 0.65rem;
-      border: solid #090D16;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg) translate(-1px, -1px);
     }
   </style>
 </head>
-<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-brand-primary-dark selection:text-canvas-dark math-grid-bg">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
-<div class="flex items-center gap-6">
-<a class="flex items-center gap-2 group" href="#">
-<div class="w-8 h-8 rounded-lg bg-surface-dark border border-border-subtle-dark flex items-center justify-center text-brand-primary-dark font-headline-md text-headline-md font-bold">
+<body class="bg-canvas text-text-primary font-sans antialiased min-h-screen flex flex-col justify-between math-grid-bg">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-6 bg-canvas/90 backdrop-blur border-b border-border-subtle">
+    <div class="flex items-center gap-6">
+      <a class="flex items-center gap-2.5 font-display text-lg font-bold text-text-primary tracking-tight" href="/s/exams">
+        <div class="w-8 h-8 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
           Σ
         </div>
-<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
-</a>
-<!-- Server Sync Status Pill -->
-<div class="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-elevated-dark border border-border-subtle-dark font-tabular text-tabular text-text-secondary-dark">
-<span class="w-2 h-2 rounded-full bg-status-correct animate-pulse"></span>
-<span class="text-xs">Đã đồng bộ máy chủ • 12ms</span>
-</div>
-</div>
-<!-- Active Navigation Links -->
-<nav class="hidden md:flex items-center gap-8 h-full pt-3.5">
-<a class="text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 flex items-center gap-1.5" href="#">
-<span>Đề thi</span>
-</a>
-<a class="text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 transition-colors" href="#">
-<span>Luyện tập</span>
-</a>
-<a class="text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 transition-colors" href="#">
-<span>Kết quả</span>
-</a>
-</nav>
-<!-- User Status & Actions -->
-<div class="flex items-center gap-3">
-<div class="hidden lg:flex items-center gap-2 text-text-secondary-dark mr-1">
-<span class="material-symbols-outlined text-lg" data-icon="wifi">wifi</span>
-<span class="material-symbols-outlined text-lg cursor-pointer hover:text-text-primary-dark transition-colors" data-icon="dark_mode">dark_mode</span>
-</div>
-<div class="flex items-center gap-2 pl-3 border-l border-border-subtle-dark">
-<div class="px-2.5 py-1 rounded-lg bg-surface-dark border border-border-subtle-dark font-code text-xs text-text-primary-dark">
-          Nguyễn Văn An - 12A1
-        </div>
-<button class="text-xs text-text-secondary-dark hover:text-status-wrong transition-colors p-1.5 rounded-lg border border-transparent hover:border-border-subtle-dark" title="Đăng xuất">
-          Đăng xuất
-        </button>
-</div>
-</div>
-</header>
-<!-- Focused Center Container -->
-<main class="w-full max-w-[840px] mx-auto py-8 px-4 flex-1 flex flex-col justify-center">
-<!-- Breadcrumb & Route Indicator -->
-<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-tabular text-text-muted-dark mb-4">
-<a class="hover:text-primary transition-colors" href="#">Đề thi của tôi</a>
-<span class="text-border-strong-dark">/</span>
-<span class="text-text-secondary-dark font-medium">Khảo sát Chuyên đề Giải tích &amp; C++17</span>
-<span class="ml-auto font-code text-[11px] text-text-muted-dark bg-surface-dark px-2 py-0.5 rounded border border-border-subtle-dark">/s/exams/MATH-CS-2024-EX</span>
-</nav>
-<!-- Exam Header Surface Card -->
-<section class="bg-surface-dark border border-border-subtle-dark rounded-xl p-6 mb-5 relative overflow-hidden">
-<div class="flex flex-wrap items-center gap-2.5 mb-3">
-<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold font-tabular bg-selected-dark border border-status-correct/30 text-brand-primary-dark">
-          [TOÁN - TIN]
+        <span>Mathrix</span>
+      </a>
+    </div>
+
+    <!-- Student Profile -->
+    <div class="flex items-center gap-3">
+      <div class="px-3 py-1 rounded-lg bg-surface border border-border-subtle font-mono text-xs text-text-primary">
+        Nguyễn Văn An - 12A1
+      </div>
+      <a class="text-xs text-text-secondary hover:text-status-wrong transition-colors px-2 py-1" href="/login">
+        Đăng xuất
+      </a>
+    </div>
+  </header>
+
+  <!-- Focused Center Container -->
+  <main class="w-full max-w-[800px] mx-auto py-8 px-4 flex-1 flex flex-col justify-center">
+
+    <!-- Exam Header Surface Card: CHỈ HIỆN TÊN BÀI THI -->
+    <section class="bg-surface border border-border-subtle rounded-xl p-6 mb-5">
+      <div class="flex items-center gap-2.5 mb-2">
+        <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-brand/10 text-brand border border-brand/40">
+          TOÁN - TIN
         </span>
-<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold font-tabular bg-elevated-dark border border-status-flagged/40 text-status-flagged">
-          [CHỜ BẮT ĐẦU]
-        </span>
-</div>
-<h1 class="font-headline-lg text-headline-lg font-bold text-text-primary-dark tracking-tight mb-3">
+      </div>
+      <h1 class="font-display text-2xl font-bold text-text-primary tracking-tight">
         Khảo sát Chuyên đề Giải tích &amp; C++17
       </h1>
-<div class="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs font-body-md text-text-secondary-dark pt-1 border-t border-border-subtle-dark/70">
-<div>Giảng viên: <span class="text-text-primary-dark font-medium">Thầy Trần Minh Đức</span></div>
-<span class="text-border-strong-dark">•</span>
-<div>Mã đề: <span class="font-code text-text-primary-dark">MATH-CS-2024-EX</span></div>
-<span class="text-border-strong-dark">•</span>
-<div>Hệ số: <span class="font-tabular text-text-primary-dark font-semibold">2.0</span></div>
-<span class="text-border-strong-dark">•</span>
-<div>Phòng thi ảo: <span class="font-code text-primary font-medium">P.204</span></div>
-</div>
-</section>
-<!-- 3 Metric Bento Grid Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-5">
-<!-- Metric 1: Thời lượng -->
-<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark p-4 rounded-xl flex items-start gap-3.5 transition-colors">
-<div class="w-10 h-10 rounded-lg bg-selected-dark border border-status-correct/30 flex items-center justify-center text-status-correct flex-shrink-0">
-<span class="material-symbols-outlined text-xl" data-icon="timer">timer</span>
-</div>
-<div>
-<div class="text-xs text-text-secondary-dark mb-0.5">Thời lượng</div>
-<div class="font-headline-md text-headline-md font-semibold text-status-correct tracking-tight">90 phút</div>
-<div class="text-[12px] text-text-muted-dark">Đếm ngược tự động</div>
-</div>
-</div>
-<!-- Metric 2: Số câu hỏi -->
-<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark p-4 rounded-xl flex items-start gap-3.5 transition-colors">
-<div class="w-10 h-10 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center text-text-primary-dark flex-shrink-0">
-<span class="material-symbols-outlined text-xl" data-icon="quiz">quiz</span>
-</div>
-<div>
-<div class="text-xs text-text-secondary-dark mb-0.5">Số câu hỏi</div>
-<div class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">50 câu</div>
-<div class="text-[12px] text-text-muted-dark font-tabular">40 trắc nghiệm + 10 code</div>
-</div>
-</div>
-<!-- Metric 3: Số lần làm bài -->
-<div class="bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark p-4 rounded-xl flex items-start gap-3.5 transition-colors">
-<div class="w-10 h-10 rounded-lg bg-status-flagged/10 border border-status-flagged/30 flex items-center justify-center text-status-flagged flex-shrink-0">
-<span class="material-symbols-outlined text-xl" data-icon="shield">shield</span>
-</div>
-<div>
-<div class="text-xs text-text-secondary-dark mb-0.5">Số lần làm bài</div>
-<div class="font-headline-md text-headline-md font-semibold text-status-flagged tracking-tight">1 lần duy nhất</div>
-<div class="text-[12px] text-text-muted-dark">Không cho phép làm lại</div>
-</div>
-</div>
-</div>
-<!-- System Environment Check Status Bar -->
-<div class="bg-elevated-dark border border-border-subtle-dark rounded-xl px-4 py-2.5 mb-5 flex flex-wrap items-center justify-between text-xs">
-<div class="flex items-center gap-2 text-text-secondary-dark font-medium">
-<span class="material-symbols-outlined text-sm text-primary" data-icon="terminal">terminal</span>
-<span>Kiểm tra thiết bị &amp; môi trường thi:</span>
-</div>
-<div class="flex items-center gap-4 text-xs font-tabular">
-<div class="flex items-center gap-1.5 text-text-secondary-dark">
-<span class="material-symbols-outlined text-xs text-status-correct" data-icon="videocam">videocam</span>
-<span>Camera: <strong class="text-text-primary-dark font-normal">Sẵn sàng</strong></span>
-</div>
-<div class="flex items-center gap-1.5 text-text-secondary-dark">
-<span class="material-symbols-outlined text-xs text-status-correct" data-icon="mic">mic</span>
-<span>Micro: <strong class="text-text-primary-dark font-normal">OK</strong></span>
-</div>
-<div class="flex items-center gap-1.5 text-text-secondary-dark">
-<span class="material-symbols-outlined text-xs text-status-correct" data-icon="network_check">network_check</span>
-<span>Kết nối: <strong class="text-status-correct font-semibold">18ms (Cực tốt)</strong></span>
-</div>
-</div>
-</div>
-<!-- Anti-Cheat & Integrity Rules Box -->
-<section class="border border-status-flagged/40 bg-status-flagged/5 rounded-xl p-5 mb-5">
-<div class="flex items-center gap-2.5 mb-4 text-status-flagged">
-<span class="material-symbols-outlined text-xl" data-icon="warning">warning</span>
-<h2 class="text-xs font-semibold tracking-wider uppercase font-headline-sm">
-          QUY CHẾ PHÒNG THI &amp; CHỐNG GIAN LẬN (ANTI-CHEAT)
-        </h2>
-</div>
-<div class="space-y-3.5">
-<!-- Rule 1 -->
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-status-flagged/20 border border-status-flagged/40 text-status-flagged font-tabular text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
-            1
-          </span>
-<div>
-<span class="font-semibold text-text-primary-dark text-sm">Giữ toàn màn hình, không chuyển tab:</span>
-<span class="text-text-secondary-dark text-xs block mt-0.5">
-              Hệ thống giám sát phát hiện rời tab quá 3 lần hoặc thu nhỏ cửa sổ sẽ tự động đình chỉ bài thi và lập biên bản điện tử gửi hội đồng giám thị.
-            </span>
-</div>
-</div>
-<!-- Rule 2 -->
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-status-flagged/20 border border-status-flagged/40 text-status-flagged font-tabular text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
-            2
-          </span>
-<div>
-<span class="font-semibold text-text-primary-dark text-sm">Tự động lưu đáp án và hỗ trợ ngoại tuyến:</span>
-<span class="text-text-secondary-dark text-xs block mt-0.5">
-              Toàn bộ thao tác và mã nguồn được đồng bộ liên tục từng giây (Realtime WebSocket). Trường hợp mất kết nối mạng, bài làm vẫn được bảo lưu an toàn trên bộ nhớ đệm máy con.
-            </span>
-</div>
-</div>
-<!-- Rule 3 -->
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-status-flagged/20 border border-status-flagged/40 text-status-flagged font-tabular text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
-            3
-          </span>
-<div>
-<span class="font-semibold text-text-primary-dark text-sm">Tự động nộp bài khi hết giờ:</span>
-<span class="text-text-secondary-dark text-xs block mt-0.5">
-              Đúng thời điểm 90:00, hệ thống tự động khóa toàn bộ bàn phím, con trỏ và tổng kết dữ liệu làm bài ngay lập tức.
-            </span>
-</div>
-</div>
-</div>
-</section>
-<!-- Confirmation Agreement Section -->
-<div class="bg-surface-dark border border-border-subtle-dark rounded-xl p-4 mb-6">
-<label class="flex items-center gap-3 cursor-pointer group select-none">
-<input class="custom-checkbox flex-shrink-0" id="pledgeCheckbox" onchange="toggleStartButton(this)" type="checkbox"/>
-<span class="text-sm font-medium text-text-primary-dark group-hover:text-primary transition-colors">
-          Em đã đọc kỹ và cam kết tuân thủ nghiêm túc quy chế phòng thi
-        </span>
-</label>
-<div class="text-[12px] text-text-muted-dark ml-8 mt-1.5 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-xs" data-icon="policy">policy</span>
-<span>Mọi vi phạm tính toàn vẹn học thuật sẽ được chuyển trực tiếp về Hội đồng Khảo thí.</span>
-</div>
-</div>
-<!-- Action Buttons -->
-<footer class="flex items-center justify-between pt-4 border-t border-border-subtle-dark">
-<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border-strong-dark hover:border-slate-500 text-text-secondary-dark hover:text-text-primary-dark text-sm font-medium transition-colors bg-surface-dark" href="#">
-<span class="material-symbols-outlined text-base" data-icon="arrow_back">arrow_back</span>
-<span>Quay lại</span>
-</a>
-<button class="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold tracking-wide transition-all duration-150 opacity-40 cursor-not-allowed bg-brand-primary-dark text-canvas-dark hover:bg-brand-hover-dark active:scale-[0.98]" disabled="" id="startButton">
-<span>BẮT ĐẦU LÀM BÀI</span>
-<span class="material-symbols-outlined text-base font-bold" data-icon="arrow_forward">arrow_forward</span>
-</button>
-</footer>
-<!-- Bottom Keyboard Shortcut Hint -->
-<div class="mt-6 text-center text-xs font-tabular text-text-muted-dark flex items-center justify-center gap-4">
-<span class="flex items-center gap-1.5">
-<kbd class="px-1.5 py-0.5 bg-surface-dark border border-border-subtle-dark rounded text-[11px] font-code text-text-secondary-dark">Space</kbd>
-<span>Xác nhận điều khoản</span>
-</span>
-<span class="text-border-strong-dark">•</span>
-<span class="flex items-center gap-1.5">
-<kbd class="px-1.5 py-0.5 bg-surface-dark border border-border-subtle-dark rounded text-[11px] font-code text-text-secondary-dark">Enter</kbd>
-<span>Vào thi</span>
-</span>
-</div>
-</main>
-<!-- Thin Fixed Bottom Status Bar -->
-<aside class="h-6 w-full bg-canvas-dark border-t border-border-subtle-dark px-4 flex items-center justify-between text-[11px] text-text-muted-dark font-code">
-<div class="flex items-center gap-2">
-<span class="inline-block w-1.5 h-1.5 rounded-full bg-status-correct"></span>
-<span>MATHRIX PROCTOR v2.4.9</span>
-</div>
-<div class="hidden sm:block">
-      LATENCY: 12ms | PROCTOR_TOKEN: 8f4c-e30b-990a
+    </section>
+
+    <!-- 3 Metric Cards: THỜI LƯỢNG, SỐ CÂU HỎI, SỐ LẦN LÀM BÀI -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-5">
+      <!-- Metric 1: Thời lượng -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-brand/10 border border-brand/30 flex items-center justify-center text-brand flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">schedule</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Thời lượng</div>
+          <div class="font-display text-lg font-semibold text-brand tracking-tight">90 phút</div>
+        </div>
+      </div>
+
+      <!-- Metric 2: Số câu hỏi -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-elevated border border-border-strong flex items-center justify-center text-text-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">quiz</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Số câu hỏi</div>
+          <div class="font-display text-lg font-semibold text-text-primary tracking-tight">50 câu</div>
+        </div>
+      </div>
+
+      <!-- Metric 3: Số lần làm bài -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-status-flagged/10 border border-status-flagged/30 flex items-center justify-center text-status-flagged flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">replay</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Số lần làm bài</div>
+          <div class="font-display text-lg font-semibold text-status-flagged tracking-tight">1 lần duy nhất</div>
+        </div>
+      </div>
     </div>
-</aside>
-<!-- Interactive Logic for Keyboard and Agreement Check -->
-<script>
-    function toggleStartButton(checkbox) {
-      const btn = document.getElementById('startButton');
-      if (checkbox.checked) {
-        btn.disabled = false;
-        btn.classList.remove('opacity-40', 'cursor-not-allowed');
-        btn.classList.add('cursor-pointer', 'shadow-md');
-      } else {
-        btn.disabled = true;
-        btn.classList.add('opacity-40', 'cursor-not-allowed');
-        btn.classList.remove('cursor-pointer', 'shadow-md');
-      }
-    }
 
-    document.addEventListener('keydown', function(e) {
-      const checkbox = document.getElementById('pledgeCheckbox');
-      const startBtn = document.getElementById('startButton');
+    <!-- Quy chế phòng thi (Chỉ để lại 3 nội quy theo yêu cầu) -->
+    <section class="border border-status-flagged/40 bg-status-flagged/5 rounded-xl p-5 mb-5">
+      <div class="flex items-center gap-2 mb-3 text-status-flagged">
+        <span class="material-symbols-outlined text-xl">gavel</span>
+        <h2 class="text-xs font-semibold tracking-wider uppercase font-display">
+          QUY CHẾ PHÒNG THI
+        </h2>
+      </div>
 
-      if (e.code === 'Space' && document.activeElement !== checkbox && document.activeElement.tagName !== 'INPUT') {
-        e.preventDefault();
-        checkbox.checked = !checkbox.checked;
-        toggleStartButton(checkbox);
-      } else if (e.code === 'Enter') {
-        if (!startBtn.disabled) {
-          startBtn.click();
-        }
-      }
-    });
+      <div class="space-y-2.5 text-xs text-text-secondary">
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">1</span>
+          <p class="leading-relaxed">Không được chuyển tab hoặc rời khỏi cửa sổ làm bài trong suốt thời gian thi.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">2</span>
+          <p class="leading-relaxed">Tuyệt đối không sử dụng tài liệu hoặc các công cụ AI / Agentic AI dưới mọi hình thức.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">3</span>
+          <p class="leading-relaxed">Hệ thống sẽ tự động thu bài và đóng cổng thi ngay khi hết giờ làm bài.</p>
+        </div>
+      </div>
+    </section>
 
-    document.getElementById('startButton').addEventListener('click', function() {
-      if (!this.disabled) {
-        window.location.href = '#';
-      }
-    });
-  </script>
-</body></html>
+    <!-- Ô xác nhận ngắn gọn & Nút hành động -->
+    <div class="bg-surface border border-border-subtle rounded-xl p-5 flex flex-col gap-4">
+      <label class="flex items-center gap-3 cursor-pointer select-none">
+        <input type="checkbox" id="agree-check" class="w-4 h-4 rounded bg-elevated border-border-strong text-brand focus:ring-0 accent-emerald-500 cursor-pointer" />
+        <span class="text-sm font-medium text-text-primary">Xác nhận cam kết tuân thủ quy định và bảo mật</span>
+      </label>
+
+      <div class="flex items-center justify-between gap-4 pt-2 border-t border-border-subtle">
+        <a class="px-5 py-2.5 rounded-lg border border-border-subtle bg-elevated text-text-secondary hover:text-text-primary text-sm font-medium transition-colors" href="/s/exams">
+          Quay lại
+        </a>
+        <a class="px-6 py-2.5 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center gap-2 transition-colors cursor-pointer" href="/s/attempts/1">
+          <span>BẮT ĐẦU LÀM BÀI</span>
+          <span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-canvas border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

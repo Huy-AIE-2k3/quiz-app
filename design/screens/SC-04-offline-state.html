@@ -1,624 +1,236 @@
 <!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathrix - Phòng thi làm bài (Mất kết nối mạng)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 
-<html class="dark" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mathrix Workspace - /s/attempts/MATH-CS-2024-EX-78291</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- KaTeX CSS & JS for authentic mathematical typesetting -->
-<link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+  <script>
     tailwind.config = {
-      darkMode: "class",
+      darkMode: 'class',
       theme: {
         extend: {
-          "colors": {
-            "secondary-container": "#3c4a5e",
-            "primary-fixed": "#6ffbbe",
-            "surface-container-low": "#161d19",
-            "inverse-surface": "#dde4dd",
-            "elevated-dark": "#1A2234",
-            "text-secondary-dark": "#94A3B8",
-            "background": "#0e1511",
-            "canvas-dark": "#090D16",
-            "tertiary-fixed-dim": "#ffb3af",
-            "on-tertiary-fixed-variant": "#842225",
-            "surface-dim": "#0e1511",
-            "on-surface-variant": "#bbcabf",
-            "selected-dark": "rgba(16, 185, 129, 0.10)",
-            "on-secondary-fixed-variant": "#3a485c",
-            "on-error": "#690005",
-            "error": "#ffb4ab",
-            "tertiary": "#ffb3af",
-            "brand-hover-dark": "#34D399",
-            "border-strong-dark": "#334155",
-            "inverse-primary": "#006c49",
-            "tertiary-fixed": "#ffdad7",
-            "on-secondary": "#233144",
-            "primary-container": "#10b981",
-            "on-error-container": "#ffdad6",
-            "text-primary-dark": "#F1F5F9",
-            "surface-container-lowest": "#09100c",
-            "secondary": "#b9c7e0",
-            "status-correct": "#10B981",
-            "brand-primary-dark": "#10B981",
-            "surface-dark": "#111726",
-            "surface-tint": "#4edea3",
-            "outline": "#86948a",
-            "surface-container": "#1a211d",
-            "surface-variant": "#2f3632",
-            "surface": "#0e1511",
-            "on-primary-container": "#00422b",
-            "on-tertiary-container": "#711419",
-            "on-primary-fixed-variant": "#005236",
-            "primary-fixed-dim": "#4edea3",
-            "on-secondary-container": "#abb9d2",
-            "on-tertiary-fixed": "#410005",
-            "on-background": "#dde4dd",
-            "status-wrong": "#EF4444",
-            "on-tertiary": "#650911",
-            "outline-variant": "#3c4a42",
-            "on-primary": "#003824",
-            "inverse-on-surface": "#2b322d",
-            "secondary-fixed": "#d5e3fd",
-            "on-primary-fixed": "#002113",
-            "tertiary-container": "#fc7c78",
-            "on-secondary-fixed": "#0d1c2f",
-            "secondary-fixed-dim": "#b9c7e0",
-            "primary": "#4edea3",
-            "error-container": "#93000a",
-            "surface-container-highest": "#2f3632",
-            "border-subtle-dark": "#1E293B",
-            "text-muted-dark": "#64748B",
-            "surface-bright": "#343b36",
-            "on-surface": "#dde4dd",
-            "surface-container-high": "#242c27",
-            "status-flagged": "#F59E0B"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
-          },
-          "spacing": {
-            "space-sm": "0.5rem",
-            "space-xs": "0.25rem",
-            "space-xl": "2rem",
-            "space-md": "1rem",
-            "gutter": "1.5rem",
-            "margin": "2rem",
-            "space-lg": "1.5rem"
-          },
-          "fontFamily": {
-            "code": ["JetBrains Mono"],
-            "headline-lg": ["Space Grotesk"],
-            "body-md": ["Be Vietnam Pro"],
-            "tabular": ["Space Grotesk"],
-            "headline-sm": ["Space Grotesk"],
-            "body-lg": ["Be Vietnam Pro"],
-            "headline-md": ["Space Grotesk"]
-          },
-          "fontSize": {
-            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
-            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
-            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
-          }
-        },
-      },
-    }
-  </script>
-<style>
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-      font-size: 18px;
-      line-height: 1;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .offline-pulse {
-      animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse-border {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.45; }
-    }
-  </style>
-</head>
-<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md min-h-screen flex flex-col antialiased select-none pb-9">
-<!-- ================= TOP APP BAR (56px) ================= -->
-<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
-<!-- Left: Brand Logo & Exam Descriptor -->
-<div class="flex items-center gap-space-md">
-<div class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-full bg-brand-primary-dark"></span>
-<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
-</div>
-<div class="h-4 w-px bg-border-subtle-dark hidden md:block"></div>
-<div class="hidden md:flex items-center gap-2">
-<span class="font-code text-code text-text-muted-dark text-xs bg-elevated-dark px-2 py-0.5 rounded border border-border-subtle-dark">MATH-CS-2024</span>
-<span class="font-headline-sm text-headline-sm text-text-secondary-dark text-sm tracking-wide">TOÁN 12 - KHẢO SÁT HÀM SỐ &amp; GIẢI TÍCH</span>
-</div>
-</div>
-<!-- Center: Local Offline Timer -->
-<div class="flex items-center gap-2 bg-elevated-dark border border-border-subtle-dark px-3 py-1 rounded">
-<span class="material-symbols-outlined text-text-muted-dark">timer</span>
-<div class="flex items-baseline gap-1.5">
-<span class="font-tabular text-tabular text-base font-bold text-text-primary-dark" id="local-timer">42:15</span>
-<span class="font-code text-code text-[11px] text-status-flagged uppercase tracking-wider font-medium">Bộ đếm cục bộ</span>
-</div>
-</div>
-<!-- Right Actions: Network Telemetry, Candidate Info, Submit CTA -->
-<div class="flex items-center gap-space-md">
-<!-- Network Interrupted Badge -->
-<div class="flex items-center gap-2 px-2.5 py-1 bg-surface-dark border border-status-wrong/30 rounded" title="Mất kết nối với máy chủ WebSocket">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-wrong opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-status-wrong"></span>
-</span>
-<span class="font-code text-code text-xs text-status-wrong font-medium">Mất mạng • 0 B/s</span>
-</div>
-<!-- Candidate Metadata -->
-<div class="hidden lg:flex flex-col text-right">
-<span class="font-body-md text-body-md text-text-primary-dark font-medium text-xs">Nguyễn Văn An</span>
-<span class="font-code text-code text-[11px] text-text-muted-dark">SBD: 120482 • 12A1</span>
-</div>
-<!-- Submit Exam Button (Disabled/Offline Protected) -->
-<div class="relative group">
-<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-dark border border-border-subtle-dark text-text-muted-dark font-headline-sm text-sm cursor-not-allowed opacity-75" disabled="">
-<span class="material-symbols-outlined text-base">cloud_off</span>
-<span>Nộp bài thi</span>
-</button>
-<!-- Tooltip -->
-<div class="absolute right-0 top-full mt-2 hidden group-hover:block z-50 w-64 p-2 bg-elevated-dark border border-status-flagged/40 text-[12px] text-text-secondary-dark rounded shadow-xl pointer-events-none">
-<div class="flex items-center gap-1 text-status-flagged font-semibold mb-0.5">
-<span class="material-symbols-outlined text-sm">warning</span> Cần kết nối mạng
-          </div>
-          Vui lòng đợi mạng hồi phục hoặc sử dụng mã đồng bộ bảo mật để nộp bài chính thức.
-        </div>
-</div>
-</div>
-</header>
-<!-- ================= TOP PERSISTENT OFFLINE BANNER ================= -->
-<aside class="w-full bg-[#1c130b] border-b border-status-flagged/40 px-gutter py-2.5 transition-all">
-<div class="max-w-[1720px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-<!-- Warning Details -->
-<div class="flex items-start md:items-center gap-3">
-<div class="flex-shrink-0 w-8 h-8 rounded bg-status-flagged/10 border border-status-flagged/30 flex items-center justify-center text-status-flagged">
-<span class="material-symbols-outlined text-xl">wifi_off</span>
-</div>
-<div>
-<div class="flex items-center gap-2">
-<span class="font-headline-sm text-sm font-bold text-status-flagged tracking-wide">[MẤT KẾT NỐI MẠNG]</span>
-<span class="text-xs bg-status-flagged/20 text-status-flagged px-2 py-0.2 rounded font-code">IndexedDB Activated</span>
-</div>
-<p class="font-body-md text-text-primary-dark text-xs sm:text-sm mt-0.5">
-            2 câu trả lời đang được lưu tạm an toàn trên máy. <span class="font-bold text-white uppercase tracking-wider">Tuyệt đối không tải lại trang (F5).</span> Hệ thống sẽ tự động đồng bộ ngay khi mạng khả dụng.
-          </p>
-</div>
-</div>
-<!-- Interactive Controls -->
-<div class="flex items-center gap-2 w-full md:w-auto justify-end">
-<span class="font-code text-[11px] text-text-muted-dark hidden xl:inline-block">Offline Mode • WebSocket ngắt kết nối</span>
-<button class="flex items-center gap-1.5 px-3 py-1.5 bg-status-flagged hover:bg-amber-400 active:scale-[0.98] text-[#090D16] font-headline-sm text-xs font-semibold rounded transition-colors duration-150" id="retry-btn">
-<span class="material-symbols-outlined text-sm offline-pulse">sync</span>
-<span>Thử kết nối lại</span>
-</button>
-</div>
-</div>
-</aside>
-<!-- ================= WORKSPACE BENTO SPLIT (8:4 GRID) ================= -->
-<main class="flex-1 w-full max-w-[1720px] mx-auto px-gutter py-space-md grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-<!-- LEFT COLUMN: QUESTION WORKSPACE (8 cols) -->
-<section class="lg:col-span-8 flex flex-col gap-space-md">
-<!-- Bento Question Card Surface -->
-<div class="bg-surface-dark border border-border-subtle-dark rounded-xl p-space-lg flex flex-col gap-space-md relative">
-<!-- Question Meta Header -->
-<div class="flex items-center justify-between border-b border-border-subtle-dark pb-3.5">
-<div class="flex items-center gap-2.5">
-<span class="font-headline-sm text-headline-sm font-bold text-text-primary-dark">Câu 14</span>
-<span class="text-text-muted-dark font-tabular text-sm">/ 50</span>
-<span class="px-2 py-0.5 text-xs font-code font-medium bg-elevated-dark text-brand-primary-dark border border-brand-primary-dark/30 rounded">VẬN DỤNG CAO</span>
-<span class="text-xs font-code text-text-muted-dark">0.2 điểm</span>
-</div>
-<div class="flex items-center gap-3">
-<!-- Offline Draft Status Indicator -->
-<div class="flex items-center gap-1.5 bg-elevated-dark border border-border-subtle-dark px-2.5 py-1 rounded text-text-secondary-dark text-xs font-code">
-<span class="material-symbols-outlined text-sm text-status-correct">save_as</span>
-<span>Đã lưu bản nháp lúc <strong class="text-text-primary-dark">09:42:10</strong> (Offline Cache)</span>
-</div>
-<!-- Flag Button -->
-<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-border-subtle-dark bg-elevated-dark hover:border-status-flagged text-text-secondary-dark hover:text-status-flagged transition-colors duration-150 text-xs font-headline-sm active:scale-[0.98]">
-<span class="material-symbols-outlined text-sm">bookmark</span>
-<span>Đánh dấu [F]</span>
-</button>
-</div>
-</div>
-<!-- Question Prompt with KaTeX Math Formulation -->
-<div class="flex flex-col gap-3 text-text-primary-dark">
-<p class="font-body-lg text-body-lg text-text-primary-dark">
-            Cho hàm số \( f(x) \) liên tục trên tập số thực \( \mathbb{R} \) thỏa mãn các điều kiện giới hạn vi phân và tích phân xác định trong biểu thức sau:
-          </p>
-<!-- Rendered Display Math Block -->
-<div class="my-2 p-4 bg-canvas-dark border border-border-subtle-dark rounded flex flex-col items-center justify-center overflow-x-auto">
-<div class="text-lg md:text-xl py-1 text-primary" id="katex-equation">
-<!-- Rendered via Katex Fallback / JS below -->
-              \[ P = \lim_{x \to \infty} \left( \frac{2x^3 - 5x + 1}{x^3 + 4x^2 - 7} \right) + \int_{0}^{1} (3x^2 - 2x + e^x) \,dx \]
-            </div>
-<span class="text-[11px] font-code text-text-muted-dark mt-2">Đẳng thức tích phân &amp; giới hạn bậc 3 chuẩn hóa (Mã câu: Q-MATH-14-INTG)</span>
-</div>
-<p class="font-body-md text-text-secondary-dark">
-            Hãy tính giá trị chính xác của biểu thức \( P \) và chọn khẳng định đúng trong các phương án dưới đây:
-          </p>
-</div>
-<!-- Multiple Choice Options Bento Stack -->
-<div class="flex flex-col gap-2.5 mt-2">
-<!-- Option A (SELECTED STATE - Local Emerald Tint & Ring) -->
-<div class="group relative flex items-start gap-3.5 p-3.5 rounded bg-selected-dark border-2 border-brand-primary-dark cursor-pointer transition-all duration-150">
-<div class="flex-shrink-0 w-8 h-8 rounded bg-brand-primary-dark text-canvas-dark font-headline-sm font-bold flex items-center justify-center">
-              A
-            </div>
-<div class="flex-1 flex items-center justify-between">
-<div class="font-body-lg text-body-lg text-text-primary-dark">
-                \( P = e + 1 \)
-              </div>
-<div class="flex items-center gap-2">
-<span class="font-code text-xs text-brand-primary-dark flex items-center gap-1 bg-brand-primary-dark/10 px-2 py-0.5 rounded border border-brand-primary-dark/20">
-<span class="material-symbols-outlined text-sm">check_circle</span>
-                  Lựa chọn hiện tại
-                </span>
-<span class="font-code text-xs text-text-muted-dark bg-elevated-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">Phím A</span>
-</div>
-</div>
-</div>
-<!-- Option B -->
-<div class="group relative flex items-start gap-3.5 p-3.5 rounded bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark cursor-pointer transition-colors duration-150">
-<div class="flex-shrink-0 w-8 h-8 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark group-hover:text-text-primary-dark font-headline-sm font-bold flex items-center justify-center">
-              B
-            </div>
-<div class="flex-1 flex items-center justify-between">
-<div class="font-body-lg text-body-lg text-text-primary-dark">
-                \( P = e + 2 \)
-              </div>
-<span class="font-code text-xs text-text-muted-dark bg-surface-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">Phím B</span>
-</div>
-</div>
-<!-- Option C -->
-<div class="group relative flex items-start gap-3.5 p-3.5 rounded bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark cursor-pointer transition-colors duration-150">
-<div class="flex-shrink-0 w-8 h-8 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark group-hover:text-text-primary-dark font-headline-sm font-bold flex items-center justify-center">
-              C
-            </div>
-<div class="flex-1 flex items-center justify-between">
-<div class="font-body-lg text-body-lg text-text-primary-dark">
-                \( P = 2e - 1 \)
-              </div>
-<span class="font-code text-xs text-text-muted-dark bg-surface-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">Phím C</span>
-</div>
-</div>
-<!-- Option D -->
-<div class="group relative flex items-start gap-3.5 p-3.5 rounded bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark cursor-pointer transition-colors duration-150">
-<div class="flex-shrink-0 w-8 h-8 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark group-hover:text-text-primary-dark font-headline-sm font-bold flex items-center justify-center">
-              D
-            </div>
-<div class="flex-1 flex items-center justify-between">
-<div class="font-body-lg text-body-lg text-text-primary-dark">
-                \( P = 3 + \ln(2) \)
-              </div>
-<span class="font-code text-xs text-text-muted-dark bg-surface-dark px-1.5 py-0.5 rounded border border-border-subtle-dark">Phím D</span>
-</div>
-</div>
-</div>
-<!-- Inline Offline Persistence Note -->
-<div class="mt-2 flex items-center gap-2 p-2.5 bg-canvas-dark border border-border-subtle-dark rounded text-xs font-code text-text-secondary-dark">
-<span class="material-symbols-outlined text-brand-primary-dark text-sm">database</span>
-<span>Mọi thay đổi lựa chọn được ghi nhận tức thì vào Local Storage &amp; IndexedDB cục bộ (Độ trễ: &lt; 2ms).</span>
-</div>
-<!-- Navigation Pagination Bar -->
-<div class="flex items-center justify-between pt-3 border-t border-border-subtle-dark mt-2">
-<button class="flex items-center gap-2 px-3.5 py-1.5 rounded bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors duration-150 text-xs font-headline-sm active:scale-[0.98]">
-<span class="material-symbols-outlined text-base">arrow_back</span>
-<span>Câu trước [←]</span>
-</button>
-<div class="flex items-center gap-2">
-<button class="px-3 py-1.5 rounded border border-border-subtle-dark bg-elevated-dark text-xs font-code text-text-secondary-dark hover:text-text-primary-dark">
-              Xóa lựa chọn
-            </button>
-<button class="flex items-center gap-2 px-4 py-1.5 rounded bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-xs font-bold transition-colors duration-150 active:scale-[0.98]">
-<span>Câu tiếp theo [→]</span>
-<span class="material-symbols-outlined text-base">arrow_forward</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Mathematical Scratchpad / Sandbox Quick Note -->
-<div class="bg-surface-dark border border-border-subtle-dark rounded-xl p-4 flex flex-col gap-2">
-<div class="flex items-center justify-between">
-<span class="font-code text-xs text-text-secondary-dark uppercase tracking-wider flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">edit_note</span>
-            Bảng nháp công thức nhẩm (Lưu tạm cục bộ)
-          </span>
-<span class="font-code text-[11px] text-text-muted-dark">Tự động đồng bộ cục bộ</span>
-</div>
-<textarea class="w-full bg-canvas-dark border border-border-subtle-dark rounded p-2.5 font-code text-code text-text-primary-dark placeholder:text-text-muted-dark focus:border-brand-primary-dark focus:outline-none resize-none text-xs" placeholder="Ghi chú các bước biến đổi vi phân: lim = 2, int(3x^2 - 2x + e^x) = [x^3 - x^2 + e^x] từ 0 đến 1 = e - 1... =&gt; P = 2 + e - 1 = e + 1" rows="2">lim(x-&gt;inf) = 2/1 = 2; int = [x^3 - x^2 + e^x](0-&gt;1) = (1 - 1 + e) - (0 - 0 + 1) = e - 1. P = 2 + e - 1 = e + 1 =&gt; Đáp án [A]</textarea>
-</div>
-</section>
-<!-- RIGHT COLUMN: 50-QUESTION BENTO MATRIX & PROCTOR MONITOR (4 cols) -->
-<aside class="lg:col-span-4 flex flex-col gap-space-md">
-<!-- Palette Container -->
-<div class="bg-surface-dark border border-border-subtle-dark rounded-xl p-space-md flex flex-col gap-3.5">
-<!-- Palette Header & Progress Bar -->
-<div class="flex flex-col gap-2">
-<div class="flex items-center justify-between">
-<span class="font-headline-sm text-sm font-semibold text-text-primary-dark">Tiến độ làm bài</span>
-<span class="font-code text-code text-brand-primary-dark font-bold text-xs">34/50 câu (68%)</span>
-</div>
-<!-- Segmented Progress Bar -->
-<div class="w-full h-1.5 bg-canvas-dark rounded-full overflow-hidden flex border border-border-subtle-dark">
-<div class="h-full bg-brand-primary-dark" style="width: 64%"></div>
-<div class="h-full bg-status-flagged" style="width: 4%"></div>
-</div>
-</div>
-<!-- 50-Question Palette Matrix (5 columns x 10 rows) -->
-<div class="grid grid-cols-5 gap-1.5 pt-1">
-<!-- Sample questions 1 to 10 (Answered on server) -->
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">01</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">02</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">03</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">04</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold relative">
-            05
-            <span class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-status-flagged"></span>
-</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">06</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">07</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">08</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">09</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">10</div>
-<!-- Row 3: Questions 11 to 15 (Contains Q12, Q13 pending offline, Q14 active) -->
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark font-semibold">11</div>
-<!-- Q12: Offline Pending Badge -->
-<div class="h-8 flex items-center justify-between px-1.5 rounded bg-status-flagged/10 border-2 border-status-flagged text-xs font-tabular text-status-flagged font-bold cursor-pointer" title="Lưu tạm trên máy - Chờ gửi">
-<span>12</span>
-<span class="material-symbols-outlined text-[14px]">cloud_off</span>
-</div>
-<!-- Q13: Offline Pending Badge -->
-<div class="h-8 flex items-center justify-between px-1.5 rounded bg-status-flagged/10 border-2 border-status-flagged text-xs font-tabular text-status-flagged font-bold cursor-pointer" title="Lưu tạm trên máy - Chờ gửi">
-<span>13</span>
-<span class="material-symbols-outlined text-[14px]">cloud_off</span>
-</div>
-<!-- Q14: CURRENT VIEWING (Active with primary border) -->
-<div class="h-8 flex items-center justify-center rounded bg-brand-primary-dark/20 border-2 border-brand-primary-dark text-xs font-tabular text-white font-extrabold shadow-sm ring-1 ring-brand-primary-dark">
-            14
-          </div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">15</div>
-<!-- Questions 16 - 25 -->
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">16</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">17</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">18</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">19</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">20</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">21</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">22</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">23</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">24</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">25</div>
-<!-- Questions 26 - 35 -->
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">26</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">27</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">28</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">29</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">30</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">31</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">32</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">33</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">34</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">35</div>
-<!-- Questions 36 - 45 -->
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">36</div>
-<div class="h-8 flex items-center justify-center rounded bg-elevated-dark border border-border-subtle-dark text-xs font-tabular text-brand-primary-dark">37</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">38</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">39</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">40</div>
-<!-- Questions 46 - 50 -->
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">41</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">42</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">43</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">44</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">45</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">46</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">47</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">48</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">49</div>
-<div class="h-8 flex items-center justify-center rounded bg-canvas-dark border border-border-subtle-dark text-xs font-tabular text-text-muted-dark">50</div>
-</div>
-<!-- Palette Status Legend -->
-<div class="pt-3 border-t border-border-subtle-dark grid grid-cols-2 gap-2 text-[11px] font-code text-text-secondary-dark">
-<div class="flex items-center gap-1.5">
-<span class="w-3 h-3 rounded bg-elevated-dark border border-border-subtle-dark text-brand-primary-dark flex items-center justify-center text-[9px] font-bold">✓</span>
-<span>Đã nộp máy chủ</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="w-3 h-3 rounded bg-status-flagged/20 border border-status-flagged flex items-center justify-center text-status-flagged text-[9px] font-bold">!</span>
-<span class="text-status-flagged font-semibold">Lưu tạm (Chờ gửi)</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="w-3 h-3 rounded bg-canvas-dark border border-border-subtle-dark"></span>
-<span>Chưa làm</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="w-3 h-3 rounded border-2 border-brand-primary-dark"></span>
-<span>Đang xem</span>
-</div>
-</div>
-</div>
-<!-- Proctor & Security Integrity Telemetry Bento Panel -->
-<div class="bg-surface-dark border border-border-subtle-dark rounded-xl p-space-md flex flex-col gap-2.5">
-<div class="flex items-center justify-between">
-<span class="font-headline-sm text-xs font-semibold text-text-primary-dark uppercase tracking-wider flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-brand-primary-dark">security</span>
-            Giám sát phòng thi &amp; Tính toàn vẹn
-          </span>
-<span class="w-2 h-2 rounded-full bg-status-correct"></span>
-</div>
-<div class="flex flex-col gap-2 text-xs font-code text-text-secondary-dark">
-<div class="flex items-center justify-between p-2 rounded bg-elevated-dark border border-border-subtle-dark">
-<span class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark">videocam</span>
-              Webcam giám sát
-            </span>
-<span class="text-status-flagged font-medium text-[11px]">Đang đệm vào cache</span>
-</div>
-<div class="flex items-center justify-between p-2 rounded bg-elevated-dark border border-border-subtle-dark">
-<span class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark">fullscreen</span>
-              Khóa toàn màn hình
-            </span>
-<span class="text-brand-primary-dark font-medium text-[11px]">Bật (Không vi phạm)</span>
-</div>
-<div class="flex items-center justify-between p-2 rounded bg-elevated-dark border border-border-subtle-dark">
-<span class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm text-text-muted-dark">fingerprint</span>
-              Mã phiên kiểm tra
-            </span>
-<span class="text-text-muted-dark font-mono text-[11px]">MATH-CS-78291</span>
-</div>
-</div>
-</div>
-</aside>
-</main>
-<!-- ================= FLOATING OUTBOX SYNC WIDGET (BOTTOM-RIGHT) ================= -->
-<aside class="fixed bottom-11 right-5 z-40 w-80 bg-surface-dark border border-status-flagged/40 rounded-xl shadow-2xl p-3.5 flex flex-col gap-2.5 backdrop-blur-md">
-<!-- Header with count -->
-<div class="flex items-center justify-between border-b border-border-subtle-dark pb-2">
-<div class="flex items-center gap-1.5 text-xs font-headline-sm font-bold text-status-flagged">
-<span class="material-symbols-outlined text-base">outgoing_mail</span>
-<span>Outbox đồng bộ: 2 câu chờ gửi</span>
-</div>
-<span class="flex h-2 w-2 rounded-full bg-status-flagged offline-pulse"></span>
-</div>
-<!-- Outbox Items -->
-<div class="flex flex-col gap-1.5 font-code text-xs">
-<div class="flex items-center justify-between px-2 py-1.5 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-1.5">
-<span class="text-text-primary-dark font-semibold">• Câu 12:</span>
-<span class="text-brand-primary-dark font-bold">[B]</span>
-</div>
-<span class="text-[11px] text-text-muted-dark">Lưu lúc 09:39</span>
-</div>
-<div class="flex items-center justify-between px-2 py-1.5 rounded bg-canvas-dark border border-border-subtle-dark">
-<div class="flex items-center gap-1.5">
-<span class="text-text-primary-dark font-semibold">• Câu 13:</span>
-<span class="text-brand-primary-dark font-bold">[C]</span>
-</div>
-<span class="text-[11px] text-text-muted-dark">Lưu lúc 09:41</span>
-</div>
-</div>
-<!-- Heartbeat interval indicator -->
-<div class="flex items-center justify-between pt-1 border-t border-border-subtle-dark text-[11px] font-code text-text-muted-dark">
-<span class="flex items-center gap-1">
-<span class="material-symbols-outlined text-xs animate-spin text-status-flagged">autorenew</span>
-<span>Tự động gửi lại sau mỗi 5s...</span>
-</span>
-<button class="text-status-flagged hover:underline font-semibold text-[11px]">Gửi ngay</button>
-</div>
-</aside>
-<!-- ================= FIXED BOTTOM SHORTCUT & TELEMETRY FOOTER ================= -->
-<footer class="fixed bottom-0 left-0 right-0 h-9 z-50 bg-canvas-dark border-t border-border-subtle-dark px-gutter flex items-center justify-between text-xs font-code text-text-secondary-dark">
-<!-- Keymap bindings -->
-<div class="flex items-center gap-4 text-[12px]">
-<span class="flex items-center gap-1">
-<span class="text-text-primary-dark font-bold">[A-D]</span> Chọn đáp án
-      </span>
-<span class="flex items-center gap-1 hidden sm:inline-flex">
-<span class="text-text-primary-dark font-bold">[← / →]</span> Chuyển câu
-      </span>
-<span class="flex items-center gap-1 hidden md:inline-flex">
-<span class="text-text-primary-dark font-bold">[F]</span> Đánh dấu
-      </span>
-<span class="flex items-center gap-1">
-<span class="text-status-flagged font-bold">[R]</span> Thử kết nối lại
-      </span>
-</div>
-<!-- Telemetry status -->
-<div class="flex items-center gap-3 text-[11px] text-text-muted-dark">
-<span>IndexedDB: <strong>142 KB</strong></span>
-<span>•</span>
-<span class="text-status-wrong font-semibold">Độ trễ: Mất kết nối</span>
-<span class="hidden sm:inline-block">•</span>
-<span class="hidden sm:inline-block">Bản ghi: 14/50</span>
-</div>
-</footer>
-<!-- ================= INTERACTIVE WORKSPACE MICRO-LOGIC ================= -->
-<script>
-    // KaTeX equation rendering fallback
-    document.addEventListener("DOMContentLoaded", function() {
-      if (window.katex) {
-        try {
-          katex.render("P = \\lim_{x \\to \\infty} \\left( \\frac{2x^3 - 5x + 1}{x^3 + 4x^2 - 7} \\right) + \\int_{0}^{1} (3x^2 - 2x + e^x) \\,dx", 
-            document.getElementById("katex-equation"), {
-              throwOnError: false,
-              displayMode: true
+          colors: {
+            brand: {
+              DEFAULT: '#10B981',
+              hover: '#34D399',
+              dark: '#059669',
+            },
+            surface: {
+              canvas: '#090D16',
+              card: '#111726',
+              elevated: '#1A2234',
+            },
+            line: {
+              subtle: '#1E293B',
+              strong: '#334155'
+            },
+            status: {
+              flag: '#F59E0B',
+              wrong: '#EF4444'
             }
-          );
-        } catch (e) {
-          console.warn("KaTeX render notice:", e);
-        }
-      }
-
-      // Offline timer decrement simulation
-      let secondsLeft = 42 * 60 + 15;
-      const timerElement = document.getElementById("local-timer");
-      
-      setInterval(() => {
-        if (secondsLeft > 0) {
-          secondsLeft--;
-          const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
-          const s = (secondsLeft % 60).toString().padStart(2, '0');
-          if (timerElement) {
-            timerElement.textContent = `${m}:${s}`;
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
           }
         }
-      }, 1000);
-
-      // Keyboard shortcuts handlers
-      window.addEventListener('keydown', (e) => {
-        if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
-        
-        const key = e.key.toUpperCase();
-        if (key === 'R') {
-          triggerSyncRetry();
-        }
-      });
-
-      const retryBtn = document.getElementById('retry-btn');
-      if (retryBtn) {
-        retryBtn.addEventListener('click', triggerSyncRetry);
       }
+    };
+  </script>
+</head>
+<body class="bg-surface-canvas text-slate-100 font-sans min-h-screen flex flex-col antialiased">
 
-      function triggerSyncRetry() {
-        if (!retryBtn) return;
-        const originalText = retryBtn.innerHTML;
-        retryBtn.innerHTML = `<span class="material-symbols-outlined text-sm animate-spin">sync</span><span>Đang thử...</span>`;
-        retryBtn.disabled = true;
+  <!-- ================= OFFLINE ALERT BANNER ================= -->
+  <div class="w-full bg-status-wrong/20 border-b border-status-wrong/50 px-6 py-2.5 flex items-center justify-between text-xs text-status-wrong font-medium">
+    <div class="flex items-center gap-2">
+      <i data-lucide="wifi-off" class="w-4 h-4"></i>
+      <span>MẤT KẾT NỐI MẠNG - Đáp án đang được lưu an toàn trong máy. Vui lòng không tải lại trang!</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-status-wrong animate-ping"></span>
+      <span class="font-mono text-[11px]">Outbox: 2 câu chờ gửi</span>
+    </div>
+  </div>
 
-        setTimeout(() => {
-          retryBtn.innerHTML = originalText;
-          retryBtn.disabled = false;
-        }, 1200);
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <!-- Chỉ hiện: Tên bài thi, Tên thí sinh, Thời gian còn lại và Nút nộp bài thi -->
+  <header class="sticky top-0 z-50 h-14 bg-surface-card border-b border-line-subtle px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="font-display font-bold text-sm text-brand tracking-wider">Mathrix</span>
+      <span class="text-slate-500 font-mono text-xs">/</span>
+      <h1 class="font-display font-semibold text-sm text-slate-100">
+        Khảo sát Chuyên đề Giải tích &amp; C++17
+      </h1>
+    </div>
+
+    <!-- Center: Countdown Timer Pill -->
+    <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-elevated border border-line-subtle">
+      <i data-lucide="clock" class="w-4 h-4 text-brand"></i>
+      <span class="font-mono text-sm tracking-widest text-slate-100 font-semibold tabular-nums" id="countdown">01:24:35</span>
+    </div>
+
+    <!-- Right: Tên thí sinh + Nút nộp bài thi -->
+    <div class="flex items-center gap-4">
+      <span class="text-xs font-mono text-slate-300 hidden sm:inline">
+        Nguyễn Văn An - 12A1
+      </span>
+      <a href="/s/attempts/1/done" class="h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
+        <i data-lucide="check-circle-2" class="w-4 h-4 stroke-[2.2]"></i>
+        <span>Nộp bài thi</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ASSESSMENT WORKSPACE ================= -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 lg:px-6 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT COLUMN: CHỈ HIỆN 1 CÂU HỎI DUY NHẤT (8 cols) -->
+      <section class="lg:col-span-8 space-y-6">
+
+        <article class="bg-surface-card border border-line-subtle rounded-xl p-6 space-y-5">
+          <!-- Question Header: CHỈ HIỆN SỐ THỨ TỰ VÀ ĐIỂM SỐ -->
+          <div class="flex items-center justify-between pb-4 border-b border-line-subtle">
+            <div class="flex items-center gap-2.5">
+              <span class="font-display font-bold text-lg text-slate-100 tracking-tight">Câu 01</span>
+              <span class="text-xs text-brand font-mono px-2 py-0.5 rounded bg-brand/10 border border-brand/30">0.2 điểm</span>
+            </div>
+
+            <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium text-amber-400 bg-amber-950/20 border border-amber-500/40 hover:bg-amber-950/40 transition-colors">
+              <i data-lucide="flag" class="w-3.5 h-3.5 fill-amber-400/20"></i>
+              <span>Đánh dấu câu hỏi</span>
+            </button>
+          </div>
+
+          <!-- Question Content -->
+          <div class="text-slate-200 text-sm leading-relaxed space-y-3">
+            <p>
+              Cho hàm số \( f(x) \) liên tục trên tập số thực \( \mathbb{R} \) thỏa mãn điều kiện tích phân sau:
+            </p>
+
+            <div class="bg-surface-elevated border border-line-subtle rounded-lg p-4 font-mono text-emerald-400 text-center text-base" id="katex-math-target">
+              \int_{0}^{3} f(x) \, dx = 12 \quad \text{và} \quad \int_{0}^{1} f(3x) \, dx = ?
+            </div>
+
+            <p>
+              Giá trị của biểu thức tích phân \( I = \int_{0}^{1} f(3x) \, dx \) bằng bao nhiêu?
+            </p>
+          </div>
+
+          <!-- Answer Options -->
+          <div class="space-y-3 pt-2">
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-surface-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-300">A</span>
+              <span class="text-sm text-slate-200 font-mono">\( I = 36 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-brand bg-brand/5 cursor-pointer transition-all">
+              <input type="radio" name="q1" checked class="w-4 h-4 text-brand bg-surface-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-brand bg-brand text-surface-canvas flex items-center justify-center font-display text-xs font-bold">B</span>
+              <span class="text-sm text-slate-100 font-mono font-medium">\( I = 4 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-surface-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-300">C</span>
+              <span class="text-sm text-slate-200 font-mono">\( I = 6 \)</span>
+            </label>
+
+            <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-surface-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-300">D</span>
+              <span class="text-sm text-slate-200 font-mono">\( I = 12 \)</span>
+            </label>
+          </div>
+
+          <!-- Bottom Navigation -->
+          <div class="flex items-center justify-between pt-4 border-t border-line-subtle">
+            <button class="px-4 py-2 rounded-lg border border-line-subtle text-slate-400 opacity-50 cursor-not-allowed text-xs font-medium" disabled>
+              Câu trước
+            </button>
+            <button class="px-5 py-2 rounded-lg bg-surface-elevated hover:bg-line-strong border border-line-subtle text-slate-200 text-xs font-medium transition-colors">
+              Câu tiếp theo
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Bento Question Palette (4 cols) -->
+      <aside class="lg:col-span-4 space-y-4">
+        <div class="bg-surface-card border border-line-subtle rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-line-subtle">
+            <h2 class="font-display font-semibold text-sm text-slate-100 flex items-center gap-2">
+              <i data-lucide="layout-grid" class="w-4 h-4 text-brand"></i>
+              <span>Danh sách câu hỏi</span>
+            </h2>
+            <span class="text-xs font-mono text-brand font-medium">Đã làm: 1/50</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2 font-mono text-xs text-center" id="question-grid">
+            <button class="h-9 rounded border border-brand bg-brand text-surface-canvas font-bold">01</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">02</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">03</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">04</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">05</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">06</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">07</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">08</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">09</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">10</button>
+            <!-- 11-20 -->
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">11</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">12</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">13</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">14</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">15</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">16</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">17</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">18</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">19</button>
+            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-300 hover:border-line-strong">20</button>
+            <div class="col-span-5 py-2 text-center text-slate-500 text-[11px] font-mono border-t border-line-subtle/50">
+              ... các câu từ 21 đến 50 ...
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-surface-card border-t border-line-subtle flex items-center justify-center text-slate-500 font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      lucide.createIcons();
+      if (typeof katex !== 'undefined') {
+        const el = document.getElementById('katex-math-target');
+        if (el) {
+          katex.render("\\int_{0}^{3} f(x) \\, dx = 12 \\quad \\Rightarrow \\quad I = \\int_{0}^{1} f(3x) \\, dx = 4", el, {
+            throwOnError: false,
+            displayMode: true
+          });
+        }
       }
     });
   </script>
-</body></html>
+</body>
+</html>

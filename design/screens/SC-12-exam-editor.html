@@ -1,881 +1,325 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mathrix Studio - Biên soạn đề thi (MATH-CS-2024-EX)</title>
-<!-- Google Fonts: Space Grotesk, JetBrains Mono, Be Vietnam Pro -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- KaTeX CSS for authentic mathematical rendering -->
-<link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS v3 -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Soạn thảo đề thi</title>
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Be Vietnam Pro -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- KaTeX CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          "colors": {
-            "outline": "#86948a",
-            "surface-bright": "#343b36",
-            "canvas-dark": "#090D16",
-            "text-secondary-dark": "#94A3B8",
-            "on-primary-fixed-variant": "#005236",
-            "secondary": "#b9c7e0",
-            "tertiary": "#ffb3af",
-            "on-secondary-container": "#abb9d2",
-            "error": "#ffb4ab",
-            "outline-variant": "#3c4a42",
-            "background": "#0e1511",
-            "surface-dim": "#0e1511",
-            "tertiary-container": "#fc7c78",
-            "surface-variant": "#2f3632",
-            "primary-fixed-dim": "#4edea3",
-            "on-tertiary-fixed-variant": "#842225",
-            "on-tertiary-container": "#711419",
-            "on-surface-variant": "#bbcabf",
-            "on-primary-fixed": "#002113",
-            "surface-container-highest": "#2f3632",
-            "on-background": "#dde4dd",
-            "on-error": "#690005",
-            "secondary-fixed-dim": "#b9c7e0",
-            "inverse-primary": "#006c49",
-            "on-error-container": "#ffdad6",
-            "status-flagged": "#F59E0B",
-            "on-secondary": "#233144",
-            "border-strong-dark": "#334155",
-            "selected-dark": "rgba(16, 185, 129, 0.10)",
-            "on-tertiary-fixed": "#410005",
-            "surface-container-high": "#242c27",
-            "secondary-fixed": "#d5e3fd",
-            "surface-dark": "#111726",
-            "on-primary-container": "#00422b",
-            "inverse-on-surface": "#2b322d",
-            "primary-fixed": "#6ffbbe",
-            "surface-container": "#1a211d",
-            "on-surface": "#dde4dd",
-            "tertiary-fixed": "#ffdad7",
-            "on-secondary-fixed-variant": "#3a485c",
-            "primary-container": "#10b981",
-            "secondary-container": "#3c4a5e",
-            "on-primary": "#003824",
-            "text-muted-dark": "#64748B",
-            "surface-container-lowest": "#09100c",
-            "surface-tint": "#4edea3",
-            "inverse-surface": "#dde4dd",
+          colors: {
+            canvas: "#090D16",
+            surface: "#111726",
+            elevated: "#1A2234",
+            "border-subtle": "#1E293B",
+            "border-strong": "#334155",
+            brand: "#10B981",
+            "brand-hover": "#34D399",
             "status-wrong": "#EF4444",
-            "error-container": "#93000a",
-            "status-correct": "#10B981",
-            "on-secondary-fixed": "#0d1c2f",
-            "text-primary-dark": "#F1F5F9",
-            "elevated-dark": "#1A2234",
-            "surface-container-low": "#161d19",
-            "primary": "#4edea3",
-            "surface": "#0e1511",
-            "on-tertiary": "#650911",
-            "brand-hover-dark": "#34D399",
-            "brand-primary-dark": "#10B981",
-            "tertiary-fixed-dim": "#ffb3af",
-            "border-subtle-dark": "#1E293B"
+            "status-flagged": "#F59E0B",
+            "text-primary": "#F1F5F9",
+            "text-secondary": "#94A3B8",
+            "text-muted": "#64748B"
           },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
-          },
-          "spacing": {
-            "space-xl": "2rem",
-            "space-md": "1rem",
-            "margin": "2rem",
-            "gutter": "1.5rem",
-            "space-sm": "0.5rem",
-            "space-lg": "1.5rem",
-            "space-xs": "0.25rem"
-          },
-          "fontFamily": {
-            "headline-lg": ["Space Grotesk"],
-            "code": ["JetBrains Mono"],
-            "body-lg": ["Be Vietnam Pro"],
-            "tabular": ["Space Grotesk"],
-            "headline-sm": ["Space Grotesk"],
-            "body-md": ["Be Vietnam Pro"],
-            "headline-md": ["Space Grotesk"]
-          },
-          "fontSize": {
-            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
-            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
-            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
-            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
-            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
           }
         }
       }
-    }
+    };
   </script>
-<style>
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-      line-height: 1;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .custom-scroll::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: #090D16;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: #1E293B;
-      border-radius: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
-    /* Monospace Line numbers */
-    .editor-linenumbers {
-      user-select: none;
-    }
-  </style>
 </head>
-<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased overflow-hidden select-none">
-<!-- ======================================================== -->
-<!-- TOP NAVIGATION BAR (Exact Shared Component Anchors)      -->
-<!-- ======================================================== -->
-<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
-<!-- Left Navigation Cluster -->
-<div class="flex items-center gap-space-md shrink-0">
-<a class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark border border-border-subtle-dark font-body-md text-body-md transition-colors" href="/exams">
-<span class="material-symbols-outlined text-[18px]">arrow_back</span>
-<span class="hidden xl:inline">Danh sách đề thi</span>
-</a>
-<div class="h-4 w-px bg-border-subtle-dark"></div>
-<!-- Mathrix Brand Anchor (NO SLOGAN) -->
-<div class="flex items-center gap-2">
-<div class="w-7 h-7 rounded-lg bg-primary-container flex items-center justify-center text-canvas-dark font-bold font-headline-sm text-headline-sm shadow-sm">
+<body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- ================= TOP CONFIGURATION BAR ================= -->
+  <!-- Chứa: Nhập tên đề, thời gian làm đề, giới hạn các lớp làm bài (dropbox) -->
+  <header class="sticky top-0 z-50 bg-surface border-b border-border-subtle px-6 py-2.5 flex flex-wrap items-center justify-between gap-4">
+    <!-- Brand + Tên đề thi -->
+    <div class="flex items-center gap-3 flex-1 min-w-[300px]">
+      <a class="flex items-center gap-2 font-display text-base font-bold text-text-primary tracking-tight shrink-0" href="/a/exams">
+        <span class="w-7 h-7 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
           Σ
-        </div>
-<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
-</div>
-<!-- Breadcrumbs -->
-<nav class="hidden lg:flex items-center gap-1.5 text-text-muted-dark font-body-md text-body-md">
-<span>/</span>
-<span class="hover:text-text-secondary-dark cursor-pointer">Quản lý đề thi</span>
-<span>/</span>
-<span class="text-text-secondary-dark font-code text-code">MATH-CS-2024-EX</span>
-<span>/</span>
-<span class="text-text-primary-dark font-medium">Biên soạn</span>
-</nav>
-<!-- Status Pill Badge -->
-<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-surface-dark border border-border-subtle-dark">
-<span class="w-2 h-2 rounded-full bg-status-flagged animate-pulse"></span>
-<span class="text-status-flagged font-tabular text-tabular text-xs">Đang chỉnh sửa bản nháp</span>
-</div>
-</div>
-<!-- Center Exam Meta Quick-View -->
-<div class="hidden xl:flex items-center gap-2 px-3 py-1 bg-surface-dark/80 rounded-lg border border-border-subtle-dark">
-<span class="material-symbols-outlined text-brand-primary-dark text-[18px]">assignment</span>
-<span class="font-headline-sm text-headline-sm text-xs font-semibold text-text-primary-dark truncate max-w-sm">
-        Khảo sát Chuyên đề Giải tích &amp; C++17
-      </span>
-<span class="text-text-muted-dark font-tabular text-tabular text-xs">
-        (50 câu • 90 phút • Hệ số 2.0)
-      </span>
-<button class="p-1 hover:text-primary transition-colors text-text-secondary-dark" title="Cấu hình xáo trộn &amp; thời gian">
-<span class="material-symbols-outlined text-[16px]">tune</span>
-</button>
-</div>
-<!-- Right Actions & User Profile -->
-<div class="flex items-center gap-3 shrink-0">
-<!-- Autosave indicator -->
-<div class="hidden md:flex items-center gap-1.5 text-text-muted-dark font-tabular text-tabular text-xs">
-<span class="material-symbols-outlined text-status-correct text-[16px]">cloud_done</span>
-<span>Đã lưu nháp tự động 14:32:05</span>
-</div>
-<div class="h-4 w-px bg-border-subtle-dark hidden md:block"></div>
-<!-- Secondary Action: Lưu bản nháp -->
-<button class="px-3 py-1.5 rounded-lg border border-border-strong-dark bg-surface-dark hover:bg-elevated-dark text-text-primary-dark font-body-md text-body-md transition-colors active:scale-[0.98]">
-        Lưu bản nháp
+        </span>
+        <span>Mathrix</span>
+      </a>
+      <span class="text-text-muted font-mono">/</span>
+      <input type="text" value="Khảo sát Chuyên đề Giải tích & C++17" placeholder="Nhập tên đề thi..." class="w-full max-w-md h-9 px-3 bg-canvas rounded-lg border border-border-subtle text-sm font-semibold text-text-primary focus:border-brand focus:outline-none" />
+    </div>
+
+    <!-- Cấu hình: Thời gian + Giới hạn các lớp (Dropbox) + Nút tác vụ -->
+    <div class="flex items-center gap-3 flex-wrap">
+      <!-- Nhập thời gian làm bài -->
+      <div class="flex items-center gap-1.5 bg-canvas px-3 py-1.5 rounded-lg border border-border-subtle">
+        <span class="material-symbols-outlined text-sm text-text-muted">schedule</span>
+        <span class="text-xs text-text-secondary">Thời gian:</span>
+        <input type="number" value="90" class="w-12 bg-transparent text-xs font-mono font-semibold text-brand text-right focus:outline-none" />
+        <span class="text-xs text-text-muted">phút</span>
+      </div>
+
+      <!-- Giới hạn các lớp làm bài (Dropbox) -->
+      <div class="flex items-center gap-1.5 bg-canvas px-3 py-1.5 rounded-lg border border-border-subtle">
+        <span class="material-symbols-outlined text-sm text-text-muted">school</span>
+        <span class="text-xs text-text-secondary">Lớp áp dụng:</span>
+        <select class="bg-transparent text-xs font-mono text-text-primary focus:outline-none cursor-pointer">
+          <option value="12tin,12a1" class="bg-surface">12 Chuyên Tin, 12A1 (2 lớp)</option>
+          <option value="12tin" class="bg-surface">Chỉ lớp 12 Chuyên Tin</option>
+          <option value="all" class="bg-surface">Tất cả các lớp Khối 12</option>
+        </select>
+      </div>
+
+      <!-- Tách giao diện xem trước sang SC-13 -->
+      <a href="/a/exams/1/preview" class="h-9 px-3 rounded-lg border border-border-subtle bg-elevated hover:bg-border-subtle text-text-secondary hover:text-text-primary text-xs font-medium flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm">visibility</span>
+        <span>Xem trước đề</span>
+      </a>
+
+      <!-- Xuất bản -->
+      <button class="h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-xs flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm font-bold">check</span>
+        <span>Xuất bản đề thi</span>
       </button>
-<!-- Primary Action: Xuất bản đề thi -->
-<button class="px-3.5 py-1.5 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-headline-sm text-sm font-semibold flex items-center gap-1.5 transition-all shadow-sm active:scale-[0.98]">
-<span class="material-symbols-outlined text-[18px]">publish</span>
-<span>Xuất bản đề thi</span>
-</button>
-<!-- User avatar -->
-<div class="flex items-center gap-2 pl-1 border-l border-border-subtle-dark">
-<div class="w-7 h-7 rounded-lg bg-elevated-dark border border-border-strong-dark flex items-center justify-center font-tabular text-tabular text-xs text-primary font-bold">
-          TM
-        </div>
-<span class="hidden 2xl:inline font-body-md text-body-md text-xs text-text-secondary-dark font-medium">Thầy Trần Minh Đức</span>
-</div>
-</div>
-</header>
-<!-- ======================================================== -->
-<!-- MAIN 3-COLUMN SPLIT WORKSPACE                           -->
-<!-- ======================================================== -->
-<main class="h-[calc(100vh-56px)] flex overflow-hidden w-full">
-<!-- ---------------------------------------------------- -->
-<!-- COLUMN 1: LEFT QUESTION NAVIGATOR (w-72 / 288px)      -->
-<!-- ---------------------------------------------------- -->
-<aside class="w-72 border-r border-border-subtle-dark bg-[#0E1524] flex flex-col shrink-0">
-<!-- Navigator Header -->
-<div class="p-3 border-b border-border-subtle-dark bg-[#0E1524]">
-<div class="flex items-center justify-between mb-2">
-<div class="flex items-center gap-2">
-<span class="font-headline-sm text-headline-sm text-sm font-semibold text-text-primary-dark">Danh sách câu hỏi</span>
-<span class="px-1.5 py-0.2 rounded-lg bg-surface-dark text-text-secondary-dark font-tabular text-tabular text-xs border border-border-subtle-dark">50</span>
-</div>
-<button class="p-1 px-2 rounded-lg bg-brand-primary-dark/15 text-brand-primary-dark hover:bg-brand-primary-dark hover:text-canvas-dark border border-brand-primary-dark/30 font-body-md text-body-md text-xs font-medium flex items-center gap-1 transition-all">
-<span class="material-symbols-outlined text-[14px]">add</span>
-<span>Thêm câu</span>
-</button>
-</div>
-<!-- Mini Metrics Dashboard -->
-<div class="grid grid-cols-3 gap-1.5 text-center pt-1 border-t border-border-subtle-dark/60 font-tabular text-tabular text-xs">
-<div class="bg-surface-dark/80 p-1 rounded-lg border border-border-subtle-dark">
-<div class="text-status-correct font-bold">40/50</div>
-<div class="text-text-muted-dark text-[10px]">Hoàn tất</div>
-</div>
-<div class="bg-surface-dark/80 p-1 rounded-lg border border-border-subtle-dark">
-<div class="text-status-flagged font-bold">6/50</div>
-<div class="text-text-muted-dark text-[10px]">Bản nháp</div>
-</div>
-<div class="bg-surface-dark/80 p-1 rounded-lg border border-border-subtle-dark">
-<div class="text-status-wrong font-bold">4/50</div>
-<div class="text-text-muted-dark text-[10px]">Chưa giải</div>
-</div>
-</div>
-<!-- Filter bar -->
-<div class="mt-2.5 relative">
-<span class="material-symbols-outlined absolute left-2 top-2 text-text-muted-dark text-[16px]">filter_list</span>
-<input class="w-full pl-7 pr-2 py-1 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-primary-dark font-body-md text-body-md text-xs focus:outline-none focus:border-brand-primary-dark placeholder-text-muted-dark" placeholder="Tìm kiếm câu, dạng bài..." type="text"/>
-</div>
-</div>
-<!-- Question List Items (Scrollable) -->
-<div class="flex-1 overflow-y-auto custom-scroll p-2 space-y-1">
-<!-- Question 01 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 01</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Trắc nghiệm</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.2đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 02 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 02</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Đúng / Sai</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">1.0đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 03 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 03</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Điền số</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.5đ</span>
-<span class="material-symbols-outlined text-status-flagged text-[16px]">pending</span>
-</div>
-</div>
-<!-- ACTIVE QUESTION: Câu 14 (Selected Emerald highlight) -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-selected-dark border-l-4 border-l-brand-primary-dark border-y border-r border-border-strong-dark cursor-pointer">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-brand-primary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-bold text-brand-primary-dark">Câu 14</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-brand-primary-dark/20 text-brand-primary-dark text-[10px] font-medium border border-brand-primary-dark/40">C++17</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-brand-primary-dark font-bold">0.5đ</span>
-<span class="material-symbols-outlined text-brand-primary-dark text-[16px]">edit_square</span>
-</div>
-</div>
-<!-- Question 15 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 15</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Tự luận File</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">2.0đ</span>
-<span class="material-symbols-outlined text-text-muted-dark text-[16px]">radio_button_unchecked</span>
-</div>
-</div>
-<!-- Question 16 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 16</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Trắc nghiệm</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.2đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 17 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 17</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Trắc nghiệm</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.2đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 18 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 18</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Điền số</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.5đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 19 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 19</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Đúng / Sai</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">1.0đ</span>
-<span class="material-symbols-outlined text-status-wrong text-[16px]">error</span>
-</div>
-</div>
-<!-- Question 20 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 20</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">C++17</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.5đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Question 21 -->
-<div class="group flex items-center justify-between p-2 rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-border-subtle-dark/50 hover:border-border-strong-dark cursor-pointer transition-colors">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-text-muted-dark group-hover:text-text-secondary-dark text-[14px]">drag_indicator</span>
-<span class="font-tabular text-tabular text-xs font-semibold text-text-primary-dark">Câu 21</span>
-<span class="px-1.5 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark text-[10px] border border-border-subtle-dark">Trắc nghiệm</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="font-tabular text-tabular text-xs text-text-muted-dark">0.2đ</span>
-<span class="material-symbols-outlined text-status-correct text-[16px]">check_circle</span>
-</div>
-</div>
-<!-- Ellipsis / more hint -->
-<div class="text-center py-2 text-text-muted-dark font-tabular text-tabular text-xs">
-          + 29 câu hỏi tiếp theo
-        </div>
-</div>
-<!-- Left Bottom Bulk Actions -->
-<div class="p-2 border-t border-border-subtle-dark bg-canvas-dark flex items-center justify-between gap-1 text-[11px] font-body-md text-body-md">
-<button class="flex-1 py-1.5 px-1 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark flex items-center justify-center gap-1 transition-colors" title="Đánh lại số thứ tự tự động">
-<span class="material-symbols-outlined text-[13px]">format_list_numbered</span>
-<span>Đánh số</span>
-</button>
-<button class="flex-1 py-1.5 px-1 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark flex items-center justify-center gap-1 transition-colors" title="Xáo trộn trật tự đề thi">
-<span class="material-symbols-outlined text-[13px]">shuffle</span>
-<span>Xáo đề</span>
-</button>
-<button class="flex-1 py-1.5 px-1 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark flex items-center justify-center gap-1 transition-colors" title="Nhập dữ liệu nhanh">
-<span class="material-symbols-outlined text-[13px]">upload_file</span>
-<span>LaTeX/DOCX</span>
-</button>
-</div>
-</aside>
-<!-- ---------------------------------------------------- -->
-<!-- COLUMN 2: CENTER MARKDOWN & MATH FORMULA EDITOR       -->
-<!-- ---------------------------------------------------- -->
-<section class="flex-1 flex flex-col border-r border-border-subtle-dark bg-canvas-dark overflow-y-auto custom-scroll">
-<!-- Question Settings Ribbon -->
-<div class="p-3 bg-surface-dark border-b border-border-subtle-dark shrink-0">
-<div class="flex flex-wrap items-center justify-between gap-3">
-<!-- Index + Points + Difficulty -->
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-1.5">
-<span class="font-headline-sm text-headline-sm text-sm font-bold text-text-primary-dark">CÂU 14</span>
-<div class="flex items-center rounded-lg bg-canvas-dark border border-border-subtle-dark px-2 py-0.5">
-<input class="w-8 bg-transparent text-center font-tabular text-tabular text-xs text-primary font-bold focus:outline-none" type="text" value="0.5"/>
-<span class="text-text-muted-dark text-xs">điểm</span>
-</div>
-</div>
-<div class="h-4 w-px bg-border-subtle-dark"></div>
-<!-- Bloom Difficulty Selector -->
-<div class="flex items-center gap-1 text-xs">
-<button class="px-2 py-0.5 rounded-lg text-text-muted-dark hover:text-text-primary-dark">Nhận biết</button>
-<button class="px-2 py-0.5 rounded-lg text-text-muted-dark hover:text-text-primary-dark">Thông hiểu</button>
-<button class="px-2 py-0.5 rounded-lg text-text-muted-dark hover:text-text-primary-dark">Vận dụng</button>
-<button class="px-2 py-0.5 rounded-lg bg-status-flagged/20 text-status-flagged border border-status-flagged/40 font-semibold">Vận dụng cao</button>
-</div>
-</div>
-<!-- Quick Actions right -->
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-lg text-text-muted-dark hover:text-text-primary-dark hover:bg-elevated-dark" title="Sao chép câu">
-<span class="material-symbols-outlined text-[18px]">content_copy</span>
-</button>
-<button class="p-1 rounded-lg text-text-muted-dark hover:text-status-wrong hover:bg-elevated-dark" title="Xoá câu hỏi">
-<span class="material-symbols-outlined text-[18px]">delete</span>
-</button>
-</div>
-</div>
-<!-- Dropdown Archetype Selector (Crucial Requirement: 5 Supported Types) -->
-<div class="mt-3 pt-2.5 border-t border-border-subtle-dark/70">
-<div class="text-[11px] font-medium text-text-secondary-dark mb-1.5 uppercase tracking-wider">Định dạng câu hỏi (Archetype):</div>
-<div class="grid grid-cols-2 md:grid-cols-5 gap-1.5 text-xs">
-<button class="px-2 py-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark hover:border-border-strong-dark hover:text-text-primary-dark text-left transition-colors flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-border-strong-dark"></span>
-<span class="truncate">1. Trắc nghiệm (A,B,C,D)</span>
-</button>
-<button class="px-2 py-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark hover:border-border-strong-dark hover:text-text-primary-dark text-left transition-colors flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-border-strong-dark"></span>
-<span class="truncate">2. Đúng / Sai (4 mệnh đề)</span>
-</button>
-<button class="px-2 py-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark hover:border-border-strong-dark hover:text-text-primary-dark text-left transition-colors flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-border-strong-dark"></span>
-<span class="truncate">3. Điền số (Ngắn)</span>
-</button>
-<!-- Selected Option 4 -->
-<button class="px-2 py-1.5 rounded-lg bg-selected-dark border border-brand-primary-dark text-brand-primary-dark font-semibold text-left transition-colors flex items-center gap-1 shadow-sm">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark animate-ping"></span>
-<span class="truncate">4. Lập trình C++17</span>
-</button>
-<button class="px-2 py-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark hover:border-border-strong-dark hover:text-text-primary-dark text-left transition-colors flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-border-strong-dark"></span>
-<span class="truncate">5. Tự luận File (PDF)</span>
-</button>
-</div>
-</div>
-</div>
-<!-- KaTeX & Quick Math Toolbar (Sticky) -->
-<div class="sticky top-0 bg-[#111726]/95 backdrop-blur border-b border-border-subtle-dark p-2 flex flex-wrap items-center gap-1.5 z-20 shrink-0">
-<!-- Math Formula Insertion Chips -->
-<span class="text-[11px] text-text-muted-dark font-mono px-1">Chèn nhanh:</span>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Tích phân xác định">
-          ∫_{a}^{b}
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Phân số">
-          \frac{a}{b}
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Giới hạn">
-          \lim_{x\to}
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Căn thức">
-          \sqrt{x}
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Tổng Sigma">
-          \sum_{i=1}^n
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Vector">
-          \vec{u}
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Ký tự Hy Lạp">
-          α, β, π
-        </button>
-<button class="px-2 py-0.5 rounded-lg bg-canvas-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-code text-code text-xs transition-colors" title="Ma trận">
-          \begin{matrix}
-        </button>
-<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
-<!-- Markdown tools -->
-<button class="p-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark" title="In đậm">
-<span class="material-symbols-outlined text-[16px]">format_bold</span>
-</button>
-<button class="p-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark" title="In nghiêng">
-<span class="material-symbols-outlined text-[16px]">format_italic</span>
-</button>
-<button class="p-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark" title="Chèn danh sách">
-<span class="material-symbols-outlined text-[16px]">format_list_bulleted</span>
-</button>
-<button class="p-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark" title="Chèn bảng biểu">
-<span class="material-symbols-outlined text-[16px]">table</span>
-</button>
-<button class="p-1 rounded-lg text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark" title="Chèn ảnh minh hoạ">
-<span class="material-symbols-outlined text-[16px]">image</span>
-</button>
-<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
-<button class="px-2 py-0.5 rounded-lg bg-elevated-dark text-brand-primary-dark hover:bg-border-strong-dark border border-border-strong-dark font-code text-code text-xs flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">code</span>
-<span>&lt;/&gt; Khối C++17</span>
-</button>
-<button class="px-2 py-0.5 rounded-lg bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark border border-border-strong-dark font-code text-code text-xs">
-          $inline_math$
-        </button>
-</div>
-<!-- Editor Body Content -->
-<div class="p-4 space-y-4">
-<!-- SECTION 1: QUESTION PROSE EDITOR -->
-<div class="space-y-1.5">
-<div class="flex items-center justify-between text-xs text-text-secondary-dark">
-<span class="font-medium flex items-center gap-1.5 text-text-primary-dark">
-<span class="material-symbols-outlined text-primary text-[16px]">edit_note</span>
-              Nội dung đề bài (Hỗ trợ Markdown &amp; KaTeX Syntax):
-            </span>
-<span class="font-code text-code text-[11px] text-text-muted-dark">Markdown UTF-8 • 246 ký tự</span>
-</div>
-<!-- Monaco/Code-like Textarea Container -->
-<div class="relative rounded-lg border border-border-subtle-dark bg-[#080D1A] overflow-hidden focus-within:border-brand-primary-dark transition-colors">
-<div class="flex">
-<!-- Line numbers -->
-<div class="editor-linenumbers w-9 py-3 bg-[#060913] text-right pr-2 text-text-muted-dark font-code text-code text-xs select-none border-r border-border-subtle-dark space-y-1 leading-relaxed">
-<div>01</div>
-<div>02</div>
-<div>03</div>
-<div>04</div>
-<div>05</div>
-<div>06</div>
-</div>
-<!-- Prose Textarea -->
-<textarea class="w-full bg-transparent p-3 font-code text-code text-xs leading-relaxed text-text-primary-dark focus:outline-none resize-none" rows="6" spellcheck="false">Cho hàm số f(x) liên tục và xác định trên tập số thực $\mathbb{R}$.
+    </div>
+  </header>
 
-Hãy viết chương trình C++17 tính giá trị của biểu thức tích phân kết hợp giới hạn sau:
-$$P = \lim_{x \to \infty} \left( \frac{2x^3 - 5x + 1}{x^3 + 4x^2 - 7} \right) + \int_{0}^{1} (3x^2 - 2x + e^x)dx$$
+  <!-- ================= MAIN SPLIT WORKSPACE ================= -->
+  <main class="flex-1 flex overflow-hidden">
 
-Kết quả in ra màn hình ở định dạng số thực chính xác đến 4 chữ số thập phân (ví dụ sử dụng `fixed` và `setprecision(4)`).</textarea>
-</div>
-</div>
-</div>
-<!-- SECTION 2: SOLUTION & ANSWER CONFIGURATION (ARCHETYPE 4: C++17 CODE STUB) -->
-<div class="space-y-3 pt-2">
-<div class="flex items-center justify-between text-xs">
-<span class="font-medium flex items-center gap-1.5 text-text-primary-dark">
-<span class="material-symbols-outlined text-primary text-[16px]">terminal</span>
-              Mã khởi tạo mẫu dành cho thí sinh (Starter Code Template):
-            </span>
-<span class="px-2 py-0.5 rounded-lg bg-surface-dark text-primary border border-border-subtle-dark font-code text-code text-[11px]">C++17 (gcc 12.2)</span>
-</div>
-<!-- Starter Code Editor box -->
-<div class="rounded-lg border border-border-subtle-dark bg-elevated-dark overflow-hidden">
-<div class="px-3 py-1.5 bg-[#121929] border-b border-border-subtle-dark flex items-center justify-between text-xs font-code text-code">
-<div class="flex items-center gap-2 text-text-secondary-dark">
-<span class="w-2.5 h-2.5 rounded-full bg-status-wrong/60"></span>
-<span class="w-2.5 h-2.5 rounded-full bg-status-flagged/60"></span>
-<span class="w-2.5 h-2.5 rounded-full bg-status-correct/60"></span>
-<span class="ml-2 text-text-muted-dark">solution_template.cpp</span>
-</div>
-<button class="text-text-muted-dark hover:text-text-primary-dark">Format Code</button>
-</div>
-<textarea class="w-full bg-transparent p-3 font-code text-code text-xs text-emerald-300 focus:outline-none resize-none font-medium leading-relaxed" rows="9" spellcheck="false">#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-#include &lt;cmath&gt;
+    <!-- CỘT TRÁI: DANH SÁCH CÂU HỎI ĐÃ NHẬP (w-72) -->
+    <!-- Trên mỗi card ghi: STT câu, loại câu, số điểm, nút đã nhập đủ đáp án (dấu v) hay chưa (dấu !) -->
+    <aside class="w-72 border-r border-border-subtle bg-surface/50 flex flex-col shrink-0">
+      <div class="p-3 border-b border-border-subtle flex items-center justify-between">
+        <span class="font-display text-xs font-bold text-text-primary uppercase tracking-wider">Danh sách câu hỏi</span>
+        <button class="px-2 py-1 rounded bg-brand/10 border border-brand/30 text-brand text-xs font-medium flex items-center gap-1 hover:bg-brand/20 transition-colors">
+          <span class="material-symbols-outlined text-xs">add</span>
+          <span>Thêm câu</span>
+        </button>
+      </div>
 
-using namespace std;
-
-// TODO: Tính toán giá trị giới hạn và tích phân hàm f(x)
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    // Tính toán giá trị P
-    double P = 0.0;
-    
-    // Xuất kết quả
-    cout &lt;&lt; fixed &lt;&lt; setprecision(4) &lt;&lt; P &lt;&lt; "\n";
-    return 0;
-}</textarea>
-</div>
-<!-- SECTION 3: TEST CASES CONFIGURATION TABLE -->
-<div class="space-y-2 pt-2">
-<div class="flex items-center justify-between text-xs">
-<span class="font-medium text-text-primary-dark flex items-center gap-1.5">
-<span class="material-symbols-outlined text-primary text-[16px]">fact_check</span>
-                Hệ thống Bộ kiểm thử tự động (Test cases evaluation):
-              </span>
-<button class="px-2 py-1 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-primary font-medium flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">add</span>
-<span>Thêm Test case</span>
-</button>
-</div>
-<!-- Bento-style Test Case Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-<!-- Test 1 (Public sample) -->
-<div class="p-3 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-2">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-status-correct"></span>
-<span class="font-semibold text-text-primary-dark">Test Case #1 (Công khai)</span>
-</div>
-<span class="px-1.5 py-0.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-primary font-tabular text-tabular text-[10px]">Trọng số: 40% (0.2đ)</span>
-</div>
-<div class="space-y-1 font-code text-code text-[11px]">
-<div class="text-text-muted-dark">Đầu vào (Standard Input):</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark italic">[Không có tham số - Tự tính toán]</div>
-<div class="text-text-muted-dark pt-1">Kết quả mong đợi (Standard Output):</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-status-correct font-semibold">3.7183</div>
-</div>
-<div class="flex items-center justify-between pt-1 text-[11px] text-text-muted-dark border-t border-border-subtle-dark/60">
-<span>Giới hạn thời gian: 1.0 giây</span>
-<span>Bộ nhớ: 256 MB</span>
-</div>
-</div>
-<!-- Test 2 (Hidden evaluation) -->
-<div class="p-3 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-2">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-status-flagged"></span>
-<span class="font-semibold text-text-primary-dark">Test Case #2 (Ẩn chấm điểm)</span>
-</div>
-<span class="px-1.5 py-0.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-primary font-tabular text-tabular text-[10px]">Trọng số: 60% (0.3đ)</span>
-</div>
-<div class="space-y-1 font-code text-code text-[11px]">
-<div class="text-text-muted-dark">Đầu vào (Standard Input):</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-text-secondary-dark italic">[Kiểm tra độ chính xác làm tròn &amp; timeout]</div>
-<div class="text-text-muted-dark pt-1">Kết quả mong đợi (Standard Output):</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-status-flagged font-semibold font-mono">3.7183 ± 0.0001</div>
-</div>
-<div class="flex items-center justify-between pt-1 text-[11px] text-text-muted-dark border-t border-border-subtle-dark/60">
-<span>Giới hạn thời gian: 1.0 giây</span>
-<span>Bộ nhớ: 256 MB</span>
-</div>
-</div>
-</div>
-</div>
-<!-- SECTION 4: GỢI Ý & LỜI GIẢI CHI TIẾT -->
-<div class="pt-2">
-<details class="group rounded-lg border border-border-subtle-dark bg-surface-dark">
-<summary class="flex items-center justify-between p-3 cursor-pointer select-none text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">lightbulb</span>
-<span>Lời giải chi tiết &amp; Hướng dẫn chấm (LaTeX Explanation)</span>
-</div>
-<span class="material-symbols-outlined text-[16px] group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="p-3 border-t border-border-subtle-dark bg-canvas-dark">
-<textarea class="w-full bg-transparent p-2 font-code text-code text-xs text-text-secondary-dark focus:outline-none resize-none" rows="3" spellcheck="false">- Giới hạn: \lim_{x \to \infty} (2x^3 - 5x + 1)/(x^3 + 4x^2 - 7) = 2.
-- Tích phân: \int_{0}^{1} (3x^2 - 2x + e^x)dx = [x^3 - x^2 + e^x]_{0}^{1} = (1 - 1 + e) - (0 - 0 + 1) = e - 1 \approx 1.71828.
-- Tổng P = 2 + 1.71828 = 3.7183.</textarea>
-</div>
-</details>
-</div>
-</div>
-</div>
-</section>
-<!-- ---------------------------------------------------- -->
-<!-- COLUMN 3: RIGHT REAL-TIME LIVE PREVIEW (w-[460px])   -->
-<!-- ---------------------------------------------------- -->
-<aside class="w-[460px] bg-[#0B101D] flex flex-col shrink-0 overflow-y-auto custom-scroll border-l border-border-subtle-dark">
-<!-- Preview Header -->
-<div class="p-3 bg-[#0E1526] border-b border-border-subtle-dark flex items-center justify-between shrink-0">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-brand-primary-dark text-[18px]">visibility</span>
-<span class="font-headline-sm text-headline-sm text-xs font-semibold text-text-primary-dark">Xem trước thí sinh</span>
-<div class="flex items-center gap-1 px-1.5 py-0.5 rounded-lg bg-surface-dark border border-border-subtle-dark text-[10px] text-primary font-tabular text-tabular">
-<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-<span>Live • 0ms</span>
-</div>
-</div>
-<!-- Device viewport toggle -->
-<div class="flex items-center gap-1 bg-canvas-dark p-0.5 rounded-lg border border-border-subtle-dark">
-<button class="p-1 rounded-lg bg-surface-dark text-text-primary-dark" title="Xem trên màn hình máy tính">
-<span class="material-symbols-outlined text-[14px]">desktop_windows</span>
-</button>
-<button class="p-1 rounded-lg text-text-muted-dark hover:text-text-primary-dark" title="Xem trên máy tính bảng">
-<span class="material-symbols-outlined text-[14px]">tablet</span>
-</button>
-</div>
-</div>
-<!-- Proctoring Alert Banner Mockup -->
-<div class="mx-3 mt-3 p-2 rounded-lg bg-status-flagged/10 border border-status-flagged/30 flex items-center gap-2 text-status-flagged text-xs">
-<span class="material-symbols-outlined text-[16px] shrink-0">security</span>
-<span class="text-[11px] leading-tight font-medium">Giám sát tích cực: Khóa chuyển đổi tab &amp; Tối đa 2.0s thực thi code</span>
-</div>
-<!-- Rendered Student View Card -->
-<div class="p-3 space-y-3">
-<div class="p-4 rounded-lg bg-surface-dark border border-border-subtle-dark space-y-3">
-<!-- Student Card Header -->
-<div class="flex items-center justify-between pb-2 border-b border-border-subtle-dark">
-<div class="flex items-center gap-2">
-<span class="font-headline-sm text-headline-sm text-sm font-bold text-text-primary-dark">Câu 14</span>
-<span class="text-text-muted-dark text-xs">/ 50</span>
-<span class="px-2 py-0.5 rounded-lg bg-status-flagged/15 text-status-flagged border border-status-flagged/30 font-tabular text-tabular text-[10px] font-bold">VẬN DỤNG CAO</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="font-tabular text-tabular text-xs text-primary font-bold">0.5 điểm</span>
-<button class="p-1 rounded-lg text-text-muted-dark hover:text-status-flagged" title="Đặt cờ câu này [F]">
-<span class="material-symbols-outlined text-[16px]">flag</span>
-</button>
-</div>
-</div>
-<!-- Prompt with KaTeX Math Formula Rendering -->
-<div class="text-xs text-text-primary-dark leading-relaxed space-y-2">
-<p>Cho hàm số <span class="font-serif italic text-primary">f(x)</span> liên tục và xác định trên tập số thực <span class="font-serif font-bold">ℝ</span>.</p>
-<p>Hãy viết chương trình C++17 tính giá trị của biểu thức tích phân kết hợp giới hạn sau:</p>
-<!-- Rendered Mathematical Equation Display Box -->
-<div class="my-2.5 p-3 rounded-lg bg-canvas-dark border border-border-subtle-dark text-center overflow-x-auto">
-<div class="text-sm font-serif tracking-wide text-text-primary-dark">
-<span class="text-primary font-bold">P</span> = 
-                <span class="inline-block px-1">lim<sub>x→∞</sub></span>
-<span class="inline-flex flex-col text-center align-middle mx-1">
-<span class="border-b border-text-secondary-dark px-1 text-xs">2x<sup>3</sup> - 5x + 1</span>
-<span class="px-1 text-xs">x<sup>3</sup> + 4x<sup>2</sup> - 7</span>
-</span>
-                + ∫<sub>0</sub><sup>1</sup> (3x<sup>2</sup> - 2x + e<sup>x</sup>) dx
-              </div>
-</div>
-<p class="text-text-secondary-dark text-[11px]">
-              Kết quả in ra màn hình ở định dạng số thực chính xác đến 4 chữ số thập phân (ví dụ sử dụng <code class="px-1 py-0.5 rounded bg-canvas-dark text-primary border border-border-subtle-dark font-code text-code text-[10px]">fixed</code> và <code class="px-1 py-0.5 rounded bg-canvas-dark text-primary border border-border-subtle-dark font-code text-code text-[10px]">setprecision(4)</code>).
-            </p>
-</div>
-<!-- Student IDE Terminal Widget -->
-<div class="rounded-lg border border-border-strong-dark bg-elevated-dark overflow-hidden space-y-0 text-xs">
-<div class="px-2.5 py-1.5 bg-[#121929] border-b border-border-subtle-dark flex items-center justify-between">
-<span class="text-[11px] font-code text-code text-text-secondary-dark flex items-center gap-1.5">
-<span class="material-symbols-outlined text-primary text-[14px]">data_object</span>
-                main.cpp (C++17)
-              </span>
-<span class="text-[10px] text-text-muted-dark font-code text-code">UTF-8 • LF</span>
-</div>
-<!-- IDE Editor Area -->
-<div class="p-2.5 font-code text-code text-[11px] leading-relaxed text-text-primary-dark bg-[#0A0F1D]">
-<div><span class="text-purple-400">#include</span> <span class="text-orange-300">&lt;iostream&gt;</span></div>
-<div><span class="text-purple-400">#include</span> <span class="text-orange-300">&lt;iomanip&gt;</span></div>
-<div><span class="text-purple-400">#include</span> <span class="text-orange-300">&lt;cmath&gt;</span></div>
-<div class="text-text-muted-dark italic">// Sinh viên viết giải thuật tính toán tại đây:</div>
-<div><span class="text-blue-400">int</span> <span class="text-yellow-300">main</span>() {</div>
-<div class="pl-4 text-emerald-400">double P = 2.0 + (exp(1.0) - 1.0);</div>
-<div class="pl-4">std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(4) &lt;&lt; P;</div>
-<div class="pl-4"><span class="text-purple-400">return</span> <span class="text-cyan-300">0</span>;</div>
-<div>}</div>
-</div>
-<!-- IDE Control actions -->
-<div class="p-2 bg-[#121929] border-t border-border-subtle-dark flex items-center justify-between">
-<button class="px-2.5 py-1 rounded-lg bg-surface-dark hover:bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark font-body-md text-body-md text-xs flex items-center gap-1 transition-colors">
-<span class="material-symbols-outlined text-primary text-[14px]">play_arrow</span>
-<span>Chạy thử mẫu</span>
-</button>
-<button class="px-3 py-1 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-headline-sm text-xs font-semibold flex items-center gap-1 transition-colors">
-<span class="material-symbols-outlined text-[14px]">send</span>
-<span>Nộp mã nguồn</span>
-</button>
-</div>
-</div>
-<!-- Console Output preview -->
-<div class="p-2 rounded-lg bg-canvas-dark border border-border-subtle-dark text-xs space-y-1">
-<div class="flex items-center justify-between text-[10px] text-text-muted-dark">
-<span>Đầu ra thực thi (Console output):</span>
-<span class="text-status-correct font-mono">Exit code: 0 (14ms)</span>
-</div>
-<div class="font-code text-code text-xs text-status-correct font-semibold">
-              3.7183
-            </div>
-</div>
-</div>
-<!-- DEMONSTRATION OF OTHER 4 ARCHETYPES (Interactive Previews) -->
-<div class="pt-2 space-y-2">
-<div class="text-[11px] font-semibold text-text-secondary-dark uppercase tracking-wider">
-            Xem trước các định dạng câu hỏi khác:
+      <!-- Danh sách câu hỏi cuộn -->
+      <div class="flex-1 overflow-y-auto p-2 space-y-1.5 font-mono text-xs">
+        <!-- Câu 1 (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-brand bg-brand/5 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-brand">01.</span>
+            <span class="text-text-primary">Trắc nghiệm</span>
           </div>
-<!-- Archetype 1: MCQ 4 Choices (A, B, C, D) Preview -->
-<div class="p-3 rounded-lg bg-surface-dark/70 border border-border-subtle-dark space-y-2">
-<div class="flex items-center justify-between text-xs">
-<span class="font-semibold text-text-secondary-dark">Mẫu Trắc nghiệm 4 lựa chọn (A, B, C, D)</span>
-<span class="text-text-muted-dark text-[10px]">Nhấn phím [A/B/C/D]</span>
-</div>
-<div class="grid grid-cols-2 gap-1.5 text-xs">
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark flex items-center gap-2 cursor-pointer">
-<span class="w-5 h-5 rounded-lg bg-elevated-dark text-text-secondary-dark font-tabular text-tabular text-xs flex items-center justify-center font-bold">A</span>
-<span class="font-serif">P = 2 + e</span>
-</div>
-<!-- Selected Option B -->
-<div class="p-1.5 rounded-lg bg-selected-dark border border-brand-primary-dark flex items-center gap-2 cursor-pointer">
-<span class="w-5 h-5 rounded-lg bg-brand-primary-dark text-canvas-dark font-tabular text-tabular text-xs flex items-center justify-center font-bold">B</span>
-<span class="font-serif text-brand-primary-dark font-semibold">P = 1 + e</span>
-</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark flex items-center gap-2 cursor-pointer">
-<span class="w-5 h-5 rounded-lg bg-elevated-dark text-text-secondary-dark font-tabular text-tabular text-xs flex items-center justify-center font-bold">C</span>
-<span class="font-serif">P = e - 1</span>
-</div>
-<div class="p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark hover:border-border-strong-dark flex items-center gap-2 cursor-pointer">
-<span class="w-5 h-5 rounded-lg bg-elevated-dark text-text-secondary-dark font-tabular text-tabular text-xs flex items-center justify-center font-bold">D</span>
-<span class="font-serif">P = 3 + 2e</span>
-</div>
-</div>
-</div>
-<!-- Archetype 2: Đúng / Sai 4 ý mệnh đề Preview -->
-<div class="p-3 rounded-lg bg-surface-dark/70 border border-border-subtle-dark space-y-2">
-<span class="text-xs font-semibold text-text-secondary-dark">Mẫu Đúng / Sai (4 mệnh đề)</span>
-<div class="space-y-1 text-xs">
-<div class="flex items-center justify-between p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[11px]">
-<span class="text-text-secondary-dark">a) Giới hạn hàm số khi x → ∞ bằng 2</span>
-<div class="flex items-center gap-1">
-<span class="px-2 py-0.5 rounded-lg bg-status-correct/20 text-status-correct font-bold border border-status-correct/40">Đúng</span>
-<span class="px-2 py-0.5 rounded-lg text-text-muted-dark">Sai</span>
-</div>
-</div>
-<div class="flex items-center justify-between p-1.5 rounded-lg bg-canvas-dark border border-border-subtle-dark text-[11px]">
-<span class="text-text-secondary-dark">b) Nguyên hàm của e^x trên đoạn [0,1] là 1</span>
-<div class="flex items-center gap-1">
-<span class="px-2 py-0.5 rounded-lg text-text-muted-dark">Đúng</span>
-<span class="px-2 py-0.5 rounded-lg bg-status-wrong/20 text-status-wrong font-bold border border-status-wrong/40">Sai</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Archetype 3: Điền số Terminal Preview -->
-<div class="p-3 rounded-lg bg-surface-dark/70 border border-border-subtle-dark space-y-2">
-<span class="text-xs font-semibold text-text-secondary-dark">Mẫu Điền số (Trả lời ngắn)</span>
-<div class="flex items-center gap-2">
-<div class="flex-1 p-2 rounded-lg bg-canvas-dark border border-border-subtle-dark flex items-center gap-2">
-<span class="text-text-muted-dark font-code text-code text-xs">&gt;</span>
-<input class="w-full bg-transparent font-code text-code text-xs text-status-correct focus:outline-none" readonly="" type="text" value="3.7183"/>
-</div>
-<button class="px-3 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark text-text-secondary-dark text-xs">Xác nhận</button>
-</div>
-</div>
-</div>
-</div>
-</aside>
-</main>
-<!-- ======================================================== -->
-<!-- ULTRA-THIN BOTTOM SHORTCUT STATUS BAR (8px / compact)    -->
-<!-- ======================================================== -->
-<footer class="h-6 w-full bg-canvas-dark border-t border-border-subtle-dark px-4 flex items-center justify-between text-[11px] text-text-muted-dark font-tabular text-tabular select-none z-30">
-<div class="flex items-center gap-4">
-<div class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-status-correct"></span>
-<span>Hệ thống: Trực tuyến (Sẵn sàng)</span>
-</div>
-<span class="hidden md:inline">•</span>
-<span class="hidden md:inline">LaTeX: KaTeX v0.16.8 Engine</span>
-<span class="hidden md:inline">•</span>
-<span class="hidden md:inline">Trình biên dịch: GCC 12.2 C++17</span>
-</div>
-<div class="flex items-center gap-3">
-<span class="hidden lg:inline"><kbd class="px-1 py-0.2 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark">Ctrl+S</kbd> Lưu nháp</span>
-<span class="hidden lg:inline"><kbd class="px-1 py-0.2 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark">Ctrl+Enter</kbd> Chạy code</span>
-<span class="hidden lg:inline"><kbd class="px-1 py-0.2 rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark">F</kbd> Đặt cờ</span>
-<span class="text-text-secondary-dark">Mathrix Exam Studio • v4.2-academic</span>
-</div>
-</footer>
-</body></html>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">0.2đ</span>
+            <!-- Dấu v: Đã nhập đủ đáp án -->
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+
+        <!-- Câu 2: Đúng / Sai (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-border-subtle bg-surface hover:bg-elevated flex items-center justify-between cursor-pointer transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-text-primary">02.</span>
+            <span class="text-text-secondary">Đúng / Sai</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">1.0đ</span>
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+
+        <!-- Câu 3: Điền số (Chưa đủ: dấu !) -->
+        <div class="p-2.5 rounded-lg border border-status-flagged/40 bg-status-flagged/5 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-status-flagged">03.</span>
+            <span class="text-text-primary">Điền số</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">0.5đ</span>
+            <!-- Dấu !: Chưa nhập đủ đáp án -->
+            <span class="w-5 h-5 rounded-full bg-status-flagged/20 text-status-flagged flex items-center justify-center font-bold" title="Chưa nhập đủ đáp án">!</span>
+          </div>
+        </div>
+
+        <!-- Câu 4: Lập trình C++ (Đã đủ: dấu v) -->
+        <div class="p-2.5 rounded-lg border border-border-subtle bg-surface hover:bg-elevated flex items-center justify-between cursor-pointer transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-text-primary">04.</span>
+            <span class="text-text-secondary">Lập trình C++</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-text-muted">2.0đ</span>
+            <span class="w-5 h-5 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold" title="Đã nhập đủ đáp án">✓</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CỘT CHÍNH: FORM SOẠN CÂU HỎI -->
+    <section class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- Hàng cấu hình câu hỏi: Loại câu, Mức độ, Điểm số -->
+      <div class="p-4 rounded-xl bg-surface border border-border-subtle flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="font-display font-bold text-lg text-text-primary">Câu 01</span>
+          <select class="h-9 px-3 bg-canvas border border-border-subtle rounded-lg text-xs font-mono text-text-primary focus:outline-none">
+            <option>Trắc nghiệm 4 lựa chọn</option>
+            <option>Đúng / Sai 4 ý mệnh đề</option>
+            <option>Điền số (Trả lời ngắn)</option>
+            <option>Lập trình Tin học C++</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Chọn mức độ -->
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-text-secondary">Mức độ:</span>
+            <select class="h-9 px-3 bg-canvas border border-border-subtle rounded-lg font-sans text-xs text-text-primary focus:outline-none">
+              <option>Nhận biết</option>
+              <option>Thông hiểu</option>
+              <option selected>Vận dụng</option>
+              <option>Vận dụng cao</option>
+            </select>
+          </div>
+
+          <!-- Nhập điểm số của câu hỏi -->
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-text-secondary">Điểm số:</span>
+            <input type="number" step="0.1" value="0.2" class="w-16 h-9 px-2 bg-canvas border border-border-subtle rounded-lg font-mono text-xs font-semibold text-brand text-right focus:outline-none" />
+            <span class="text-text-muted">điểm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD NHẬP NỘI DUNG CÂU HỎI & HÌNH MINH HỌA -->
+      <!-- Yêu cầu: Nếu có ảnh thì (tổng độ dài box câu hỏi + box hình + padding) = độ dài box khi không có hình; 2 box riêng cạnh nhau -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold text-text-secondary uppercase tracking-wider font-mono">
+            Nội dung câu hỏi (Hỗ trợ text thường &amp; công thức KaTeX dạng $f(x)$)
+          </label>
+          <span class="text-[11px] font-mono text-text-muted">Kèm hình minh họa (Tối đa 1 ảnh 640×640)</span>
+        </div>
+
+        <!-- 2 box riêng biệt nằm cạnh nhau -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          <!-- Box nhập nội dung câu hỏi (8 cols khi có ảnh) -->
+          <div class="lg:col-span-8 flex flex-col">
+            <textarea rows="6" placeholder="Nhập đề bài ở đây... Ví dụ: Cho hàm số $f(x) = \int_0^x \sqrt{t^2+1}dt$. Tính giá trị của $f'(1)$..." class="w-full flex-1 p-3.5 bg-canvas border border-border-subtle rounded-lg text-sm font-sans text-text-primary placeholder:text-text-muted focus:border-brand focus:outline-none leading-relaxed"></textarea>
+          </div>
+
+          <!-- Box hình minh họa (4 cols - kích cỡ phù hợp 640×640) -->
+          <div class="lg:col-span-4 border border-dashed border-border-strong rounded-lg bg-canvas/60 p-4 flex flex-col items-center justify-center text-center">
+            <span class="material-symbols-outlined text-3xl text-text-muted mb-2">image</span>
+            <p class="text-xs text-text-secondary font-medium">Kéo thả hoặc tải ảnh minh họa</p>
+            <p class="text-[10px] text-text-muted font-mono mt-1">Kích cỡ tối đa 640×640 px (PNG/JPG)</p>
+            <button class="mt-3 px-3 py-1.5 rounded bg-elevated border border-border-subtle text-xs text-text-primary hover:bg-border-subtle transition-colors">
+              Chọn tệp ảnh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ĐỐI VỚI CÂU HỎI ĐÚNG / SAI (2 OPTIONS) -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <span class="font-display font-bold text-sm text-text-primary">Cấu hình câu hỏi Đúng / Sai</span>
+          <!-- 2 Options cho Đúng/Sai -->
+          <div class="flex items-center gap-2">
+            <label class="flex items-center gap-1.5 text-xs text-text-secondary cursor-pointer">
+              <input type="radio" name="tf_opt" checked class="text-brand accent-emerald-500" />
+              <span>Option 1: Nhập điểm từng ý / lũy tiến</span>
+            </label>
+            <label class="flex items-center gap-1.5 text-xs text-text-secondary cursor-pointer ml-3">
+              <input type="radio" name="tf_opt" class="text-brand accent-emerald-500" />
+              <span>Option 2: 2 box nhấn Đúng, Sai cơ bản</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Danh sách 4 ý a, b, c, d -->
+        <div class="space-y-2.5 font-sans text-xs">
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+            <span class="font-mono font-bold text-brand">a)</span>
+            <input type="text" value="Hàm số nghịch biến trên khoảng (-\infty; 0)" class="flex-1 bg-transparent text-text-primary focus:outline-none" />
+            <div class="flex items-center gap-1.5 font-mono">
+              <button class="px-2.5 py-1 rounded bg-brand text-canvas font-bold">ĐÚNG</button>
+              <button class="px-2.5 py-1 rounded bg-elevated text-text-secondary hover:text-text-primary">SAI</button>
+              <input type="number" step="0.05" value="0.25" class="w-14 px-1.5 py-1 bg-surface rounded border border-border-subtle text-right text-brand font-mono" title="Điểm ý a" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+            <span class="font-mono font-bold text-brand">b)</span>
+            <input type="text" value="Đồ thị hàm số có đúng một điểm cực trị tại x = 0" class="flex-1 bg-transparent text-text-primary focus:outline-none" />
+            <div class="flex items-center gap-1.5 font-mono">
+              <button class="px-2.5 py-1 rounded bg-elevated text-text-secondary hover:text-text-primary">ĐÚNG</button>
+              <button class="px-2.5 py-1 rounded bg-status-wrong text-canvas font-bold">SAI</button>
+              <input type="number" step="0.05" value="0.25" class="w-14 px-1.5 py-1 bg-surface rounded border border-border-subtle text-right text-brand font-mono" title="Điểm ý b" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ĐỐI VỚI MÔN TIN: TEST CASE VÍ DỤ VÀ TEST CASE CHÍNH THỨC (ẨN) -->
+      <div class="p-5 rounded-xl bg-surface border border-border-subtle space-y-4">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <div>
+            <h3 class="font-display font-bold text-sm text-text-primary">Cấu hình Test Case Lập trình (Môn Tin)</h3>
+            <p class="text-[11px] text-text-muted mt-0.5">Test case ví dụ hiển thị cho học sinh. Test case chính thức được dùng để chấm điểm tự động.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Bảng 1: Test case ví dụ (Hiển thị cho HS tham khảo) -->
+          <div class="p-3.5 rounded-lg bg-canvas border border-border-subtle space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-semibold text-brand">1. Test case ví dụ (Công khai)</span>
+              <button class="text-[11px] text-brand hover:underline">+ Thêm ví dụ</button>
+            </div>
+            <textarea rows="3" class="w-full p-2 bg-surface border border-border-subtle rounded font-mono text-xs text-text-primary" placeholder="Input mẫu...&#10;5&#10;1 2 3 4 5"></textarea>
+            <textarea rows="2" class="w-full p-2 bg-surface border border-border-subtle rounded font-mono text-xs text-text-primary" placeholder="Output kỳ vọng...&#10;15"></textarea>
+          </div>
+
+          <!-- Bảng 2: Test case chính thức (Chấm điểm, Ẩn bí mật) -->
+          <div class="p-3.5 rounded-lg bg-canvas border border-border-subtle space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-semibold text-status-flagged">2. Test case chấm thi (Bí mật / Ẩn)</span>
+              <span class="text-[10px] font-mono text-text-muted">Đã tự động gồm ví dụ + 4 test ẩn</span>
+            </div>
+            <div class="space-y-1.5 font-mono text-[11px]">
+              <div class="p-2 rounded bg-surface border border-border-subtle flex items-center justify-between">
+                <span>Test 1: Kế thừa từ Ví dụ</span>
+                <span class="text-brand font-semibold">Tự động nạp</span>
+              </div>
+              <div class="p-2 rounded bg-surface border border-border-subtle flex items-center justify-between">
+                <span>Test 2: N = 10^5 (Giới hạn lớn)</span>
+                <span class="text-status-flagged font-semibold">Test bí mật</span>
+              </div>
+            </div>
+            <button class="w-full py-1.5 rounded bg-elevated border border-border-subtle text-xs text-text-secondary hover:text-text-primary transition-colors">
+              + Nhập thêm test case bí mật
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="w-full py-3 px-6 bg-surface border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Đề thi của tôi (Giao diện sáng)</title>
+  <!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#F8FAFC",
+            surface: "#FFFFFF",
+            elevated: "#0F172A",
+            "border-subtle": "#E2E8F0",
+            "border-strong": "#CBD5E1",
+            brand: "#059669",
+            "brand-hover": "#047857",
+            "status-wrong": "#EF4444",
+            "status-flagged": "#F59E0B",
+            "text-primary": "#0F172A",
+            "text-secondary": "#475569",
+            "text-muted": "#94A3B8"
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .mathrix-grid {
+      background-color: #F8FAFC;
+      background-image: 
+        linear-gradient(to right, rgba(226, 232, 240, 0.8) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.8) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased mathrix-grid">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-6 bg-canvas/90 backdrop-blur border-b border-border-subtle">
+    <!-- Brand Logo & Navigation Links -->
+    <div class="flex items-center gap-8 h-full">
+      <a class="flex items-center gap-2.5 font-display text-lg font-bold text-text-primary tracking-tight focus:outline-none" href="/s/exams">
+        <span class="w-8 h-8 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
+          Σ
+        </span>
+        <span>Mathrix</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 h-full pt-3.5">
+        <a class="text-brand border-b-2 border-brand font-medium pb-3.5 flex items-center gap-1.5" href="/s/exams">
+          <span>Đề thi</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Student Profile & Logout -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded bg-brand/10 border border-brand/40 text-brand font-mono text-xs font-semibold flex items-center justify-center">
+          AN
+        </div>
+        <div class="hidden sm:flex flex-col text-left">
+          <span class="text-sm font-medium text-text-primary leading-tight">Nguyễn Văn An - 12A1</span>
+          <span class="font-mono text-[11px] text-text-muted leading-tight">SBD: 120482</span>
+        </div>
+      </div>
+      <div class="h-4 w-px bg-border-subtle hidden sm:block"></div>
+      <a class="flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-subtle bg-elevated text-text-secondary hover:text-status-wrong hover:border-status-wrong/40 text-xs font-mono font-medium transition-colors" href="/login">
+        <span class="material-symbols-outlined text-sm">logout</span>
+        <span class="hidden md:inline">Đăng xuất</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Canvas Content -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+    <!-- Page Header -->
+    <section class="flex flex-col gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-border-subtle pb-4">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-text-primary tracking-tight">Đề thi của tôi</h1>
+          <p class="text-text-secondary text-sm mt-0.5">Danh sách các bài thi được phân công</p>
+        </div>
+      </div>
+
+      <!-- Controls & Search Toolbar -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+        <!-- Search Input -->
+        <div class="md:col-span-8 relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+            <span class="material-symbols-outlined text-lg">search</span>
+          </div>
+          <input class="w-full h-10 pl-9 pr-4 bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted rounded text-sm font-sans focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-colors" placeholder="Tìm kiếm tên bài thi..." type="text"/>
+        </div>
+
+        <!-- Subject Filter -->
+        <div class="md:col-span-4 flex items-center p-0.5 rounded bg-surface border border-border-subtle">
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-brand bg-brand/10 border border-brand/30 text-center">
+            Tất cả
+          </button>
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
+            Toán học
+          </button>
+          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
+            Tin học
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Tabs -->
+    <section class="border-b border-border-subtle flex items-center gap-6">
+      <button class="pb-3 border-b-2 border-brand text-brand text-sm font-semibold flex items-center gap-2">
+        <span>Đang diễn ra</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-brand/10 text-brand border border-brand/40 font-bold">1</span>
+      </button>
+      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+        <span>Chưa đến hạn</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
+      </button>
+      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+        <span>Đã làm</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
+      </button>
+    </section>
+
+    <!-- Bento Grid Workspace: Left (Cards 8 cols) & Right (Lịch thi 4 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- LEFT COLUMN: Exam Cards (8 cols) -->
+      <div class="lg:col-span-8 flex flex-col gap-5">
+
+        <!-- Card 1: VÀO LÀM BÀI (Màu xanh lá cây) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle hover:border-brand/60 transition-colors flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-brand/10 text-brand border border-brand/40">
+              TOÁN HỌC
+            </span>
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Khảo sát Chuyên đề Tích phân &amp; Hình học Oxyz
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>50 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>90 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Vào làm bài (Màu xanh lá cây) -->
+          <div class="flex items-center justify-end pt-1">
+            <a class="h-10 px-6 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer" href="/s/exams/1">
+              <span>Vào làm bài</span>
+              <span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 2: ĐÃ LÀM (Màu đỏ) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-status-wrong/10 text-status-wrong border border-status-wrong/40">
+              TIN HỌC
+            </span>
+            <span class="font-mono text-xs text-status-wrong font-medium">Đã hoàn thành bài nộp</span>
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Lập trình C++ và Cấu trúc dữ liệu nâng cao
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>40 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>120 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Đã làm (Màu đỏ) -->
+          <div class="flex items-center justify-end pt-1">
+            <button class="h-10 px-6 rounded-lg bg-status-wrong/20 text-status-wrong border border-status-wrong/50 font-semibold text-sm flex items-center justify-center gap-2 cursor-default">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              <span>Đã làm</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 3: CHƯA ĐẾN HẠN LÀM (Tối mờ disabled) -->
+        <article class="p-6 rounded-xl bg-surface border border-border-subtle opacity-75 flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-border-subtle text-text-muted border border-border-strong">
+              TOÁN HỌC
+            </span>
+            <span class="font-mono text-xs text-text-muted">Mở vào 08:00 ngày 21/05</span>
+          </div>
+
+          <!-- Tên bài thi -->
+          <h2 class="font-display text-xl font-bold text-text-primary tracking-tight">
+            Đại số Tuyến tính &amp; Xác suất Thống kê Đại cương
+          </h2>
+
+          <!-- Chỉ hiện: Số câu hỏi, Thời gian, Thang điểm -->
+          <div class="grid grid-cols-3 gap-2.5 py-3 border-y border-border-subtle font-mono text-xs text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">quiz</span>
+              <span>40 câu hỏi</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">schedule</span>
+              <span>60 phút</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-text-muted">grade</span>
+              <span>Thang điểm 10.0</span>
+            </div>
+          </div>
+
+          <!-- Nút làm bài: Trạng thái Chưa đến hạn làm (Tối mờ disabled) -->
+          <div class="flex items-center justify-end pt-1">
+            <button class="h-10 px-6 rounded-lg bg-elevated border border-border-subtle text-text-muted font-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed" disabled>
+              <span class="material-symbols-outlined text-base">lock</span>
+              <span>Chưa đến hạn làm</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- RIGHT COLUMN: CHỈ GIỮ CARD LỊCH THI (4 cols) -->
+      <aside class="lg:col-span-4 flex flex-col gap-5">
+        <div class="p-5 rounded-xl bg-surface border border-border-subtle flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+            <h3 class="font-display text-sm font-semibold text-text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined text-brand text-lg">event</span>
+              Lịch thi đợt này
+            </h3>
+            <span class="font-mono text-xs text-text-muted">Tháng 05/2026</span>
+          </div>
+
+          <div class="flex flex-col gap-2.5 font-sans text-xs">
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-brand/10 border border-brand/30 rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.5</span>
+                <span class="text-sm font-bold text-brand leading-tight">16</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Tích phân &amp; Oxyz</p>
+                <p class="text-text-muted font-mono text-[11px]">08:30 • Ca 1</p>
+              </div>
+              <span class="px-2 py-0.5 rounded font-mono text-[10px] bg-brand text-canvas font-bold">HÔM NAY</span>
+            </div>
+
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated border border-border-subtle rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.7</span>
+                <span class="text-sm font-bold text-text-secondary leading-tight">18</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Lập trình C++ Nâng cao</p>
+                <p class="text-text-muted font-mono text-[11px]">08:00 • Ca 2</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-canvas border border-border-subtle">
+              <div class="flex flex-col items-center justify-center w-10 py-1 bg-elevated border border-border-subtle rounded font-mono">
+                <span class="text-[10px] text-text-muted">T.3</span>
+                <span class="text-sm font-bold text-text-secondary leading-tight">21</span>
+              </div>
+              <div class="flex-1 truncate">
+                <p class="font-medium text-text-primary truncate">Đại số Tuyến tính &amp; XS</p>
+                <p class="text-text-muted font-mono text-[11px]">14:00 • Ca 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-canvas border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

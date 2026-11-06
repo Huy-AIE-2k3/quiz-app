@@ -1,5 +1,5 @@
 {
-  "last_completed_code": "SC-17",
+  "last_completed_code": "SC-17-LIGHT",
   "completed_codes": [
     "SC-01",
     "SC-02",
@@ -18,8 +18,25 @@
     "SC-14",
     "SC-15",
     "SC-16",
-    "SC-17"
+    "SC-17",
+    "SC-01-LIGHT",
+    "SC-02-LIGHT",
+    "SC-03-LIGHT",
+    "SC-04-LIGHT",
+    "SC-04-VAR-OFFLINE-LIGHT",
+    "SC-05-LIGHT",
+    "SC-07-LIGHT",
+    "SC-08-LIGHT",
+    "SC-09-LIGHT",
+    "SC-10-LIGHT",
+    "SC-11-LIGHT",
+    "SC-12-LIGHT",
+    "SC-13-LIGHT",
+    "SC-14-LIGHT",
+    "SC-15-LIGHT",
+    "SC-16-LIGHT",
+    "SC-17-LIGHT"
   ],
   "status": "ALL_COMPLETED",
-  "timestamp": 1793861878.8852713
+  "timestamp": 1793959589.6333487
 }

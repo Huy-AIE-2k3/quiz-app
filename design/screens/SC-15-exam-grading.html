@@ -240,30 +240,24 @@
 </div>
 <!-- Document / Viewer Toolbar Actions -->
 <div class="flex items-center space-x-1">
+<!-- Download PDF button -->
+<button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-primary-dark bg-elevated-dark hover:bg-surface-dark rounded border border-border-subtle-dark transition-colors" title="Tải file PDF bài làm về máy">
+<span class="material-symbols-outlined text-[15px]">download</span>
+<span class="text-[11px]">Tải file PDF</span>
+</button>
 <div class="flex items-center bg-elevated-dark border border-border-subtle-dark rounded px-1 py-0.5">
-<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Thu nhỏ (-)">
+<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Thu nhỏ">
 <span class="material-symbols-outlined text-[15px]">zoom_out</span>
 </button>
 <span class="text-[11px] font-tabular text-text-secondary-dark px-1.5">125%</span>
-<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Phóng to (+)">
+<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Phóng to">
 <span class="material-symbols-outlined text-[15px]">zoom_in</span>
 </button>
-<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Vừa chiều ngang">
-<span class="material-symbols-outlined text-[15px]">fit_screen</span>
-</button>
 </div>
-<button class="p-1.5 text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark rounded border border-border-subtle-dark" title="Xoay 90 độ">
-<span class="material-symbols-outlined text-[15px]">rotate_right</span>
-</button>
 <!-- Invert filter toggle for night grading -->
 <button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-secondary-dark hover:text-text-primary-dark bg-elevated-dark rounded border border-border-subtle-dark" id="btn-invert-pdf" onclick="togglePdfInvert()" title="Đảo màu giấy (Bảo vệ mắt ban đêm)">
 <span class="material-symbols-outlined text-[15px]">contrast</span>
 <span class="text-[11px]">Đảo màu giấy</span>
-</button>
-<!-- Annotation Pencil -->
-<button class="flex items-center space-x-1 px-2 py-1 text-xs text-brand-hover-dark bg-brand-primary-dark/10 rounded border border-brand-primary-dark/30 hover:bg-brand-primary-dark/20" title="Bút vẽ ghi chú trực tiếp">
-<span class="material-symbols-outlined text-[15px]">draw</span>
-<span class="text-[11px]">Bút chấm</span>
 </button>
 </div>
 </div>
@@ -674,11 +668,10 @@
 <!-- BOTTOM DOCKED ACTION FOOTER -->
 <div class="border-t border-border-subtle-dark bg-canvas-dark p-3 select-none">
 <div class="flex items-center justify-between">
-<!-- Left: Ghost Skip Button -->
+<!-- Left: Skip Button -->
 <button class="flex items-center space-x-1.5 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark bg-transparent border border-border-subtle-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
 <span class="material-symbols-outlined text-[16px]">skip_next</span>
 <span>Bỏ qua</span>
-<kbd class="px-1 text-[10px] font-code bg-elevated-dark text-text-muted-dark rounded border border-border-subtle-dark">Esc</kbd>
 </button>
 <!-- Center: Instant notification checkbox -->
 <label class="flex items-center space-x-2 text-xs text-text-secondary-dark cursor-pointer select-none">
@@ -688,29 +681,15 @@
 <!-- Right: Primary Save & Next Button -->
 <button class="flex items-center space-x-2 px-4 py-2 rounded text-xs font-semibold text-black bg-brand-primary-dark hover:bg-brand-hover-dark active:scale-[0.98] transition-all cursor-pointer" onclick="saveAndNext()">
 <span>Lưu &amp; Chấm tiếp theo</span>
-<kbd class="px-1.5 py-0.5 text-[10px] font-code bg-black/20 text-black rounded font-bold">Enter</kbd>
 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
 </button>
 </div>
 </div>
 </section>
 </main>
-<!-- ULTRA-THIN BOTTOM SHORTCUT HINT BAR (8px - 28px standard) -->
-<footer class="h-7 w-full bg-canvas-dark border-t border-border-subtle-dark px-4 flex items-center justify-between text-[11px] font-code text-text-muted-dark select-none">
-<div class="flex items-center space-x-4">
-<span><strong class="text-text-secondary-dark">[Enter]</strong> Lưu &amp; Tiếp</span>
-<span><strong class="text-text-secondary-dark">[J / K]</strong> Chuyển học sinh</span>
-<span><strong class="text-text-secondary-dark">[1, 2, 3]</strong> Chuyển ý rubric</span>
-<span><strong class="text-text-secondary-dark">[Tab]</strong> Chuyển PDF/Code</span>
-<span><strong class="text-text-secondary-dark">[I]</strong> Đảo màu scan</span>
-</div>
-<div class="flex items-center space-x-3">
-<span class="flex items-center space-x-1">
-<span class="material-symbols-outlined text-[13px] text-brand-primary-dark">wifi</span>
-<span>Đồng bộ máy chủ: 0ms</span>
-</span>
-<span>Mathrix v3.4.2-academic</span>
-</div>
+<!-- Global Standard Footer -->
+<footer class="mt-auto w-full py-3 px-6 bg-surface-dark border-t border-border-subtle-dark flex items-center justify-center text-text-muted-dark font-mono text-xs">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </footer>
 <!-- INTERACTION LOGIC (VANILLA JS) -->
 <script>
@@ -782,38 +761,12 @@
     function saveAndNext() {
       const total = document.getElementById('label-total-score').innerText;
       const notification = document.createElement('div');
-      notification.className = 'fixed bottom-10 right-10 bg-brand-primary-dark text-black text-xs font-semibold px-4 py-2 rounded shadow-lg flex items-center space-x-2 z-50 animate-bounce';
-      notification.innerHTML = `<span class="material-symbols-outlined text-[16px]">check_circle</span><span>Đã lưu điểm: ${total}/4.0 điểm! Chuyển thí sinh 15...</span>`;
+      notification.className = 'fixed bottom-10 right-10 bg-brand-primary-dark text-black text-xs font-semibold px-4 py-2 rounded shadow-lg flex items-center space-x-2 z-50';
+      notification.innerHTML = `<span class="material-symbols-outlined text-[16px]">check_circle</span><span>Đã lưu điểm: ${total}/4.0 điểm! Chuyển thí sinh tiếp theo...</span>`;
       document.body.appendChild(notification);
       setTimeout(() => {
         notification.remove();
       }, 2000);
     }
-
-    // Keyboard Shortcuts Listener
-    document.addEventListener('keydown', function(e) {
-      // Avoid hotkeys when typing in textarea or input
-      if (['TEXTAREA', 'INPUT', 'SELECT'].includes(document.activeElement.tagName)) {
-        if (e.key === 'Enter' && e.ctrlKey) {
-          saveAndNext();
-        }
-        return;
-      }
-
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        saveAndNext();
-      } else if (e.key.toLowerCase() === 'j') {
-        // Prev student
-      } else if (e.key.toLowerCase() === 'k') {
-        // Next student
-      } else if (e.key.toLowerCase() === 'i') {
-        togglePdfInvert();
-      } else if (e.key === 'Tab') {
-        e.preventDefault();
-        const isPdfActive = !document.getElementById('view-pdf-section').classList.contains('hidden');
-        switchSubmissionTab(isPdfActive ? 'code' : 'pdf');
-      }
-    });
   </script>
 </body></html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mathrix - Chấm thi Tự luận &amp; Code (/a/exams/102/grading) (Giao diện sáng)</title>
+<!-- Google Fonts: Space Grotesk, Be Vietnam Pro, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#0F172A",
+            "status-wrong": "#EF4444",
+            "on-primary": "#FFFFFF",
+            "brand-hover-dark": "#047857",
+            "secondary": "#475569",
+            "primary-fixed-dim": "#059669",
+            "secondary-container": "#E2E8F0",
+            "status-correct": "#059669",
+            "on-surface-variant": "#475569",
+            "surface-dim": "#F8FAFC",
+            "on-tertiary-container": "#711419",
+            "on-surface": "#0F172A",
+            "inverse-primary": "#006c49",
+            "surface-bright": "#FFFFFF",
+            "status-flagged": "#F59E0B",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a",
+            "on-secondary-fixed-variant": "#3a485c",
+            "surface-dark": "#FFFFFF",
+            "surface-container-low": "#F8FAFC",
+            "on-tertiary": "#650911",
+            "on-error": "#690005",
+            "on-tertiary-fixed": "#410005",
+            "surface-container-lowest": "#FFFFFF",
+            "text-primary-dark": "#0F172A",
+            "on-tertiary-fixed-variant": "#842225",
+            "on-primary-fixed-variant": "#FFFFFF",
+            "on-secondary": "#233144",
+            "on-background": "#0F172A",
+            "surface-container-high": "#0F172A",
+            "primary-container": "#059669",
+            "inverse-on-surface": "#2b322d",
+            "elevated-dark": "#0F172A",
+            "outline": "#94A3B8",
+            "secondary-fixed-dim": "#475569",
+            "selected-dark": ""#ECFDF5"",
+            "border-strong-dark": "#CBD5E1",
+            "inverse-surface": "#0F172A",
+            "tertiary": "#ffb3af",
+            "brand-primary-dark": "#059669",
+            "border-subtle-dark": "#E2E8F0",
+            "text-secondary-dark": "#475569",
+            "secondary-fixed": "#d5e3fd",
+            "on-secondary-fixed": "#0d1c2f",
+            "error": "#ffb4ab",
+            "text-muted-dark": "#94A3B8",
+            "surface-variant": "#E2E8F0",
+            "tertiary-container": "#fc7c78",
+            "primary-fixed": "#059669",
+            "on-primary-container": "#065F46",
+            "tertiary-fixed-dim": "#ffb3af",
+            "background": "#F8FAFC",
+            "primary": "#059669",
+            "outline-variant": "#E2E8F0",
+            "canvas-dark": "#F8FAFC",
+            "surface-tint": "#059669",
+            "on-secondary-container": "#475569",
+            "tertiary-fixed": "#ffdad7",
+            "surface-container-highest": "#E2E8F0",
+            "surface": "#F8FAFC",
+            "on-primary-fixed": "#FFFFFF"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Be Vietnam Pro", "sans-serif"],
+            "tabular": ["Space Grotesk", "monospace"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "code": ["JetBrains Mono", "monospace"],
+            "body-md": ["Be Vietnam Pro", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "body-lg": ["17px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "tabular": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "code": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F8FAFC;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E2E8F0;
+      border-radius: 3px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #CBD5E1;
+    }
+  </style>
+</head>
+<body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-brand-primary-dark selection:text-black">
+<!-- TOP WORKSTATION HEADER -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-4 bg-canvas-dark border-b border-border-subtle-dark select-none">
+<!-- Left: Brand mark (NO slogan), Module badge, Breadcrumb & Exam title -->
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-code bg-surface-dark border border-border-strong-dark text-brand-hover-dark font-medium uppercase tracking-wider">
+          [CHẤM THI TỰ LUẬN &amp; CODE]
+        </span>
+</div>
+<span class="text-border-strong-dark">/</span>
+<a class="flex items-center space-x-1 text-text-secondary-dark hover:text-brand-hover-dark text-sm transition-colors duration-150" href="/exams/102">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span class="font-body-md text-body-md text-xs">Quay lại phòng thi</span>
+</a>
+<span class="text-border-strong-dark">|</span>
+<span class="text-xs font-medium text-text-primary-dark truncate max-w-[220px] 2xl:max-w-none" title="Khảo sát Chuyên đề Giải tích &amp; C++17">
+        Khảo sát Chuyên đề Giải tích &amp; C++17
+      </span>
+</div>
+<!-- Center: Quick student switcher controls & Meta info -->
+<div class="flex items-center space-x-2">
+<button class="flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all" title="Phím tắt: J">
+<span>← Trước</span>
+<kbd class="px-1 text-[10px] bg-elevated-dark text-text-muted-dark rounded border border-border-subtle-dark">J</kbd>
+</button>
+<div class="relative flex items-center">
+<select class="appearance-none bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-primary-dark text-xs font-body-md py-1 pl-3 pr-8 rounded focus:outline-none focus:border-brand-primary-dark cursor-pointer transition-colors">
+<option selected="" value="14">Thí sinh 14/45: Lê Hoàng Nam (Lớp 12A1 - SBD: HS-2026-001)</option>
+<option value="15">Thí sinh 15/45: Trần Minh Thư (Lớp 12A1 - SBD: HS-2026-002)</option>
+<option value="16">Thí sinh 16/45: Vũ Đức Hải (Lớp 12A1 - SBD: HS-2026-003)</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-text-muted-dark absolute right-2 pointer-events-none">expand_more</span>
+</div>
+<button class="flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all" title="Phím tắt: K">
+<span>Sau</span>
+<kbd class="px-1 text-[10px] bg-elevated-dark text-text-muted-dark rounded border border-border-subtle-dark">K</kbd>
+<span>→</span>
+</button>
+<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
+<!-- Status indicator -->
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-status-flagged/10 border border-status-flagged/30 text-status-flagged flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-flagged animate-pulse"></span>
+<span>Chờ chấm (1/3 câu tự luận)</span>
+</span>
+<!-- Submission timestamp -->
+<span class="text-[11px] font-code text-text-muted-dark hidden xl:inline-block">
+        Nộp lúc: 10:14:22 • 15/05/2026
+      </span>
+</div>
+<!-- Right: Progress summary & Action triggers -->
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2 text-xs">
+<span class="text-text-secondary-dark">Đã chấm:</span>
+<span class="font-tabular font-semibold text-text-primary-dark">13/45</span>
+<div class="w-16 h-1.5 bg-surface-dark border border-border-subtle-dark rounded-full overflow-hidden">
+<div class="bg-brand-primary-dark h-full w-[29%]"></div>
+</div>
+<span class="font-tabular text-text-muted-dark text-[11px]">(29%)</span>
+</div>
+<div class="h-4 w-px bg-border-subtle-dark"></div>
+<button class="flex items-center space-x-1 px-2 py-1 text-xs font-code text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded border border-transparent hover:border-border-subtle-dark transition-colors" title="Bảng phím tắt">
+<span class="material-symbols-outlined text-[16px]">keyboard</span>
+<span>Phím tắt [?]</span>
+</button>
+<button class="px-2.5 py-1 text-xs font-medium text-text-primary-dark bg-elevated-dark border border-border-strong-dark hover:border-brand-primary-dark rounded transition-colors" title="Cấu hình hiển thị">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+</button>
+</div>
+</header>
+<!-- MAIN SPLIT WORKSPACE (Bento Split 58:42) -->
+<main class="flex-1 flex overflow-hidden w-full h-[calc(100vh-56px-28px)]">
+<!-- ==============================================
+         LEFT PANE: SUBMISSION VIEWER (58% WIDTH)
+    =================================================== -->
+<section class="w-[58%] border-r border-border-subtle-dark flex flex-col bg-canvas-dark h-full overflow-hidden">
+<!-- Submissions Tab Bar & Document Tools -->
+<div class="h-11 bg-surface-dark border-b border-border-subtle-dark flex items-center justify-between px-3 select-none">
+<!-- Left Pane Tabs -->
+<div class="flex items-center space-x-1">
+<button class="flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-brand-primary-dark text-text-primary-dark bg-canvas-dark transition-colors" id="btn-tab-pdf" onclick="switchSubmissionTab('pdf')">
+<span class="material-symbols-outlined text-[16px] text-brand-primary-dark">description</span>
+<span>Bài làm tự luận Toán (Scan/PDF)</span>
+<span class="px-1.5 py-0.2 bg-elevated-dark text-text-secondary-dark rounded text-[10px] font-code border border-border-subtle-dark">
+              Câu 15 - Hình học &amp; Vi phân
+            </span>
+</button>
+<button class="flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark/50 transition-colors" id="btn-tab-code" onclick="switchSubmissionTab('code')">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>Mã nguồn C++17 &amp; Testcases</span>
+<span class="px-1.5 py-0.2 bg-status-flagged/10 text-status-flagged rounded text-[10px] font-code border border-status-flagged/30">
+              4/5 Tests Passed
+            </span>
+</button>
+</div>
+<!-- Document / Viewer Toolbar Actions -->
+<div class="flex items-center space-x-1">
+<!-- Download PDF button -->
+<button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-primary-dark bg-elevated-dark hover:bg-surface-dark rounded border border-border-subtle-dark transition-colors" title="Tải file PDF bài làm về máy">
+<span class="material-symbols-outlined text-[15px]">download</span>
+<span class="text-[11px]">Tải file PDF</span>
+</button>
+<div class="flex items-center bg-elevated-dark border border-border-subtle-dark rounded px-1 py-0.5">
+<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Thu nhỏ">
+<span class="material-symbols-outlined text-[15px]">zoom_out</span>
+</button>
+<span class="text-[11px] font-tabular text-text-secondary-dark px-1.5">125%</span>
+<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Phóng to">
+<span class="material-symbols-outlined text-[15px]">zoom_in</span>
+</button>
+</div>
+<!-- Invert filter toggle for night grading -->
+<button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-secondary-dark hover:text-text-primary-dark bg-elevated-dark rounded border border-border-subtle-dark" id="btn-invert-pdf" onclick="togglePdfInvert()" title="Đảo màu giấy (Bảo vệ mắt ban đêm)">
+<span class="material-symbols-outlined text-[15px]">contrast</span>
+<span class="text-[11px]">Đảo màu giấy</span>
+</button>
+</div>
+</div>
+<!-- Content Area of Left Pane: PDF Canvas or Code/Testcases -->
+<div class="flex-1 overflow-y-auto custom-scroll bg-surface-container-lowest p-4 relative" id="submission-content-container">
+<!-- VIEW 1: Math PDF / Exam Sheet Scan simulation (Active by default) -->
+<div class="max-w-3xl mx-auto space-y-4" id="view-pdf-section">
+<!-- Student Paper Sheet Canvas (Simulated high-res exam paper scan) -->
+<div class="bg-[#FFFFFF] border border-border-strong-dark rounded-lg p-7 shadow-none transition-all duration-200 relative overflow-hidden font-body-md text-text-primary-dark" id="student-paper">
+<!-- Scan Header watermark & Metadata stamp -->
+<div class="flex justify-between items-start border-b border-border-subtle-dark pb-3 mb-5 text-xs text-text-secondary-dark font-code">
+<div>
+<p class="font-semibold text-text-primary-dark">BÀI LÀM TỰ LUẬN - KỲ KHẢO SÁT CHUYÊN ĐỀ</p>
+<p>Thí sinh: Lê Hoàng Nam | SBD: HS-2026-001 | Phòng: 12-A1</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded border border-status-correct/30 text-status-correct bg-status-correct/10">TRANG SCAN 02/03</span>
+<p class="text-[10px] text-text-muted-dark mt-1">Mã phách số: #MAT-98214</p>
+</div>
+</div>
+<!-- Question Prompt Box in paper -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded p-3 mb-6">
+<span class="text-xs font-code text-brand-primary-dark font-semibold">CÂU 15 (4.0 ĐIỂM) - ĐỀ BÀI:</span>
+<p class="text-sm mt-1 leading-relaxed text-text-primary-dark">
+                Trong không gian Oxyz, cho hình chóp tứ giác đều S.ABCD có đáy ABCD là hình vuông cạnh 2a, chiều cao SO = a√2.
+                Thiết lập phương trình các mặt phẳng bên, tính thể tích vật thể giới hạn bởi mặt cầu ngoại tiếp và viết thuật toán C++17 xấp xỉ tích phân thể tích bằng phương pháp Simpson với sai số ε ≤ 10⁻⁴.
+              </p>
+</div>
+<!-- Student Hand-written / Rendered Solution with LaTeX & Diagrams -->
+<div class="space-y-6 text-sm">
+<!-- Sub-question a -->
+<div class="border-l-2 border-border-strong-dark pl-4 space-y-2">
+<div class="flex items-center space-x-2">
+<span class="font-bold text-brand-primary-dark font-code">Lời giải Ý a): Thiết lập hệ trục Oxy &amp; Phương trình mặt bên</span>
+<span class="text-[11px] text-text-muted-dark font-code">[Học sinh làm tốt]</span>
+</div>
+<p class="text-text-secondary-dark leading-relaxed">
+                  Chọn hệ trục toạ độ Oxyz với gốc O trùng với tâm mặt đáy ABCD. Khi đó:
+                </p>
+<div class="bg-canvas-dark border border-border-subtle-dark rounded p-3 font-code text-xs text-primary leading-loose">
+                  A(-a, -a, 0), B(a, -a, 0), C(a, a, 0), D(-a, a, 0)<br/>
+                  Đỉnh S(0, 0, a√2).<br/>
+                  Véctơ SB = (a, -a, -a√2), SC = (a, a, -a√2).<br/>
+                  Véctơ pháp tuyến [SB, SC] = (2a²√2, 0, 2a²) = 2a²(√2, 0, 1).<br/>
+                  Phương trình mặt phẳng (SBC): √2(x - a) + 0(y - a) + 1(z - 0) = 0 
+                  ⇒ √2·x + z - a√2 = 0.
+                </div>
+</div>
+<!-- Oxy Geometric Schema Wireframe (Anti-AI technical vector plot) -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-4 flex items-center justify-between">
+<div class="w-1/2 pr-3">
+<p class="text-xs font-semibold text-text-secondary-dark uppercase tracking-wider mb-2 font-code">Sơ đồ toạ độ Oxyz &amp; Mặt phẳng cắt (Scan SVG):</p>
+<p class="text-xs text-text-muted-dark leading-relaxed">
+                    Hình vẽ thể hiện trục thẳng đứng Oz hướng từ tâm O lên S(0,0,a√2). Các góc toạ độ chân đáy vuông góc chuẩn xác theo hệ thức vector bàn tay phải.
+                  </p>
+</div>
+<div class="w-1/2 flex justify-center">
+<svg class="w-48 h-36 stroke-brand-primary-dark fill-none" viewbox="0 0 200 150">
+<line stroke="#CBD5E1" stroke-dasharray="2,2" x1="100" x2="100" y1="130" y2="20"></line>
+<line stroke="#CBD5E1" stroke-dasharray="2,2" x1="100" x2="30" y1="130" y2="140"></line>
+<line stroke="#CBD5E1" stroke-dasharray="2,2" x1="100" x2="170" y1="130" y2="135"></line>
+<!-- Pyramid base ABCD -->
+<polygon fill="rgba(5, 150, 105, 0.05)" points="40,110 100,135 160,115 100,95" stroke="#059669" stroke-width="1.5"></polygon>
+<!-- Slant edges to apex S -->
+<line stroke="#059669" stroke-width="1.5" x1="100" x2="40" y1="30" y2="110"></line>
+<line stroke="#059669" stroke-width="1.5" x1="100" x2="100" y1="30" y2="135"></line>
+<line stroke="#059669" stroke-width="1.5" x1="100" x2="160" y1="30" y2="115"></line>
+<line stroke="#CBD5E1" stroke-dasharray="3,3" x1="100" x2="100" y1="30" y2="95"></line>
+<!-- Vertex labels -->
+<text fill="#0F172A" font-family="JetBrains Mono" font-size="10" x="105" y="28">S(0,0,a√2)</text>
+<text fill="#475569" font-family="JetBrains Mono" font-size="9" x="96" y="145">O(0,0,0)</text>
+<text fill="#475569" font-family="JetBrains Mono" font-size="9" x="22" y="112">A</text>
+<text fill="#475569" font-family="JetBrains Mono" font-size="9" x="165" y="118">C</text>
+</svg>
+</div>
+</div>
+<!-- Sub-question b with highlighted mistake -->
+<div class="border-l-2 border-status-flagged pl-4 space-y-2 relative">
+<div class="flex items-center justify-between">
+<span class="font-bold text-brand-primary-dark font-code">Lời giải Ý b): Tính tích phân giới hạn &amp; Thể tích V</span>
+<span class="text-[11px] font-code text-status-flagged bg-status-flagged/10 px-2 py-0.5 rounded border border-status-flagged/30">
+                    ⚠ Chú ý: Dấu đổi biến t bị nhầm
+                  </span>
+</div>
+<p class="text-text-secondary-dark text-xs">
+                  Thiết lập công thức tích phân phân lớp thể tích tròn xoay:
+                </p>
+<div class="bg-canvas-dark border border-border-subtle-dark rounded p-3 font-code text-xs text-text-primary-dark leading-relaxed">
+                  V = ∫₀^(a√2) S(z) dz = ∫₀^(a√2) [ 2(a - z/√2) ]² dz<br/>
+                  Đặt t = a - z/√2 ⇒ dt = -1/√2 dz ⇒ dz = -√2 dt.<br/>
+                  Đổi cận: z = 0 ⇒ t = a; z = a√2 ⇒ t = 0.<br/>
+                  V = 4 ∫ₐ⁰ t² (-√2 dt) = 4√2 ∫₀ᵃ t² dt = 4√2 [ t³/3 ]₀ᵃ = (4a³√2) / 3.
+                </div>
+<!-- Inline Teacher sticky callout -->
+<div class="bg-surface-dark border border-border-strong-dark rounded p-2 text-xs text-text-secondary-dark flex items-start space-x-2">
+<span class="material-symbols-outlined text-status-correct text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="font-medium text-text-primary-dark">Đánh giá nhanh:</span>
+                    Học sinh xử lý đổi dấu cận tích phân chính xác bù cho vi phân âm, kết quả V = (4a³√2)/3 hoàn toàn chính xác.
+                  </div>
+</div>
+</div>
+<!-- Sub-question c link to source code -->
+<div class="border-l-2 border-border-subtle-dark pl-4 space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-bold text-text-primary-dark font-code">Lời giải Ý c): Chuyển giao sang thuật toán C++17</span>
+<button class="text-xs text-brand-primary-dark hover:underline flex items-center space-x-1" onclick="switchSubmissionTab('code')">
+<span>Xem mã nguồn tại Tab C++17</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<p class="text-text-muted-dark text-xs">
+                  Thí sinh đã lập trình hàm Simpson 1/3 và nộp mã nguồn trực tiếp vào hệ thống thi online.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW 2: Monaco-like Code Editor & Automated Test Runner (Hidden until toggled) -->
+<div class="space-y-4 hidden" id="view-code-section">
+<!-- Code Environment Header -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-t-lg p-2.5 flex items-center justify-between text-xs font-code">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-brand-primary-dark text-[16px]">code</span>
+<span class="text-text-primary-dark font-medium">solution_simpson_volume.cpp</span>
+<span class="px-1.5 py-0.2 bg-elevated-dark text-text-secondary-dark rounded text-[11px] border border-border-subtle-dark">GCC 11.2 (C++17)</span>
+</div>
+<div class="flex items-center space-x-3 text-text-muted-dark">
+<span>Độ dài: 24 dòng</span>
+<span>Bộ nhớ: 1.8 MB</span>
+<span class="text-status-correct">Biên dịch thành công (0 warning)</span>
+</div>
+</div>
+<!-- Code Lines Display -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-b-lg font-code text-xs leading-relaxed overflow-x-auto p-3 flex">
+<!-- Line numbers -->
+<div class="select-none text-text-muted-dark pr-4 border-r border-border-subtle-dark text-right space-y-0.5">
+<div>01</div><div>02</div><div>03</div><div>04</div><div>05</div><div>06</div><div>07</div><div>08</div>
+<div>09</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+<div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>
+</div>
+<!-- Code content -->
+<div class="pl-4 space-y-0.5 text-text-primary-dark flex-1">
+<div><span class="text-secondary">#include</span> <span class="text-primary">&lt;iostream&gt;</span></div>
+<div><span class="text-secondary">#include</span> <span class="text-primary">&lt;cmath&gt;</span></div>
+<div><span class="text-secondary">#include</span> <span class="text-primary">&lt;iomanip&gt;</span></div>
+<div class="text-text-muted-dark">// Hàm tính diện tích thiết diện S(z) tại độ cao z</div>
+<div><span class="text-brand-hover-dark">double</span> <span class="text-primary-fixed">crossSectionArea</span>(<span class="text-brand-hover-dark">double</span> z, <span class="text-brand-hover-dark">double</span> a) {</div>
+<div class="pl-4"><span class="text-secondary">double</span> side = <span class="text-brand-primary-dark">2.0</span> * (a - z / std::sqrt(<span class="text-brand-primary-dark">2.0</span>));</div>
+<div class="pl-4"><span class="text-secondary">return</span> side * side;</div>
+<div>}</div>
+<div><br/></div>
+<div><span class="text-brand-hover-dark">double</span> <span class="text-primary-fixed">simpsonIntegrate</span>(<span class="text-brand-hover-dark">double</span> a, <span class="text-brand-hover-dark">int</span> n) {</div>
+<div class="pl-4"><span class="text-secondary">double</span> h = (a * std::sqrt(<span class="text-brand-primary-dark">2.0</span>)) / n;</div>
+<div class="pl-4"><span class="text-secondary">double</span> total = crossSectionArea(<span class="text-brand-primary-dark">0.0</span>, a) + crossSectionArea(a * std::sqrt(<span class="text-brand-primary-dark">2.0</span>), a);</div>
+<div class="pl-4"><span class="text-secondary">for</span> (<span class="text-brand-hover-dark">int</span> i = <span class="text-brand-primary-dark">1</span>; i &lt; n; i++) {</div>
+<div class="pl-8"><span class="text-secondary">double</span> z = i * h;</div>
+<div class="pl-8"><span class="text-secondary">if</span> (i % <span class="text-brand-primary-dark">2</span> == <span class="text-brand-primary-dark">0</span>) total += <span class="text-brand-primary-dark">2.0</span> * crossSectionArea(z, a);</div>
+<div class="pl-8"><span class="text-secondary">else</span> total += <span class="text-brand-primary-dark">4.0</span> * crossSectionArea(z, a);</div>
+<div class="pl-4">}</div>
+<div class="pl-4"><span class="text-secondary">return</span> (h / <span class="text-brand-primary-dark">3.0</span>) * total;</div>
+<div>}</div>
+<div><br/></div>
+<div><span class="text-brand-hover-dark">int</span> <span class="text-primary-fixed">main</span>() {</div>
+<div class="pl-4"><span class="text-secondary">double</span> a = <span class="text-brand-primary-dark">1.0</span>;</div>
+<div class="pl-4">std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(<span class="text-brand-primary-dark">4</span>) &lt;&lt; simpsonIntegrate(a, <span class="text-brand-primary-dark">1000</span>) &lt;&lt; std::endl;</div>
+<div class="pl-4"><span class="text-secondary">return</span> <span class="text-brand-primary-dark">0</span>;</div>
+<div>}</div>
+</div>
+</div>
+<!-- Automated Test Runner Panel -->
+<div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-3 space-y-3">
+<div class="flex items-center justify-between border-b border-border-subtle-dark pb-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-brand-primary-dark text-[18px]">fact_check</span>
+<span class="text-xs font-semibold text-text-primary-dark uppercase tracking-wider font-code">Kết quả Test Runner tự động (4/5 Passed)</span>
+</div>
+<span class="text-xs font-code text-text-muted-dark">Thời gian chạy tổng: 0.13s</span>
+</div>
+<!-- Testcases Grid -->
+<div class="space-y-1.5 font-code text-xs">
+<div class="flex items-center justify-between bg-canvas-dark border border-border-subtle-dark rounded px-3 py-1.5">
+<div class="flex items-center space-x-2">
+<span class="text-status-correct font-semibold">✔ Test 1</span>
+<span class="text-text-muted-dark">| a = 1.0, n = 100</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-text-secondary-dark">Output: 1.8856</span>
+<span class="text-status-correct text-[11px] bg-status-correct/10 px-1.5 py-0.5 rounded border border-status-correct/20">PASSED 0.02s</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-canvas-dark border border-border-subtle-dark rounded px-3 py-1.5">
+<div class="flex items-center space-x-2">
+<span class="text-status-correct font-semibold">✔ Test 2</span>
+<span class="text-text-muted-dark">| a = 2.5, n = 500</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-text-secondary-dark">Output: 29.4627</span>
+<span class="text-status-correct text-[11px] bg-status-correct/10 px-1.5 py-0.5 rounded border border-status-correct/20">PASSED 0.03s</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-canvas-dark border border-border-subtle-dark rounded px-3 py-1.5">
+<div class="flex items-center space-x-2">
+<span class="text-status-correct font-semibold">✔ Test 3</span>
+<span class="text-text-muted-dark">| a = 0.5, n = 200</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-text-secondary-dark">Output: 0.2357</span>
+<span class="text-status-correct text-[11px] bg-status-correct/10 px-1.5 py-0.5 rounded border border-status-correct/20">PASSED 0.04s</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-canvas-dark border border-border-subtle-dark rounded px-3 py-1.5">
+<div class="flex items-center space-x-2">
+<span class="text-status-correct font-semibold">✔ Test 4</span>
+<span class="text-text-muted-dark">| a = 3.0, n = 1000</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="text-text-secondary-dark">Output: 50.9117</span>
+<span class="text-status-correct text-[11px] bg-status-correct/10 px-1.5 py-0.5 rounded border border-status-correct/20">PASSED 0.02s</span>
+</div>
+</div>
+<!-- Failed Test 5 -->
+<div class="bg-canvas-dark border border-status-wrong/40 rounded p-2.5 space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-status-wrong font-semibold">✖ Test 5 (Biên vi phân &amp; Sai số ε)</span>
+<span class="text-text-muted-dark">| a = 1.95, n = 5000</span>
+</div>
+<span class="text-status-wrong text-[11px] bg-status-wrong/10 px-1.5 py-0.5 rounded border border-status-wrong/30">FAILED (Sai số)</span>
+</div>
+<div class="text-[11px] text-text-secondary-dark pl-5 space-y-0.5">
+<p>Kỳ vọng: <span class="text-status-correct">14.0000</span> | Thực tế nhận: <span class="text-status-wrong font-semibold">14.0002</span></p>
+<p class="text-status-wrong">Lỗi: Lệch sai số epsilon vượt ngưỡng 10⁻⁴ do tích luỹ floating-point trong phép chia h/3.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==============================================
+         RIGHT PANE: GRADING RUBRIC & FEEDBACK (42% WIDTH)
+    =================================================== -->
+<section class="w-[42%] flex flex-col bg-surface-dark h-full overflow-hidden">
+<!-- Rubric Pane Header -->
+<div class="h-11 border-b border-border-subtle-dark flex items-center justify-between px-4 bg-surface-dark select-none">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-brand-primary-dark text-[18px]">rule</span>
+<span class="font-headline-sm text-headline-sm text-sm text-text-primary-dark font-semibold">Barem điểm &amp; Đánh giá</span>
+</div>
+<span class="text-xs font-code text-text-secondary-dark">Thang điểm: 4.0</span>
+</div>
+<!-- Scrollable Scoring Content -->
+<div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
+<!-- Question Title Banner -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-code text-brand-primary-dark font-medium">CÂU 15 (TỰ LUẬN + LẬP TRÌNH)</span>
+<span class="text-[11px] font-tabular bg-elevated-dark text-text-secondary-dark px-2 py-0.5 rounded border border-border-subtle-dark">Max: 4.0 điểm</span>
+</div>
+<h4 class="text-sm font-semibold text-text-primary-dark mt-1 font-body-md">
+            Tính thể tích khối chóp &amp; Tối ưu thuật toán Simpson C++17
+          </h4>
+</div>
+<!-- ITEMIZED RUBRIC BREAKDOWN CARDS -->
+<div class="space-y-3">
+<!-- Criteria 1 -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-3 space-y-2 hover:border-border-strong-dark transition-colors">
+<div class="flex items-start justify-between">
+<div class="pr-2">
+<span class="text-xs font-semibold text-text-primary-dark">Ý a) Thiết lập phương trình mặt phẳng &amp; Toạ độ</span>
+<p class="text-xs text-text-muted-dark mt-0.5">Xác định chuẩn toạ độ các đỉnh A, B, C, D, S và vector pháp tuyến mp(SBC).</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-code text-text-muted-dark">Tối đa 1.0</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<!-- Fast score input buttons -->
+<div class="flex items-center space-x-1">
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.25)">+0.25</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.5)">+0.5</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 1.0)">Max (1.0)</button>
+</div>
+<!-- Point Input Box -->
+<div class="flex items-center space-x-1.5">
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-brand-primary-dark text-brand-primary-dark rounded focus:outline-none focus:ring-1 focus:ring-brand-primary-dark" id="input-score-a" max="1.0" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<span class="text-xs font-code text-text-muted-dark">/ 1.0</span>
+</div>
+</div>
+<div class="flex items-center space-x-2 text-xs text-status-correct pt-1 border-t border-border-subtle-dark/50">
+<span class="material-symbols-outlined text-[15px]">check_box</span>
+<span>Đúng hoàn toàn các bước suy luận toạ độ.</span>
+</div>
+</div>
+<!-- Criteria 2 -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-3 space-y-2 hover:border-border-strong-dark transition-colors">
+<div class="flex items-start justify-between">
+<div class="pr-2">
+<span class="text-xs font-semibold text-text-primary-dark">Ý b) Tính tích phân giới hạn &amp; Thể tích V</span>
+<p class="text-xs text-text-muted-dark mt-0.5">Thiết lập công thức vi phân phân lớp, tính đúng tích phân và cận vi phân.</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-code text-text-muted-dark">Tối đa 1.5</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center space-x-1">
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 0.5)">+0.5</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.0)">+1.0</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.5)">Max (1.5)</button>
+</div>
+<!-- Point Input Box -->
+<div class="flex items-center space-x-1.5">
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-b" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<span class="text-xs font-code text-text-muted-dark">/ 1.5</span>
+</div>
+</div>
+<div class="text-xs text-status-flagged pt-1 border-t border-border-subtle-dark/50 flex items-center space-x-1">
+<span class="material-symbols-outlined text-[15px]">info</span>
+<span>Ghi chú: Trừ 0.5 điểm do trình bày bước đổi biến vi phân t còn tắt.</span>
+</div>
+</div>
+<!-- Criteria 3 -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-3 space-y-2 hover:border-border-strong-dark transition-colors">
+<div class="flex items-start justify-between">
+<div class="pr-2">
+<span class="text-xs font-semibold text-text-primary-dark">Ý c) Triển khai thuật toán C++17 &amp; Testcases</span>
+<p class="text-xs text-text-muted-dark mt-0.5">Đạt các ca kiểm thử biên vi phân Simpson 1/3 và kiểm soát kiểu dấu phẩy động.</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-code text-text-muted-dark">Tối đa 1.5</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center space-x-1">
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 0.5)">+0.5</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.0)">+1.0</button>
+<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.5)">Max (1.5)</button>
+</div>
+<!-- Point Input Box -->
+<div class="flex items-center space-x-1.5">
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-c" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<span class="text-xs font-code text-text-muted-dark">/ 1.5</span>
+</div>
+</div>
+<div class="text-xs text-status-flagged pt-1 border-t border-border-subtle-dark/50 flex items-center space-x-1">
+<span class="material-symbols-outlined text-[15px]">report_problem</span>
+<span>4/5 testcases passed (Trừ 0.5 điểm do sai epsilon ca kiểm thử 5).</span>
+</div>
+</div>
+</div>
+<!-- SCORE SUMMARY CARD -->
+<div class="bg-elevated-dark border border-border-strong-dark rounded-lg p-3.5 space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-text-secondary-dark uppercase tracking-wider font-code">Tổng kết điểm Câu 15:</span>
+<div class="flex items-baseline space-x-1">
+<span class="font-tabular font-headline-lg text-headline-lg text-brand-hover-dark" id="label-total-score">3.0</span>
+<span class="font-tabular text-text-secondary-dark text-sm">/ 4.0 điểm</span>
+</div>
+</div>
+<!-- Progress Bar & Converted 10-point scale -->
+<div class="space-y-1">
+<div class="w-full h-2 bg-canvas-dark rounded-full overflow-hidden border border-border-subtle-dark">
+<div class="h-full bg-brand-primary-dark transition-all duration-300" id="bar-score-progress" style="width: 75%;"></div>
+</div>
+<div class="flex justify-between text-[11px] font-code text-text-muted-dark">
+<span>Đạt tỷ lệ: <strong class="text-text-primary-dark" id="label-score-percent">75%</strong></span>
+<span>Quy đổi hệ 10: <strong class="text-brand-primary-dark" id="label-score-scale10">+7.5 / 10.0</strong></span>
+</div>
+</div>
+</div>
+<!-- TEACHER FEEDBACK SECTION (Nhận xét của giáo viên) -->
+<div class="bg-canvas-dark border border-border-subtle-dark rounded-lg p-3 space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-text-secondary-dark text-[16px]">edit_note</span>
+<span class="text-xs font-semibold text-text-primary-dark">Nhận xét của giáo viên</span>
+</div>
+<button class="flex items-center space-x-1 px-1.5 py-0.5 rounded bg-surface-dark border border-border-subtle-dark text-[11px] text-text-secondary-dark hover:text-text-primary-dark" title="Ghi âm nhận xét">
+<span class="material-symbols-outlined text-[13px] text-status-wrong">mic</span>
+<span>Ghi âm nhận xét</span>
+</button>
+</div>
+<!-- Formatting mini-toolbar -->
+<div class="flex items-center space-x-1 pb-1 border-b border-border-subtle-dark text-text-secondary-dark">
+<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-bold" title="In đậm (Ctrl+B)">B</button>
+<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs italic" title="In nghiêng (Ctrl+I)">I</button>
+<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-code" title="Công thức Toán fx">fx</button>
+<div class="h-3 w-px bg-border-subtle-dark mx-1"></div>
+<!-- Quick remarks chips -->
+<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Trình bày rõ ràng. ')">+ Trình bày rõ ràng</button>
+<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Cần chú ý điều kiện nghiệm. ')">+ ĐK nghiệm</button>
+<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Sai số dấu. ')">+ Sai số dấu</button>
+<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Tối ưu vòng lặp C++. ')">+ Tối ưu vòng lặp</button>
+</div>
+<!-- Thoughtful Vietnamese feedback textarea -->
+<textarea class="w-full bg-elevated-dark border border-border-subtle-dark rounded p-2 text-xs leading-relaxed text-text-primary-dark font-body-md focus:outline-none focus:border-brand-primary-dark resize-none custom-scroll" id="teacher-feedback-textarea" placeholder="Nhập lời nhận xét chi tiết gửi cho thí sinh..." rows="4">Ý tưởng bài toán tốt, phần hình giải tích chặt chẽ. Cần chú ý sai số dấu ở bước tích phân vi phân và ép kiểu double trong C++ để pass test case 5.</textarea>
+<div class="flex items-center justify-between text-[11px] text-text-muted-dark">
+<span class="flex items-center space-x-1">
+<span class="w-2 h-2 rounded-full bg-status-correct"></span>
+<span>Đã tự động lưu bản nháp</span>
+</span>
+<span>158 ký tự</span>
+</div>
+</div>
+</div>
+<!-- BOTTOM DOCKED ACTION FOOTER -->
+<div class="border-t border-border-subtle-dark bg-canvas-dark p-3 select-none">
+<div class="flex items-center justify-between">
+<!-- Left: Skip Button -->
+<button class="flex items-center space-x-1.5 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark bg-transparent border border-border-subtle-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[16px]">skip_next</span>
+<span>Bỏ qua</span>
+</button>
+<!-- Center: Instant notification checkbox -->
+<label class="flex items-center space-x-2 text-xs text-text-secondary-dark cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 rounded bg-surface-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span>Gửi thông báo kết quả cho học sinh ngay</span>
+</label>
+<!-- Right: Primary Save & Next Button -->
+<button class="flex items-center space-x-2 px-4 py-2 rounded text-xs font-semibold text-black bg-brand-primary-dark hover:bg-brand-hover-dark active:scale-[0.98] transition-all cursor-pointer" onclick="saveAndNext()">
+<span>Lưu &amp; Chấm tiếp theo</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Global Standard Footer -->
+<footer class="mt-auto w-full py-3 px-6 bg-surface-dark border-t border-border-subtle-dark flex items-center justify-center text-text-muted-dark font-mono text-xs">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+</footer>
+<!-- INTERACTION LOGIC (VANILLA JS) -->
+<script>
+    // Tab switcher between PDF and Code
+    function switchSubmissionTab(tab) {
+      const btnPdf = document.getElementById('btn-tab-pdf');
+      const btnCode = document.getElementById('btn-tab-code');
+      const viewPdf = document.getElementById('view-pdf-section');
+      const viewCode = document.getElementById('view-code-section');
+
+      if (tab === 'pdf') {
+        btnPdf.className = 'flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-brand-primary-dark text-text-primary-dark bg-canvas-dark transition-colors';
+        btnCode.className = 'flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark/50 transition-colors';
+        viewPdf.classList.remove('hidden');
+        viewCode.classList.add('hidden');
+      } else {
+        btnCode.className = 'flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-brand-primary-dark text-text-primary-dark bg-canvas-dark transition-colors';
+        btnPdf.className = 'flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark/50 transition-colors';
+        viewPdf.classList.add('hidden');
+        viewCode.classList.remove('hidden');
+      }
+    }
+
+    // Toggle PDF canvas dark inverted mode
+    let isPaperInverted = false;
+    function togglePdfInvert() {
+      const paper = document.getElementById('student-paper');
+      isPaperInverted = !isPaperInverted;
+      if (isPaperInverted) {
+        paper.style.filter = "invert(0.92) hue-rotate(180deg)";
+      } else {
+        paper.style.filter = "none";
+      }
+    }
+
+    // Fast score setter
+    function setScore(inputId, value) {
+      const el = document.getElementById(inputId);
+      if (el) {
+        el.value = parseFloat(value).toFixed(2);
+        recalculateTotal();
+      }
+    }
+
+    // Recalculate score summary and conversion
+    function recalculateTotal() {
+      const a = parseFloat(document.getElementById('input-score-a').value) || 0;
+      const b = parseFloat(document.getElementById('input-score-b').value) || 0;
+      const c = parseFloat(document.getElementById('input-score-c').value) || 0;
+      
+      const total = Math.min(4.0, Math.max(0, a + b + c));
+      const percentage = Math.round((total / 4.0) * 100);
+      const scale10 = ((total / 4.0) * 10).toFixed(1);
+
+      document.getElementById('label-total-score').innerText = total.toFixed(1);
+      document.getElementById('label-score-percent').innerText = percentage + '%';
+      document.getElementById('bar-score-progress').style.width = percentage + '%';
+      document.getElementById('label-score-scale10').innerText = `+${scale10} / 10.0`;
+    }
+
+    // Append quick remarks into textarea
+    function appendRemark(text) {
+      const area = document.getElementById('teacher-feedback-textarea');
+      area.value += (area.value ? ' ' : '') + text;
+      area.focus();
+    }
+
+    // Save & next action
+    function saveAndNext() {
+      const total = document.getElementById('label-total-score').innerText;
+      const notification = document.createElement('div');
+      notification.className = 'fixed bottom-10 right-10 bg-brand-primary-dark text-black text-xs font-semibold px-4 py-2 rounded shadow-lg flex items-center space-x-2 z-50';
+      notification.innerHTML = `<span class="material-symbols-outlined text-[16px]">check_circle</span><span>Đã lưu điểm: ${total}/4.0 điểm! Chuyển thí sinh tiếp theo...</span>`;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+  </script>
+</body></html>

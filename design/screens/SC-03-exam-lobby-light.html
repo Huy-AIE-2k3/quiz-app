@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mathrix - Hướng dẫn &amp; Vào thi (Giao diện sáng)</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#F8FAFC",
+            surface: "#FFFFFF",
+            elevated: "#0F172A",
+            "border-subtle": "#E2E8F0",
+            "border-strong": "#CBD5E1",
+            brand: "#059669",
+            "brand-hover": "#047857",
+            "status-wrong": "#EF4444",
+            "status-flagged": "#F59E0B",
+            "text-primary": "#0F172A",
+            "text-secondary": "#475569",
+            "text-muted": "#94A3B8"
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .math-grid-bg {
+      background-color: #F8FAFC;
+      background-image: 
+        linear-gradient(to right, rgba(226, 232, 240, 0.8) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.8) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary font-sans antialiased min-h-screen flex flex-col justify-between math-grid-bg">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-6 bg-canvas/90 backdrop-blur border-b border-border-subtle">
+    <div class="flex items-center gap-6">
+      <a class="flex items-center gap-2.5 font-display text-lg font-bold text-text-primary tracking-tight" href="/s/exams">
+        <div class="w-8 h-8 rounded border border-border-strong bg-elevated flex items-center justify-center text-brand font-mono font-bold">
+          Σ
+        </div>
+        <span>Mathrix</span>
+      </a>
+    </div>
+
+    <!-- Student Profile -->
+    <div class="flex items-center gap-3">
+      <div class="px-3 py-1 rounded-lg bg-surface border border-border-subtle font-mono text-xs text-text-primary">
+        Nguyễn Văn An - 12A1
+      </div>
+      <a class="text-xs text-text-secondary hover:text-status-wrong transition-colors px-2 py-1" href="/login">
+        Đăng xuất
+      </a>
+    </div>
+  </header>
+
+  <!-- Focused Center Container -->
+  <main class="w-full max-w-[800px] mx-auto py-8 px-4 flex-1 flex flex-col justify-center">
+
+    <!-- Exam Header Surface Card: CHỈ HIỆN TÊN BÀI THI -->
+    <section class="bg-surface border border-border-subtle rounded-xl p-6 mb-5">
+      <div class="flex items-center gap-2.5 mb-2">
+        <span class="px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-brand/10 text-brand border border-brand/40">
+          TOÁN - TIN
+        </span>
+      </div>
+      <h1 class="font-display text-2xl font-bold text-text-primary tracking-tight">
+        Khảo sát Chuyên đề Giải tích &amp; C++17
+      </h1>
+    </section>
+
+    <!-- 3 Metric Cards: THỜI LƯỢNG, SỐ CÂU HỎI, SỐ LẦN LÀM BÀI -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-5">
+      <!-- Metric 1: Thời lượng -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-brand/10 border border-brand/30 flex items-center justify-center text-brand flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">schedule</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Thời lượng</div>
+          <div class="font-display text-lg font-semibold text-brand tracking-tight">90 phút</div>
+        </div>
+      </div>
+
+      <!-- Metric 2: Số câu hỏi -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-elevated border border-border-strong flex items-center justify-center text-text-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">quiz</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Số câu hỏi</div>
+          <div class="font-display text-lg font-semibold text-text-primary tracking-tight">50 câu</div>
+        </div>
+      </div>
+
+      <!-- Metric 3: Số lần làm bài -->
+      <div class="bg-surface border border-border-subtle p-4 rounded-xl flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-status-flagged/10 border border-status-flagged/30 flex items-center justify-center text-status-flagged flex-shrink-0">
+          <span class="material-symbols-outlined text-xl">replay</span>
+        </div>
+        <div>
+          <div class="text-xs text-text-secondary">Số lần làm bài</div>
+          <div class="font-display text-lg font-semibold text-status-flagged tracking-tight">1 lần duy nhất</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quy chế phòng thi (Chỉ để lại 3 nội quy theo yêu cầu) -->
+    <section class="border border-status-flagged/40 bg-status-flagged/5 rounded-xl p-5 mb-5">
+      <div class="flex items-center gap-2 mb-3 text-status-flagged">
+        <span class="material-symbols-outlined text-xl">gavel</span>
+        <h2 class="text-xs font-semibold tracking-wider uppercase font-display">
+          QUY CHẾ PHÒNG THI
+        </h2>
+      </div>
+
+      <div class="space-y-2.5 text-xs text-text-secondary">
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">1</span>
+          <p class="leading-relaxed">Không được chuyển tab hoặc rời khỏi cửa sổ làm bài trong suốt thời gian thi.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">2</span>
+          <p class="leading-relaxed">Tuyệt đối không sử dụng tài liệu hoặc các công cụ AI / Agentic AI dưới mọi hình thức.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">3</span>
+          <p class="leading-relaxed">Hệ thống sẽ tự động thu bài và đóng cổng thi ngay khi hết giờ làm bài.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ô xác nhận ngắn gọn & Nút hành động -->
+    <div class="bg-surface border border-border-subtle rounded-xl p-5 flex flex-col gap-4">
+      <label class="flex items-center gap-3 cursor-pointer select-none">
+        <input type="checkbox" id="agree-check" class="w-4 h-4 rounded bg-elevated border-border-strong text-brand focus:ring-0 accent-emerald-500 cursor-pointer" />
+        <span class="text-sm font-medium text-text-primary">Xác nhận cam kết tuân thủ quy định và bảo mật</span>
+      </label>
+
+      <div class="flex items-center justify-between gap-4 pt-2 border-t border-border-subtle">
+        <a class="px-5 py-2.5 rounded-lg border border-border-subtle bg-elevated text-text-secondary hover:text-text-primary text-sm font-medium transition-colors" href="/s/exams">
+          Quay lại
+        </a>
+        <a class="px-6 py-2.5 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center gap-2 transition-colors cursor-pointer" href="/s/attempts/1">
+          <span>BẮT ĐẦU LÀM BÀI</span>
+          <span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="mt-auto w-full py-4 px-6 bg-canvas border-t border-border-subtle flex items-center justify-center text-text-muted font-mono text-xs">
+    <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
+  </footer>
+
+</body>
+</html>

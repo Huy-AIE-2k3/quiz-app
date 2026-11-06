@@ -150,39 +150,23 @@
   </style>
 </head>
 <body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-brand-primary-dark selection:text-canvas-dark">
-<!-- Top Global Header (Executed from Shared Components JSON anchors) -->
-<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-canvas-dark border-b border-border-subtle-dark">
+<!-- Top Global Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full h-14 px-gutter bg-surface-dark border-b border-border-subtle-dark">
 <div class="flex items-center gap-space-lg">
 <div class="flex items-center gap-space-sm">
 <span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
-<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-code bg-elevated-dark text-primary border border-border-subtle-dark font-medium">PROCTOR v2.4</span>
 </div>
-<!-- Nav anchors from JSON: Đề thi is active proctor context -->
 <nav class="hidden md:flex items-center space-x-6 pt-3.5">
-<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 flex items-center gap-1" href="#">
-<span>Đề thi</span>
-</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5" href="#">
-<span>Luyện tập</span>
-</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5" href="#">
-<span>Kết quả</span>
+<a class="text-brand-primary-dark border-b-2 border-brand-primary-dark font-headline-sm text-headline-sm pb-3.5 flex items-center gap-1" href="#">
+<span>Giám sát phòng thi</span>
 </a>
 </nav>
 </div>
-<!-- Right Top Header Actions from JSON -->
+<!-- Right Top Header Actions -->
 <div class="flex items-center gap-space-md">
-<div class="flex items-center gap-2 border-r border-border-subtle-dark pr-space-md">
-<button class="p-1.5 rounded hover:bg-elevated-dark text-status-correct transition-colors" title="Trạng thái kết nối">
-<span class="material-symbols-outlined" data-icon="wifi">wifi</span>
-</button>
-<button class="p-1.5 rounded hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors" title="Chế độ giao diện">
-<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
-</button>
-</div>
 <div class="flex items-center gap-2 text-text-secondary-dark font-tabular text-tabular">
 <span class="material-symbols-outlined text-base" data-icon="person">person</span>
-<span class="text-text-primary-dark font-medium">Nguyễn Văn An - 12A1</span>
+<span class="text-text-primary-dark font-medium">Thầy Trần Minh Đức</span>
 </div>
 <button class="flex items-center gap-1 text-text-secondary-dark hover:text-status-wrong font-body-md text-body-md px-2.5 py-1 rounded border border-border-subtle-dark hover:border-status-wrong transition-colors duration-150">
 <span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
@@ -205,8 +189,6 @@
 <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-elevated-dark border border-border-subtle-dark font-code text-xs">
 <span class="inline-block w-2 h-2 rounded-full bg-status-correct animate-pulse"></span>
 <span class="text-text-primary-dark font-medium">Phòng thi P.204</span>
-<span class="text-text-muted-dark">•</span>
-<span class="text-primary font-mono font-medium">WebSocket 14ms</span>
 </div>
 </div>
 <!-- Center Telemetry: Countdown & Active Tally -->
@@ -707,11 +689,10 @@
 <span class="material-symbols-outlined text-xs text-primary" data-icon="campaign">campaign</span>
 <span>Phát thông báo toàn phòng thi</span>
 </span>
-<span class="text-[11px] font-code text-text-muted-dark">Enter để gửi</span>
 </label>
 <div class="flex items-center gap-2">
-<input class="flex-1 bg-canvas-dark border border-border-subtle-dark focus:border-primary focus:ring-1 focus:ring-primary rounded px-2.5 py-1.5 text-xs text-text-primary-dark font-body-md placeholder-text-muted-dark" type="text" value="Giữ trật tự và tuyệt đối không chuyển tab bài thi!"/>
-<button class="px-3 py-1.5 rounded bg-primary text-canvas-dark hover:bg-brand-hover-dark font-medium text-xs flex items-center gap-1 transition-colors">
+<input class="flex-1 bg-canvas-dark border border-border-subtle-dark focus:border-primary focus:ring-1 focus:ring-primary rounded px-2.5 py-1.5 text-xs text-text-primary-dark font-body-md placeholder-text-muted-dark" type="text" value="Giữ trật tự và không chuyển tab bài thi!"/>
+<button class="px-3 py-1.5 rounded bg-brand-primary-dark text-canvas-dark hover:bg-brand-hover-dark font-medium text-xs flex items-center gap-1 transition-colors">
 <span>Phát</span>
 <span class="material-symbols-outlined text-xs" data-icon="send">send</span>
 </button>
@@ -719,30 +700,8 @@
 </div>
 </aside>
 </main>
-<!-- Sticky Bottom Ultra-Thin Telemetry Bar -->
-<footer class="h-8 bg-canvas-dark border-t border-border-subtle-dark px-gutter flex items-center justify-between text-xs font-code text-text-muted-dark select-none">
-<div class="flex items-center gap-space-lg">
-<div class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-status-correct"></span>
-<span>WebSocket: <strong class="text-text-primary-dark">12ms</strong></span>
-</div>
-<div class="hidden sm:flex items-center gap-1.5">
-<span>Gói tin rơi: <strong class="text-text-primary-dark">0 (0.00%)</strong></span>
-</div>
-<div class="hidden md:flex items-center gap-1.5">
-<span>Mã phòng: <strong class="text-text-primary-dark">AES-256 #P204-MATHX</strong></span>
-</div>
-</div>
-<div class="flex items-center gap-space-md">
-<div class="flex items-center gap-1.5 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="videocam">videocam</span>
-<span class="text-[11px]">Webcam Proctored</span>
-</div>
-<span class="text-border-strong-dark">|</span>
-<div class="flex items-center gap-1.5 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
-<span class="text-[11px]">Tab Lock Active</span>
-</div>
-</div>
+<!-- Global Standard Footer -->
+<footer class="mt-auto w-full py-3 px-6 bg-surface-dark border-t border-border-subtle-dark flex items-center justify-center text-text-muted-dark font-mono text-xs">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </footer>
 </body></html>
