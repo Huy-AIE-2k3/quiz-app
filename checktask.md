@@ -136,7 +136,8 @@
   - [x] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và các biến thể sáng/tối.
   - [x] Khởi tạo và đồng bộ hoàn tất project mới trên Stitch `mathrix_ver2` (Project ID: `7808648037604572744`) gồm 15 cặp màn hình đối xứng (Tối bên trái $x=0\text{px}$, Sáng bên phải $x=1344\text{px}$ có nền caro mờ học thuật).
   - [x] Loại bỏ 100% các box/thông tin/badge bảo mật, webcam, socket latency và kiểm tra môi trường trên toàn bộ các màn hình; chuẩn hóa duy nhất 3 nội quy phòng thi trên SC-03 và footer thống nhất *"Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài"*.
-  - [x] Xuất toàn bộ file giao diện sạch ra `design/screens/<mã>.html` và `.png` (đầy đủ 35 màn hình).
+  - [x] Xuất toàn bộ file giao diện sạch ra `design/screens/<mã>.html` và `.png` (đầy đủ 36 màn hình).
+  - [x] Bổ sung Landing Page độc lập (SC-00-landing.html, route `/`): Hero tối giản lấy cảm hứng Dribbble Quiz theo yêu cầu người dùng, nền ma trận chấm Stitch có spotlight sáng theo chuột, khối Rubik 3D tương tác (Đỏ, Xanh lá, Đen) và vệ tinh mini bay xung quanh, 1 nút Đăng nhập duy nhất, footer chuẩn, đã đồng bộ lên Stitch `mathrix_ver2`.
 
   - **Kiểm thử cần đạt:**
     - [x] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.
@@ -148,7 +149,7 @@
 - [x] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
 
   - [x] Chạy rà soát phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức, text giả...).
-  - [x] Audit trợ năng tự động trên tất cả 35 màn hình HTML (chuẩn hóa đầy đủ `aria-label`, `label for`, `alt` hình ảnh, và focus rings).
+  - [x] Audit trợ năng tự động trên tất cả 36 màn hình HTML (chuẩn hóa đầy đủ `aria-label`, `label for`, `alt` hình ảnh, và focus rings).
   - [x] Kiểm tra responsive trên các kích thước 360px (mobile nhỏ), 768px (tablet), 1280px (desktop) đảm bảo không cuộn ngang, nút bấm tối thiểu 44px.
   - [x] Kiểm tra điều hướng hoàn toàn bằng bàn phím (Tab, Enter, Space, Arrows, Esc), vòng focus rõ ràng.
 
