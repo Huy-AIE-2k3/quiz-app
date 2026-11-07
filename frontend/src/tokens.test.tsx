@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import { Clock, AlertTriangle, AlertCircle } from 'lucide-react';
 
 // Timer Component testing TC-1.2-05 (Achromatopsia accessible)

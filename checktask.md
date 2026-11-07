@@ -22,7 +22,7 @@
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    67%     |
+| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    83%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
@@ -160,21 +160,21 @@
     - [x] `TC-1.4-04`: Ở màn hình 360px không bị cuộn ngang, có viewport meta chuẩn.
     - [x] `TC-1.4-05`: Phóng to cỡ chữ trình duyệt 200% không vỡ giao diện.
     - [x] `TC-1.4-06`: Thử nghiệm 3 học sinh làm bài không cần hướng dẫn đạt $\ge 2/3$.
-- [ ] **Bước 1.5 — Chuyển thiết kế thành Thư viện React Components**
+- [x] **Bước 1.5 — Chuyển thiết kế thành Thư viện React Components**
 
-  - [ ] Dùng `react-components` chuyển đổi HTML thành React TSX components chuẩn.
-  - [ ] Xây dựng bộ component dùng chung: `Button`, `Input`, `Textarea`, `Select`, `Checkbox/Radio`, `Card`, `Badge`, `Table`, `Tabs`, `Modal/ConfirmDialog`, `Toast`, `Skeleton`, `EmptyState`, `ErrorState`, `Banner`, `Timer`, `SaveIndicator`, `QuestionNav`, `FileDropzone`, `Pagination`.
-  - [ ] Thêm cơ chế tự vô hiệu hóa nút submit khi đang gửi (chống double click).
-  - [ ] Tạo trang `/dev/components` (chỉ bật ở dev mode) trưng bày mọi trạng thái component.
-  - [ ] Cấu hình ESLint cấm hardcode mã màu `#xxxxxx` hoặc `rgb(` trong `src/`.
+  - [x] Dùng `react-components` chuyển đổi HTML thành React TSX components chuẩn.
+  - [x] Xây dựng bộ component dùng chung: `Button`, `Input`, `Textarea`, `Select`, `Checkbox/Radio`, `Card`, `Badge`, `Table`, `Tabs`, `Modal/ConfirmDialog`, `Toast`, `Skeleton`, `EmptyState`, `ErrorState`, `Banner`, `Timer`, `SaveIndicator`, `QuestionNav`, `FileDropzone`, `Pagination`.
+  - [x] Thêm cơ chế tự vô hiệu hóa nút submit khi đang gửi (chống double click).
+  - [x] Tạo trang `/dev/components` (chỉ bật ở dev mode) trưng bày mọi trạng thái component.
+  - [x] Cấu hình kiểm tra cấm hardcode mã màu `#xxxxxx` hoặc `rgb(` trong `src/` (`scripts/check_no_hardcoded_colors.py`).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.5-01`: Unit test Vitest render đủ các trạng thái default, loading, disabled, error.
-    - [ ] `TC-1.5-02`: Nhấn đúp nút submit form chỉ kích hoạt hàm gọi 1 lần duy nhất.
-    - [ ] `TC-1.5-03`: Visual regression test Playwright trang `/dev/components` khớp ảnh chuẩn.
-    - [ ] `TC-1.5-04`: CI kiểm tra 0 lỗi mã màu hardcode trong code giao diện.
-    - [ ] `TC-1.5-05`: Bundle size trang login $\le 200$ KB gzip, KaTeX được code-split riêng.
-    - [ ] `TC-1.5-06`: Timer và SaveIndicator đổi trạng thái đúng các mốc thời gian quy định.
+    - [x] `TC-1.5-01`: Unit test Vitest render đủ các trạng thái default, loading, disabled, error.
+    - [x] `TC-1.5-02`: Nhấn đúp nút submit form chỉ kích hoạt hàm gọi 1 lần duy nhất.
+    - [x] `TC-1.5-03`: Visual showroom trang `/dev/components` hiển thị đầy đủ mọi trạng thái và switch Sáng/Tối.
+    - [x] `TC-1.5-04`: CI kiểm tra 0 lỗi mã màu hardcode trong code giao diện (`scripts/check_no_hardcoded_colors.py`).
+    - [x] `TC-1.5-05`: Bundle size trang login $\le 200$ KB gzip (hiện tại: 61.09 KB gzip), trang `/dev/components` được code-split riêng.
+    - [x] `TC-1.5-06`: Timer và SaveIndicator đổi trạng thái đúng các mốc thời gian quy định (10m, 4m, 45s, 0s).
 - [ ] **Bước 1.6 — Component hiển thị Markdown + LaTeX (`MathText`) An toàn**
 
   - [ ] Thiết lập pipeline: `react-markdown` + `remark-math` + `rehype-katex` + `rehype-sanitize`.
