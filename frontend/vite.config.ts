@@ -14,6 +14,15 @@ export default defineConfig({
     port: 5173,
     host: '127.0.0.1',
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          katex: ['katex', 'rehype-katex', 'remark-math', 'react-markdown', 'rehype-sanitize'],
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

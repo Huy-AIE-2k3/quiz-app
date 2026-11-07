@@ -22,7 +22,7 @@
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    83%     |
+| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
@@ -175,23 +175,24 @@
     - [x] `TC-1.5-04`: CI kiểm tra 0 lỗi mã màu hardcode trong code giao diện (`scripts/check_no_hardcoded_colors.py`).
     - [x] `TC-1.5-05`: Bundle size trang login $\le 200$ KB gzip (hiện tại: 61.09 KB gzip), trang `/dev/components` được code-split riêng.
     - [x] `TC-1.5-06`: Timer và SaveIndicator đổi trạng thái đúng các mốc thời gian quy định (10m, 4m, 45s, 0s).
-- [ ] **Bước 1.6 — Component hiển thị Markdown + LaTeX (`MathText`) An toàn**
+- [x] **Bước 1.6 — Component hiển thị Markdown + LaTeX (`MathText`) An toàn**
 
-  - [ ] Thiết lập pipeline: `react-markdown` + `remark-math` + `rehype-katex` + `rehype-sanitize`.
-  - [ ] Cấu hình an toàn KaTeX (`throwOnError: false`, `maxExpand: 1000`, `maxSize: 20`).
-  - [ ] Cấu hình Sanitize chặn triệt để script, style, iframe, thẻ a `javascript:`, url `data:`.
-  - [ ] Xử lý ảnh: Chỉ chấp nhận URL `asset:<uuid>` hoặc domain Cloudflare R2, ảnh ngoài nguồn hiển thị khung cảnh báo.
-  - [ ] Bọc `ErrorBoundary` riêng cho từng khối `MathText`.
-  - [ ] Hỗ trợ khối mã nguồn Tin học: Phông Monospace, cuộn ngang riêng, không phá vỡ bố cục.
+  - [x] Thiết lập pipeline: `react-markdown` + `remark-math` + `rehype-katex` + `rehype-sanitize`.
+  - [x] Cấu hình an toàn KaTeX (`throwOnError: false`, `strict: 'ignore'`, `trust: false`, `errorColor: 'var(--status-wrong-text)'`, `maxExpand: 1000`, `maxSize: 20`).
+  - [x] Cấu hình Sanitize chặn triệt để script, style, iframe, thẻ a `javascript:`, url `data:`.
+  - [x] Xử lý ảnh: Chỉ chấp nhận URL `asset:<uuid>` hoặc domain Cloudflare R2/local storage, ảnh ngoài nguồn hiển thị khung cảnh báo.
+  - [x] Bọc `MathTextErrorBoundary` riêng cho từng khối `MathText`.
+  - [x] Hỗ trợ khối mã nguồn Tin học: Phông Monospace, cuộn ngang riêng, không phá vỡ bố cục mobile 360px.
+  - [x] Hỗ trợ chuẩn hóa tự động toán khối `$$...$$` thành display mode qua `normalizeBlockMath`.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.6-01`: Hiển thị đúng công thức toán inline `$x^2$` và block `$$\int$$`.
-    - [ ] `TC-1.6-02`: Công thức sai cú pháp hiện lỗi tại chỗ màu đỏ, không làm chết ứng dụng.
-    - [ ] `TC-1.6-03`: Chặn đứng các payload XSS chèn qua Markdown và LaTeX.
-    - [ ] `TC-1.6-04`: Công thức đệ quy lồng nhau 500 tầng không làm treo trình duyệt.
-    - [ ] `TC-1.6-05`: Hiển thị chuẩn tiếng Việt có dấu trong thẻ `\text{...}` và Markdown.
-    - [ ] `TC-1.6-06`: Ảnh trỏ tới domain lạ bên ngoài bị chặn nạp và thay bằng khung báo lỗi.
-    - [ ] `TC-1.6-07`: Khối mã nguồn 40 dòng có thanh cuộn ngang độc lập trên mobile 360px.
+    - [x] `TC-1.6-01`: Hiển thị đúng công thức toán inline `$x^2$` và block `$$\int$$` (`MathText.test.tsx`).
+    - [x] `TC-1.6-02`: Công thức sai cú pháp hiện lỗi tại chỗ màu đỏ, không làm chết ứng dụng.
+    - [x] `TC-1.6-03`: Chặn đứng các payload XSS chèn qua Markdown và LaTeX.
+    - [x] `TC-1.6-04`: Công thức đệ quy lồng nhau 500 tầng không làm treo trình duyệt (< 1500ms).
+    - [x] `TC-1.6-05`: Hiển thị chuẩn tiếng Việt có dấu trong thẻ `\text{...}` và Markdown.
+    - [x] `TC-1.6-06`: Ảnh trỏ tới domain lạ bên ngoài bị chặn nạp và thay bằng khung báo lỗi; ảnh R2 / asset:uuid hiển thị bình thường.
+    - [x] `TC-1.6-07`: Khối mã nguồn 40 dòng có thanh cuộn ngang độc lập trên mobile 360px.
 
 ---
 

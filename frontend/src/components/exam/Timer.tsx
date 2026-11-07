@@ -112,3 +112,4 @@ export const Timer: React.FC<TimerProps> = ({
     </div>
   );
 };
+

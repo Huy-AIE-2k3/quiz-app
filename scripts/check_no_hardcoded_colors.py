@@ -59,3 +59,4 @@ def check_hardcoded_colors() -> int:
 
 if __name__ == "__main__":
     sys.exit(check_hardcoded_colors())
+

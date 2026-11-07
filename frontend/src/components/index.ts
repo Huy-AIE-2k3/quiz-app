@@ -19,6 +19,7 @@ export * from './ui/ErrorState';
 export * from './ui/Banner';
 export * from './ui/FileDropzone';
 export * from './ui/Pagination';
+export * from './ui/MathText';
 
 export * from './exam/Timer';
 export * from './exam/SaveIndicator';

@@ -31,6 +31,7 @@ import {
   Banner,
   FileDropzone,
   Pagination,
+  MathText,
   Timer,
   SaveIndicator,
   SaveStatus,
@@ -581,6 +582,92 @@ export const DevComponentsPage: React.FC<DevComponentsPageProps> = () => {
               <Skeleton variant="rect" height="60px" />
             </CardContent>
           </Card>
+        </section>
+
+        {/* 7. MATHTEXT (MARKDOWN + LATEX + CODE) */}
+        <section className="space-y-4 text-left">
+          <div className="flex items-center justify-between border-b border-line-subtle pb-2">
+            <h2 className="font-display font-semibold text-lg text-text-primary">
+              7. MathText (Hiển thị Markdown, LaTeX &amp; Code Tin Học An Toàn)
+            </h2>
+            <span className="text-xs font-mono text-text-muted">Giai đoạn 1.6</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle as="h4">Toán Học: LaTeX Inline &amp; Block Display</CardTitle>
+                <CardDescription>
+                  Hỗ trợ công thức inline $x^2+y^2=r^2$ và khối tích phân KaTeX
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <MathText
+                  content={`Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R}$. Tính tích phân:
+
+$$\\int_0^1 (3x^2 - 2x + 1)\\,dx = \\left[ x^3 - x^2 + x \\right]_0^1 = 1$$
+
+Với $\\text{đa thức } P(x) = x^4 + 2x^2 + 1$, ta có $P(x) \\ge 1, \\forall x$.`}
+                />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle as="h4">Tin Học: Mã Nguồn Python / C++</CardTitle>
+                <CardDescription>Cuộn ngang độc lập, không phá vỡ bố cục trên màn hình nhỏ</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MathText
+                  content={`\`\`\`python
+def find_prime_factors(n: int) -> list[int]:
+    factors = []
+    d = 2
+    while d * d <= n:
+        while (n % d) == 0:
+            factors.append(d)
+            n //= d
+        d += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+
+# Testcase: print(find_prime_factors(1234567890))
+\`\`\``}
+                />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle as="h4">Chống XSS &amp; Lọc Ảnh Trái Phép</CardTitle>
+                <CardDescription>Chặn đứng script độc hại và ảnh ngoài nguồn R2</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <MathText
+                  content={`Ảnh ngoài nguồn: ![Ảnh tấn công](https://evil.example.com/exploit.png)
+
+Ảnh hợp lệ: ![Ảnh R2](/assets/logo.png)
+
+Liên kết nguy hiểm đã được vô hiệu hóa: [Bấm vào đây](javascript:alert(1))`}
+                />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle as="h4">Xử Lý Lỗi Cú Pháp LaTeX Tại Chỗ</CardTitle>
+                <CardDescription>Không làm chết ứng dụng, báo lỗi màu đỏ tại vị trí sai</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MathText
+                  content={`Công thức sai cú pháp: $\\frac{1}{$ nhưng công thức đúng kế tiếp vẫn hiển thị bình thường: $E = mc^2$.`}
+                />
+              </CardContent>
+            </Card>
+          </div>
         </section>
 
         {/* Dialogs */}

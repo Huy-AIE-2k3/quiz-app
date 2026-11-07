@@ -34,3 +34,4 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
 );
 
 EmptyState.displayName = 'EmptyState';
+
