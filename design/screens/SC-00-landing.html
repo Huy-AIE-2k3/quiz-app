@@ -51,28 +51,28 @@
   </script>
 
   <style>
-    /* Nền ma trận chấm (Dotted Matrix Canvas) */
+    /* Nền ma trận chấm (Stitch Dotted Grid Canvas) */
     .bg-dot-matrix {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.10) 1.2px, transparent 1.2px);
       background-size: 28px 28px;
     }
 
-    /* Lớp chấm rực sáng theo vị trí chuột */
+    /* Lớp chấm bừng sáng theo vị trí con trỏ chuột */
     .bg-dot-glow {
-      background-image: radial-gradient(rgba(16, 185, 129, 0.45) 1.5px, transparent 1.5px);
+      background-image: radial-gradient(rgba(16, 185, 129, 0.5) 1.5px, transparent 1.5px);
       background-size: 28px 28px;
       pointer-events: none;
-      mask-image: radial-gradient(350px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
-      -webkit-mask-image: radial-gradient(350px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
+      mask-image: radial-gradient(380px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(380px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
     }
 
-    /* Hiệu ứng đèn pin tương tác (Interactive Flashlight Spotlight) */
+    /* Hiệu ứng đèn pin tương tác (Flashlight Spotlight) */
     .cursor-spotlight {
-      background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.03) 40%, transparent 70%);
+      background: radial-gradient(700px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.14), rgba(16, 185, 129, 0.03) 40%, transparent 75%);
       pointer-events: none;
     }
 
-    /* Khối Rubik 3D Engine */
+    /* 3D Viewport Scene */
     .scene-3d {
       perspective: 1200px;
       perspective-origin: 50% 50%;
@@ -81,18 +81,18 @@
     .rubik-cube-cluster {
       transform-style: preserve-3d;
       transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
-      animation: gentle-float 8s ease-in-out infinite alternate;
+      animation: gentle-float 7s ease-in-out infinite alternate;
     }
 
     @keyframes gentle-float {
       0% {
-        transform: rotateX(-20deg) rotateY(32deg) translateY(0px);
+        transform: rotateX(-22deg) rotateY(34deg) translateY(0px);
       }
       50% {
-        transform: rotateX(-12deg) rotateY(48deg) translateY(-14px);
+        transform: rotateX(-14deg) rotateY(46deg) translateY(-16px);
       }
       100% {
-        transform: rotateX(-25deg) rotateY(25deg) translateY(8px);
+        transform: rotateX(-26deg) rotateY(26deg) translateY(10px);
       }
     }
 
@@ -100,44 +100,62 @@
     .mini-cube {
       transform-style: preserve-3d;
       position: absolute;
-      width: 72px;
-      height: 72px;
+      width: 76px;
+      height: 76px;
       transition: transform 0.4s ease;
     }
 
     .cube-face {
       position: absolute;
-      width: 72px;
-      height: 72px;
-      border: 2px solid #090D16;
-      border-radius: 8px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.45);
+      width: 76px;
+      height: 76px;
+      border: 2.5px solid #090D16;
+      border-radius: 9px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
       backface-visibility: visible;
     }
 
-    /* Vị trí 6 mặt của mini-cube (kích thước 72px) */
-    .face-front  { transform: translateZ(36px); }
-    .face-back   { transform: rotateY(180deg) translateZ(36px); }
-    .face-right  { transform: rotateY(90deg) translateZ(36px); }
-    .face-left   { transform: rotateY(-90deg) translateZ(36px); }
-    .face-top    { transform: rotateX(90deg) translateZ(36px); }
-    .face-bottom { transform: rotateX(-90deg) translateZ(36px); }
+    /* 6 mặt của mini-cube */
+    .face-front  { transform: translateZ(38px); }
+    .face-back   { transform: rotateY(180deg) translateZ(38px); }
+    .face-right  { transform: rotateY(90deg) translateZ(38px); }
+    .face-left   { transform: rotateY(-90deg) translateZ(38px); }
+    .face-top    { transform: rotateX(90deg) translateZ(38px); }
+    .face-bottom { transform: rotateX(-90deg) translateZ(38px); }
 
-    /* Bảng màu Rubik: Đỏ, Xanh lá cây, Đen */
+    /* 3 màu chuẩn: Đỏ, Xanh lá cây, Đen */
     .c-red {
       background: linear-gradient(135deg, #EF4444, #B91C1C);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 0 12px rgba(239, 68, 68, 0.25);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 0 14px rgba(239, 68, 68, 0.3);
     }
     .c-emerald {
       background: linear-gradient(135deg, #10B981, #047857);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 0 12px rgba(16, 185, 129, 0.35);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 0 16px rgba(16, 185, 129, 0.4);
     }
     .c-black {
       background: linear-gradient(135deg, #1E293B, #0F172A);
       box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
     }
 
-    /* Hiệu ứng focus bàn phím rõ ràng */
+    /* Floating Satellite Mini Cubes */
+    @keyframes orbit-float-1 {
+      0% { transform: translate3d(-150px, -140px, 80px) rotateX(15deg) rotateY(20deg); }
+      100% { transform: translate3d(-140px, -160px, 100px) rotateX(25deg) rotateY(35deg); }
+    }
+    @keyframes orbit-float-2 {
+      0% { transform: translate3d(-140px, 140px, 60px) rotateX(10deg) rotateY(-25deg); }
+      100% { transform: translate3d(-155px, 120px, 85px) rotateX(20deg) rotateY(-15deg); }
+    }
+    @keyframes orbit-float-3 {
+      0% { transform: translate3d(160px, 130px, -40px) rotateX(-20deg) rotateY(30deg); }
+      100% { transform: translate3d(145px, 150px, -20px) rotateX(-10deg) rotateY(45deg); }
+    }
+
+    .satellite-1 { animation: orbit-float-1 5s ease-in-out infinite alternate; }
+    .satellite-2 { animation: orbit-float-2 6s ease-in-out infinite alternate; }
+    .satellite-3 { animation: orbit-float-3 5.5s ease-in-out infinite alternate; }
+
+    /* Focus indicator */
     a:focus-visible, button:focus-visible {
       outline: 2px solid #10B981 !important;
       outline-offset: 3px !important;
@@ -145,125 +163,73 @@
   </style>
 </head>
 
-<body class="bg-canvas text-text-primary font-body min-h-screen flex flex-col relative overflow-x-hidden selection:bg-brand selection:text-canvas">
+<body class="bg-canvas text-text-primary font-body min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-brand selection:text-canvas">
 
-  <!-- Lớp 1: Nền chấm ma trận (Stitch dot canvas) -->
+  <!-- Lớp nền 1: Ma trận chấm (Stitch dot canvas) -->
   <div class="fixed inset-0 bg-dot-matrix pointer-events-none z-0"></div>
 
-  <!-- Lớp 2: Lớp chấm bừng sáng khi di chuột qua -->
+  <!-- Lớp nền 2: Chấm bừng sáng khi di chuột qua -->
   <div id="dot-glow" class="fixed inset-0 bg-dot-glow pointer-events-none z-0"></div>
 
-  <!-- Lớp 3: Đèn pin tương tác theo con trỏ chuột -->
+  <!-- Lớp nền 3: Đèn pin tương tác theo con trỏ chuột -->
   <div id="spotlight" class="fixed inset-0 cursor-spotlight pointer-events-none z-0"></div>
 
-  <!-- Ambient blur lights -->
-  <div class="fixed top-1/4 -left-48 w-96 h-96 bg-brand/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
-  <div class="fixed bottom-1/4 -right-48 w-96 h-96 bg-rubik-red/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+  <!-- Hào quang nền mờ (Ambient Glow) -->
+  <div class="fixed top-1/3 -left-36 w-96 h-96 bg-brand/12 rounded-full blur-[140px] pointer-events-none z-0"></div>
+  <div class="fixed top-1/4 -right-36 w-96 h-96 bg-rubik-red/12 rounded-full blur-[140px] pointer-events-none z-0"></div>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="relative z-10 w-full border-b border-border-subtle/80 bg-canvas/75 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+  <!-- MAIN HERO STAGE (CHỈ GIỮ PHẦN TRONG ẢNH & 1 NÚT ĐĂNG NHẬP) -->
+  <main class="relative z-10 flex-1 flex items-center justify-center max-w-7xl mx-auto px-6 py-12 lg:py-20 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
       
-      <!-- Brand Logo -->
-      <a href="/" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand rounded-lg p-1" aria-label="Mathrix Trang chủ">
-        <div class="w-10 h-10 rounded-lg bg-surface border border-border-strong flex items-center justify-center text-brand font-headline font-bold text-xl group-hover:border-brand transition-colors shadow-sm">
-          M
-        </div>
-        <span class="font-headline font-bold text-2xl tracking-tight text-text-primary group-hover:text-brand transition-colors">
-          Mathrix
-        </span>
-      </a>
-
-      <!-- Quick Nav Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text-secondary" aria-label="Menu chính">
-        <a href="#about" class="hover:text-text-primary transition-colors focus:outline-none focus:text-brand">Về Mathrix</a>
-        <a href="#features" class="hover:text-text-primary transition-colors focus:outline-none focus:text-brand">Tính năng</a>
-        <a href="#assessment" class="hover:text-text-primary transition-colors focus:outline-none focus:text-brand">Khảo sát</a>
-      </nav>
-
-      <!-- Action CTA -->
-      <div class="flex items-center gap-3">
-        <a href="/login" class="px-4 py-2 rounded-lg border border-border-subtle bg-surface/80 hover:bg-elevated text-xs font-semibold font-code text-text-primary transition-all hover:border-brand/40 focus:outline-none focus:ring-2 focus:ring-brand">
-          Đăng nhập
-        </a>
-        <a href="/s/exams" class="px-4 py-2 rounded-lg bg-brand hover:bg-brand-hover text-canvas text-xs font-semibold font-headline tracking-wide transition-all shadow-lg shadow-brand/20 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand">
-          Vào phòng thi
-        </a>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <main class="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto px-6 py-12 lg:py-20 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-      
-      <!-- HERO LEFT: Typography & Calls to Action -->
+      <!-- HERO LEFT: Badge, Headline, Subtext, và duy nhất 1 nút Đăng nhập -->
       <div class="lg:col-span-7 flex flex-col items-start gap-6 text-left">
         
-        <!-- Category Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-subtle text-xs font-code font-medium text-brand">
-          <span class="w-2 h-2 rounded-full bg-brand animate-ping"></span>
-          <span>NỀN TẢNG KHẢO THÍ TOÁN &amp; TIN HỌC CHUYÊN SÂU</span>
+        <!-- Category Badge with Brand Name -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface border border-border-subtle text-xs font-code font-medium shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+          <span class="font-headline font-bold text-text-primary tracking-wider text-sm">MATHRIX</span>
+          <span class="text-border-strong">/</span>
+          <span class="text-brand tracking-wide">NỀN TẢNG KHẢO THÍ TOÁN &amp; TIN HỌC CHUYÊN SÂU</span>
         </div>
 
-        <!-- Headline chính xác theo yêu cầu -->
+        <!-- Headline chính xác theo ảnh và yêu cầu -->
         <h1 class="font-headline font-bold text-4xl sm:text-5xl lg:text-6xl text-text-primary tracking-tight leading-[1.12]">
           Test đến đâu,<br>
           <span class="text-brand">hiểu mình đến đó</span>
         </h1>
 
-        <!-- Subtext diễn giải -->
+        <!-- Subtext chính xác theo ảnh -->
         <p class="font-body text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
-          Đánh giá chuẩn xác năng lực tư duy, định vị lỗ hổng kiến thức và xây dựng lộ trình bứt phá thông qua hệ sinh thái đề thi Toán học và Lập trình chuẩn hóa.
+          Đo lường năng lực chuẩn xác với hệ thống 4 dạng thức thi mới, phân tích phổ điểm thời gian thực và sandbox chấm mã nguồn tự động.
         </p>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
-          <a href="/s/exams" class="h-12 px-7 rounded-xl bg-brand hover:bg-brand-hover text-canvas font-headline font-bold text-sm tracking-wide flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-brand/25 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand">
-            <span>Bắt đầu khảo sát</span>
-            <span class="material-symbols-outlined text-lg font-bold" data-icon="arrow_forward">arrow_forward</span>
-          </a>
-
-          <a href="/login" class="h-12 px-6 rounded-xl bg-surface border border-border-strong hover:border-brand/60 text-text-primary font-headline font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:bg-elevated active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand">
-            <span class="material-symbols-outlined text-lg text-text-secondary" data-icon="login">login</span>
+        <!-- DUY NHẤT 1 NÚT ĐĂNG NHẬP (Theo đúng chỉ đạo của người dùng) -->
+        <div class="pt-2">
+          <a href="/login" class="h-13 px-8 py-3.5 rounded-xl bg-brand hover:bg-brand-hover text-canvas font-headline font-bold text-base tracking-wide flex items-center justify-center gap-3 transition-all shadow-xl shadow-brand/25 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand group" aria-label="Đăng nhập hệ thống Mathrix">
+            <span class="material-symbols-outlined text-xl group-hover:rotate-12 transition-transform" data-icon="vpn_key">vpn_key</span>
             <span>Đăng nhập hệ thống</span>
+            <span class="material-symbols-outlined text-lg font-bold group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
           </a>
-        </div>
-
-        <!-- Micro Features / Stats Strip -->
-        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-border-subtle/80 w-full max-w-xl font-code">
-          <div>
-            <p class="font-headline font-bold text-2xl text-text-primary">5 dạng</p>
-            <p class="text-xs text-text-muted mt-0.5">Câu hỏi chuẩn hóa</p>
-          </div>
-          <div>
-            <p class="font-headline font-bold text-2xl text-brand">Auto</p>
-            <p class="text-xs text-text-muted mt-0.5">Chấm code &amp; LaTeX</p>
-          </div>
-          <div>
-            <p class="font-headline font-bold text-2xl text-text-primary">Bloom</p>
-            <p class="text-xs text-text-muted mt-0.5">Phân tích năng lực</p>
-          </div>
         </div>
 
       </div>
 
-      <!-- HERO RIGHT: Khối Rubik 3D tương tác (Màu Đỏ, Xanh lá cây, Đen) -->
-      <div class="lg:col-span-5 flex items-center justify-center relative min-h-[440px] sm:min-h-[500px]">
+      <!-- HERO RIGHT: KHỐI RUBIK 3D (ĐỎ, XANH LÁ CÂY, ĐEN) KÈM CÁC MẢNH LẬP PHƯƠNG BAY -->
+      <div class="lg:col-span-5 flex items-center justify-center relative min-h-[420px] sm:min-h-[480px]">
         
-        <!-- Glowing aura sau khối Rubik -->
-        <div class="absolute w-72 h-72 rounded-full bg-brand/20 blur-[90px] pointer-events-none"></div>
-        <div class="absolute w-56 h-56 rounded-full bg-rubik-red/15 blur-[80px] pointer-events-none"></div>
+        <!-- Hào quang trung tâm khối Rubik -->
+        <div class="absolute w-72 h-72 rounded-full bg-brand/20 blur-[100px] pointer-events-none"></div>
+        <div class="absolute w-56 h-56 rounded-full bg-rubik-red/15 blur-[90px] pointer-events-none"></div>
 
-        <!-- 3D Scene Viewport -->
+        <!-- 3D Scene Container -->
         <div class="scene-3d w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing" id="rubik-container" aria-label="Mô hình 3D Khối Rubik tương tác Mathrix">
           
-          <div class="rubik-cube-cluster relative w-[220px] h-[220px]" id="rubik-cube">
+          <div class="rubik-cube-cluster relative w-[230px] h-[230px]" id="rubik-cube">
             
-            <!-- TẦNG TRÊN (TOP LAYER - Z: 0, Y: -76px) -->
-            <!-- Vị trí (-76px, -76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(-76px, -76px, 0px);">
+            <!-- TẦNG TRÊN (TOP LAYER - Y: -80px) -->
+            <!-- Khối (-80px, -80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(-80px, -80px, 0px);">
               <div class="cube-face face-front c-emerald"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-red"></div>
@@ -272,8 +238,8 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- Vị trí (0px, -76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(0px, -76px, 0px);">
+            <!-- Khối (0px, -80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(0px, -80px, 0px);">
               <div class="cube-face face-front c-black"></div>
               <div class="cube-face face-back c-red"></div>
               <div class="cube-face face-left c-black"></div>
@@ -282,8 +248,8 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- Vị trí (76px, -76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(76px, -76px, 0px);">
+            <!-- Khối (80px, -80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(80px, -80px, 0px);">
               <div class="cube-face face-front c-red"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-black"></div>
@@ -292,9 +258,9 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- TẦNG GIỮA (MIDDLE LAYER - Z: 0, Y: 0px) -->
-            <!-- Vị trí (-76px, 0px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(-76px, 0px, 0px);">
+            <!-- TẦNG GIỮA (MIDDLE LAYER - Y: 0px) -->
+            <!-- Khối (-80px, 0px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(-80px, 0px, 0px);">
               <div class="cube-face face-front c-black"></div>
               <div class="cube-face face-back c-emerald"></div>
               <div class="cube-face face-left c-emerald"></div>
@@ -303,9 +269,9 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- Vị trí (0px, 0px, 0 - Center Core) -->
+            <!-- Khối Tâm (0px, 0px, 0) -->
             <div class="mini-cube" style="transform: translate3d(0px, 0px, 0px);">
-              <div class="cube-face face-front c-emerald flex items-center justify-center font-headline font-bold text-canvas text-lg">
+              <div class="cube-face face-front c-emerald flex items-center justify-center font-headline font-bold text-canvas text-xl">
                 M
               </div>
               <div class="cube-face face-back c-black"></div>
@@ -315,8 +281,8 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- Vị trí (76px, 0px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(76px, 0px, 0px);">
+            <!-- Khối (80px, 0px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(80px, 0px, 0px);">
               <div class="cube-face face-front c-red"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-black"></div>
@@ -325,9 +291,9 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- TẦNG DƯỚI (BOTTOM LAYER - Z: 0, Y: 76px) -->
-            <!-- Vị trí (-76px, 76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(-76px, 76px, 0px);">
+            <!-- TẦNG DƯỚI (BOTTOM LAYER - Y: 80px) -->
+            <!-- Khối (-80px, 80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(-80px, 80px, 0px);">
               <div class="cube-face face-front c-red"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-black"></div>
@@ -336,8 +302,8 @@
               <div class="cube-face face-bottom c-emerald"></div>
             </div>
 
-            <!-- Vị trí (0px, 76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(0px, 76px, 0px);">
+            <!-- Khối (0px, 80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(0px, 80px, 0px);">
               <div class="cube-face face-front c-black"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-black"></div>
@@ -346,8 +312,8 @@
               <div class="cube-face face-bottom c-red"></div>
             </div>
 
-            <!-- Vị trí (76px, 76px, 0) -->
-            <div class="mini-cube" style="transform: translate3d(76px, 76px, 0px);">
+            <!-- Khối (80px, 80px, 0) -->
+            <div class="mini-cube" style="transform: translate3d(80px, 80px, 0px);">
               <div class="cube-face face-front c-emerald"></div>
               <div class="cube-face face-back c-red"></div>
               <div class="cube-face face-left c-black"></div>
@@ -356,8 +322,8 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <!-- TẦNG NỔI 3D TRƯỚC (Z: 76px) -->
-            <div class="mini-cube" style="transform: translate3d(0px, 0px, 76px);">
+            <!-- TẦNG NỔI TRƯỚC (Z: 80px) -->
+            <div class="mini-cube" style="transform: translate3d(0px, 0px, 80px);">
               <div class="cube-face face-front c-red"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-emerald"></div>
@@ -366,7 +332,7 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <div class="mini-cube" style="transform: translate3d(-76px, -76px, 76px);">
+            <div class="mini-cube" style="transform: translate3d(-80px, -80px, 80px);">
               <div class="cube-face face-front c-black"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-red"></div>
@@ -375,13 +341,44 @@
               <div class="cube-face face-bottom c-black"></div>
             </div>
 
-            <div class="mini-cube" style="transform: translate3d(76px, 76px, 76px);">
+            <div class="mini-cube" style="transform: translate3d(80px, 80px, 80px);">
               <div class="cube-face face-front c-emerald"></div>
               <div class="cube-face face-back c-black"></div>
               <div class="cube-face face-left c-black"></div>
               <div class="cube-face face-right c-red"></div>
               <div class="cube-face face-top c-black"></div>
               <div class="cube-face face-bottom c-black"></div>
+            </div>
+
+            <!-- CÁC KHỐI NHỎ BAY LƠ LỬNG (FLOATING MINI CUBES NHƯ TRONG ẢNH) -->
+            <!-- 1. Khối nhỏ màu đỏ bay trên bên trái -->
+            <div class="mini-cube satellite-1" style="width: 44px; height: 44px;">
+              <div class="cube-face c-red" style="width: 44px; height: 44px; transform: translateZ(22px);"></div>
+              <div class="cube-face c-black" style="width: 44px; height: 44px; transform: rotateY(180deg) translateZ(22px);"></div>
+              <div class="cube-face c-red" style="width: 44px; height: 44px; transform: rotateY(-90deg) translateZ(22px);"></div>
+              <div class="cube-face c-black" style="width: 44px; height: 44px; transform: rotateY(90deg) translateZ(22px);"></div>
+              <div class="cube-face c-red" style="width: 44px; height: 44px; transform: rotateX(90deg) translateZ(22px);"></div>
+              <div class="cube-face c-black" style="width: 44px; height: 44px; transform: rotateX(-90deg) translateZ(22px);"></div>
+            </div>
+
+            <!-- 2. Khối nhỏ màu xanh emerald bay dưới bên trái -->
+            <div class="mini-cube satellite-2" style="width: 48px; height: 48px;">
+              <div class="cube-face c-emerald" style="width: 48px; height: 48px; transform: translateZ(24px);"></div>
+              <div class="cube-face c-black" style="width: 48px; height: 48px; transform: rotateY(180deg) translateZ(24px);"></div>
+              <div class="cube-face c-emerald" style="width: 48px; height: 48px; transform: rotateY(-90deg) translateZ(24px);"></div>
+              <div class="cube-face c-black" style="width: 48px; height: 48px; transform: rotateY(90deg) translateZ(24px);"></div>
+              <div class="cube-face c-emerald" style="width: 48px; height: 48px; transform: rotateX(90deg) translateZ(24px);"></div>
+              <div class="cube-face c-black" style="width: 48px; height: 48px; transform: rotateX(-90deg) translateZ(24px);"></div>
+            </div>
+
+            <!-- 3. Khối nhỏ màu đen bay dưới bên phải -->
+            <div class="mini-cube satellite-3" style="width: 40px; height: 40px;">
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: translateZ(20px);"></div>
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: rotateY(180deg) translateZ(20px);"></div>
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: rotateY(-90deg) translateZ(20px);"></div>
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: rotateY(90deg) translateZ(20px);"></div>
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: rotateX(90deg) translateZ(20px);"></div>
+              <div class="cube-face c-black" style="width: 40px; height: 40px; transform: rotateX(-90deg) translateZ(20px);"></div>
             </div>
 
           </div>
@@ -391,49 +388,14 @@
       </div>
 
     </div>
-
-    <!-- 3 BENTO HIGHLIGHT CARDS -->
-    <section class="mt-16 pt-12 border-t border-border-subtle/80 grid grid-cols-1 md:grid-cols-3 gap-6" aria-label="Điểm nổi bật của nền tảng">
-      
-      <div class="p-6 rounded-2xl bg-surface/70 border border-border-subtle hover:border-brand/40 transition-all group backdrop-blur-sm">
-        <div class="w-10 h-10 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand mb-4 group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined text-xl" data-icon="functions">functions</span>
-        </div>
-        <h3 class="font-headline font-bold text-base text-text-primary mb-2">Đa dạng dạng bài Toán &amp; Tin</h3>
-        <p class="font-body text-xs text-text-secondary leading-relaxed">
-          Hỗ trợ trắc nghiệm 4 lựa chọn, đúng/sai đa ý, trả lời ngắn, tự luận scan bài làm và bài tập lập trình chấm tự động.
-        </p>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-surface/70 border border-border-subtle hover:border-rubik-red/40 transition-all group backdrop-blur-sm">
-        <div class="w-10 h-10 rounded-xl bg-rubik-red/10 border border-rubik-red/20 flex items-center justify-center text-rubik-red mb-4 group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined text-xl" data-icon="analytics">analytics</span>
-        </div>
-        <h3 class="font-headline font-bold text-base text-text-primary mb-2">Báo cáo phổ điểm &amp; Phân tích</h3>
-        <p class="font-body text-xs text-text-secondary leading-relaxed">
-          Định vị chính xác mức độ nắm vững kiến thức theo các cấp độ nhận thức Bloom, tự động thống kê chỉ số phân biệt câu hỏi.
-        </p>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-surface/70 border border-border-subtle hover:border-brand/40 transition-all group backdrop-blur-sm">
-        <div class="w-10 h-10 rounded-xl bg-elevated border border-border-strong flex items-center justify-center text-brand mb-4 group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined text-xl" data-icon="timer">timer</span>
-        </div>
-        <h3 class="font-headline font-bold text-base text-text-primary mb-2">Trải nghiệm thi tập trung</h3>
-        <p class="font-body text-xs text-text-secondary leading-relaxed">
-          Giao diện 1 câu hỏi tập trung, đồng hồ đếm ngược bảo vệ kết quả, tự động nộp bài khi hết giờ mà không gây phân tâm.
-        </p>
-      </div>
-
-    </section>
   </main>
 
-  <!-- FOOTER CHUẨN THỐNG NHẤT -->
-  <footer class="relative z-10 w-full border-t border-border-subtle/80 py-6 px-6 text-center text-xs font-mono text-text-muted mt-auto">
+  <!-- CHÂN TRANG DUY NHẤT CĂN GIỮA -->
+  <footer class="relative z-10 w-full border-t border-border-subtle/80 py-5 px-6 text-center text-xs font-mono text-text-muted">
     <p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
   </footer>
 
-  <!-- SCRIPT: Tương tác chuột Spotlight & 3D Rubik Tilt -->
+  <!-- SCRIPT: Hiệu ứng đèn pin theo chuột & Nghiêng góc nhìn 3D Rubik -->
   <script>
     const body = document.body;
     const spotlight = document.getElementById('spotlight');
@@ -441,7 +403,7 @@
     const rubikCube = document.getElementById('rubik-cube');
     const rubikContainer = document.getElementById('rubik-container');
 
-    // Theo dõi con trỏ chuột để tạo hiệu ứng nền sáng cục bộ
+    // Theo dõi con trỏ chuột trên toàn màn hình
     window.addEventListener('mousemove', (e) => {
       const x = e.clientX;
       const y = e.clientY;
@@ -449,7 +411,7 @@
       body.style.setProperty('--mouse-x', x + 'px');
       body.style.setProperty('--mouse-y', y + 'px');
 
-      // 3D Parallax Tilt cho Khối Rubik khi di chuột trên màn hình
+      // Tương tác góc xoay 3D parallax khi di chuột
       if (rubikCube && rubikContainer) {
         const rect = rubikContainer.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -458,24 +420,21 @@
         const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
         const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-        // Giới hạn góc xoay tương tác nhẹ nhàng
-        const tiltX = -20 - (deltaY * 25);
-        const tiltY = 32 + (deltaX * 35);
+        const tiltX = -22 - (deltaY * 22);
+        const tiltY = 34 + (deltaX * 30);
 
         rubikCube.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
       }
     });
 
-    // Reset góc xoay nhẹ nhàng khi chuột rời khỏi màn hình
     window.addEventListener('mouseleave', () => {
       body.style.setProperty('--mouse-x', '-500px');
       body.style.setProperty('--mouse-y', '-500px');
       if (rubikCube) {
-        rubikCube.style.transform = 'rotateX(-20deg) rotateY(32deg)';
+        rubikCube.style.transform = 'rotateX(-22deg) rotateY(34deg)';
       }
     });
   </script>
 
 </body>
 </html>
-

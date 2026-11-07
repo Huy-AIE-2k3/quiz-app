@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Generate a preview PNG for SC-00-landing.html matching the Dark theme, Rubik cube colors, and dotted grid."""
+"""Generate a preview PNG for SC-00-landing.html matching the minimal stage:
+Only the image content + 1 Login button (no top navbar, no stats 450+, no docker sandbox, no bento cards).
+"""
 
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 OUTPUT_PATH = Path("design/screens/SC-00-landing.png")
 
@@ -12,112 +14,115 @@ def create_landing_preview():
     img = Image.new("RGB", (width, height), "#090D16")
     draw = ImageDraw.Draw(img)
 
-    # 1. Draw subtle dot grid
+    # 1. Subtle Dotted Grid
     grid_spacing = 28
     for x in range(0, width, grid_spacing):
         for y in range(0, height, grid_spacing):
-            draw.point((x, y), fill=(30, 41, 59))
+            draw.point((x, y), fill=(35, 48, 68))
 
-    # 2. Draw spotlight glow on canvas
-    center_x, center_y = 600, 500
-    for r in range(400, 0, -20):
-        alpha_intensity = int(18 * (1 - r / 400))
-        # subtle radial rings
+    # 2. Spotlight glow on canvas
+    center_x, center_y = 650, 480
+    for r in range(450, 0, -20):
+        alpha = int(16 * (1 - r / 450))
         draw.ellipse(
             [center_x - r, center_y - r, center_x + r, center_y + r],
-            outline=(16, 185, 129, alpha_intensity)
+            outline=(16, 185, 129, alpha)
         )
 
-    # 3. Header bar
-    draw.rectangle([0, 0, width, 80], fill="#0A0F1D", outline="#1E293B")
-    draw.rectangle([60, 22, 96, 58], fill="#111726", outline="#10B981")
-    # Draw M logo
-    draw.text((72, 28), "M", fill="#10B981")
-    draw.text((112, 30), "Mathrix", fill="#F9FAFB")
-    draw.text((width - 320, 30), "Đăng nhập", fill="#94A3B8")
-    draw.rectangle([width - 200, 20, width - 60, 60], fill="#10B981", outline="#10B981")
-    draw.text((width - 170, 32), "Vào phòng thi", fill="#090D16")
-
-    # 4. Hero Content (Left)
-    draw.rectangle([60, 180, 480, 212], fill="#111726", outline="#1E293B")
-    draw.text((80, 188), "NỀN TẢNG KHẢO THÍ TOÁN & TIN HỌC CHUYÊN SÂU", fill="#10B981")
+    # 3. Left Stage: Category Pill
+    draw.rectangle([140, 220, 560, 256], fill="#111726", outline="#1E293B")
+    draw.ellipse([156, 234, 164, 242], fill="#10B981")
+    draw.text((176, 230), "NỀN TẢNG KHẢO THÍ TOÁN & TIN HỌC CHUYÊN SÂU", fill="#10B981")
 
     # Headline
-    draw.text((60, 260), "Test đến đâu,", fill="#F9FAFB")
-    draw.text((60, 340), "hiểu mình đến đó", fill="#10B981")
+    draw.text((140, 300), "Test đến đâu,", fill="#F9FAFB")
+    draw.text((140, 380), "hiểu mình đến đó", fill="#10B981")
 
-    # Subtext
-    draw.text((60, 440), "Đánh giá chuẩn xác năng lực tư duy, định vị lỗ hổng kiến thức", fill="#94A3B8")
-    draw.text((60, 470), "thông qua hệ sinh thái đề thi Toán học & Lập trình chuẩn hóa.", fill="#94A3B8")
+    # Subtext (matching image text exactly)
+    draw.text(
+        (140, 480),
+        "Đo lường năng lực chuẩn xác với hệ thống 4 dạng thức thi mới, phân tích phổ điểm",
+        fill="#94A3B8"
+    )
+    draw.text(
+        (140, 510),
+        "thời gian thực và sandbox chấm mã nguồn tự động.",
+        fill="#94A3B8"
+    )
 
-    # Action Buttons
-    draw.rectangle([60, 530, 260, 585], fill="#10B981")
-    draw.text((95, 548), "Bắt đầu khảo sát ->", fill="#090D16")
+    # ONLY 1 LOGIN BUTTON (Theo đúng chỉ đạo của người dùng)
+    draw.rectangle([140, 570, 420, 630], fill="#10B981")
+    draw.text((175, 592), "Đăng nhập hệ thống  ->", fill="#090D16")
 
-    draw.rectangle([280, 530, 480, 585], fill="#111726", outline="#334155")
-    draw.text((320, 548), "Đăng nhập hệ thống", fill="#F9FAFB")
+    # 4. Right Stage: 3D Rubik's Cube Cluster (Red, Emerald, Black)
+    cube_base_x = 1380
+    cube_base_y = 520
 
-    # 5. Right side: 3D Rubik Cube cluster (Red, Emerald, Black)
-    cube_base_x = 1350
-    cube_base_y = 480
-    size = 72
-
-    # Draw isometric rubik mini cubes (red #EF4444, emerald #10B981, black #1E293B)
     colors = [
         ("#10B981", "#EF4444", "#1E293B"),
         ("#EF4444", "#1E293B", "#10B981"),
         ("#1E293B", "#10B981", "#EF4444")
     ]
 
+    # Draw main Rubik cube
     for layer in range(3):
-        ly = cube_base_y - (layer * 80)
+        ly = cube_base_y - (layer * 85)
         for row in range(3):
             for col in range(3):
-                cx = cube_base_x + (col - 1) * 75 - (row - 1) * 35
-                cy = ly + (row - 1) * 35 + (col - 1) * 20
+                cx = cube_base_x + (col - 1) * 80 - (row - 1) * 40
+                cy = ly + (row - 1) * 40 + (col - 1) * 22
                 c_top, c_left, c_right = colors[(layer + row + col) % 3]
 
                 # Top rhombus
                 draw.polygon([
-                    (cx, cy - 30),
-                    (cx + 40, cy - 10),
-                    (cx, cy + 10),
-                    (cx - 40, cy - 10)
+                    (cx, cy - 35),
+                    (cx + 45, cy - 12),
+                    (cx, cy + 12),
+                    (cx - 45, cy - 12)
                 ], fill=c_top, outline="#090D16")
 
                 # Left side
                 draw.polygon([
-                    (cx - 40, cy - 10),
-                    (cx, cy + 10),
-                    (cx, cy + 50),
-                    (cx - 40, cy + 30)
+                    (cx - 45, cy - 12),
+                    (cx, cy + 12),
+                    (cx, cy + 55),
+                    (cx - 45, cy + 32)
                 ], fill=c_left, outline="#090D16")
 
                 # Right side
                 draw.polygon([
-                    (cx, cy + 10),
-                    (cx + 40, cy - 10),
-                    (cx + 40, cy + 30),
-                    (cx, cy + 50)
+                    (cx, cy + 12),
+                    (cx + 45, cy - 12),
+                    (cx + 45, cy + 32),
+                    (cx, cy + 55)
                 ], fill=c_right, outline="#090D16")
 
-    # 6. Bottom Bento Cards
-    bento_y = 780
-    card_w = 400
-    for idx, (title, color) in enumerate([("Đa dạng dạng bài Toán & Tin", "#10B981"), ("Báo cáo phổ điểm & Phân tích", "#EF4444"), ("Trải nghiệm thi tập trung", "#10B981")]):
-        bx = 60 + idx * (card_w + 30)
-        draw.rectangle([bx, bento_y, bx + card_w, bento_y + 160], fill="#111726", outline="#1E293B")
-        draw.rectangle([bx + 20, bento_y + 20, bx + 60, bento_y + 60], fill=color)
-        draw.text((bx + 20, bento_y + 80), title, fill="#F9FAFB")
+    # Draw satellite floating mini cubes (as shown in user image)
+    # Satellite 1: Red mini cube (top left)
+    s1_x, s1_y = 1180, 240
+    draw.polygon([(s1_x, s1_y - 20), (s1_x + 25, s1_y - 8), (s1_x, s1_y + 8), (s1_x - 25, s1_y - 8)], fill="#EF4444", outline="#090D16")
+    draw.polygon([(s1_x - 25, s1_y - 8), (s1_x, s1_y + 8), (s1_x, s1_y + 36), (s1_x - 25, s1_y + 20)], fill="#B91C1C", outline="#090D16")
+    draw.polygon([(s1_x, s1_y + 8), (s1_x + 25, s1_y - 8), (s1_x + 25, s1_y + 20), (s1_x, s1_y + 36)], fill="#1E293B", outline="#090D16")
 
-    # 7. Footer
+    # Satellite 2: Emerald mini cube (bottom left)
+    s2_x, s2_y = 1210, 680
+    draw.polygon([(s2_x, s2_y - 22), (s2_x + 28, s2_y - 9), (s2_x, s2_y + 9), (s2_x - 28, s2_y - 9)], fill="#10B981", outline="#090D16")
+    draw.polygon([(s2_x - 28, s2_y - 9), (s2_x, s2_y + 9), (s2_x, s2_y + 40), (s2_x - 28, s2_y + 22)], fill="#047857", outline="#090D16")
+    draw.polygon([(s2_x, s2_y + 9), (s2_x + 28, s2_y - 9), (s2_x + 28, s2_y + 22), (s2_x, s2_y + 40)], fill="#1E293B", outline="#090D16")
+
+    # Satellite 3: Black mini cube (bottom right)
+    s3_x, s3_y = 1560, 640
+    draw.polygon([(s3_x, s3_y - 18), (s3_x + 22, s3_y - 7), (s3_x, s3_y + 7), (s3_x - 22, s3_y - 7)], fill="#1E293B", outline="#090D16")
+    draw.polygon([(s3_x - 22, s3_y - 7), (s3_x, s3_y + 7), (s3_x, s3_y + 32), (s3_x - 22, s3_y + 18)], fill="#0F172A", outline="#090D16")
+    draw.polygon([(s3_x, s3_y + 7), (s3_x + 22, s3_y - 7), (s3_x + 22, s3_y + 18), (s3_x, s3_y + 32)], fill="#020617", outline="#090D16")
+
+    # 5. Centered single footer line
     draw.rectangle([0, height - 60, width, height], fill="#090D16", outline="#1E293B")
-    draw.text((width // 2 - 180, height - 40), "Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài", fill="#64748B")
+    draw.text((width // 2 - 180, height - 38), "Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài", fill="#64748B")
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     img.save(OUTPUT_PATH)
-    print(f"Successfully generated {OUTPUT_PATH}")
+    print(f"Successfully generated minimal {OUTPUT_PATH}")
 
 if __name__ == "__main__":
     create_landing_preview()
-
