@@ -45,6 +45,7 @@
 
 | STT | Mã màn hình | Route tương ứng | Nhóm phân quyền | Tên màn hình | File HTML | File PNG | Trạng thái |
 | :---: | :--- | :--- | :---: | :--- | :--- | :--- | :---: |
+| 0 | `SC-00` | `/` | Public | Trang chủ Landing Page ("Test đến đâu, hiểu mình đến đó") | `design/screens/SC-00-landing.html` | `design/screens/SC-00-landing.png` | `[x]` |
 | 1 | `SC-01` | `/login` | Public | Đăng nhập Hệ thống | `design/screens/SC-01-login.html` | `design/screens/SC-01-login.png` | `[x]` |
 | 2 | `SC-02` | `/s/exams` | Học sinh | Danh sách Đề thi của tôi | `design/screens/SC-02-student-exams.html` | `design/screens/SC-02-student-exams.png` | `[x]` |
 | 3 | `SC-03` | `/s/exams/:id` | Học sinh | Giới thiệu Đề & Quy chế thi | `design/screens/SC-03-exam-lobby.html` | `design/screens/SC-03-exam-lobby.png` | `[x]` |
