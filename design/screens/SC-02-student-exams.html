@@ -63,7 +63,7 @@
         <span>Mathrix</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 h-full pt-3.5">
-        <a class="text-brand border-b-2 border-brand font-medium pb-3.5 flex items-center gap-1.5" href="/s/exams">
+        <a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-brand border-b-2 border-brand font-medium pb-3.5 flex items-center gap-1.5" href="/s/exams">
           <span>Đề thi</span>
         </a>
       </nav>
@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="h-4 w-px bg-border-subtle hidden sm:block"></div>
-      <a class="flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-subtle bg-elevated text-text-secondary hover:text-status-wrong hover:border-status-wrong/40 text-xs font-mono font-medium transition-colors" href="/login">
+      <a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center gap-1.5 px-3 py-1.5 rounded border border-border-subtle bg-elevated text-text-secondary hover:text-status-wrong hover:border-status-wrong/40 text-xs font-mono font-medium transition-colors" href="/login">
         <span class="material-symbols-outlined text-sm">logout</span>
         <span class="hidden md:inline">Đăng xuất</span>
       </a>
@@ -107,18 +107,18 @@
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
             <span class="material-symbols-outlined text-lg">search</span>
           </div>
-          <input class="w-full h-10 pl-9 pr-4 bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted rounded text-sm font-sans focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-colors" placeholder="Tìm kiếm tên bài thi..." type="text"/>
+          <input class="w-full h-10 pl-9 pr-4 bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted rounded text-sm font-sans focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-colors" placeholder="Tìm kiếm tên bài thi..." type="text"/ aria-label="Tìm kiếm  tên bài thi...">
         </div>
 
         <!-- Subject Filter -->
         <div class="md:col-span-4 flex items-center p-0.5 rounded bg-surface border border-border-subtle">
-          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-brand bg-brand/10 border border-brand/30 text-center">
+          <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex-1 py-1.5 px-3 rounded text-xs font-medium text-brand bg-brand/10 border border-brand/30 text-center">
             Tất cả
           </button>
-          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
+          <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
             Toán học
           </button>
-          <button class="flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
+          <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex-1 py-1.5 px-3 rounded text-xs font-medium text-text-secondary hover:text-text-primary transition-colors text-center">
             Tin học
           </button>
         </div>
@@ -127,15 +127,15 @@
 
     <!-- Status Tabs -->
     <section class="border-b border-border-subtle flex items-center gap-6">
-      <button class="pb-3 border-b-2 border-brand text-brand text-sm font-semibold flex items-center gap-2">
+      <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 pb-3 border-b-2 border-brand text-brand text-sm font-semibold flex items-center gap-2">
         <span>Đang diễn ra</span>
         <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-brand/10 text-brand border border-brand/40 font-bold">1</span>
       </button>
-      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+      <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
         <span>Chưa đến hạn</span>
         <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
       </button>
-      <button class="pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
+      <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 pb-3 border-b-2 border-transparent text-text-secondary hover:text-text-primary text-sm font-medium flex items-center gap-2 transition-colors">
         <span>Đã làm</span>
         <span class="px-1.5 py-0.5 rounded font-mono text-xs bg-surface text-text-muted border border-border-subtle">1</span>
       </button>
@@ -177,7 +177,7 @@
 
           <!-- Nút làm bài: Trạng thái Vào làm bài (Màu xanh lá cây) -->
           <div class="flex items-center justify-end pt-1">
-            <a class="h-10 px-6 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer" href="/s/exams/1">
+            <a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-10 px-6 rounded-lg bg-brand hover:bg-brand-hover text-canvas font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer" href="/s/exams/1">
               <span>Vào làm bài</span>
               <span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
             </a>
@@ -216,7 +216,7 @@
 
           <!-- Nút làm bài: Trạng thái Đã làm (Màu đỏ) -->
           <div class="flex items-center justify-end pt-1">
-            <button class="h-10 px-6 rounded-lg bg-status-wrong/20 text-status-wrong border border-status-wrong/50 font-semibold text-sm flex items-center justify-center gap-2 cursor-default">
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-10 px-6 rounded-lg bg-status-wrong/20 text-status-wrong border border-status-wrong/50 font-semibold text-sm flex items-center justify-center gap-2 cursor-default">
               <span class="material-symbols-outlined text-base">check_circle</span>
               <span>Đã làm</span>
             </button>
@@ -255,7 +255,7 @@
 
           <!-- Nút làm bài: Trạng thái Chưa đến hạn làm (Tối mờ disabled) -->
           <div class="flex items-center justify-end pt-1">
-            <button class="h-10 px-6 rounded-lg bg-elevated border border-border-subtle text-text-muted font-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed" disabled>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-10 px-6 rounded-lg bg-elevated border border-border-subtle text-text-muted font-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed" disabled>
               <span class="material-symbols-outlined text-base">lock</span>
               <span>Chưa đến hạn làm</span>
             </button>

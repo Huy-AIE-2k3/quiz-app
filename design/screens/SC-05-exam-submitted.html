@@ -38,6 +38,13 @@
       }
     };
   </script>
+
+<style>
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid #10b981 !important;
+    outline-offset: 2px !important;
+  }
+</style>
 </head>
 <body class="bg-surface-canvas text-slate-100 font-sans min-h-screen flex flex-col justify-between antialiased selection:bg-brand selection:text-slate-900">
 
@@ -89,7 +96,7 @@
 
       <!-- Single Action: Nút quay lại (bỏ tất cả các nội dung còn lại kể cả nút xem đáp án) -->
       <div class="w-full pt-2">
-        <a href="/s/exams" class="w-full h-11 bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-sm rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer">
+        <a href="/s/exams" class="focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full h-11 bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-sm rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer">
           <i data-lucide="arrow-left" class="w-4 h-4 stroke-[2.2]"></i>
           <span>Quay lại danh sách đề thi</span>
         </a>

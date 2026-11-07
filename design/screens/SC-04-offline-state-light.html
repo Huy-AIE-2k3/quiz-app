@@ -98,7 +98,7 @@
       <span class="text-xs font-mono text-slate-600 hidden sm:inline">
         Nguyễn Văn An - 12A1
       </span>
-      <a href="/s/attempts/1/done" class="h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
+      <a href="/s/attempts/1/done" class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 px-4 rounded-lg bg-brand hover:bg-brand-hover text-surface-canvas font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
         <i data-lucide="check-circle-2" class="w-4 h-4 stroke-[2.2]"></i>
         <span>Nộp bài thi</span>
       </a>
@@ -120,7 +120,7 @@
               <span class="text-xs text-brand font-mono px-2 py-0.5 rounded bg-brand/10 border border-brand/30">0.2 điểm</span>
             </div>
 
-            <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium text-amber-400 bg-amber-950/20 border border-amber-500/40 hover:bg-amber-950/40 transition-colors">
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium text-amber-400 bg-amber-950/20 border border-amber-500/40 hover:bg-amber-950/40 transition-colors">
               <i data-lucide="flag" class="w-3.5 h-3.5 fill-amber-400/20"></i>
               <span>Đánh dấu câu hỏi</span>
             </button>
@@ -144,25 +144,25 @@
           <!-- Answer Options -->
           <div class="space-y-3 pt-2">
             <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
-              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" / aria-label="Phương án lựa chọn">
               <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">A</span>
               <span class="text-sm text-slate-700 font-mono">\( I = 36 \)</span>
             </label>
 
             <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-brand bg-brand/5 cursor-pointer transition-all">
-              <input type="radio" name="q1" checked class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <input type="radio" name="q1" checked class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" / aria-label="Phương án lựa chọn">
               <span class="w-7 h-7 rounded border border-brand bg-brand text-surface-canvas flex items-center justify-center font-display text-xs font-bold">B</span>
               <span class="text-sm text-slate-800 font-mono font-medium">\( I = 4 \)</span>
             </label>
 
             <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
-              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" / aria-label="Phương án lựa chọn">
               <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">C</span>
               <span class="text-sm text-slate-700 font-mono">\( I = 6 \)</span>
             </label>
 
             <label class="flex items-center gap-3.5 p-3.5 rounded-lg border border-line-subtle bg-surface-elevated/40 hover:bg-surface-elevated cursor-pointer transition-all">
-              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" />
+              <input type="radio" name="q1" class="w-4 h-4 text-brand bg-canvas border-line-subtle focus:ring-0 accent-emerald-500" / aria-label="Phương án lựa chọn">
               <span class="w-7 h-7 rounded border border-line-subtle flex items-center justify-center font-display text-xs font-bold text-slate-600">D</span>
               <span class="text-sm text-slate-700 font-mono">\( I = 12 \)</span>
             </label>
@@ -170,10 +170,10 @@
 
           <!-- Bottom Navigation -->
           <div class="flex items-center justify-between pt-4 border-t border-line-subtle">
-            <button class="px-4 py-2 rounded-lg border border-line-subtle text-slate-400 opacity-50 cursor-not-allowed text-xs font-medium" disabled>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-4 py-2 rounded-lg border border-line-subtle text-slate-400 opacity-50 cursor-not-allowed text-xs font-medium" disabled>
               Câu trước
             </button>
-            <button class="px-5 py-2 rounded-lg bg-surface-elevated hover:bg-line-strong border border-line-subtle text-slate-700 text-xs font-medium transition-colors">
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-5 py-2 rounded-lg bg-surface-elevated hover:bg-line-strong border border-line-subtle text-slate-700 text-xs font-medium transition-colors">
               Câu tiếp theo
             </button>
           </div>
@@ -193,27 +193,27 @@
           </div>
 
           <div class="grid grid-cols-5 gap-2 font-mono text-xs text-center" id="question-grid">
-            <button class="h-9 rounded border border-brand bg-brand text-surface-canvas font-bold">01</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">02</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">03</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">04</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">05</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">06</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">07</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">08</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">09</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">10</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-brand bg-brand text-surface-canvas font-bold">01</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">02</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">03</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">04</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">05</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">06</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">07</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">08</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">09</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">10</button>
             <!-- 11-20 -->
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">11</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">12</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">13</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">14</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">15</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">16</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">17</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">18</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">19</button>
-            <button class="h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">20</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">11</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">12</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">13</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">14</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">15</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">16</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">17</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">18</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">19</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-line-subtle bg-surface-elevated text-slate-600 hover:border-line-strong">20</button>
             <div class="col-span-5 py-2 text-center text-slate-500 text-[11px] font-mono border-t border-line-subtle/50">
               ... các câu từ 21 đến 50 ...
             </div>

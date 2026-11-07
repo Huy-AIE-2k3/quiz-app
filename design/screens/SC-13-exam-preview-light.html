@@ -52,6 +52,13 @@
       background-position: 0 0 !important;
     }
   </style>
+
+<style>
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid #10b981 !important;
+    outline-offset: 2px !important;
+  }
+</style>
 </head>
 <body class="bg-canvas text-text-primary font-sans min-h-screen flex flex-col antialiased">
 
@@ -61,7 +68,7 @@
       <span class="px-2 py-0.5 rounded font-mono font-bold bg-brand/20 text-brand border border-brand/40 uppercase">CHẾ ĐỘ XEM TRƯỚC</span>
       <span class="text-text-secondary">Giao diện hiển thị trực quan như màn hình của học sinh (Đáp án đúng được phủ xanh để đối chiếu).</span>
     </div>
-    <a href="/a/exams/1/edit" class="px-3 py-1 rounded bg-surface border border-border-subtle hover:border-border-strong text-text-primary font-medium flex items-center gap-1.5 transition-colors">
+    <a href="/a/exams/1/edit" class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-1 rounded bg-surface border border-border-subtle hover:border-border-strong text-text-primary font-medium flex items-center gap-1.5 transition-colors">
       <span class="material-symbols-outlined text-sm">edit</span>
       <span>Quay lại chỉnh sửa</span>
     </a>
@@ -167,11 +174,11 @@
           </div>
 
           <div class="grid grid-cols-5 gap-2 font-mono text-xs text-center">
-            <button class="h-9 rounded border border-brand bg-brand text-canvas font-bold">01</button>
-            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">02</button>
-            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">03</button>
-            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">04</button>
-            <button class="h-9 rounded border border-border-subtle bg-elevated text-text-secondary">05</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-brand bg-brand text-canvas font-bold">01</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-border-subtle bg-elevated text-text-secondary">02</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-border-subtle bg-elevated text-text-secondary">03</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-border-subtle bg-elevated text-text-secondary">04</button>
+            <button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-9 rounded border border-border-subtle bg-elevated text-text-secondary">05</button>
             <div class="col-span-5 py-2 text-center text-text-muted text-[11px] font-mono">
               ... xem trước các câu từ 06 đến 50 ...
             </div>

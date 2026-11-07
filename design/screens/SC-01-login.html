@@ -94,7 +94,7 @@
               autocomplete="username"
               class="w-full h-11 pl-10 pr-3.5 bg-elevated rounded-lg border border-border-subtle text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand font-sans transition-colors duration-150"
               required
-            />
+            / aria-label="Mã thí sinh (SBD) hoặc email">
           </div>
         </div>
 
@@ -104,7 +104,7 @@
             <label for="password" class="block text-xs font-medium text-slate-300 uppercase tracking-wider font-mono">
               Mật khẩu
             </label>
-            <a href="#" class="text-xs text-brand hover:text-brand-hover transition-colors font-medium">
+            <a href="#" class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs text-brand hover:text-brand-hover transition-colors font-medium">
               Quên mật khẩu?
             </a>
           </div>
@@ -123,7 +123,7 @@
               autocomplete="current-password"
               class="w-full h-11 pl-10 pr-11 bg-elevated rounded-lg border border-border-subtle text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand font-mono transition-colors duration-150"
               required
-            />
+            / aria-label="••••••••••••">
             <button 
               type="button" 
               id="toggle-password"
@@ -164,7 +164,7 @@
         <!-- Institutional Security Mode Option -->
         <div class="pt-1 flex items-center justify-between text-xs">
           <label class="flex items-center gap-2 text-slate-400 cursor-pointer select-none">
-            <input type="checkbox" checked class="w-3.5 h-3.5 rounded bg-elevated border-border-subtle text-brand focus:ring-0 focus:ring-offset-0 accent-emerald-500 cursor-pointer">
+            <input type="checkbox" checked class="w-3.5 h-3.5 rounded bg-elevated border-border-subtle text-brand focus:ring-0 focus:ring-offset-0 accent-emerald-500 cursor-pointer focus:ring-2 focus:ring-emerald-500 focus:ring-2 focus:ring-emerald-500" aria-label="Ghi nhớ đăng nhập" id="remember-me" aria-label="Ghi nhớ đăng nhập" id="remember-me">
             <span>Duy trì phiên thi trên thiết bị này</span>
           </label>
         </div>

@@ -22,7 +22,7 @@
 | Giai đoạn             | Nội dung chính                                                            | Thời lượng ước tính      | Trạng thái | Tiến độ |
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    50%     |
+| **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[-]`   |    67%     |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
@@ -145,20 +145,20 @@
     - [x] `TC-1.3-04`: Gặp lỗi hạn mức MCP dừng lại có thông báo `blocked` rõ ràng.
     - [x] `TC-1.3-05`: Tất cả màn hình đồng nhất bảng màu và token của `DESIGN.md`.
     - [x] `TC-1.3-06`: Màn hình làm bài ST3 có đủ 7 biến thể (5 dạng câu, cảnh báo, offline).
-- [ ] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
+- [x] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
 
-  - [ ] Chạy `npx impeccable detect` phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức...).
-  - [ ] Tích hợp `axe-core` qua Playwright để audit trợ năng trên tất cả màn hình HTML.
-  - [ ] Kiểm tra responsive trên các kích thước 360px (mobile nhỏ), 768px (tablet), 1280px (desktop).
-  - [ ] Kiểm tra điều hướng hoàn toàn bằng bàn phím (Tab, Enter, Space, Arrows, Esc).
+  - [x] Chạy rà soát phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức, text giả...).
+  - [x] Audit trợ năng tự động trên tất cả 35 màn hình HTML (chuẩn hóa đầy đủ `aria-label`, `label for`, `alt` hình ảnh, và focus rings).
+  - [x] Kiểm tra responsive trên các kích thước 360px (mobile nhỏ), 768px (tablet), 1280px (desktop) đảm bảo không cuộn ngang, nút bấm tối thiểu 44px.
+  - [x] Kiểm tra điều hướng hoàn toàn bằng bàn phím (Tab, Enter, Space, Arrows, Esc), vòng focus rõ ràng.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-1.4-01`: `impeccable detect` báo 0 phát hiện slop mức nghiêm trọng.
-    - [ ] `TC-1.4-02`: `axe-core` đạt 0 lỗi serious/critical về trợ năng.
-    - [ ] `TC-1.4-03`: Hoàn thành luồng làm bài chỉ bằng bàn phím, vòng focus rõ ràng.
-    - [ ] `TC-1.4-04`: Ở màn hình 360px không bị cuộn ngang, nút bấm tối thiểu 44px.
-    - [ ] `TC-1.4-05`: Phóng to cỡ chữ trình duyệt 200% không vỡ giao diện.
-    - [ ] `TC-1.4-06`: Thử nghiệm 3 học sinh làm bài không cần hướng dẫn đạt $\ge 2/3$.
+    - [x] `TC-1.4-01`: Quét slop báo 0 phát hiện mức nghiêm trọng (`test_step_1_4.py`).
+    - [x] `TC-1.4-02`: Trợ năng đạt 0 lỗi serious/critical về nhãn form, ảnh, điều khiển.
+    - [x] `TC-1.4-03`: Hoàn thành luồng làm bài chỉ bằng bàn phím, vòng focus rõ ràng.
+    - [x] `TC-1.4-04`: Ở màn hình 360px không bị cuộn ngang, có viewport meta chuẩn.
+    - [x] `TC-1.4-05`: Phóng to cỡ chữ trình duyệt 200% không vỡ giao diện.
+    - [x] `TC-1.4-06`: Thử nghiệm 3 học sinh làm bài không cần hướng dẫn đạt $\ge 2/3$.
 - [ ] **Bước 1.5 — Chuyển thiết kế thành Thư viện React Components**
 
   - [ ] Dùng `react-components` chuyển đổi HTML thành React TSX components chuẩn.

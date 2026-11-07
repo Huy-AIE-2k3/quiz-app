@@ -165,9 +165,9 @@
 </div>
 <!-- Navigation Central Links -->
 <nav class="hidden lg:flex items-center space-x-6">
-<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 pt-3.5" href="#">Đề thi</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors duration-150" href="#">Luyện tập</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors duration-150" href="#">Kết quả</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 pt-3.5" href="#">Đề thi</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors duration-150" href="#">Luyện tập</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors duration-150" href="#">Kết quả</a>
 </nav>
 <!-- Trailing Action Cluster -->
 <div class="flex items-center space-x-4">
@@ -183,7 +183,7 @@
             </div>
 <span class="text-text-primary-dark font-body-md text-body-md font-medium hidden sm:inline">Nguyễn Văn An - 12A1</span>
 </div>
-<button class="px-2.5 py-1 text-sm rounded bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark hover:text-primary text-text-secondary-dark transition-all duration-150">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2.5 py-1 text-sm rounded bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark hover:text-primary text-text-secondary-dark transition-all duration-150">
             Đăng xuất
           </button>
 </div>
@@ -222,19 +222,19 @@
 </div>
 <!-- Action Toolbar -->
 <div class="flex items-center flex-wrap gap-2.5">
-<button class="px-3.5 py-2 rounded-lg bg-brand-primary-dark text-on-primary-fixed font-headline-sm text-sm font-semibold flex items-center gap-1.5 shadow-sm active:scale-[0.98] transition-transform">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3.5 py-2 rounded-lg bg-brand-primary-dark text-on-primary-fixed font-headline-sm text-sm font-semibold flex items-center gap-1.5 shadow-sm active:scale-[0.98] transition-transform">
 <span class="material-symbols-outlined text-lg">upload_file</span>
 <span>+ Nhập danh sách CSV</span>
 </button>
-<button class="px-3.5 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-primary-dark text-sm font-medium flex items-center gap-1.5 transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3.5 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-primary-dark text-sm font-medium flex items-center gap-1.5 transition-colors">
 <span class="material-symbols-outlined text-lg text-text-muted-dark">person_add</span>
 <span>+ Thêm học sinh</span>
 </button>
-<button class="px-3 py-2 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark text-sm flex items-center gap-1.5 transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-2 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark text-sm flex items-center gap-1.5 transition-colors">
 <span class="material-symbols-outlined text-base">download</span>
 <span>Xuất file</span>
 </button>
-<button class="p-2 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-2 rounded-lg bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark transition-colors">
 <span class="material-symbols-outlined text-lg">settings</span>
 </button>
 </div>
@@ -243,7 +243,7 @@
 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
 <div class="relative w-full sm:w-80">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-dark text-base">search</span>
-<input class="w-full pl-9 pr-4 py-2 bg-surface-dark border border-border-subtle-dark rounded-lg text-xs font-body-md text-text-primary-dark placeholder:text-text-muted-dark focus:outline-none focus:border-brand-primary-dark" placeholder="Tìm theo tên, mã HS hoặc tài khoản..." readonly="" type="text"/>
+<input class="w-full pl-9 pr-4 py-2 bg-surface-dark border border-border-subtle-dark rounded-lg text-xs font-body-md text-text-primary-dark placeholder:text-text-muted-dark focus:outline-none focus:border-brand-primary-dark" placeholder="Tìm theo tên, mã HS hoặc tài khoản..." readonly="" type="text"/ aria-label="Tìm theo tên, mã HS hoặc tài khoản...">
 </div>
 <div class="flex items-center gap-2 w-full sm:w-auto justify-end text-xs font-tabular text-text-secondary-dark">
 <span>Lọc:</span>
@@ -282,7 +282,7 @@
                   </span>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
 </td>
 </tr>
 <tr class="hover:bg-elevated-dark/30 transition-colors">
@@ -298,7 +298,7 @@
                   </span>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
 </td>
 </tr>
 <tr class="hover:bg-elevated-dark/30 transition-colors">
@@ -314,7 +314,7 @@
                   </span>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
 </td>
 </tr>
 <tr class="hover:bg-elevated-dark/30 transition-colors">
@@ -330,7 +330,7 @@
                   </span>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
 </td>
 </tr>
 <tr class="hover:bg-elevated-dark/30 transition-colors">
@@ -346,7 +346,7 @@
                   </span>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark"><span class="material-symbols-outlined text-base">more_horiz</span></button>
 </td>
 </tr>
 </tbody>
@@ -373,7 +373,7 @@
             Lớp: <span class="text-text-primary-dark font-medium">12 Chuyên Tin (Khối 12)</span> • Năm học <span class="font-code text-text-secondary-dark">2024 - 2025</span>
 </p>
 </div>
-<button class="text-text-muted-dark hover:text-text-primary-dark p-1.5 rounded-lg hover:bg-elevated-dark transition-colors" title="Đóng">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark p-1.5 rounded-lg hover:bg-elevated-dark transition-colors" title="Đóng">
 <span class="material-symbols-outlined text-xl">close</span>
 </button>
 </div>
@@ -524,16 +524,16 @@
 <!-- Modal Footer Actions -->
 <div class="px-6 py-4 bg-canvas-dark border-t border-border-subtle-dark flex items-center justify-between">
 <!-- Back action -->
-<button class="text-xs text-text-secondary-dark hover:text-text-primary-dark font-headline-sm flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-surface-dark">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs text-text-secondary-dark hover:text-text-primary-dark font-headline-sm flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-surface-dark">
 <span class="material-symbols-outlined text-sm">arrow_back</span>
 <span>Quay lại bước 1</span>
 </button>
 <!-- Right group -->
 <div class="flex items-center gap-3">
-<button class="px-4 py-2 rounded-lg bg-surface-dark border border-border-strong-dark hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark font-headline-sm text-xs font-medium transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-4 py-2 rounded-lg bg-surface-dark border border-border-strong-dark hover:bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark font-headline-sm text-xs font-medium transition-colors">
             Hủy
           </button>
-<button class="px-5 py-2 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-on-primary-fixed font-headline-sm text-xs font-semibold flex items-center gap-2 shadow-sm active:scale-[0.98] transition-all">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-5 py-2 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-on-primary-fixed font-headline-sm text-xs font-semibold flex items-center gap-2 shadow-sm active:scale-[0.98] transition-all">
 <span class="material-symbols-outlined text-base">person_add</span>
 <span>Xác nhận nhập 35 học sinh</span>
 </button>

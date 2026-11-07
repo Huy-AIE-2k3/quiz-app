@@ -165,7 +165,7 @@
         </span>
 </div>
 <span class="text-border-strong-dark">/</span>
-<a class="flex items-center space-x-1 text-text-secondary-dark hover:text-brand-hover-dark text-sm transition-colors duration-150" href="/exams/102">
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 text-text-secondary-dark hover:text-brand-hover-dark text-sm transition-colors duration-150" href="/exams/102">
 <span class="material-symbols-outlined text-[16px]">arrow_back</span>
 <span class="font-body-md text-body-md text-xs">Quay lại phòng thi</span>
 </a>
@@ -176,18 +176,18 @@
 </div>
 <!-- Center: Quick student switcher controls & Meta info -->
 <div class="flex items-center space-x-2">
-<button class="flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
 <span>← Trước</span>
 </button>
 <div class="relative flex items-center">
-<select class="appearance-none bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-primary-dark text-xs font-body-md py-1 pl-3 pr-8 rounded focus:outline-none focus:border-brand-primary-dark cursor-pointer transition-colors">
+<select class="appearance-none bg-surface-dark border border-border-subtle-dark hover:border-border-strong-dark text-text-primary-dark text-xs font-body-md py-1 pl-3 pr-8 rounded focus:outline-none focus:border-brand-primary-dark cursor-pointer transition-colors" aria-label="Tùy chọn danh mục">
 <option selected="" value="14">Thí sinh 14/45: Lê Hoàng Nam (Lớp 12A1 - SBD: HS-2026-001)</option>
 <option value="15">Thí sinh 15/45: Trần Minh Thư (Lớp 12A1 - SBD: HS-2026-002)</option>
 <option value="16">Thí sinh 16/45: Vũ Đức Hải (Lớp 12A1 - SBD: HS-2026-003)</option>
 </select>
 <span class="material-symbols-outlined text-[16px] text-text-muted-dark absolute right-2 pointer-events-none">expand_more</span>
 </div>
-<button class="flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 px-2.5 py-1 text-xs font-code rounded bg-surface-dark border border-border-subtle-dark text-text-secondary-dark hover:text-text-primary-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
 <span>Sau →</span>
 </button>
 <div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
@@ -213,7 +213,7 @@
 </div>
 <div class="h-4 w-px bg-border-subtle-dark"></div>
 
-<button class="px-2.5 py-1 text-xs font-medium text-text-primary-dark bg-elevated-dark border border-border-strong-dark hover:border-brand-primary-dark rounded transition-colors" title="Cấu hình hiển thị">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2.5 py-1 text-xs font-medium text-text-primary-dark bg-elevated-dark border border-border-strong-dark hover:border-brand-primary-dark rounded transition-colors" title="Cấu hình hiển thị">
 <span class="material-symbols-outlined text-[16px]">settings</span>
 </button>
 </div>
@@ -228,14 +228,14 @@
 <div class="h-11 bg-surface-dark border-b border-border-subtle-dark flex items-center justify-between px-3 select-none">
 <!-- Left Pane Tabs -->
 <div class="flex items-center space-x-1">
-<button class="flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-brand-primary-dark text-text-primary-dark bg-canvas-dark transition-colors" id="btn-tab-pdf" onclick="switchSubmissionTab('pdf')">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-brand-primary-dark text-text-primary-dark bg-canvas-dark transition-colors" id="btn-tab-pdf" onclick="switchSubmissionTab('pdf')">
 <span class="material-symbols-outlined text-[16px] text-brand-primary-dark">description</span>
 <span>Bài làm tự luận Toán (Scan/PDF)</span>
 <span class="px-1.5 py-0.2 bg-elevated-dark text-text-secondary-dark rounded text-[10px] font-code border border-border-subtle-dark">
               Câu 15 - Hình học &amp; Vi phân
             </span>
 </button>
-<button class="flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark/50 transition-colors" id="btn-tab-code" onclick="switchSubmissionTab('code')">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-t border-b-2 border-transparent text-text-secondary-dark hover:text-text-primary-dark hover:bg-canvas-dark/50 transition-colors" id="btn-tab-code" onclick="switchSubmissionTab('code')">
 <span class="material-symbols-outlined text-[16px]">terminal</span>
 <span>Mã nguồn C++17 &amp; Testcases</span>
 <span class="px-1.5 py-0.2 bg-status-flagged/10 text-status-flagged rounded text-[10px] font-code border border-status-flagged/30">
@@ -246,21 +246,21 @@
 <!-- Document / Viewer Toolbar Actions -->
 <div class="flex items-center space-x-1">
 <!-- Download PDF button -->
-<button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-primary-dark bg-elevated-dark hover:bg-surface-dark rounded border border-border-subtle-dark transition-colors" title="Tải file PDF bài làm về máy">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 px-2 py-1 text-xs text-text-primary-dark bg-elevated-dark hover:bg-surface-dark rounded border border-border-subtle-dark transition-colors" title="Tải file PDF bài làm về máy">
 <span class="material-symbols-outlined text-[15px]">download</span>
 <span class="text-[11px]">Tải file PDF</span>
 </button>
 <div class="flex items-center bg-elevated-dark border border-border-subtle-dark rounded px-1 py-0.5">
-<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Thu nhỏ">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Thu nhỏ">
 <span class="material-symbols-outlined text-[15px]">zoom_out</span>
 </button>
 <span class="text-[11px] font-tabular text-text-secondary-dark px-1.5">125%</span>
-<button class="p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Phóng to">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-1 text-text-secondary-dark hover:text-text-primary-dark hover:bg-surface-dark rounded" title="Phóng to">
 <span class="material-symbols-outlined text-[15px]">zoom_in</span>
 </button>
 </div>
 <!-- Invert filter toggle for night grading -->
-<button class="flex items-center space-x-1 px-2 py-1 text-xs text-text-secondary-dark hover:text-text-primary-dark bg-elevated-dark rounded border border-border-subtle-dark" id="btn-invert-pdf" onclick="togglePdfInvert()" title="Đảo màu giấy (Bảo vệ mắt ban đêm)">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 px-2 py-1 text-xs text-text-secondary-dark hover:text-text-primary-dark bg-elevated-dark rounded border border-border-subtle-dark" id="btn-invert-pdf" onclick="togglePdfInvert()" title="Đảo màu giấy (Bảo vệ mắt ban đêm)">
 <span class="material-symbols-outlined text-[15px]">contrast</span>
 <span class="text-[11px]">Đảo màu giấy</span>
 </button>
@@ -369,7 +369,7 @@
 <div class="border-l-2 border-border-subtle-dark pl-4 space-y-2">
 <div class="flex items-center justify-between">
 <span class="font-bold text-text-primary-dark font-code">Lời giải Ý c): Chuyển giao sang thuật toán C++17</span>
-<button class="text-xs text-brand-primary-dark hover:underline flex items-center space-x-1" onclick="switchSubmissionTab('code')">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs text-brand-primary-dark hover:underline flex items-center space-x-1" onclick="switchSubmissionTab('code')">
 <span>Xem mã nguồn tại Tab C++17</span>
 <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
 </button>
@@ -543,13 +543,13 @@
 <div class="flex items-center justify-between pt-1">
 <!-- Fast score input buttons -->
 <div class="flex items-center space-x-1">
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.25)">+0.25</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.5)">+0.5</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 1.0)">Max (1.0)</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.25)">+0.25</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 0.5)">+0.5</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-a', 1.0)">Max (1.0)</button>
 </div>
 <!-- Point Input Box -->
 <div class="flex items-center space-x-1.5">
-<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-brand-primary-dark text-brand-primary-dark rounded focus:outline-none focus:ring-1 focus:ring-brand-primary-dark" id="input-score-a" max="1.0" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-brand-primary-dark text-brand-primary-dark rounded focus:outline-none focus:ring-1 focus:ring-brand-primary-dark" id="input-score-a" max="1.0" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/ aria-label="Giá trị số">
 <span class="text-xs font-code text-text-muted-dark">/ 1.0</span>
 </div>
 </div>
@@ -571,13 +571,13 @@
 </div>
 <div class="flex items-center justify-between pt-1">
 <div class="flex items-center space-x-1">
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 0.5)">+0.5</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.0)">+1.0</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.5)">Max (1.5)</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 0.5)">+0.5</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.0)">+1.0</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-b', 1.5)">Max (1.5)</button>
 </div>
 <!-- Point Input Box -->
 <div class="flex items-center space-x-1.5">
-<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-b" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-b" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/ aria-label="Giá trị số">
 <span class="text-xs font-code text-text-muted-dark">/ 1.5</span>
 </div>
 </div>
@@ -599,13 +599,13 @@
 </div>
 <div class="flex items-center justify-between pt-1">
 <div class="flex items-center space-x-1">
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 0.5)">+0.5</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.0)">+1.0</button>
-<button class="px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.5)">Max (1.5)</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 0.5)">+0.5</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.0)">+1.0</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-2 py-0.5 text-xs font-code bg-elevated-dark hover:text-brand-primary-dark text-text-secondary-dark rounded border border-border-subtle-dark" onclick="setScore('input-score-c', 1.5)">Max (1.5)</button>
 </div>
 <!-- Point Input Box -->
 <div class="flex items-center space-x-1.5">
-<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-c" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/>
+<input class="w-16 h-8 text-center font-code text-sm font-semibold bg-elevated-dark border border-border-strong-dark text-text-primary-dark rounded focus:outline-none focus:border-brand-primary-dark" id="input-score-c" max="1.5" min="0" oninput="recalculateTotal()" step="0.25" type="number" value="1.0"/ aria-label="Giá trị số">
 <span class="text-xs font-code text-text-muted-dark">/ 1.5</span>
 </div>
 </div>
@@ -642,22 +642,22 @@
 <span class="material-symbols-outlined text-text-secondary-dark text-[16px]">edit_note</span>
 <span class="text-xs font-semibold text-text-primary-dark">Nhận xét của giáo viên</span>
 </div>
-<button class="flex items-center space-x-1 px-1.5 py-0.5 rounded bg-surface-dark border border-border-subtle-dark text-[11px] text-text-secondary-dark hover:text-text-primary-dark" title="Ghi âm nhận xét">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 px-1.5 py-0.5 rounded bg-surface-dark border border-border-subtle-dark text-[11px] text-text-secondary-dark hover:text-text-primary-dark" title="Ghi âm nhận xét">
 <span class="material-symbols-outlined text-[13px] text-status-wrong">mic</span>
 <span>Ghi âm nhận xét</span>
 </button>
 </div>
 <!-- Formatting mini-toolbar -->
 <div class="flex items-center space-x-1 pb-1 border-b border-border-subtle-dark text-text-secondary-dark">
-<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-bold" title="In đậm (Ctrl+B)">B</button>
-<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs italic" title="In nghiêng (Ctrl+I)">I</button>
-<button class="p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-code" title="Công thức Toán fx">fx</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-bold" title="In đậm (Ctrl+B)">B</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs italic" title="In nghiêng (Ctrl+I)">I</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 p-1 hover:text-text-primary-dark hover:bg-elevated-dark rounded text-xs font-code" title="Công thức Toán fx">fx</button>
 <div class="h-3 w-px bg-border-subtle-dark mx-1"></div>
 <!-- Quick remarks chips -->
-<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Trình bày rõ ràng. ')">+ Trình bày rõ ràng</button>
-<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Cần chú ý điều kiện nghiệm. ')">+ ĐK nghiệm</button>
-<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Sai số dấu. ')">+ Sai số dấu</button>
-<button class="px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Tối ưu vòng lặp C++. ')">+ Tối ưu vòng lặp</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Trình bày rõ ràng. ')">+ Trình bày rõ ràng</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Cần chú ý điều kiện nghiệm. ')">+ ĐK nghiệm</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Sai số dấu. ')">+ Sai số dấu</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-1.5 py-0.5 text-[10px] bg-elevated-dark text-text-secondary-dark hover:text-text-primary-dark rounded border border-border-subtle-dark" onclick="appendRemark('Tối ưu vòng lặp C++. ')">+ Tối ưu vòng lặp</button>
 </div>
 <!-- Thoughtful Vietnamese feedback textarea -->
 <textarea class="w-full bg-elevated-dark border border-border-subtle-dark rounded p-2 text-xs leading-relaxed text-text-primary-dark font-body-md focus:outline-none focus:border-brand-primary-dark resize-none custom-scroll" id="teacher-feedback-textarea" placeholder="Nhập lời nhận xét chi tiết gửi cho thí sinh..." rows="4">Ý tưởng bài toán tốt, phần hình giải tích chặt chẽ. Cần chú ý sai số dấu ở bước tích phân vi phân và ép kiểu double trong C++ để pass test case 5.</textarea>
@@ -674,17 +674,17 @@
 <div class="border-t border-border-subtle-dark bg-canvas-dark p-3 select-none">
 <div class="flex items-center justify-between">
 <!-- Left: Skip Button -->
-<button class="flex items-center space-x-1.5 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark bg-transparent border border-border-subtle-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1.5 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark bg-transparent border border-border-subtle-dark hover:border-border-strong-dark active:scale-[0.98] transition-all">
 <span class="material-symbols-outlined text-[16px]">skip_next</span>
 <span>Bỏ qua</span>
 </button>
 <!-- Center: Instant notification checkbox -->
 <label class="flex items-center space-x-2 text-xs text-text-secondary-dark cursor-pointer select-none">
-<input checked="" class="w-3.5 h-3.5 rounded bg-surface-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<input checked="" class="w-3.5 h-3.5 rounded bg-surface-dark border-border-strong-dark text-brand-primary-dark focus:ring-0 focus:ring-offset-0" type="checkbox"/ aria-label="Chọn mục">
 <span>Gửi thông báo kết quả cho học sinh ngay</span>
 </label>
 <!-- Right: Primary Save & Next Button -->
-<button class="flex items-center space-x-2 px-4 py-2 rounded text-xs font-semibold text-black bg-brand-primary-dark hover:bg-brand-hover-dark active:scale-[0.98] transition-all cursor-pointer" onclick="saveAndNext()">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-2 px-4 py-2 rounded text-xs font-semibold text-black bg-brand-primary-dark hover:bg-brand-hover-dark active:scale-[0.98] transition-all cursor-pointer" onclick="saveAndNext()">
 <span>Lưu &amp; Chấm tiếp theo</span>
 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
 </button>

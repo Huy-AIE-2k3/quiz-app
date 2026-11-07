@@ -147,6 +147,13 @@
       background: #334155;
     }
   </style>
+
+<style>
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid #10b981 !important;
+    outline-offset: 2px !important;
+  }
+</style>
 </head>
 <body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen selection:bg-brand-primary-dark selection:text-black">
 <!-- TOP APP BAR (from Shared Components JSON: TopNavBar) -->
@@ -157,10 +164,10 @@
 <span class="font-headline-md text-headline-md font-semibold text-text-primary-dark tracking-tight">Mathrix</span>
 </div>
 <nav class="hidden md:flex items-center space-x-6">
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#de-thi">Đề thi</a>
-<a class="text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#luyen-tap">Luyện tập</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#de-thi">Đề thi</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-secondary-dark dark:text-text-secondary-dark font-body-md text-body-md hover:text-text-primary-dark pb-3.5 pt-3.5 transition-colors" href="#luyen-tap">Luyện tập</a>
 <!-- Active link: Kết quả -->
-<a class="text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 pt-3.5" href="#ket-qua">Kết quả</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-primary dark:text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-3.5 pt-3.5" href="#ket-qua">Kết quả</a>
 </nav>
 </div>
 <!-- Trailing Actions Cluster -->
@@ -180,7 +187,7 @@
 <span class="px-2 py-0.5 text-xs font-semibold font-tabular text-tabular bg-brand-primary-dark/10 text-brand-primary-dark border border-brand-primary-dark/30 rounded">9.20</span>
 </div>
 <!-- Trailing Action: Log Out -->
-<button class="text-xs font-medium text-text-secondary-dark hover:text-status-wrong transition-colors duration-150 active:scale-[0.98] border border-border-subtle-dark px-2.5 py-1.5 rounded bg-surface-dark">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs font-medium text-text-secondary-dark hover:text-status-wrong transition-colors duration-150 active:scale-[0.98] border border-border-subtle-dark px-2.5 py-1.5 rounded bg-surface-dark">
         Đăng xuất
       </button>
 </div>
@@ -189,7 +196,7 @@
 <div class="border-b border-border-subtle-dark bg-surface-dark/60 backdrop-blur-sm px-gutter py-3">
 <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
 <div class="flex items-center space-x-3">
-<a class="inline-flex items-center space-x-1.5 text-xs text-text-muted-dark hover:text-primary transition-colors border border-border-subtle-dark hover:border-border-strong-dark bg-surface-dark px-2.5 py-1 rounded" href="#/s/exams">
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 inline-flex items-center space-x-1.5 text-xs text-text-muted-dark hover:text-primary transition-colors border border-border-subtle-dark hover:border-border-strong-dark bg-surface-dark px-2.5 py-1 rounded" href="#/s/exams">
 <span class="material-symbols-outlined text-sm">arrow_back</span>
 <span>Về danh sách đề thi</span>
 </a>
@@ -322,19 +329,19 @@
 <!-- Filter Tabs Sub-Bar -->
 <div class="bg-surface-dark border border-border-subtle-dark rounded-lg p-1.5 flex flex-wrap items-center justify-between gap-2">
 <div class="flex items-center space-x-1">
-<button class="px-3 py-1.5 rounded text-xs font-semibold bg-brand-primary-dark text-canvas-dark flex items-center space-x-1.5 shadow-none">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-1.5 rounded text-xs font-semibold bg-brand-primary-dark text-canvas-dark flex items-center space-x-1.5 shadow-none">
 <span>Tất cả</span>
 <span class="px-1.5 py-0.2 rounded bg-black/20 text-canvas-dark text-[11px]">50</span>
 </button>
-<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
 <span>Câu đúng</span>
 <span class="px-1.5 py-0.2 rounded bg-status-correct/10 text-status-correct border border-status-correct/20 text-[11px]">46</span>
 </button>
-<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
 <span>Câu sai</span>
 <span class="px-1.5 py-0.2 rounded bg-status-wrong/10 text-status-wrong border border-status-wrong/20 text-[11px]">4</span>
 </button>
-<button class="px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 px-3 py-1.5 rounded text-xs font-medium text-text-secondary-dark hover:text-text-primary-dark hover:bg-elevated-dark flex items-center space-x-1.5 transition-colors">
 <span>Có giải thuật C++</span>
 <span class="px-1.5 py-0.2 rounded bg-elevated-dark text-brand-primary-dark border border-border-subtle-dark text-[11px]">8</span>
 </button>
@@ -537,7 +544,7 @@
 <span class="w-2.5 h-2.5 rounded-full bg-status-correct/70 inline-block"></span>
 <span class="font-code text-text-muted-dark ml-2">solution_geometry_oxyz.cpp</span>
 </div>
-<button class="flex items-center space-x-1 text-[11px] text-text-muted-dark hover:text-text-primary-dark transition-colors border border-border-subtle-dark px-2 py-0.5 rounded bg-elevated-dark" onclick="navigator.clipboard.writeText('// Copied C++ snippet');">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 flex items-center space-x-1 text-[11px] text-text-muted-dark hover:text-text-primary-dark transition-colors border border-border-subtle-dark px-2 py-0.5 rounded bg-elevated-dark" onclick="navigator.clipboard.writeText('// Copied C++ snippet');">
 <span class="material-symbols-outlined text-xs">content_copy</span>
 <span>Sao chép code</span>
 </button>
@@ -643,68 +650,68 @@
 <!-- 4 wrong questions: 14, 22, 39, 47 -->
 <div class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-1.5 pt-1">
 <!-- 01 - 10 -->
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-1">01</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-2">02</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-3">03</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-4">04</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-5">05</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-6">06</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-7">07</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-8">08</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-9">09</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-10">10</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-1">01</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-2">02</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-3">03</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-4">04</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-5">05</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-6">06</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-7">07</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-8">08</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-9">09</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-10">10</a>
 <!-- 11 - 20 (14 wrong) -->
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-11">11</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-12">12</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-13">13</a>
-<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-14">14</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-15">15</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-16">16</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-17">17</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-18">18</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-19">19</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-20">20</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-11">11</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-12">12</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-13">13</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-14">14</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-15">15</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-16">16</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-17">17</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-18">18</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-19">19</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-20">20</a>
 <!-- 21 - 30 (22 wrong, 28 highlighted correct) -->
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-21">21</a>
-<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-22">22</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-23">23</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-24">24</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-25">25</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-26">26</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-27">27</a>
-<a class="h-8 rounded bg-status-correct/25 text-status-correct border border-status-correct hover:bg-status-correct hover:text-black flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-correct/50" href="#cau-28">28</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-29">29</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-30">30</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-21">21</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-22">22</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-23">23</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-24">24</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-25">25</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-26">26</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-27">27</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/25 text-status-correct border border-status-correct hover:bg-status-correct hover:text-black flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-correct/50" href="#cau-28">28</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-29">29</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-30">30</a>
 <!-- 31 - 40 (39 wrong) -->
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-31">31</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-32">32</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-33">33</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-34">34</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-35">35</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-36">36</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-37">37</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-38">38</a>
-<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-39">39</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-40">40</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-31">31</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-32">32</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-33">33</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-34">34</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-35">35</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-36">36</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-37">37</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-38">38</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-39">39</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-40">40</a>
 <!-- 41 - 50 (47 wrong) -->
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-41">41</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-42">42</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-43">43</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-44">44</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-45">45</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-46">46</a>
-<a class="h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-47">47</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-48">48</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-49">49</a>
-<a class="h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-50">50</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-41">41</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-42">42</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-43">43</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-44">44</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-45">45</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-46">46</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-wrong/20 text-status-wrong border border-status-wrong hover:bg-status-wrong hover:text-white flex items-center justify-center font-tabular text-tabular text-xs font-bold transition-all ring-1 ring-status-wrong/50" href="#cau-47">47</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-48">48</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-49">49</a>
+<a class="focus:outline-none focus:ring-2 focus:ring-emerald-500 h-8 rounded bg-status-correct/15 text-status-correct border border-status-correct/30 hover:border-status-correct flex items-center justify-center font-tabular text-tabular text-xs font-semibold transition-all" href="#cau-50">50</a>
 </div>
 <!-- Quick Palette Actions -->
 <div class="mt-4 pt-3 border-t border-border-subtle-dark flex items-center justify-between text-xs">
-<button class="text-status-wrong hover:underline font-medium flex items-center space-x-1">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-status-wrong hover:underline font-medium flex items-center space-x-1">
 <span class="material-symbols-outlined text-sm">filter_alt</span>
 <span>Chỉ hiển thị câu sai (4)</span>
 </button>
-<button class="text-text-muted-dark hover:text-text-primary-dark transition-colors flex items-center space-x-1">
+<button class="focus:outline-none focus:ring-2 focus:ring-emerald-500 text-text-muted-dark hover:text-text-primary-dark transition-colors flex items-center space-x-1">
 <span class="material-symbols-outlined text-sm">print</span>
 <span>Xuất PDF</span>
 </button>
@@ -746,7 +753,7 @@
 </div>
 </div>
 <div class="p-2.5 rounded bg-canvas-dark border border-border-subtle-dark text-[11px] text-text-secondary-dark mt-2">
-            💡 <strong class="text-text-primary-dark">Gợi ý học tập:</strong> Bạn cần rèn luyện thêm dạng bài <span class="text-brand-primary-dark">Tích phân hàm ẩn và thế cận Euler</span> để tối ưu 0.8 điểm còn lại.
+            <span class="material-symbols-outlined text-xs text-brand-primary-dark align-middle" data-icon="lightbulb">lightbulb</span> <strong class="text-text-primary-dark">Gợi ý học tập:</strong> Bạn cần rèn luyện thêm dạng bài <span class="text-brand-primary-dark">Tích phân hàm ẩn và thế cận Euler</span> để tối ưu 0.8 điểm còn lại.
           </div>
 </div>
 </aside>
