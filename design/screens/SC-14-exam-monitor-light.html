@@ -148,6 +148,17 @@
       background: #CBD5E1;
     }
   </style>
+  <style id="light-mode-caro-grid">
+    /* Subtle Caro / Graph Paper Grid Background for Light Mode */
+    body, .bg-grid, #main-content-canvas {
+      background-color: #F8FAFC !important;
+      background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px) !important;
+      background-size: 24px 24px !important;
+      background-position: 0 0 !important;
+    }
+  </style>
 </head>
 <body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-brand-primary-dark selection:text-canvas-dark">
 <!-- Top Global Header -->
@@ -360,7 +371,7 @@
 <div class="flex items-center justify-between bg-elevated-dark px-2.5 py-1.5 rounded border border-border-subtle-dark mb-2.5">
 <div class="flex items-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-status-wrong"></span>
-<span class="text-status-wrong font-medium text-xs">Mất kết nối WebSocket</span>
+<span class="text-status-wrong font-medium text-xs">Mất kết nối mạng</span>
 </div>
 <span class="font-code text-xs text-text-muted-dark">Đang đợi</span>
 </div>
@@ -382,7 +393,7 @@
 <!-- Proctor Card Action Strip -->
 <div class="grid grid-cols-3 gap-1 pt-2 border-t border-border-subtle-dark">
 <button class="py-1 px-1.5 rounded bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark text-xs font-tabular text-center transition-colors">
-              Ping lại
+              Gửi nhắc nhở
             </button>
 <button class="py-1 px-1.5 rounded bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark text-xs font-tabular text-center transition-colors">
               Ghi chú
@@ -460,7 +471,7 @@
 <div class="flex items-center justify-between bg-elevated-dark px-2.5 py-1.5 rounded border border-border-subtle-dark mb-2.5">
 <div class="flex items-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-status-correct animate-pulse"></span>
-<span class="text-status-correct font-medium text-xs">Đang làm bài (15ms)</span>
+<span class="text-status-correct font-medium text-xs">Đang làm bài</span>
 </div>
 <span class="font-code text-xs text-text-muted-dark">C++17</span>
 </div>
@@ -526,7 +537,7 @@
 </div>
 <div class="flex justify-between text-[11px] font-code text-text-muted-dark pt-1">
 <span>Nộp sớm: 15 phút</span>
-<span>Chữ ký số: OK</span>
+<span>Trạng thái: Đã xác nhận</span>
 </div>
 </div>
 </div>
@@ -605,7 +616,7 @@
 <span class="w-2 h-2 rounded-full bg-status-correct animate-ping"></span>
 <h3 class="font-headline-sm text-headline-sm font-semibold text-text-primary-dark">Sự kiện &amp; Vi phạm</h3>
 </div>
-<span class="px-2 py-0.5 rounded bg-canvas-dark border border-border-subtle-dark text-[11px] font-code text-primary">LIVE TELEMETRY</span>
+<span class="px-2 py-0.5 rounded bg-canvas-dark border border-border-subtle-dark text-[11px] font-code text-primary">NHẬT KÝ PHÒNG THI</span>
 </div>
 <!-- Filter Chips -->
 <div class="flex items-center gap-1.5 pt-1 overflow-x-auto">
@@ -616,7 +627,7 @@
 <span>Vi phạm (3)</span>
 </button>
 <button class="px-2 py-1 rounded bg-surface-dark hover:bg-canvas-dark text-text-muted-dark hover:text-text-secondary-dark border border-border-subtle-dark text-xs font-medium whitespace-nowrap">
-            Hạ tầng mạng
+            Trạng thái kết nối
           </button>
 </div>
 </div>
@@ -647,12 +658,12 @@
 <span class="px-1.5 py-0.5 rounded bg-status-wrong/20 text-status-wrong font-code text-[10px] font-bold">MẤT KẾT NỐI</span>
 </div>
 <p class="text-text-primary-dark leading-relaxed mb-2">
-<strong class="text-primary font-medium">Nguyễn Bảo Long (12A2)</strong> ngắt kết nối WebSocket. Client đang tự động lưu đệm vào IndexedDB.
+<strong class="text-primary font-medium">Nguyễn Bảo Long (12A2)</strong> tạm thời ngắt kết nối. Hệ thống đang tự động lưu đệm bài làm.
           </p>
 <div class="flex items-center gap-2">
 <button class="px-2 py-1 rounded bg-elevated-dark hover:bg-border-strong-dark text-text-secondary-dark hover:text-text-primary-dark text-[11px] font-medium border border-border-subtle-dark flex items-center gap-1">
 <span class="material-symbols-outlined text-xs" data-icon="refresh">refresh</span>
-<span>Ping lại client</span>
+<span>Kiểm tra kết nối</span>
 </button>
 </div>
 </div>

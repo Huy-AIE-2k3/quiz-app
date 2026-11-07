@@ -215,11 +215,7 @@
 <!-- Right Section -->
 <div class="flex items-center gap-3">
 <!-- Environment Badge -->
-<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded bg-elevated-dark border border-border-subtle-dark text-xs font-code text-text-secondary-dark">
-<span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark"></span>
-<span>Môi trường: <strong class="text-text-primary-dark font-semibold">Production (v3.8.2)</strong></span>
-</div>
-<div class="h-4 w-px bg-border-subtle-dark mx-1"></div>
+
 <!-- Notification Bell -->
 <button class="relative p-1.5 text-text-secondary-dark hover:text-text-primary-dark rounded-lg hover:bg-elevated-dark transition-colors">
 <span class="material-symbols-outlined text-xl">notifications</span>
@@ -366,7 +362,7 @@
 <div class="flex items-start justify-between gap-4">
 <div>
 <p class="text-sm font-medium text-text-primary-dark font-body-md">Tự động nộp bài khi mất kết nối kéo dài</p>
-<p class="text-xs text-text-muted-dark mt-0.5 font-body-md">Tự động khóa dữ liệu bài làm trên máy chủ sau 180 giây thí sinh ngắt kết nối WebSocket bất thường.</p>
+<p class="text-xs text-text-muted-dark mt-0.5 font-body-md">Tự động khóa dữ liệu bài làm trên máy chủ sau 180 giây thí sinh ngắt kết nối mạng bất thường.</p>
 </div>
 <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
 <input checked="" class="sr-only peer" type="checkbox"/>
@@ -412,7 +408,7 @@
 <div class="flex items-center gap-2">
 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-code bg-brand-primary-dark/10 border border-brand-primary-dark/30 text-primary">
 <span class="w-2 h-2 rounded-full bg-brand-primary-dark animate-pulse"></span>
-                  Đã kết nối (12ms latency)
+                  Đã kết nối
                 </span>
 </div>
 </div>
@@ -449,7 +445,7 @@
 <div class="p-3.5 rounded-lg bg-elevated-dark border border-border-subtle-dark flex flex-col justify-between">
 <div>
 <p class="text-xs text-text-secondary-dark font-body-md">Kiểm tra toàn vẹn tệp</p>
-<p class="text-sm font-medium text-text-primary-dark font-code mt-1">SHA-256 Checksum</p>
+<p class="text-sm font-medium text-text-primary-dark font-code mt-1">Tự động xác thực</p>
 </div>
 <span class="text-[11px] text-primary font-code">Xác thực tự động sau sao lưu</span>
 </div>
@@ -630,29 +626,26 @@
 </div>
 </div>
 <!-- Terminal Diagnostic hint -->
-<div class="mt-6 pt-3 border-t border-border-subtle-dark/60 text-[11px] font-code text-text-muted-dark flex items-center justify-between">
-<span>AUDIT_LOG_STREAM: ENABLED</span>
-<span class="text-primary">100% COMPLIANT</span>
-</div>
+
 </div>
 </div>
 </section>
 </div>
-</main>
-<!-- ================= STICKY FOOTER ACTION BAR ================= -->
-<footer class="fixed bottom-0 right-0 left-64 bg-surface-dark/95 backdrop-blur-md border-t border-border-subtle-dark px-gutter py-3 z-30 flex items-center justify-between shadow-2xl">
-<div class="flex items-center gap-4 text-xs font-mono text-text-muted-dark">
-<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
-</div>
-<div class="flex items-center gap-3">
+<!-- Configuration Action Strip -->
+<div class="flex items-center justify-end gap-3 pt-6 border-t border-border-subtle-dark">
 <button class="px-4 py-2 rounded-lg bg-elevated-dark border border-border-subtle-dark hover:border-border-strong-dark text-xs text-text-secondary-dark hover:text-text-primary-dark font-medium transition-colors" type="button">
-          Đặt lại mặc định
-        </button>
+  Đặt lại mặc định
+</button>
 <button class="px-6 py-2.5 rounded-lg bg-brand-primary-dark hover:bg-brand-hover-dark text-canvas-dark font-headline-sm text-xs font-semibold shadow-none flex items-center gap-2 transition-transform active:scale-[0.98]" type="button">
-<span class="material-symbols-outlined text-sm font-bold">save</span>
-<span>Lưu thay đổi cấu hình</span>
+  <span class="material-symbols-outlined text-sm font-bold">save</span>
+  <span>Lưu thay đổi cấu hình</span>
 </button>
 </div>
+</main>
+<!-- ================= STICKY FOOTER ACTION BAR ================= -->
+<!-- Institutional Global Footer -->
+<footer class="w-full border-t border-border-subtle-dark py-4 px-6 text-center text-xs font-mono text-text-muted-dark bg-canvas-dark">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </footer>
 </div>
 </body></html>

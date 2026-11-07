@@ -48,6 +48,17 @@
       background-size: 32px 32px;
     }
   </style>
+  <style id="light-mode-caro-grid">
+    /* Subtle Caro / Graph Paper Grid Background for Light Mode */
+    body, .bg-grid, #main-content-canvas {
+      background-color: #F8FAFC !important;
+      background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px) !important;
+      background-size: 24px 24px !important;
+      background-position: 0 0 !important;
+    }
+  </style>
 </head>
 <body class="bg-canvas text-text-primary font-sans antialiased min-h-screen flex flex-col justify-between math-grid-bg">
 
@@ -124,27 +135,27 @@
       </div>
     </div>
 
-    <!-- Quy chế phòng thi (Chỉ để lại 3 nội quy theo yêu cầu) -->
+    <!-- Nội quy phòng thi (Strictly 3 bullet points) -->
     <section class="border border-status-flagged/40 bg-status-flagged/5 rounded-xl p-5 mb-5">
       <div class="flex items-center gap-2 mb-3 text-status-flagged">
         <span class="material-symbols-outlined text-xl">gavel</span>
         <h2 class="text-xs font-semibold tracking-wider uppercase font-display">
-          QUY CHẾ PHÒNG THI
+          NỘI QUY PHÒNG THI
         </h2>
       </div>
 
       <div class="space-y-2.5 text-xs text-text-secondary">
         <div class="flex items-start gap-2.5">
           <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">1</span>
-          <p class="leading-relaxed">Không được chuyển tab hoặc rời khỏi cửa sổ làm bài trong suốt thời gian thi.</p>
+          <p class="leading-relaxed">Không sử dụng bất cứ tài liệu nào trong quá trình làm bài</p>
         </div>
         <div class="flex items-start gap-2.5">
           <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">2</span>
-          <p class="leading-relaxed">Tuyệt đối không sử dụng tài liệu hoặc các công cụ AI / Agentic AI dưới mọi hình thức.</p>
+          <p class="leading-relaxed">Không chuyển tab, mở tab dọc hoặc truy cập bất kỳ ứng dụng nào khác trong quá trình làm bài</p>
         </div>
         <div class="flex items-start gap-2.5">
           <span class="w-5 h-5 rounded bg-status-flagged/20 text-status-flagged font-mono flex items-center justify-center font-bold shrink-0">3</span>
-          <p class="leading-relaxed">Hệ thống sẽ tự động thu bài và đóng cổng thi ngay khi hết giờ làm bài.</p>
+          <p class="leading-relaxed">Hết giờ hệ thống tự động nộp bài và lưu kết quả</p>
         </div>
       </div>
     </section>

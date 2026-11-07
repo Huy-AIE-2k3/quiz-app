@@ -2,6 +2,8 @@
 """Generate WCAG AA compliant Light Mode variants for all Mathrix screens.
 
 Matches tokens defined in design/tokens.json.
+Guarantees 1-to-1 parity between Dark and Light mode screens.
+Injects identical subtle caro / graph paper grid background into all Light mode screens.
 """
 
 from pathlib import Path
@@ -28,6 +30,19 @@ BASE_SCREENS = [
     "SC-17-admin-settings",
 ]
 
+CARO_GRID_CSS = """  <style id="light-mode-caro-grid">
+    /* Subtle Caro / Graph Paper Grid Background for Light Mode */
+    body, .bg-grid, #main-content-canvas {
+      background-color: #F8FAFC !important;
+      background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px) !important;
+      background-size: 24px 24px !important;
+      background-position: 0 0 !important;
+    }
+  </style>
+"""
+
 def convert_to_light_mode(content: str, filename: str) -> str:
     # 1. Switch root class
     content = re.sub(r'<html([^>]*?)class="dark"([^>]*?)>', r'<html\1class="light"\2>', content)
@@ -37,7 +52,6 @@ def convert_to_light_mode(content: str, filename: str) -> str:
     content = re.sub(r'<title>(.*?)</title>', r'<title>\1 (Giao diện sáng)</title>', content)
 
     # 3. Update tailwind config color values to Light Mode tokens
-    # Dark -> Light Hex Replacements
     color_replacements = [
         # Dark Canvas -> Light Canvas #F8FAFC
         (r'["\']#090D16["\']', '"#F8FAFC"'),
@@ -96,7 +110,6 @@ def convert_to_light_mode(content: str, filename: str) -> str:
     content = content.replace("rgba(30, 41, 59, 0.25)", "rgba(226, 232, 240, 0.8)")
 
     # 5. Direct tailwind classes adjustments where slate/white is hardcoded
-    # Keep button text on brand solid as white/canvas
     content = re.sub(r'\btext-slate-100\b', 'text-slate-800', content)
     content = re.sub(r'\btext-slate-200\b', 'text-slate-700', content)
     content = re.sub(r'\btext-slate-300\b', 'text-slate-600', content)
@@ -107,13 +120,17 @@ def convert_to_light_mode(content: str, filename: str) -> str:
     content = content.replace('>dark_mode<', '>light_mode<')
     content = content.replace('data-icon="dark_mode"', 'data-icon="light_mode"')
 
+    # 7. Inject subtle caro grid background before </head>
+    if '<style id="light-mode-caro-grid">' not in content:
+        content = content.replace('</head>', f'{CARO_GRID_CSS}</head>', 1)
+
     return content
 
 def main():
     screens_dir = Path("design/screens")
     generated_count = 0
 
-    print("Generating Light Mode screens...")
+    print("Generating Light Mode screens with 1-to-1 parity and subtle caro grid...")
     for base_name in BASE_SCREENS:
         dark_file = screens_dir / f"{base_name}.html"
         light_file = screens_dir / f"{base_name}-light.html"

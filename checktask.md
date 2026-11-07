@@ -131,11 +131,12 @@
     - [x] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
     - [x] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
     - [x] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
-- [x] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`)**
+- [x] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`) & Chuẩn hóa Canvas**
 
-  - [x] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và biến thể.
-  - [x] Chạy prompt tổng với `stitch-loop` tự động sinh giao diện vào project Stitch `quiz-toantin`.
-  - [x] Xuất toàn bộ file giao diện ra `design/screens/<mã>.html` và `.png`.
+  - [x] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và các biến thể sáng/tối.
+  - [x] Khởi tạo và đồng bộ hoàn tất project mới trên Stitch `mathrix_ver2` (Project ID: `7808648037604572744`) gồm 15 cặp màn hình đối xứng (Tối bên trái $x=0\text{px}$, Sáng bên phải $x=1344\text{px}$ có nền caro mờ học thuật).
+  - [x] Loại bỏ 100% các box/thông tin/badge bảo mật, webcam, socket latency và kiểm tra môi trường trên toàn bộ các màn hình; chuẩn hóa duy nhất 3 nội quy phòng thi trên SC-03 và footer thống nhất *"Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài"*.
+  - [x] Xuất toàn bộ file giao diện sạch ra `design/screens/<mã>.html` và `.png` (đầy đủ 35 màn hình).
 
   - **Kiểm thử cần đạt:**
     - [x] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.

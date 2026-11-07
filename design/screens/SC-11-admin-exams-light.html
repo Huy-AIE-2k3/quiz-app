@@ -118,6 +118,17 @@
       }
     }
   </script>
+  <style id="light-mode-caro-grid">
+    /* Subtle Caro / Graph Paper Grid Background for Light Mode */
+    body, .bg-grid, #main-content-canvas {
+      background-color: #F8FAFC !important;
+      background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px) !important;
+      background-size: 24px 24px !important;
+      background-position: 0 0 !important;
+    }
+  </style>
 </head>
 <body class="bg-canvas-dark text-text-primary-dark font-body-md text-body-md antialiased min-h-screen flex selection:bg-brand-primary-dark selection:text-canvas-dark">
 <!-- LEFT PERSISTENT NAVIGATION SIDEBAR (Admin Portal) -->
@@ -247,16 +258,7 @@
             Năm học 2024 - 2025 <span class="text-text-muted-dark mx-1.5">•</span> Tổng số 24 đề thi được quản lý trên hệ thống khảo thí chuyên sâu
           </p>
 </div>
-<div class="flex items-center gap-2">
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-dark border border-border-subtle-dark text-[12px] font-code text-text-muted-dark">
-<span class="material-symbols-outlined text-[14px] text-brand-primary-dark" data-icon="verified_user">verified_user</span>
-            Bảo mật SHA-256
-          </span>
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-dark border border-border-subtle-dark text-[12px] font-code text-text-muted-dark">
-<span class="material-symbols-outlined text-[14px] text-primary" data-icon="network_check">network_check</span>
-            Latency 14ms
-          </span>
-</div>
+
 </div>
 <!-- METRIC STAT CARDS ROW (Bento Stats) -->
 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

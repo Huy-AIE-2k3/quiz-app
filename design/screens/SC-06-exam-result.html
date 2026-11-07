@@ -752,36 +752,8 @@
 </aside>
 </div>
 </main>
-<!-- BOTTOM UTILITY SHORTCUT BAR -->
-<footer class="border-t border-border-subtle-dark bg-canvas-dark text-text-muted-dark py-2 px-gutter mt-8">
-<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs gap-2">
-<div class="flex items-center space-x-4">
-<span>Mathrix Academic Assessment Core v4.2.1</span>
-<span>•</span>
-<span>Anti-AI Integrity Verified</span>
-</div>
-<div class="flex items-center space-x-3 font-code text-[11px]">
-<span>Phím tắt:</span>
-<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">J</kbd>
-<span>Câu tiếp theo</span>
-<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">K</kbd>
-<span>Câu trước</span>
-<kbd class="px-1.5 py-0.5 rounded bg-elevated-dark border border-border-subtle-dark text-text-primary-dark">E</kbd>
-<span>Mở rộng lời giải</span>
-</div>
-</div>
+<!-- Standard Footer -->
+<footer class="w-full border-t border-border-subtle-dark py-4 px-6 text-center text-xs font-mono text-text-muted-dark mt-8">
+<p>Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài</p>
 </footer>
-<!-- Micro-interactions JavaScript -->
-<script>
-    // Keyboard navigation (J for next, K for prev)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'j' || e.key === 'J') {
-        const nextAnchor = document.querySelector('#cau-28');
-        if (nextAnchor) nextAnchor.scrollIntoView({ behavior: 'smooth' });
-      } else if (e.key === 'k' || e.key === 'K') {
-        const prevAnchor = document.querySelector('#cau-14');
-        if (prevAnchor) prevAnchor.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  </script>
 </body></html>
