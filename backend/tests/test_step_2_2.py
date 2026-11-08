@@ -203,9 +203,7 @@ def test_tc_2_2_04_username_lowercase_check_constraint():
         session.add(user_lower)
         session.commit()
 
-        db_user = session.execute(
-            select(User).where(User.username == "nam01")
-        ).scalar_one_or_none()
+        db_user = session.execute(select(User).where(User.username == "nam01")).scalar_one_or_none()
         assert db_user is not None
         assert db_user.username == "nam01"
 
@@ -340,12 +338,16 @@ def test_tc_2_2_08_sweeper_partial_index():
     engine = get_engine()
     with engine.connect() as conn:
         # Check index existence in PostgreSQL catalogs
-        check_idx = conn.execute(
-            text(
-                "SELECT indexname, indexdef FROM pg_indexes "
-                "WHERE tablename = 'attempts' AND indexname = 'ix_attempts_active_deadline';"
+        check_idx = (
+            conn.execute(
+                text(
+                    "SELECT indexname, indexdef FROM pg_indexes "
+                    "WHERE tablename = 'attempts' AND indexname = 'ix_attempts_active_deadline';"
+                )
             )
-        ).mappings().first()
+            .mappings()
+            .first()
+        )
 
         assert check_idx is not None
         assert "deadline_at" in check_idx["indexdef"]
@@ -382,9 +384,11 @@ def test_cli_seed_development_data():
 
     # Verify classes and exam were created
     with Session(engine) as session:
-        classes = session.execute(
-            select(Class).where(Class.code.in_(["TOAN-10A1", "TIN-10A2"]))
-        ).scalars().all()
+        classes = (
+            session.execute(select(Class).where(Class.code.in_(["TOAN-10A1", "TIN-10A2"])))
+            .scalars()
+            .all()
+        )
         assert len(classes) == 2
 
         exam = session.execute(
@@ -394,9 +398,15 @@ def test_cli_seed_development_data():
         assert exam.duration_minutes == 45
 
         # Check that all 4 question types are present
-        questions = session.execute(
-            select(Question).where(Question.exam_id == exam.id).order_by(Question.position.asc())
-        ).scalars().all()
+        questions = (
+            session.execute(
+                select(Question)
+                .where(Question.exam_id == exam.id)
+                .order_by(Question.position.asc())
+            )
+            .scalars()
+            .all()
+        )
         assert len(questions) == 4
 
         qtypes = [q.question_type for q in questions]

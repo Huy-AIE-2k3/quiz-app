@@ -115,7 +115,9 @@ def test_tc_2_1_03_db_unavailable_returns_503_retry_after(client):
     assert "gián đoạn" in error["message"]
 
     # 3. /readyz returns 503 when connection fails
-    with patch.dict(os.environ, {"DATABASE_URL": "postgresql://invalid:invalid@127.0.0.1:9999/none"}):
+    with patch.dict(
+        os.environ, {"DATABASE_URL": "postgresql://invalid:invalid@127.0.0.1:9999/none"}
+    ):
         ready_resp = client.get("/readyz")
         assert ready_resp.status_code == 503
         assert ready_resp.headers.get("Retry-After") == "2"

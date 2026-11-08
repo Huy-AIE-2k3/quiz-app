@@ -45,7 +45,7 @@ SENSITIVE_STRING_PATTERNS = [
     # Key-value like password=... or token=...
     (
         re.compile(
-            r'(\b(?:password|passwd|pwd|secret|token|answer_key)=)[^\s,;&]+',
+            r"(\b(?:password|passwd|pwd|secret|token|answer_key)=)[^\s,;&]+",
             re.IGNORECASE,
         ),
         r"\1***",
@@ -110,7 +110,9 @@ class JSONFormatter(logging.Formatter):
         sanitized_message = mask_sensitive_data(raw_message)
 
         log_entry: dict[str, Any] = {
-            "timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+            "timestamp": datetime.fromtimestamp(record.created, tz=UTC)
+            .isoformat()
+            .replace("+00:00", "Z"),
             "level": record.levelname,
             "logger": record.name,
             "message": sanitized_message,

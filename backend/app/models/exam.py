@@ -31,9 +31,7 @@ class Exam(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    description_md: Mapped[str] = mapped_column(
-        Text, nullable=False, default="", server_default=""
-    )
+    description_md: Mapped[str] = mapped_column(Text, nullable=False, default="", server_default="")
     subject: Mapped[str] = mapped_column(String(32), nullable=False)
     duration_minutes: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[str] = mapped_column(
@@ -42,9 +40,7 @@ class Exam(Base):
     open_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     close_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     locked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    version: Mapped[int] = mapped_column(
-        Integer, nullable=False, default=1, server_default="1"
-    )
+    version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     created_by: Mapped[uuid.UUID] = mapped_column(
         Uuid, ForeignKey("users.id", ondelete="RESTRICT"), nullable=False
     )
@@ -63,9 +59,7 @@ class Exam(Base):
         cascade="all, delete-orphan",
         order_by="Question.position",
     )
-    attempts: Mapped[list["Attempt"]] = relationship(
-        "Attempt", back_populates="exam"
-    )
+    attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="exam")
 
 
 class ExamClass(Base):

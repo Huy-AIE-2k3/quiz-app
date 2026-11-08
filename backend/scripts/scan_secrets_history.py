@@ -50,7 +50,7 @@ def scan_git_history() -> int:
                     "change_this",
                     "user:pass",
                     "ep-xyz",
-                    "r\"postgresql",
+                    'r"postgresql',
                 )
             ):
                 continue

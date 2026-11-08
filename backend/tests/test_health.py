@@ -76,7 +76,9 @@ def test_tc_0_1_05_readyz_fails_when_db_down():
     assert health_resp.status_code == 200
 
     # /readyz with unreachable database returns 503
-    with patch.dict(os.environ, {"DATABASE_URL": "postgresql://invalid:invalid@127.0.0.1:9999/none"}):
+    with patch.dict(
+        os.environ, {"DATABASE_URL": "postgresql://invalid:invalid@127.0.0.1:9999/none"}
+    ):
         ready_resp = client.get("/readyz")
         assert ready_resp.status_code == 503
         assert ready_resp.headers.get("Retry-After") == "2"

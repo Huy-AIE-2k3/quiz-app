@@ -93,11 +93,7 @@ def test_tc_1_4_03_keyboard_navigation_and_focus(all_screens):
     missing_focus = []
     for screen in all_screens:
         content = screen.read_text(encoding="utf-8")
-        has_focus = (
-            "focus:" in content
-            or "focus-visible:" in content
-            or "outline: 2px" in content
-        )
+        has_focus = "focus:" in content or "focus-visible:" in content or "outline: 2px" in content
         if not has_focus:
             missing_focus.append(screen.name)
 
@@ -110,8 +106,7 @@ def test_tc_1_4_04_responsive_viewport_360px(all_screens):
     for screen in all_screens:
         content = screen.read_text(encoding="utf-8")
         has_viewport = (
-            '<meta name="viewport"' in content
-            or '<meta content="width=device-width' in content
+            '<meta name="viewport"' in content or '<meta content="width=device-width' in content
         )
         if not has_viewport:
             missing_viewport.append(screen.name)

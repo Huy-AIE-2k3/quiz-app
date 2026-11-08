@@ -27,9 +27,7 @@ class File(Base):
 
     __tablename__ = "files"
 
-    __table_args__ = (
-        CheckConstraint("size_bytes > 0", name="ck_files_size_bytes_positive"),
-    )
+    __table_args__ = (CheckConstraint("size_bytes > 0", name="ck_files_size_bytes_positive"),)
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(

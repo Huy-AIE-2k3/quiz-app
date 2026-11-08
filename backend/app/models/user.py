@@ -50,18 +50,10 @@ class User(Base):
     class_memberships: Mapped[list["ClassMember"]] = relationship(
         "ClassMember", back_populates="student", cascade="all, delete-orphan"
     )
-    authored_exams: Mapped[list["Exam"]] = relationship(
-        "Exam", back_populates="creator"
-    )
-    attempts: Mapped[list["Attempt"]] = relationship(
-        "Attempt", back_populates="student"
-    )
-    files: Mapped[list["File"]] = relationship(
-        "File", back_populates="user"
-    )
+    authored_exams: Mapped[list["Exam"]] = relationship("Exam", back_populates="creator")
+    attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="student")
+    files: Mapped[list["File"]] = relationship("File", back_populates="user")
     graded_answers: Mapped[list["Answer"]] = relationship(
         "Answer", foreign_keys="Answer.graded_by", back_populates="grader"
     )
-    audit_logs: Mapped[list["AuditLog"]] = relationship(
-        "AuditLog", back_populates="user"
-    )
+    audit_logs: Mapped[list["AuditLog"]] = relationship("AuditLog", back_populates="user")

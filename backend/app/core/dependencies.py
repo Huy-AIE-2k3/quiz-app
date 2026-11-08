@@ -7,7 +7,7 @@ Implements:
     - RBAC: require_admin and require_student dependencies (TC-2.3-07: student -> 403).
 """
 
-from datetime import UTC, datetime, timedelta
+from datetime import timedelta
 
 from fastapi import Depends, Request
 from sqlalchemy import select
@@ -16,6 +16,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.core.config import get_settings
 from app.core.errors import AppError
 from app.core.security import hash_token
+from app.core.time import get_clock
 from app.db.session import get_db
 from app.models import Session as SessionModel
 from app.models import User
@@ -62,7 +63,7 @@ def get_current_user(
             status_code=401,
         )
 
-    now = datetime.now(UTC)
+    now = get_clock().now()
 
     # Check session expiration
     if session_record.expires_at < now:

@@ -16,6 +16,7 @@
 > - Mật khẩu học sinh phải do giáo viên tự thiết lập hoặc chủ động chọn tính năng sinh ngẫu nhiên an toàn có xác nhận (tuyệt đối không dùng mật khẩu mặc định cố định như `123456`, ngày sinh...).
 >
 > **QUY TẮC PHÂN NHÁNH GIT (GIT WORKFLOW RULE):**
+>
 > - **Chỉ push vào `dev`**: Trong suốt quá trình thực hiện từng task, toàn bộ commit và lệnh `git push` chỉ được phép đẩy lên nhánh `dev`.
 > - **Điều kiện đẩy sang `main`**: Chỉ chuyển code sang nhánh `main` vào **cuối ngày làm việc** sau khi đã hoàn thành toàn bộ khối lượng công việc trong ngày và kiểm thử đầy đủ 100%.
 
@@ -27,7 +28,7 @@
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     60%    |
+| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |    80%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
@@ -83,6 +84,7 @@
     - [X] `TC-0.2-05`: Tất cả tài khoản đã bật 2FA; quét kiểm tra bí mật trên lịch sử Git trả về 0 vi phạm.
 
 - [X] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
+
   - [X] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
   - [X] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
   - [X] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
@@ -117,167 +119,167 @@
     - [X] `TC-1.1-03`: Không có màn hình "cụt" trong 3 hành trình chính.
     - [X] `TC-1.1-04`: Nhánh gián đoạn (mất mạng, hết giờ, mở 2 tab, mở lại) có trạng thái rõ ràng.
     - [X] `TC-1.1-05`: Thử nghiệm cho giáo viên và học sinh xem sơ đồ đạt độ hiểu cao.
-- [x] **Bước 1.2 — Hệ thống thiết kế (Design System) & `DESIGN.md`**
+- [X] **Bước 1.2 — Hệ thống thiết kế (Design System) & `DESIGN.md`**
 
-  - [x] Xây dựng file `design/tokens.json` định nghĩa màu, kích thước, bo góc, bóng đổ.
-  - [x] Tự host phông chữ tiếng Việt qua `@fontsource` (Be Vietnam Pro, JetBrains Mono, KaTeX font).
-  - [x] Thiết kế chỉ báo đồng hồ: Bình thường / Cảnh báo (< 5p) / Nguy cấp (< 1p) kèm icon + chữ (không chỉ dùng màu).
-  - [x] Viết file `DESIGN.md` theo quy chuẩn `design-md` định hướng chống "AI slop".
-  - [x] Viết script đồng bộ `design/tokens.json` ra `tailwind.config.ts` và `tokens.css`.
-  - [x] Viết script kiểm tra độ tương phản WCAG AA chạy trong CI.
-
-  - **Kiểm thử cần đạt:**
-    - [x] `TC-1.2-01`: Mọi cặp màu chữ/nền đều đạt tỉ lệ tương phản $\ge 4.5:1$ (chữ thường).
-    - [x] `TC-1.2-02`: Chuỗi ký tự tiếng Việt đầy đủ dấu không vỡ phông, không lệch dấu.
-    - [x] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
-    - [x] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
-    - [x] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
-- [x] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`) & Chuẩn hóa Canvas**
-
-  - [x] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và các biến thể sáng/tối.
-  - [x] Khởi tạo và đồng bộ hoàn tất project mới trên Stitch `mathrix_ver2` (Project ID: `7808648037604572744`) gồm 15 cặp màn hình đối xứng (Tối bên trái $x=0\text{px}$, Sáng bên phải $x=1344\text{px}$ có nền caro mờ học thuật).
-  - [x] Loại bỏ 100% các box/thông tin/badge bảo mật, webcam, socket latency và kiểm tra môi trường trên toàn bộ các màn hình; chuẩn hóa duy nhất 3 nội quy phòng thi trên SC-03 và footer thống nhất *"Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài"*.
-  - [x] Xuất toàn bộ file giao diện sạch ra `design/screens/<mã>.html` và `.png` (đầy đủ 36 màn hình).
-  - [x] Bổ sung Landing Page độc lập (SC-00-landing.html, route `/`): Hero tối giản lấy cảm hứng Dribbble Quiz theo yêu cầu người dùng, nền ma trận chấm Stitch có spotlight sáng theo chuột, khối Rubik 3D tương tác (Đỏ, Xanh lá, Đen) và vệ tinh mini bay xung quanh, 1 nút Đăng nhập duy nhất, footer chuẩn, đã đồng bộ lên Stitch `mathrix_ver2`.
+  - [X] Xây dựng file `design/tokens.json` định nghĩa màu, kích thước, bo góc, bóng đổ.
+  - [X] Tự host phông chữ tiếng Việt qua `@fontsource` (Be Vietnam Pro, JetBrains Mono, KaTeX font).
+  - [X] Thiết kế chỉ báo đồng hồ: Bình thường / Cảnh báo (< 5p) / Nguy cấp (< 1p) kèm icon + chữ (không chỉ dùng màu).
+  - [X] Viết file `DESIGN.md` theo quy chuẩn `design-md` định hướng chống "AI slop".
+  - [X] Viết script đồng bộ `design/tokens.json` ra `tailwind.config.ts` và `tokens.css`.
+  - [X] Viết script kiểm tra độ tương phản WCAG AA chạy trong CI.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.
-    - [x] `TC-1.3-02`: Chạy lại lệnh không sinh trùng các màn hình đã đánh dấu `[x]`.
-    - [x] `TC-1.3-03`: Dừng giữa chừng và chạy tiếp tục đúng vị trí an toàn.
-    - [x] `TC-1.3-04`: Gặp lỗi hạn mức MCP dừng lại có thông báo `blocked` rõ ràng.
-    - [x] `TC-1.3-05`: Tất cả màn hình đồng nhất bảng màu và token của `DESIGN.md`.
-    - [x] `TC-1.3-06`: Màn hình làm bài ST3 có đủ 7 biến thể (5 dạng câu, cảnh báo, offline).
-- [x] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
+    - [X] `TC-1.2-01`: Mọi cặp màu chữ/nền đều đạt tỉ lệ tương phản $\ge 4.5:1$ (chữ thường).
+    - [X] `TC-1.2-02`: Chuỗi ký tự tiếng Việt đầy đủ dấu không vỡ phông, không lệch dấu.
+    - [X] `TC-1.2-03`: Sửa token màu ở 1 nơi, Tailwind và `DESIGN.md` đồng bộ tự động.
+    - [X] `TC-1.2-04`: Chặn mạng ngoài, phông chữ tự host vẫn hiển thị chuẩn.
+    - [X] `TC-1.2-05`: Giả lập mù màu vẫn phân biệt được các trạng thái của đồng hồ.
+- [X] **Bước 1.3 — Sinh hàng loạt màn hình bằng Stitch MCP (`stitch-loop`) & Chuẩn hóa Canvas**
 
-  - [x] Chạy rà soát phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức, text giả...).
-  - [x] Audit trợ năng tự động trên tất cả 36 màn hình HTML (chuẩn hóa đầy đủ `aria-label`, `label for`, `alt` hình ảnh, và focus rings).
-  - [x] Kiểm tra responsive trên các kích thước 360px (mobile nhỏ), 768px (tablet), 1280px (desktop) đảm bảo không cuộn ngang, nút bấm tối thiểu 44px.
-  - [x] Kiểm tra điều hướng hoàn toàn bằng bàn phím (Tab, Enter, Space, Arrows, Esc), vòng focus rõ ràng.
-
-  - **Kiểm thử cần đạt:**
-    - [x] `TC-1.4-01`: Quét slop báo 0 phát hiện mức nghiêm trọng (`test_step_1_4.py`).
-    - [x] `TC-1.4-02`: Trợ năng đạt 0 lỗi serious/critical về nhãn form, ảnh, điều khiển.
-    - [x] `TC-1.4-03`: Hoàn thành luồng làm bài chỉ bằng bàn phím, vòng focus rõ ràng.
-    - [x] `TC-1.4-04`: Ở màn hình 360px không bị cuộn ngang, có viewport meta chuẩn.
-    - [x] `TC-1.4-05`: Phóng to cỡ chữ trình duyệt 200% không vỡ giao diện.
-    - [x] `TC-1.4-06`: Thử nghiệm 3 học sinh làm bài không cần hướng dẫn đạt $\ge 2/3$.
-- [x] **Bước 1.5 — Chuyển thiết kế thành Thư viện React Components**
-
-  - [x] Dùng `react-components` chuyển đổi HTML thành React TSX components chuẩn.
-  - [x] Xây dựng bộ component dùng chung: `Button`, `Input`, `Textarea`, `Select`, `Checkbox/Radio`, `Card`, `Badge`, `Table`, `Tabs`, `Modal/ConfirmDialog`, `Toast`, `Skeleton`, `EmptyState`, `ErrorState`, `Banner`, `Timer`, `SaveIndicator`, `QuestionNav`, `FileDropzone`, `Pagination`.
-  - [x] Thêm cơ chế tự vô hiệu hóa nút submit khi đang gửi (chống double click).
-  - [x] Tạo trang `/dev/components` (chỉ bật ở dev mode) trưng bày mọi trạng thái component.
-  - [x] Cấu hình kiểm tra cấm hardcode mã màu `#xxxxxx` hoặc `rgb(` trong `src/` (`scripts/check_no_hardcoded_colors.py`).
+  - [X] Tạo file danh mục hợp đồng `design/SITE.md` gồm ~18 màn hình và các biến thể sáng/tối.
+  - [X] Khởi tạo và đồng bộ hoàn tất project mới trên Stitch `mathrix_ver2` (Project ID: `7808648037604572744`) gồm 15 cặp màn hình đối xứng (Tối bên trái $x=0\text{px}$, Sáng bên phải $x=1344\text{px}$ có nền caro mờ học thuật).
+  - [X] Loại bỏ 100% các box/thông tin/badge bảo mật, webcam, socket latency và kiểm tra môi trường trên toàn bộ các màn hình; chuẩn hóa duy nhất 3 nội quy phòng thi trên SC-03 và footer thống nhất *"Hệ thống nội bộ, vui lòng không chia sẻ ra bên ngoài"*.
+  - [X] Xuất toàn bộ file giao diện sạch ra `design/screens/<mã>.html` và `.png` (đầy đủ 36 màn hình).
+  - [X] Bổ sung Landing Page độc lập (SC-00-landing.html, route `/`): Hero tối giản lấy cảm hứng Dribbble Quiz theo yêu cầu người dùng, nền ma trận chấm Stitch có spotlight sáng theo chuột, khối Rubik 3D tương tác (Đỏ, Xanh lá, Đen) và vệ tinh mini bay xung quanh, 1 nút Đăng nhập duy nhất, footer chuẩn, đã đồng bộ lên Stitch `mathrix_ver2`.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-1.5-01`: Unit test Vitest render đủ các trạng thái default, loading, disabled, error.
-    - [x] `TC-1.5-02`: Nhấn đúp nút submit form chỉ kích hoạt hàm gọi 1 lần duy nhất.
-    - [x] `TC-1.5-03`: Visual showroom trang `/dev/components` hiển thị đầy đủ mọi trạng thái và switch Sáng/Tối.
-    - [x] `TC-1.5-04`: CI kiểm tra 0 lỗi mã màu hardcode trong code giao diện (`scripts/check_no_hardcoded_colors.py`).
-    - [x] `TC-1.5-05`: Bundle size trang login $\le 200$ KB gzip (hiện tại: 61.09 KB gzip), trang `/dev/components` được code-split riêng.
-    - [x] `TC-1.5-06`: Timer và SaveIndicator đổi trạng thái đúng các mốc thời gian quy định (10m, 4m, 45s, 0s).
-- [x] **Bước 1.6 — Component hiển thị Markdown + LaTeX (`MathText`) An toàn**
+    - [X] `TC-1.3-01`: Đủ 100% file `.html` và `.png` cho danh sách trong `SITE.md`.
+    - [X] `TC-1.3-02`: Chạy lại lệnh không sinh trùng các màn hình đã đánh dấu `[x]`.
+    - [X] `TC-1.3-03`: Dừng giữa chừng và chạy tiếp tục đúng vị trí an toàn.
+    - [X] `TC-1.3-04`: Gặp lỗi hạn mức MCP dừng lại có thông báo `blocked` rõ ràng.
+    - [X] `TC-1.3-05`: Tất cả màn hình đồng nhất bảng màu và token của `DESIGN.md`.
+    - [X] `TC-1.3-06`: Màn hình làm bài ST3 có đủ 7 biến thể (5 dạng câu, cảnh báo, offline).
+- [X] **Bước 1.4 — Rà soát chống "AI Slop", Trợ năng (a11y) & Responsive**
 
-  - [x] Thiết lập pipeline: `react-markdown` + `remark-math` + `rehype-katex` + `rehype-sanitize`.
-  - [x] Cấu hình an toàn KaTeX (`throwOnError: false`, `strict: 'ignore'`, `trust: false`, `errorColor: 'var(--status-wrong-text)'`, `maxExpand: 1000`, `maxSize: 20`).
-  - [x] Cấu hình Sanitize chặn triệt để script, style, iframe, thẻ a `javascript:`, url `data:`.
-  - [x] Xử lý ảnh: Chỉ chấp nhận URL `asset:<uuid>` hoặc domain Cloudflare R2/local storage, ảnh ngoài nguồn hiển thị khung cảnh báo.
-  - [x] Bọc `MathTextErrorBoundary` riêng cho từng khối `MathText`.
-  - [x] Hỗ trợ khối mã nguồn Tin học: Phông Monospace, cuộn ngang riêng, không phá vỡ bố cục mobile 360px.
-  - [x] Hỗ trợ chuẩn hóa tự động toán khối `$$...$$` thành display mode qua `normalizeBlockMath`.
+  - [X] Chạy rà soát phát hiện và dọn sạch các dấu hiệu AI slop (gradient tím xanh, kính mờ lạm dụng, bo góc/đổ bóng quá mức, text giả...).
+  - [X] Audit trợ năng tự động trên tất cả 36 màn hình HTML (chuẩn hóa đầy đủ `aria-label`, `label for`, `alt` hình ảnh, và focus rings).
+  - [X] Kiểm tra responsive trên các kích thước 360px (mobile nhỏ), 768px (tablet), 1280px (desktop) đảm bảo không cuộn ngang, nút bấm tối thiểu 44px.
+  - [X] Kiểm tra điều hướng hoàn toàn bằng bàn phím (Tab, Enter, Space, Arrows, Esc), vòng focus rõ ràng.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-1.6-01`: Hiển thị đúng công thức toán inline `$x^2$` và block `$$\int$$` (`MathText.test.tsx`).
-    - [x] `TC-1.6-02`: Công thức sai cú pháp hiện lỗi tại chỗ màu đỏ, không làm chết ứng dụng.
-    - [x] `TC-1.6-03`: Chặn đứng các payload XSS chèn qua Markdown và LaTeX.
-    - [x] `TC-1.6-04`: Công thức đệ quy lồng nhau 500 tầng không làm treo trình duyệt (< 1500ms).
-    - [x] `TC-1.6-05`: Hiển thị chuẩn tiếng Việt có dấu trong thẻ `\text{...}` và Markdown.
-    - [x] `TC-1.6-06`: Ảnh trỏ tới domain lạ bên ngoài bị chặn nạp và thay bằng khung báo lỗi; ảnh R2 / asset:uuid hiển thị bình thường.
-    - [x] `TC-1.6-07`: Khối mã nguồn 40 dòng có thanh cuộn ngang độc lập trên mobile 360px.
+    - [X] `TC-1.4-01`: Quét slop báo 0 phát hiện mức nghiêm trọng (`test_step_1_4.py`).
+    - [X] `TC-1.4-02`: Trợ năng đạt 0 lỗi serious/critical về nhãn form, ảnh, điều khiển.
+    - [X] `TC-1.4-03`: Hoàn thành luồng làm bài chỉ bằng bàn phím, vòng focus rõ ràng.
+    - [X] `TC-1.4-04`: Ở màn hình 360px không bị cuộn ngang, có viewport meta chuẩn.
+    - [X] `TC-1.4-05`: Phóng to cỡ chữ trình duyệt 200% không vỡ giao diện.
+    - [X] `TC-1.4-06`: Thử nghiệm 3 học sinh làm bài không cần hướng dẫn đạt $\ge 2/3$.
+- [X] **Bước 1.5 — Chuyển thiết kế thành Thư viện React Components**
+
+  - [X] Dùng `react-components` chuyển đổi HTML thành React TSX components chuẩn.
+  - [X] Xây dựng bộ component dùng chung: `Button`, `Input`, `Textarea`, `Select`, `Checkbox/Radio`, `Card`, `Badge`, `Table`, `Tabs`, `Modal/ConfirmDialog`, `Toast`, `Skeleton`, `EmptyState`, `ErrorState`, `Banner`, `Timer`, `SaveIndicator`, `QuestionNav`, `FileDropzone`, `Pagination`.
+  - [X] Thêm cơ chế tự vô hiệu hóa nút submit khi đang gửi (chống double click).
+  - [X] Tạo trang `/dev/components` (chỉ bật ở dev mode) trưng bày mọi trạng thái component.
+  - [X] Cấu hình kiểm tra cấm hardcode mã màu `#xxxxxx` hoặc `rgb(` trong `src/` (`scripts/check_no_hardcoded_colors.py`).
+
+  - **Kiểm thử cần đạt:**
+    - [X] `TC-1.5-01`: Unit test Vitest render đủ các trạng thái default, loading, disabled, error.
+    - [X] `TC-1.5-02`: Nhấn đúp nút submit form chỉ kích hoạt hàm gọi 1 lần duy nhất.
+    - [X] `TC-1.5-03`: Visual showroom trang `/dev/components` hiển thị đầy đủ mọi trạng thái và switch Sáng/Tối.
+    - [X] `TC-1.5-04`: CI kiểm tra 0 lỗi mã màu hardcode trong code giao diện (`scripts/check_no_hardcoded_colors.py`).
+    - [X] `TC-1.5-05`: Bundle size trang login $\le 200$ KB gzip (hiện tại: 61.09 KB gzip), trang `/dev/components` được code-split riêng.
+    - [X] `TC-1.5-06`: Timer và SaveIndicator đổi trạng thái đúng các mốc thời gian quy định (10m, 4m, 45s, 0s).
+- [X] **Bước 1.6 — Component hiển thị Markdown + LaTeX (`MathText`) An toàn**
+
+  - [X] Thiết lập pipeline: `react-markdown` + `remark-math` + `rehype-katex` + `rehype-sanitize`.
+  - [X] Cấu hình an toàn KaTeX (`throwOnError: false`, `strict: 'ignore'`, `trust: false`, `errorColor: 'var(--status-wrong-text)'`, `maxExpand: 1000`, `maxSize: 20`).
+  - [X] Cấu hình Sanitize chặn triệt để script, style, iframe, thẻ a `javascript:`, url `data:`.
+  - [X] Xử lý ảnh: Chỉ chấp nhận URL `asset:<uuid>` hoặc domain Cloudflare R2/local storage, ảnh ngoài nguồn hiển thị khung cảnh báo.
+  - [X] Bọc `MathTextErrorBoundary` riêng cho từng khối `MathText`.
+  - [X] Hỗ trợ khối mã nguồn Tin học: Phông Monospace, cuộn ngang riêng, không phá vỡ bố cục mobile 360px.
+  - [X] Hỗ trợ chuẩn hóa tự động toán khối `$$...$$` thành display mode qua `normalizeBlockMath`.
+
+  - **Kiểm thử cần đạt:**
+    - [X] `TC-1.6-01`: Hiển thị đúng công thức toán inline `$x^2$` và block `$$\int$$` (`MathText.test.tsx`).
+    - [X] `TC-1.6-02`: Công thức sai cú pháp hiện lỗi tại chỗ màu đỏ, không làm chết ứng dụng.
+    - [X] `TC-1.6-03`: Chặn đứng các payload XSS chèn qua Markdown và LaTeX.
+    - [X] `TC-1.6-04`: Công thức đệ quy lồng nhau 500 tầng không làm treo trình duyệt (< 1500ms).
+    - [X] `TC-1.6-05`: Hiển thị chuẩn tiếng Việt có dấu trong thẻ `\text{...}` và Markdown.
+    - [X] `TC-1.6-06`: Ảnh trỏ tới domain lạ bên ngoài bị chặn nạp và thay bằng khung báo lỗi; ảnh R2 / asset:uuid hiển thị bình thường.
+    - [X] `TC-1.6-07`: Khối mã nguồn 40 dòng có thanh cuộn ngang độc lập trên mobile 360px.
 
 ---
 
 ### GIAI ĐOẠN 2. NỀN TẢNG BACKEND, CSDL & XÁC THỰC (4 NGÀY)
 
-- [x] **Bước 2.1 — Khung ứng dụng FastAPI, Middleware & Xử lý lỗi tập trung**
+- [X] **Bước 2.1 — Khung ứng dụng FastAPI, Middleware & Xử lý lỗi tập trung**
 
-  - [x] Cấu hình FastAPI `create_app()` với kiến trúc thư mục chuẩn (`core/`, `db/`, `models/`, `schemas/`, `routers/`, `services/`).
-  - [x] Thiết lập chuỗi Middleware theo thứ tự: `RequestID` $\to$ `AccessLog` $\to$ `SecurityHeaders` $\to$ `CORS` $\to$ `GZip`.
-  - [x] Giới hạn kích thước body mặc định 1 MB (bắt lỗi 413 qua `BodySizeLimitMiddleware`).
-  - [x] Định dạng lỗi thống nhất qua custom exception `AppError` trả về JSON `{"error": {...}}`.
-  - [x] Cung cấp các endpoint: `/healthz` (không chạm DB), `/readyz` (timeout 2s kiểm tra DB), `/api/v1/time`.
-  - [x] Cấu hình Logger định dạng JSON, tự động che trường mật khẩu, token, authorization, answer_key.
-
-  - **Kiểm thử cần đạt:**
-    - [x] `TC-2.1-01`: Lỗi nghiệp vụ trả đúng HTTP status, cấu trúc JSON và có header `X-Request-ID`.
-    - [x] `TC-2.1-02`: Lỗi 500 không bị lộ stack trace ra phía client, có stack đầy đủ trong server log.
-    - [x] `TC-2.1-03`: Tắt DB thì `/readyz` trả 503 kèm `Retry-After`, `/healthz` vẫn trả 200.
-    - [x] `TC-2.1-04`: Gửi payload JSON > 1 MB bị từ chối ngay với mã 413/400.
-    - [x] `TC-2.1-05`: Origin không trong whitelist bị chặn CORS preflight.
-    - [x] `TC-2.1-06`: Log đăng nhập không chứa mật khẩu gốc của người dùng.
-    - [x] `TC-2.1-07`: Request sai schema Pydantic trả về 422 validation_error rõ trường lỗi.
-- [x] **Bước 2.2 — Thiết kế CSDL, SQLAlchemy Models & Alembic Migrations**
-
-  - [x] Thiết kế các bảng: `users`, `classes`, `class_members`, `exams`, `exam_classes`, `questions`, `attempts`, `answers`, `files`, `sessions`, `audit_logs`.
-  - [x] Khai báo ràng buộc DB cứng:
-    - [x] `users.username` chữ thường + check constraint `lower(username)`.
-    - [x] `attempts`: `UNIQUE (exam_id, student_id)`, check status, index partial cho sweeper `WHERE status = 'in_progress'`.
-    - [x] `answers`: `UNIQUE (attempt_id, question_id)`, `client_seq bigint NOT NULL DEFAULT 0`.
-    - [x] `questions`: `UNIQUE (exam_id, position) DEFERRABLE INITIALLY DEFERRED`.
-    - [x] Khóa lạc quan: Cột `version integer default 1` cho `exams`, `questions`, `answers`.
-    - [x] Cột `classes.is_archived boolean default false`.
-  - [x] Cấu hình SQLAlchemy Engine tối ưu cho Neon PgBouncer: `pool_pre_ping=True`, `pool_recycle=240`, `prepare_threshold=None`.
-  - [x] Thiết lập Alembic migration hỗ trợ chạy chuỗi direct URL, cấu hình naming convention.
-  - [x] Viết lệnh CLI seed dữ liệu phát triển: `python -m app.cli seed` (chỉ dùng cho dev/test, không chứa tài khoản/mật khẩu mặc định trong code; yêu cầu người dùng tự nhập hoặc chỉ seed dữ liệu giả lớp/đề sau khi admin đã được người dùng tạo).
+  - [X] Cấu hình FastAPI `create_app()` với kiến trúc thư mục chuẩn (`core/`, `db/`, `models/`, `schemas/`, `routers/`, `services/`).
+  - [X] Thiết lập chuỗi Middleware theo thứ tự: `RequestID` $\to$ `AccessLog` $\to$ `SecurityHeaders` $\to$ `CORS` $\to$ `GZip`.
+  - [X] Giới hạn kích thước body mặc định 1 MB (bắt lỗi 413 qua `BodySizeLimitMiddleware`).
+  - [X] Định dạng lỗi thống nhất qua custom exception `AppError` trả về JSON `{"error": {...}}`.
+  - [X] Cung cấp các endpoint: `/healthz` (không chạm DB), `/readyz` (timeout 2s kiểm tra DB), `/api/v1/time`.
+  - [X] Cấu hình Logger định dạng JSON, tự động che trường mật khẩu, token, authorization, answer_key.
 
   - **Kiểm thử cần đạt:**
-    - [x] `TC-2.2-01`: Quy trình `alembic upgrade head` $\to$ `downgrade base` $\to$ `upgrade head` thành công.
-    - [x] `TC-2.2-02`: `alembic check` báo đỏ nếu sửa model mà chưa tạo migration.
-    - [x] `TC-2.2-03`: Ràng buộc Unique attempt chặn việc tạo 2 attempt cho cùng 1 học sinh.
-    - [x] `TC-2.2-04`: Chèn username chữ hoa bị DB từ chối.
-    - [x] `TC-2.2-05`: Đổi thứ tự `position` giữa 2 câu hỏi thành công trong 1 transaction nhờ `DEFERRABLE`.
-    - [x] `TC-2.2-06`: Chèn giá trị status không hợp lệ bị check constraint từ chối.
-    - [x] `TC-2.2-07`: Tự động phục hồi kết nối thành công khi Postgres thức dậy sau khi sleep.
-    - [x] `TC-2.2-08`: `EXPLAIN` truy vấn sweeper sử dụng đúng partial index `ix_attempts_active_deadline`.
-- [x] **Bước 2.3 — Xác thực, Phiên làm việc & Phân quyền bảo mật**
+    - [X] `TC-2.1-01`: Lỗi nghiệp vụ trả đúng HTTP status, cấu trúc JSON và có header `X-Request-ID`.
+    - [X] `TC-2.1-02`: Lỗi 500 không bị lộ stack trace ra phía client, có stack đầy đủ trong server log.
+    - [X] `TC-2.1-03`: Tắt DB thì `/readyz` trả 503 kèm `Retry-After`, `/healthz` vẫn trả 200.
+    - [X] `TC-2.1-04`: Gửi payload JSON > 1 MB bị từ chối ngay với mã 413/400.
+    - [X] `TC-2.1-05`: Origin không trong whitelist bị chặn CORS preflight.
+    - [X] `TC-2.1-06`: Log đăng nhập không chứa mật khẩu gốc của người dùng.
+    - [X] `TC-2.1-07`: Request sai schema Pydantic trả về 422 validation_error rõ trường lỗi.
+- [X] **Bước 2.2 — Thiết kế CSDL, SQLAlchemy Models & Alembic Migrations**
 
-  - [x] Băm mật khẩu bằng Argon2id (`argon2-cffi`), giới hạn đồng thời bằng `threading.BoundedSemaphore(3)` chống cạn RAM.
-  - [x] Chống timing attack khi đăng nhập: Luôn verify với dummy hash nếu username không tồn tại.
-  - [x] Tạo phiên đăng nhập token ngẫu nhiên 32 bytes an toàn, lưu `sha256(token)` trong bảng `sessions`.
-  - [x] Áp dụng cơ chế hết hạn trượt (`SESSION_TTL_HOURS = 12`), chỉ ghi nhận `last_seen_at` mỗi 5 phút/lần.
-  - [x] Cho phép đăng nhập đồng thời nhiều thiết bị (không ép 1 phiên/tài khoản).
-  - [x] Giới hạn tần suất bằng `slowapi`: Max 10 lần sai/phút theo IP + username, 120 lần/phút theo IP.
-  - [x] Tạo dependencies phân quyền FastAPI: `require_admin`, `require_student`.
-  - [x] Viết CLI tương tác tạo tài khoản admin đầu tiên: `python -m app.cli create-admin` (người dùng tự gõ username và nhập mật khẩu ẩn ký tự với getpass, xác nhận lại, kiểm tra độ dài $\ge 12$; cấm tự sinh admin mặc định khi server start).
-
-  - **Kiểm thử cần đạt:**
-    - [x] `TC-2.3-01`: Đăng nhập đúng nhận token và role, gọi `/auth/me` trả về đúng user.
-    - [x] `TC-2.3-02`: Thời gian phản hồi khi sai mật khẩu và sai username lệch nhau không quá 30%.
-    - [x] `TC-2.3-03`: Bảng `sessions` không lưu token gốc, chỉ lưu sha256 hex.
-    - [x] `TC-2.3-04`: Token hết hạn hoặc bị admin thu hồi sẽ nhận mã 401.
-    - [x] `TC-2.3-05`: Thử sai 11 lần/phút bị chặn rate-limit 429, user khác cùng IP không bị ảnh hưởng.
-    - [x] `TC-2.3-06`: 40 học sinh đăng nhập cùng lúc từ 1 IP thành công, RAM máy chủ tăng an toàn < 200 MB.
-    - [x] `TC-2.3-07`: Học sinh gọi endpoint `/admin/*` bị trả 403, ẩn danh nhận 401.
-    - [x] `TC-2.3-08`: Khóa tài khoản học sinh thì toàn bộ phiên lập tức bị hủy.
-    - [x] `TC-2.3-09`: Header Authorization sai định dạng trả 401, không văng lỗi 500.
-    - [x] `TC-2.3-10`: Khởi tạo admin do người dùng tự quyết qua CLI create-admin; khởi động server khi chưa có admin an toàn (không tự sinh tài khoản mặc định); tạo trùng báo lỗi rõ ràng.
-- [ ] **Bước 2.4 — Dịch vụ thời gian nghiệp vụ (`Clock`) & Các hàm thuần**
-
-  - [ ] Cài đặt interface `Clock` và `SystemClock` (dùng UTC), hỗ trợ `FakeClock` cho kiểm thử.
-  - [ ] Xây dựng các hàm tính toán thời hạn thuần: `compute_deadline`, `is_writable`, `remaining_seconds`.
-  - [ ] Endpoint `/api/v1/time` trả về thời gian chuẩn của server.
-  - [ ] Cơ chế giám sát lệch giờ (clock skew) giữa ứng dụng và Postgres trong `/readyz` (> 2s ghi log cảnh báo).
-  - [ ] Thêm test CI quét cấm triệt để việc gọi `datetime.now()` ngoài thư mục `core/time.py`.
+  - [X] Thiết kế các bảng: `users`, `classes`, `class_members`, `exams`, `exam_classes`, `questions`, `attempts`, `answers`, `files`, `sessions`, `audit_logs`.
+  - [X] Khai báo ràng buộc DB cứng:
+    - [X] `users.username` chữ thường + check constraint `lower(username)`.
+    - [X] `attempts`: `UNIQUE (exam_id, student_id)`, check status, index partial cho sweeper `WHERE status = 'in_progress'`.
+    - [X] `answers`: `UNIQUE (attempt_id, question_id)`, `client_seq bigint NOT NULL DEFAULT 0`.
+    - [X] `questions`: `UNIQUE (exam_id, position) DEFERRABLE INITIALLY DEFERRED`.
+    - [X] Khóa lạc quan: Cột `version integer default 1` cho `exams`, `questions`, `answers`.
+    - [X] Cột `classes.is_archived boolean default false`.
+  - [X] Cấu hình SQLAlchemy Engine tối ưu cho Neon PgBouncer: `pool_pre_ping=True`, `pool_recycle=240`, `prepare_threshold=None`.
+  - [X] Thiết lập Alembic migration hỗ trợ chạy chuỗi direct URL, cấu hình naming convention.
+  - [X] Viết lệnh CLI seed dữ liệu phát triển: `python -m app.cli seed` (chỉ dùng cho dev/test, không chứa tài khoản/mật khẩu mặc định trong code; yêu cầu người dùng tự nhập hoặc chỉ seed dữ liệu giả lớp/đề sau khi admin đã được người dùng tạo).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-2.4-01`: Tính hạn bình thường: $start + duration$ đúng từng giây.
-    - [ ] `TC-2.4-02`: Tính hạn bị cắt bởi `close_at` khi $start + duration > close\_at$.
-    - [ ] `TC-2.4-03`: Cộng giờ `extra_seconds` gia hạn chính xác deadline.
-    - [ ] `TC-2.4-04`: Đúng thời điểm $deadline + grace$ cho phép ghi, thêm $1\mu s$ bị từ chối.
-    - [ ] `TC-2.4-05`: Truyền datetime naive (không múi giờ) bị ném lỗi ngay.
-    - [ ] `TC-2.4-06`: `remaining_seconds` làm tròn lên và không bao giờ âm.
-    - [ ] `TC-2.4-07`: Giả lập lệch giờ > 2s giữa app và DB ghi log cảnh báo `clock_skew`.
-    - [ ] `TC-2.4-08`: CI grep không phát hiện `datetime.now()` ngoài `core/time.py`.
+    - [X] `TC-2.2-01`: Quy trình `alembic upgrade head` $\to$ `downgrade base` $\to$ `upgrade head` thành công.
+    - [X] `TC-2.2-02`: `alembic check` báo đỏ nếu sửa model mà chưa tạo migration.
+    - [X] `TC-2.2-03`: Ràng buộc Unique attempt chặn việc tạo 2 attempt cho cùng 1 học sinh.
+    - [X] `TC-2.2-04`: Chèn username chữ hoa bị DB từ chối.
+    - [X] `TC-2.2-05`: Đổi thứ tự `position` giữa 2 câu hỏi thành công trong 1 transaction nhờ `DEFERRABLE`.
+    - [X] `TC-2.2-06`: Chèn giá trị status không hợp lệ bị check constraint từ chối.
+    - [X] `TC-2.2-07`: Tự động phục hồi kết nối thành công khi Postgres thức dậy sau khi sleep.
+    - [X] `TC-2.2-08`: `EXPLAIN` truy vấn sweeper sử dụng đúng partial index `ix_attempts_active_deadline`.
+- [X] **Bước 2.3 — Xác thực, Phiên làm việc & Phân quyền bảo mật**
+
+  - [X] Băm mật khẩu bằng Argon2id (`argon2-cffi`), giới hạn đồng thời bằng `threading.BoundedSemaphore(3)` chống cạn RAM.
+  - [X] Chống timing attack khi đăng nhập: Luôn verify với dummy hash nếu username không tồn tại.
+  - [X] Tạo phiên đăng nhập token ngẫu nhiên 32 bytes an toàn, lưu `sha256(token)` trong bảng `sessions`.
+  - [X] Áp dụng cơ chế hết hạn trượt (`SESSION_TTL_HOURS = 12`), chỉ ghi nhận `last_seen_at` mỗi 5 phút/lần.
+  - [X] Cho phép đăng nhập đồng thời nhiều thiết bị (không ép 1 phiên/tài khoản).
+  - [X] Giới hạn tần suất bằng `slowapi`: Max 10 lần sai/phút theo IP + username, 120 lần/phút theo IP.
+  - [X] Tạo dependencies phân quyền FastAPI: `require_admin`, `require_student`.
+  - [X] Viết CLI tương tác tạo tài khoản admin đầu tiên: `python -m app.cli create-admin` (người dùng tự gõ username và nhập mật khẩu ẩn ký tự với getpass, xác nhận lại, kiểm tra độ dài $\ge 12$; cấm tự sinh admin mặc định khi server start).
+
+  - **Kiểm thử cần đạt:**
+    - [X] `TC-2.3-01`: Đăng nhập đúng nhận token và role, gọi `/auth/me` trả về đúng user.
+    - [X] `TC-2.3-02`: Thời gian phản hồi khi sai mật khẩu và sai username lệch nhau không quá 30%.
+    - [X] `TC-2.3-03`: Bảng `sessions` không lưu token gốc, chỉ lưu sha256 hex.
+    - [X] `TC-2.3-04`: Token hết hạn hoặc bị admin thu hồi sẽ nhận mã 401.
+    - [X] `TC-2.3-05`: Thử sai 11 lần/phút bị chặn rate-limit 429, user khác cùng IP không bị ảnh hưởng.
+    - [X] `TC-2.3-06`: 40 học sinh đăng nhập cùng lúc từ 1 IP thành công, RAM máy chủ tăng an toàn < 200 MB.
+    - [X] `TC-2.3-07`: Học sinh gọi endpoint `/admin/*` bị trả 403, ẩn danh nhận 401.
+    - [X] `TC-2.3-08`: Khóa tài khoản học sinh thì toàn bộ phiên lập tức bị hủy.
+    - [X] `TC-2.3-09`: Header Authorization sai định dạng trả 401, không văng lỗi 500.
+    - [X] `TC-2.3-10`: Khởi tạo admin do người dùng tự quyết qua CLI create-admin; khởi động server khi chưa có admin an toàn (không tự sinh tài khoản mặc định); tạo trùng báo lỗi rõ ràng.
+- [X] **Bước 2.4 — Dịch vụ thời gian nghiệp vụ (`Clock`) & Các hàm thuần**
+
+  - [X] Cài đặt interface `Clock` và `SystemClock` (dùng UTC), hỗ trợ `FakeClock` cho kiểm thử.
+  - [X] Xây dựng các hàm tính toán thời hạn thuần: `compute_deadline`, `is_writable`, `remaining_seconds`.
+  - [X] Endpoint `/api/v1/time` trả về thời gian chuẩn của server.
+  - [X] Cơ chế giám sát lệch giờ (clock skew) giữa ứng dụng và Postgres trong `/readyz` (> 2s ghi log cảnh báo).
+  - [X] Thêm test CI quét cấm triệt để việc gọi `datetime.now()` ngoài thư mục `core/time.py`.
+
+  - **Kiểm thử cần đạt:**
+    - [X] `TC-2.4-01`: Tính hạn bình thường: $start + duration$ đúng từng giây.
+    - [X] `TC-2.4-02`: Tính hạn bị cắt bởi `close_at` khi $start + duration > close\_at$.
+    - [X] `TC-2.4-03`: Cộng giờ `extra_seconds` gia hạn chính xác deadline.
+    - [X] `TC-2.4-04`: Đúng thời điểm $deadline + grace$ cho phép ghi, thêm $1\mu s$ bị từ chối.
+    - [X] `TC-2.4-05`: Truyền datetime naive (không múi giờ) bị ném lỗi ngay.
+    - [X] `TC-2.4-06`: `remaining_seconds` làm tròn lên và không bao giờ âm.
+    - [X] `TC-2.4-07`: Giả lập lệch giờ > 2s giữa app và DB ghi log cảnh báo `clock_skew`.
+    - [X] `TC-2.4-08`: CI grep không phát hiện `datetime.now()` ngoài `core/time.py`.
 - [ ] **Bước 2.5 — Khung Frontend: API Client, Routing & Xử lý lỗi toàn cục**
 
   - [ ] Viết API client `lib/api.ts` phân biệt `ApiError` và `NetworkError`.

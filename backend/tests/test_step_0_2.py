@@ -41,9 +41,7 @@ def test_tc_0_2_01_neon_connection_success():
 def test_tc_0_2_01_neon_connection_missing_ssl():
     """TC-0.2-01: Warning and failure if sslmode=require is missing on Neon."""
     settings = get_mock_settings()
-    settings.DATABASE_URL_DIRECT = (
-        "postgresql://user:pass@ep-xyz.ap-southeast-1.neon.tech/neondb"
-    )
+    settings.DATABASE_URL_DIRECT = "postgresql://user:pass@ep-xyz.ap-southeast-1.neon.tech/neondb"
     assert check_tc_0_2_01_neon_connection(settings) is False
 
 
@@ -67,7 +65,11 @@ def test_tc_0_2_03_bucket_privacy():
     settings = get_mock_settings()
     with patch("scripts.verify_cloud_connections.urlopen") as mock_urlopen:
         mock_urlopen.side_effect = HTTPError(
-            url="http://mock", code=403, msg="Forbidden", hdrs={}, fp=None  # pyright: ignore
+            url="http://mock",
+            code=403,
+            msg="Forbidden",
+            hdrs={},
+            fp=None,  # pyright: ignore
         )
         assert check_tc_0_2_03_bucket_privacy(settings) is True
 

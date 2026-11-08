@@ -1,6 +1,6 @@
 """Authentication Endpoints: Login, Session Inspection, and Logout."""
 
-from datetime import UTC, datetime, timedelta
+from datetime import timedelta
 
 from fastapi import APIRouter, Depends, Request, status
 from sqlalchemy import delete, select
@@ -19,6 +19,7 @@ from app.core.security import (
     verify_dummy_password,
     verify_password,
 )
+from app.core.time import get_clock
 from app.db.session import get_db
 from app.models import Session as SessionModel
 from app.models import User
@@ -57,9 +58,7 @@ def login(
     check_failed_login_rate_limit(client_ip, username_clean)
 
     # 2. Look up user by lowercase username
-    user = db.execute(
-        select(User).where(User.username == username_clean)
-    ).scalar_one_or_none()
+    user = db.execute(select(User).where(User.username == username_clean)).scalar_one_or_none()
 
     if not user:
         # User not found: run dummy verify to ensure response time matches failed password check
@@ -108,7 +107,7 @@ def login(
     token_digest = hash_token(raw_token)
 
     settings = get_settings()
-    now = datetime.now(UTC)
+    now = get_clock().now()
     expires_at = now + timedelta(hours=settings.SESSION_TTL_HOURS)
     user_agent = request.headers.get("User-Agent")
 

@@ -46,9 +46,7 @@ def disable_user(
     user.is_active = False
 
     # Invalidate all active sessions for this user in the same transaction
-    deleted_count = db.execute(
-        delete(SessionModel).where(SessionModel.user_id == user_id)
-    ).rowcount
+    deleted_count = db.execute(delete(SessionModel).where(SessionModel.user_id == user_id)).rowcount
 
     db.commit()
 

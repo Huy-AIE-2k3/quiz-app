@@ -67,9 +67,7 @@ class Question(Base):
     points: Mapped[Decimal] = mapped_column(
         Numeric(6, 2), nullable=False, default=Decimal("1.00"), server_default="1.00"
     )
-    version: Mapped[int] = mapped_column(
-        Integer, nullable=False, default=1, server_default="1"
-    )
+    version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
 
     # Relationships
     exam: Mapped["Exam"] = relationship("Exam", back_populates="questions")

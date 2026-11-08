@@ -37,9 +37,11 @@ def seed_development_data(admin_username: str | None = None) -> None:
                 select(User).where(User.username == admin_username.lower(), User.role == "admin")
             ).scalar_one_or_none()
         else:
-            admin = db.execute(
-                select(User).where(User.role == "admin").order_by(User.created_at.asc())
-            ).scalars().first()
+            admin = (
+                db.execute(select(User).where(User.role == "admin").order_by(User.created_at.asc()))
+                .scalars()
+                .first()
+            )
 
         if not admin:
             print(

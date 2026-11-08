@@ -12,7 +12,7 @@ from app.db.base import Base
 config = context.config
 
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
 
@@ -31,7 +31,9 @@ def get_direct_url() -> str:
             return settings.DATABASE_URL
     except Exception:
         pass
-    return os.environ.get("DATABASE_URL", "postgresql://quiz_user:test_password_only@127.0.0.1:5432/quiz_dev")
+    return os.environ.get(
+        "DATABASE_URL", "postgresql://quiz_user:test_password_only@127.0.0.1:5432/quiz_dev"
+    )
 
 
 def run_migrations_offline() -> None:
