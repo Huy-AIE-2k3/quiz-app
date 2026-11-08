@@ -187,3 +187,4 @@ Before writing or embedding any Mermaid diagram into documentation or artifacts:
 3. **Accurate Relationship Direction:** Always verify cardinality symbols (`||--o{`, `||--||`).
 4. **Semantic Consistency:** Entity and column names in the ERD must match 100% with SQLAlchemy models (`backend/app/models/`) and spec definitions.
 5. **Local Validation:** Use `.agents/skills/mermaid/scripts/validate_mermaid.py` to verify diagrams before committing.
+

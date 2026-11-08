@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mermaid Preview - erd_database</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose'
+        });
+    </script>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 2rem;
+        }
+        .diagram-container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        h2 {
+            color: #58a6ff;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mermaid Preview - erd_database</h1>
+
+    <div class="diagram-container">
+        <h2>Sơ đồ #1</h2>
+        <div class="mermaid">
+erDiagram
+    USERS ||--o{ SESSIONS : "creates"
+    USERS ||--o{ CLASS_MEMBERS : "belongs_to"
+    USERS ||--o{ EXAMS : "authors"
+    USERS ||--o{ ATTEMPTS : "undertakes"
+    USERS ||--o{ ANSWERS : "grades"
+    USERS ||--o{ FILES : "uploads"
+    USERS ||--o{ AUDIT_LOGS : "triggers"
+
+    CLASSES ||--o{ CLASS_MEMBERS : "contains"
+    CLASSES ||--o{ EXAM_CLASSES : "assigned_exams"
+
+    EXAMS ||--o{ EXAM_CLASSES : "assigned_to"
+    EXAMS ||--|{ QUESTIONS : "contains"
+    EXAMS ||--o{ ATTEMPTS : "generates"
+
+    ATTEMPTS ||--o{ ANSWERS : "records"
+    QUESTIONS ||--o{ ANSWERS : "receives"
+
+    USERS {
+        uuid id PK "UUIDv4"
+        varchar username UK "Check lower username, len >= 3"
+        varchar full_name "Ho va ten"
+        varchar hashed_password "Argon2id hash"
+        varchar role "Check in admin, student"
+        boolean is_active "Default true"
+        timestamptz created_at "Default now"
+        timestamptz updated_at "Default now"
+    }
+
+    SESSIONS {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "Cascade delete on user"
+        varchar token_hash UK "sha256 hex cua raw token 32 bytes"
+        timestamptz created_at "Thoi diem dang nhap"
+        timestamptz expires_at "TTL 12h truot"
+        timestamptz last_seen_at "Cap nhat moi 5 phut"
+        varchar user_agent "Client user agent"
+        varchar ip_address "Client IP"
+    }
+
+    CLASSES {
+        uuid id PK "UUIDv4"
+        varchar code UK "Ma dinh danh lop duy nhat"
+        varchar name "Ten lop hien thi"
+        integer academic_year "Nam hoc"
+        boolean is_archived "Default false"
+        timestamptz created_at "Default now"
+    }
+
+    CLASS_MEMBERS {
+        uuid class_id PK,FK "Lop hoc"
+        uuid student_id PK,FK "Hoc sinh"
+        timestamptz joined_at "Thoi diem ghi danh"
+    }
+
+    EXAMS {
+        uuid id PK "UUIDv4"
+        varchar title "Tieu de de thi"
+        text description_md "Huong dan thi Markdown"
+        varchar subject "Check in math, computer_science"
+        integer duration_minutes "Thoi gian lam bai phut"
+        varchar status "Check in draft, published, locked, archived"
+        timestamptz open_at "Thoi diem mo de"
+        timestamptz close_at "Thoi diem dong de"
+        timestamptz locked_at "Khoa de khi hoc sinh dau tien nop"
+        integer version "Khoa lac quan optimistic lock, default 1"
+        uuid created_by FK "Giao vien tao de"
+        timestamptz created_at "Default now"
+    }
+
+    EXAM_CLASSES {
+        uuid exam_id PK,FK "De thi"
+        uuid class_id PK,FK "Lop duoc giao"
+    }
+
+    QUESTIONS {
+        uuid id PK "UUIDv4"
+        uuid exam_id FK "De thi so huu"
+        integer position "Thu tu cau hoi, Deferrable Deferred"
+        varchar question_type "Check in mcq, multi_select, true_false, short_answer, file_upload"
+        text content_md "Noi dung cau hoi Markdown va KaTeX"
+        jsonb choices "Danh sach lua chon lua chon lua chon"
+        jsonb answer_key "Dap an dung chi admin duoc xem"
+        numeric points "Diem so, default 1.00, check points >= 0"
+        integer version "Khoa lac quan, default 1"
+    }
+
+    ATTEMPTS {
+        uuid id PK "UUIDv4"
+        uuid exam_id FK "Unique exam_id va student_id"
+        uuid student_id FK "Hoc sinh lam bai"
+        varchar status "Check in in_progress, submitted"
+        timestamptz started_at "Thoi diem bam bat dau"
+        timestamptz deadline_at "Han chot tinh theo server"
+        bigint shuffle_seed "Seed ngau nhien dao cau"
+        numeric score_total "Tong diem thi"
+        timestamptz submitted_at "Thoi diem nop bai"
+        timestamptz created_at "Default now"
+    }
+
+    ANSWERS {
+        uuid id PK "UUIDv4"
+        uuid attempt_id FK "Unique attempt_id va question_id"
+        uuid question_id FK "Cau hoi"
+        jsonb value "Gia tri cau tra loi gon cua hoc sinh"
+        bigint client_seq "Sequence client chong out-of-order, default 0"
+        numeric score "Diem cham dat duoc"
+        boolean is_correct "Dung hoac Sai"
+        uuid graded_by FK "Nguoi cham tay"
+        timestamptz graded_at "Thoi diem cham"
+        integer version "Khoa lac quan, default 1"
+        timestamptz updated_at "Thoi diem cap nhat"
+    }
+
+    FILES {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "Nguoi tai len"
+        varchar original_name "Ten tep tin goc"
+        varchar s3_key UK "Duong dan Cloudflare R2 hoac MinIO"
+        varchar mime_type "Dinh dang MIME"
+        bigint size_bytes "Kich thuoc byte, check > 0"
+        timestamptz created_at "Default now"
+    }
+
+    AUDIT_LOGS {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "User gay ra hanh dong"
+        varchar action "Ten hanh dong"
+        varchar resource_type "Loai tai nguyen"
+        varchar resource_id "ID tai nguyen"
+        jsonb details "Du lieu chi tiet da loc thong tin nhay cam"
+        varchar ip_address "IP client"
+        timestamptz created_at "Default now"
+    }
+        </div>
+    </div>
+
+</body>
+</html>
