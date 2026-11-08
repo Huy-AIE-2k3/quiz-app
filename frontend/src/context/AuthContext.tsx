@@ -61,9 +61,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
-      const data = await request<{ user: AuthUser }>('/api/v1/auth/me');
-      setUser(data.user);
-      safeStorage.setUser(JSON.stringify(data.user));
+      const data = await request<AuthUser | { user: AuthUser }>('/api/v1/auth/me');
+      const currentUser = 'user' in data && data.user ? data.user : (data as AuthUser);
+      setUser(currentUser);
+      safeStorage.setUser(JSON.stringify(currentUser));
     } catch {
       // 401 or invalid session
       setUser(null);

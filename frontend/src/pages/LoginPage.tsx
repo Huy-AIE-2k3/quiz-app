@@ -10,6 +10,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { AlertCircle } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
@@ -18,9 +19,16 @@ import { useAuth, AuthUser } from '../context/AuthContext';
 import { request, ApiError, NetworkError } from '../lib/api';
 import { VI } from '../lib/i18n/vi';
 
-interface LoginResponse {
-  token: string;
-  user: AuthUser;
+interface BackendLoginResponse {
+  access_token?: string;
+  token?: string;
+  token_type?: string;
+  role?: 'admin' | 'student';
+  user_id?: string;
+  username?: string;
+  full_name?: string;
+  expires_at?: string;
+  user?: AuthUser;
 }
 
 export const LoginPage: React.FC = () => {
@@ -63,33 +71,55 @@ export const LoginPage: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const data = await request<LoginResponse>('/api/v1/auth/login', {
+      const data = await request<BackendLoginResponse>('/api/v1/auth/login', {
         method: 'POST',
         body: { username: trimmedUser, password },
         skipAuth: true,
       });
 
-      login(data.token, data.user);
+      const token = data.access_token || data.token;
+      if (!token) {
+        throw new Error('Máy chủ không trả về token xác thực hợp lệ.');
+      }
+
+      const role = data.role || data.user?.role || 'student';
+      const authUser: AuthUser = data.user || {
+        id: data.user_id || '',
+        username: data.username || trimmedUser,
+        full_name: data.full_name || trimmedUser,
+        role: role,
+        is_active: true,
+      };
+
+      login(token, authUser);
 
       // Navigate to destination
       if (returnTo) {
         navigate(returnTo, { replace: true });
-      } else if (data.user.role === 'admin') {
+      } else if (role === 'admin') {
         navigate('/a/classes', { replace: true });
       } else {
         navigate('/s/exams', { replace: true });
       }
     } catch (err: unknown) {
       if (err instanceof ApiError) {
-        if (err.status === 401) {
+        if (err.status === 401 || err.code === 'invalid_credentials') {
           setErrorMessage('Tên đăng nhập hoặc mật khẩu không chính xác.');
-        } else if (err.status === 429) {
+        } else if (err.status === 403 || err.code === 'account_disabled') {
+          setErrorMessage(err.message || 'Tài khoản đã bị tạm khóa. Vui lòng liên hệ giáo viên quản trị.');
+        } else if (err.status === 429 || err.code === 'rate_limited') {
           setErrorMessage(err.message || VI.network.tooManyRequests);
+        } else if (err.status === 502 || err.status === 503 || err.status === 504) {
+          setErrorMessage('Máy chủ đang khởi động hoặc chưa sẵn sàng. Vui lòng thử lại sau vài giây.');
         } else {
-          setErrorMessage(err.message || VI.common.error);
+          setErrorMessage(err.message || 'Đã có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại.');
         }
       } else if (err instanceof NetworkError) {
-        setErrorMessage(VI.network.offline);
+        setErrorMessage(
+          err.message || 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng hoặc đảm bảo backend đang chạy.'
+        );
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message || VI.common.error);
       } else {
         setErrorMessage(VI.common.error);
       }
@@ -155,9 +185,10 @@ export const LoginPage: React.FC = () => {
             {errorMessage && (
               <div
                 role="alert"
-                className="p-3 rounded bg-red-500/10 border border-red-500/20 text-xs text-red-400 font-sans"
+                className="p-3 rounded-md bg-status-wrong-bg border border-status-wrong-border text-xs text-status-wrong-text font-sans flex items-start gap-2.5 animate-in fade-in"
               >
-                {errorMessage}
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{errorMessage}</span>
               </div>
             )}
 

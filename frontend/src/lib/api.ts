@@ -218,8 +218,8 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
       if (!response.ok) {
         const requestId = response.headers.get('X-Request-ID') || undefined;
 
-        // Check for 401 Unauthorized
-        if (response.status === 401) {
+        // Check for 401 Unauthorized (only when not skipping auth)
+        if (!skipAuth && response.status === 401) {
           const currentPath =
             typeof window !== 'undefined'
               ? window.location.pathname + window.location.search
