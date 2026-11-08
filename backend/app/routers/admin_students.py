@@ -2,7 +2,7 @@
 
 import uuid
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, File, Query, UploadFile, status
 from sqlalchemy import delete, func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
@@ -15,6 +15,7 @@ from app.models import Session as SessionModel
 from app.routers.admin_classes import escape_like_pattern
 from app.schemas.student_schema import (
     ClassSimple,
+    CsvImportResult,
     ResetPasswordRequest,
     ResetPasswordResponse,
     StudentCreate,
@@ -23,6 +24,7 @@ from app.schemas.student_schema import (
     StudentResponse,
     StudentUpdate,
 )
+from app.services.csv_import_service import process_csv_import
 
 router = APIRouter(
     prefix="/students",
@@ -160,6 +162,31 @@ def list_students(
     ]
 
     return StudentListResponse(items=items, total=total, limit=limit, offset=offset)
+
+
+@router.post("/import", response_model=CsvImportResult, status_code=status.HTTP_200_OK)
+async def import_students_csv(
+    file: UploadFile = File(..., description="Tệp CSV danh sách học sinh"),
+    dry_run: bool = Query(default=True, description="Chế độ kiểm tra xem trước (dry-run)"),
+    auto_generate_passwords: bool = Query(
+        default=False,
+        description="Tự động sinh mật khẩu ngẫu nhiên an toàn cho các ô mật khẩu để trống",
+    ),
+    default_class_id: uuid.UUID | None = Query(
+        default=None, description="ID lớp mặc định nếu dòng trong CSV không chứa mã lớp"
+    ),
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin),
+) -> CsvImportResult:
+    """Imports students in batch from a CSV file (two-phase: dry-run -> atomic commit)."""
+    raw_bytes = await file.read()
+    return process_csv_import(
+        raw_bytes=raw_bytes,
+        db=db,
+        dry_run=dry_run,
+        auto_generate_passwords=auto_generate_passwords,
+        default_class_id=default_class_id,
+    )
 
 
 @router.get("/{student_id}", response_model=StudentResponse, status_code=status.HTTP_200_OK)

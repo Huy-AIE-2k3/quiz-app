@@ -29,7 +29,7 @@
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     50%     |
+| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     75%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
@@ -340,26 +340,26 @@
     - [X] `TC-3.2-06`: Hai admin cùng ghi danh đồng thời được tuần tự hóa, dữ liệu toàn vẹn.
     - [X] `TC-3.2-07`: Rút học sinh khỏi lớp khi đang làm bài thi vẫn cho phép nộp bài bình thường.
     - [X] `TC-3.2-08`: Khóa tài khoản lập tức thu hồi quyền và đá phiên đăng nhập.
-- [ ] **Bước 3.3 — Nhập học sinh hàng loạt bằng CSV (Quy trình 2 pha)**
+- [X] **Bước 3.3 — Nhập học sinh hàng loạt bằng CSV (Quy trình 2 pha)**
 
-  - [ ] Xử lý encoding file: Tự nhận diện UTF-8 có BOM và Windows-1258 (Excel tiếng Việt).
-  - [ ] Tự nhận diện dấu phân cách `,` hoặc `;` hoặc `\t`.
-  - [ ] Hỗ trợ 2 pha: `dry_run=true` (kiểm tra toàn bộ, trả lỗi từng dòng) và `dry_run=false` (commit atomic).
-  - [ ] Cột mật khẩu trong CSV do giáo viên tự thiết lập cho từng học sinh; nếu ô trống chỉ tự sinh khi giáo viên chủ động kích hoạt tùy chọn trên UI (tuyệt đối không gán mật khẩu mặc định); ký tự an toàn dài 8 loại bỏ `0OIl1`.
-  - [ ] Băm mật khẩu tuần tự qua Argon2 semaphore chống nghẽn CPU.
-  - [ ] Xuất file CSV mật khẩu cho giáo viên: UTF-8 BOM, thêm ký tự `'` chống CSV Injection (`= + - @`).
+  - [X] Xử lý encoding file: Tự nhận diện UTF-8 có BOM và Windows-1258 (Excel tiếng Việt).
+  - [X] Tự nhận diện dấu phân cách `,` hoặc `;` hoặc `\t`.
+  - [X] Hỗ trợ 2 pha: `dry_run=true` (kiểm tra toàn bộ, trả lỗi từng dòng) và `dry_run=false` (commit atomic).
+  - [X] Cột mật khẩu trong CSV do giáo viên tự thiết lập cho từng học sinh; nếu ô trống chỉ tự sinh khi giáo viên chủ động kích hoạt tùy chọn trên UI (tuyệt đối không gán mật khẩu mặc định); ký tự an toàn dài 8 loại bỏ `0OIl1`.
+  - [X] Băm mật khẩu tuần tự qua Argon2 semaphore chống nghẽn CPU.
+  - [X] Xuất file CSV mật khẩu cho giáo viên: UTF-8 BOM, thêm ký tự `'` chống CSV Injection (`= + - @`).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-3.3-01`: Đọc đúng file CSV tiếng Việt có dấu xuất từ Excel (UTF-8 BOM, phân tách `;`).
-    - [ ] `TC-3.3-02`: Đọc đúng file CSV lưu mã hóa Windows-1258 không bị vỡ font.
-    - [ ] `TC-3.3-03`: Chạy dry-run báo cáo đúng các dòng lỗi, CSDL không bị thay đổi.
-    - [ ] `TC-3.3-04`: Chỉ cần 1 dòng lỗi ở bước commit thì rollback toàn bộ 100%.
-    - [ ] `TC-3.3-05`: Phát hiện trùng lặp username ngay trong cùng 1 file CSV.
-    - [ ] `TC-3.3-06`: Chặn file vượt quá 500 dòng hoặc dung lượng > 1 MB.
-    - [ ] `TC-3.3-07`: Các ô bắt đầu bằng dấu `=HYPERLINK` được escape an toàn bằng dấu `'`.
-    - [ ] `TC-3.3-08`: Ô dữ liệu chứa dấu phẩy và ngoặc kép được parse chính xác.
-    - [ ] `TC-3.3-09`: Mật khẩu sinh ra không chứa ký tự gây nhầm và có cả chữ lẫn số.
-    - [ ] `TC-3.3-10`: Mã lớp trong CSV không tồn tại sẽ báo lỗi dòng cụ thể, không tự tạo lớp.
+    - [X] `TC-3.3-01`: Đọc đúng file CSV tiếng Việt có dấu xuất từ Excel (UTF-8 BOM, phân tách `;`).
+    - [X] `TC-3.3-02`: Đọc đúng file CSV lưu mã hóa Windows-1258 không bị vỡ font.
+    - [X] `TC-3.3-03`: Chạy dry-run báo cáo đúng các dòng lỗi, CSDL không bị thay đổi.
+    - [X] `TC-3.3-04`: Chỉ cần 1 dòng lỗi ở bước commit thì rollback toàn bộ 100%.
+    - [X] `TC-3.3-05`: Phát hiện trùng lặp username ngay trong cùng 1 file CSV.
+    - [X] `TC-3.3-06`: Chặn file vượt quá 500 dòng hoặc dung lượng > 1 MB.
+    - [X] `TC-3.3-07`: Các ô bắt đầu bằng dấu `=HYPERLINK` được escape an toàn bằng dấu `'`.
+    - [X] `TC-3.3-08`: Ô dữ liệu chứa dấu phẩy và ngoặc kép được parse chính xác.
+    - [X] `TC-3.3-09`: Mật khẩu sinh ra không chứa ký tự gây nhầm và có cả chữ lẫn số.
+    - [X] `TC-3.3-10`: Mã lớp trong CSV không tồn tại sẽ báo lỗi dòng cụ thể, không tự tạo lớp.
 - [ ] **Bước 3.4 — Giao diện Quản trị: Lớp, Học sinh & Wizard nhập CSV**
 
   - [ ] Xây dựng trang danh sách lớp, chi tiết lớp (tab Học sinh, Ghi danh, Nhập CSV).

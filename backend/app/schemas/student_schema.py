@@ -152,3 +152,48 @@ class EnrollmentResponse(BaseModel):
     added: int = Field(..., description="Số học sinh mới thêm vào lớp")
     removed: int = Field(..., description="Số học sinh rút khỏi lớp")
     total: int = Field(..., description="Tổng số học sinh hiện có trong lớp")
+
+
+class CsvRowDetail(BaseModel):
+    """Detailed validation status and errors for a specific row in the CSV file."""
+
+    row_number: int = Field(
+        ...,
+        description="Thứ tự dòng trong tệp tính từ dòng dữ liệu đầu tiên (dòng 2 trong Excel)",
+    )
+    full_name: str
+    username: str
+    class_code: str | None = None
+    status: str = Field(..., description="Trạng thái dòng: 'valid' hoặc 'error'")
+    errors: list[str] = Field(
+        default_factory=list, description="Danh sách mã lỗi phát hiện trên dòng"
+    )
+
+
+class StudentImportedItem(BaseModel):
+    """Summary of successfully imported student account including plaintext password."""
+
+    id: uuid.UUID
+    username: str
+    full_name: str
+    class_code: str | None = None
+    password_plain: str = Field(
+        ..., description="Mật khẩu khởi tạo (chỉ trả về 1 lần duy nhất khi tạo)"
+    )
+
+
+class CsvImportResult(BaseModel):
+    """Comprehensive response for two-phase CSV import (dry-run and atomic commit)."""
+
+    total_rows: int
+    valid_rows: int
+    error_rows: int
+    estimated_hash_seconds: float
+    can_commit: bool
+    rows: list[CsvRowDetail] = Field(default_factory=list)
+    created_count: int = 0
+    students: list[StudentImportedItem] = Field(default_factory=list)
+    csv_export_content: str | None = Field(
+        default=None,
+        description="Chuỗi CSV UTF-8 BOM chứa tài khoản và mật khẩu đã escape an toàn",
+    )
