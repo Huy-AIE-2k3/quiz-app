@@ -23,7 +23,7 @@
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     20%    |
+| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     40%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
@@ -212,29 +212,29 @@
     - [x] `TC-2.1-05`: Origin không trong whitelist bị chặn CORS preflight.
     - [x] `TC-2.1-06`: Log đăng nhập không chứa mật khẩu gốc của người dùng.
     - [x] `TC-2.1-07`: Request sai schema Pydantic trả về 422 validation_error rõ trường lỗi.
-- [ ] **Bước 2.2 — Thiết kế CSDL, SQLAlchemy Models & Alembic Migrations**
+- [x] **Bước 2.2 — Thiết kế CSDL, SQLAlchemy Models & Alembic Migrations**
 
-  - [ ] Thiết kế các bảng: `users`, `classes`, `class_members`, `exams`, `exam_classes`, `questions`, `attempts`, `answers`, `files`, `sessions`, `audit_logs`.
-  - [ ] Khai báo ràng buộc DB cứng:
-    - [ ] `users.username` chữ thường + check constraint `lower(username)`.
-    - [ ] `attempts`: `UNIQUE (exam_id, student_id)`, check status, index partial cho sweeper `WHERE status = 'in_progress'`.
-    - [ ] `answers`: `UNIQUE (attempt_id, question_id)`, `client_seq bigint NOT NULL DEFAULT 0`.
-    - [ ] `questions`: `UNIQUE (exam_id, position) DEFERRABLE INITIALLY DEFERRED`.
-    - [ ] Khóa lạc quan: Cột `version integer default 1` cho `exams`, `questions`, `answers`.
-    - [ ] Cột `classes.is_archived boolean default false`.
-  - [ ] Cấu hình SQLAlchemy Engine tối ưu cho Neon PgBouncer: `pool_pre_ping=True`, `pool_recycle=240`, `prepare_threshold=None`.
-  - [ ] Thiết lập Alembic migration hỗ trợ chạy chuỗi direct URL, cấu hình naming convention.
-  - [ ] Viết lệnh CLI seed dữ liệu phát triển: `python -m app.cli seed` (chỉ dùng cho dev/test, không chứa tài khoản/mật khẩu mặc định trong code; yêu cầu người dùng tự nhập hoặc chỉ seed dữ liệu giả lớp/đề sau khi admin đã được người dùng tạo).
+  - [x] Thiết kế các bảng: `users`, `classes`, `class_members`, `exams`, `exam_classes`, `questions`, `attempts`, `answers`, `files`, `sessions`, `audit_logs`.
+  - [x] Khai báo ràng buộc DB cứng:
+    - [x] `users.username` chữ thường + check constraint `lower(username)`.
+    - [x] `attempts`: `UNIQUE (exam_id, student_id)`, check status, index partial cho sweeper `WHERE status = 'in_progress'`.
+    - [x] `answers`: `UNIQUE (attempt_id, question_id)`, `client_seq bigint NOT NULL DEFAULT 0`.
+    - [x] `questions`: `UNIQUE (exam_id, position) DEFERRABLE INITIALLY DEFERRED`.
+    - [x] Khóa lạc quan: Cột `version integer default 1` cho `exams`, `questions`, `answers`.
+    - [x] Cột `classes.is_archived boolean default false`.
+  - [x] Cấu hình SQLAlchemy Engine tối ưu cho Neon PgBouncer: `pool_pre_ping=True`, `pool_recycle=240`, `prepare_threshold=None`.
+  - [x] Thiết lập Alembic migration hỗ trợ chạy chuỗi direct URL, cấu hình naming convention.
+  - [x] Viết lệnh CLI seed dữ liệu phát triển: `python -m app.cli seed` (chỉ dùng cho dev/test, không chứa tài khoản/mật khẩu mặc định trong code; yêu cầu người dùng tự nhập hoặc chỉ seed dữ liệu giả lớp/đề sau khi admin đã được người dùng tạo).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-2.2-01`: Quy trình `alembic upgrade head` $\to$ `downgrade base` $\to$ `upgrade head` thành công.
-    - [ ] `TC-2.2-02`: `alembic check` báo đỏ nếu sửa model mà chưa tạo migration.
-    - [ ] `TC-2.2-03`: Ràng buộc Unique attempt chặn việc tạo 2 attempt cho cùng 1 học sinh.
-    - [ ] `TC-2.2-04`: Chèn username chữ hoa bị DB từ chối.
-    - [ ] `TC-2.2-05`: Đổi thứ tự `position` giữa 2 câu hỏi thành công trong 1 transaction nhờ `DEFERRABLE`.
-    - [ ] `TC-2.2-06`: Chèn giá trị status không hợp lệ bị check constraint từ chối.
-    - [ ] `TC-2.2-07`: Tự động phục hồi kết nối thành công khi Postgres thức dậy sau khi sleep.
-    - [ ] `TC-2.2-08`: `EXPLAIN` truy vấn sweeper sử dụng đúng partial index `ix_attempts_active_deadline`.
+    - [x] `TC-2.2-01`: Quy trình `alembic upgrade head` $\to$ `downgrade base` $\to$ `upgrade head` thành công.
+    - [x] `TC-2.2-02`: `alembic check` báo đỏ nếu sửa model mà chưa tạo migration.
+    - [x] `TC-2.2-03`: Ràng buộc Unique attempt chặn việc tạo 2 attempt cho cùng 1 học sinh.
+    - [x] `TC-2.2-04`: Chèn username chữ hoa bị DB từ chối.
+    - [x] `TC-2.2-05`: Đổi thứ tự `position` giữa 2 câu hỏi thành công trong 1 transaction nhờ `DEFERRABLE`.
+    - [x] `TC-2.2-06`: Chèn giá trị status không hợp lệ bị check constraint từ chối.
+    - [x] `TC-2.2-07`: Tự động phục hồi kết nối thành công khi Postgres thức dậy sau khi sleep.
+    - [x] `TC-2.2-08`: `EXPLAIN` truy vấn sweeper sử dụng đúng partial index `ix_attempts_active_deadline`.
 - [ ] **Bước 2.3 — Xác thực, Phiên làm việc & Phân quyền bảo mật**
 
   - [ ] Băm mật khẩu bằng Argon2id (`argon2-cffi`), giới hạn đồng thời bằng `threading.BoundedSemaphore(3)` chống cạn RAM.

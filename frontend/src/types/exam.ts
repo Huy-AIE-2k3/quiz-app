@@ -60,3 +60,4 @@ export interface QuestionStatusItem {
   readonly point: number;
   readonly question_type?: QuestionType;
 }
+

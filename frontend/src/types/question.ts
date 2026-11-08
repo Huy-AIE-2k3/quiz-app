@@ -102,3 +102,4 @@ export interface StudentQuestion {
   readonly points: number;
   readonly config: QuestionConfig;
 }
+
