@@ -52,8 +52,7 @@
   - [X] Cấu hình `pydantic-settings` thất bại ngay khi khởi động (fail-fast) nếu thiếu biến bắt buộc.
 
   - **Kiểm thử cần đạt:**
-    - [X] `TC-0.1-01`: Clone s
-    - [ ] ạch và chạy theo README thành công trong $\le$ 15 phút.
+    - [X] `TC-0.1-01`: Clone sạch và chạy theo README thành công trong $\le$ 15 phút.
     - [X] `TC-0.1-02`: Thiếu biến môi trường báo lỗi rõ tên biến và dừng tiến trình.
     - [X] `TC-0.1-03`: Pre-commit chặn commit nhầm file bí mật/.env.
     - [X] `TC-0.1-04`: CI đổi màu đỏ khi có test lỗi.
@@ -79,10 +78,7 @@
     - [ ] `TC-0.2-04`: Token R2 bị từ chối khi ghi vào bucket khác (sẵn sàng qua script verify).
     - [X] `TC-0.2-05`: Tất cả tài khoản đã bật 2FA; quét kiểm tra bí mật trên lịch sử Git trả về 0 vi phạm.
 
-- [ ] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
 - [X] **Bước 0.3 — Cài đặt Antigravity, Skill & Kết nối Stitch MCP**
-
-  - [ ]
   - [X] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
   - [X] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
   - [X] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
