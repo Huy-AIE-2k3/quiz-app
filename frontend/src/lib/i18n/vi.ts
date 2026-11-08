@@ -108,3 +108,4 @@ export function formatDuration(totalSeconds: number): string {
 
   return parts.join(' ');
 }
+

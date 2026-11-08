@@ -41,3 +41,4 @@ export const AdminClassesPage: React.FC = () => {
     </div>
   );
 };
+

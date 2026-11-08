@@ -29,7 +29,7 @@
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
+| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     25%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
@@ -306,21 +306,21 @@
 
 ### GIAI ĐOẠN 3. QUẢN LÝ LỚP, HỌC SINH & NHẬP CSV (3 NGÀY)
 
-- [ ] **Bước 3.1 — API Quản lý Lớp**
+- [X] **Bước 3.1 — API Quản lý Lớp**
 
-  - [ ] CRUD lớp học: Chuẩn hóa `code` chữ hoa (`10A1`), kiểm tra môn học `toan/tin/both`.
-  - [ ] Xóa lớp an toàn: Nếu lớp đã giao đề thi $\to$ từ chối xóa (409), chuyển sang cờ `is_archived=true`.
-  - [ ] Danh sách lớp: Hỗ trợ phân trang, tìm kiếm, tính số lượng học sinh bằng 1 câu query (chống N+1).
-  - [ ] Khóa lạc quan: Header/Body gửi `version`, xung đột trả về 409 version_conflict.
+  - [X] CRUD lớp học: Chuẩn hóa `code` chữ hoa (`10A1`), kiểm tra môn học `toan/tin/both`.
+  - [X] Xóa lớp an toàn: Nếu lớp đã giao đề thi $\to$ từ chối xóa (409), chuyển sang cờ `is_archived=true`.
+  - [X] Danh sách lớp: Hỗ trợ phân trang, tìm kiếm, tính số lượng học sinh bằng 1 câu query (chống N+1).
+  - [X] Khóa lạc quan: Header/Body gửi `version`, xung đột trả về 409 version_conflict.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-3.1-01`: Tạo lớp thành công, mã lớp tự động chuẩn hóa chữ hoa.
-    - [ ] `TC-3.1-02`: Tạo trùng mã lớp trả về mã 409 class_code_taken.
-    - [ ] `TC-3.1-03`: Lớp đã giao đề không cho xóa cứng, chuyển sang lưu trữ ẩn.
-    - [ ] `TC-3.1-04`: Tìm kiếm với ký tự `%` và `_` không bị lỗi SQL LIKE.
-    - [ ] `TC-3.1-05`: Phân trang với tham số biên (limit=0, offset âm) được validate chuẩn.
-    - [ ] `TC-3.1-06`: Tải danh sách 50 lớp chỉ tốn $\le 3$ câu query SQL.
-    - [ ] `TC-3.1-07`: Sửa đồng thời cùng version trả 409 cho người đến sau.
+    - [X] `TC-3.1-01`: Tạo lớp thành công, mã lớp tự động chuẩn hóa chữ hoa.
+    - [X] `TC-3.1-02`: Tạo trùng mã lớp trả về mã 409 class_code_taken.
+    - [X] `TC-3.1-03`: Lớp đã giao đề không cho xóa cứng, chuyển sang lưu trữ ẩn.
+    - [X] `TC-3.1-04`: Tìm kiếm với ký tự `%` và `_` không bị lỗi SQL LIKE.
+    - [X] `TC-3.1-05`: Phân trang với tham số biên (limit=0, offset âm) được validate chuẩn.
+    - [X] `TC-3.1-06`: Tải danh sách 50 lớp chỉ tốn $\le 3$ câu query SQL.
+    - [X] `TC-3.1-07`: Sửa đồng thời cùng version trả 409 cho người đến sau.
 - [ ] **Bước 3.2 — API Quản lý Học sinh & Ghi danh vào Lớp**
 
   - [ ] CRUD học sinh: Chuẩn hóa username regex `^[a-z0-9._-]{3,32}$`, chuẩn hóa tên Unicode NFC.

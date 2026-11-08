@@ -41,3 +41,4 @@ export const StudentExamsPage: React.FC = () => {
     </div>
   );
 };
+
