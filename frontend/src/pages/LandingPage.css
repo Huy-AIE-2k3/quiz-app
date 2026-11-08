@@ -1,0 +1,105 @@
+/* ==============================================================================
+ * MATHRIX DESIGN SYSTEM: STITCH LANDING PAGE 3D & CANVAS STYLES
+ * Conforms 100% to TC-1.5-04: Uses CSS custom properties from tokens.css
+ * ============================================================================== */
+
+.landing-dot-matrix {
+  background-image: radial-gradient(var(--landing-dot) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
+.landing-dot-glow {
+  background-image: radial-gradient(var(--landing-dot-glow) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  mask-image: radial-gradient(380px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(380px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), black 20%, transparent 80%);
+}
+
+.landing-cursor-spotlight {
+  background: radial-gradient(700px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--landing-spotlight-1), var(--landing-spotlight-2) 40%, transparent 75%);
+  pointer-events: none;
+}
+
+/* 3D Viewport Scene */
+.scene-3d {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.rubik-cube-cluster {
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+  animation: rubik-gentle-float 7s ease-in-out infinite alternate;
+}
+
+@keyframes rubik-gentle-float {
+  0% {
+    transform: rotateX(-22deg) rotateY(34deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(-14deg) rotateY(46deg) translateY(-16px);
+  }
+  100% {
+    transform: rotateX(-26deg) rotateY(26deg) translateY(10px);
+  }
+}
+
+/* Mỗi khối lập phương nhỏ (mini cube) */
+.mini-cube {
+  transform-style: preserve-3d;
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  transition: transform 0.4s ease;
+}
+
+.cube-face {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border: 2.5px solid var(--rubik-border);
+  border-radius: 9px;
+  box-shadow: inset 0 0 10px var(--landing-shadow-inner);
+  backface-visibility: visible;
+}
+
+/* 6 mặt của mini-cube */
+.face-front  { transform: translateZ(38px); }
+.face-back   { transform: rotateY(180deg) translateZ(38px); }
+.face-right  { transform: rotateY(90deg) translateZ(38px); }
+.face-left   { transform: rotateY(-90deg) translateZ(38px); }
+.face-top    { transform: rotateX(90deg) translateZ(38px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(38px); }
+
+/* 3 màu chuẩn: Đỏ, Xanh lá cây, Đen */
+.c-red {
+  background: linear-gradient(135deg, var(--rubik-red-1), var(--rubik-red-2));
+  box-shadow: inset 0 1px 2px var(--landing-shadow-highlight), 0 0 14px var(--landing-shadow-red);
+}
+.c-emerald {
+  background: linear-gradient(135deg, var(--rubik-emerald-1), var(--rubik-emerald-2));
+  box-shadow: inset 0 1px 2px var(--landing-shadow-highlight), 0 0 16px var(--landing-shadow-emerald);
+}
+.c-black {
+  background: linear-gradient(135deg, var(--rubik-black-1), var(--rubik-black-2));
+  box-shadow: inset 0 1px 1px var(--landing-shadow-subtle);
+}
+
+/* Floating Satellite Mini Cubes */
+@keyframes orbit-float-1 {
+  0% { transform: translate3d(-150px, -140px, 80px) rotateX(15deg) rotateY(20deg); }
+  100% { transform: translate3d(-140px, -160px, 100px) rotateX(25deg) rotateY(35deg); }
+}
+@keyframes orbit-float-2 {
+  0% { transform: translate3d(-140px, 140px, 60px) rotateX(10deg) rotateY(-25deg); }
+  100% { transform: translate3d(-155px, 120px, 85px) rotateX(20deg) rotateY(-15deg); }
+}
+@keyframes orbit-float-3 {
+  0% { transform: translate3d(160px, 130px, -40px) rotateX(-20deg) rotateY(30deg); }
+  100% { transform: translate3d(145px, 150px, -20px) rotateX(-10deg) rotateY(45deg); }
+}
+
+.satellite-1 { animation: orbit-float-1 5s ease-in-out infinite alternate; }
+.satellite-2 { animation: orbit-float-2 6s ease-in-out infinite alternate; }
+.satellite-3 { animation: orbit-float-3 5.5s ease-in-out infinite alternate; }

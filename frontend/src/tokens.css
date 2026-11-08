@@ -73,6 +73,26 @@
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-xl: 12px;
+
+  /* Rubik & Stitch Landing System Tokens */
+  --rubik-red-1: #EF4444;
+  --rubik-red-2: #B91C1C;
+  --rubik-emerald-1: #10B981;
+  --rubik-emerald-2: #047857;
+  --rubik-black-1: #1E293B;
+  --rubik-black-2: #0F172A;
+  --rubik-border: #090D16;
+  --landing-dot: rgba(255, 255, 255, 0.10);
+  --landing-dot-glow: rgba(16, 185, 129, 0.5);
+  --landing-spotlight-1: rgba(16, 185, 129, 0.14);
+  --landing-spotlight-2: rgba(16, 185, 129, 0.03);
+  --landing-shadow-red: rgba(239, 68, 68, 0.3);
+  --landing-shadow-emerald: rgba(16, 185, 129, 0.4);
+  --landing-shadow-inner: rgba(0, 0, 0, 0.5);
+  --landing-shadow-highlight: rgba(255, 255, 255, 0.35);
+  --landing-shadow-subtle: rgba(255, 255, 255, 0.12);
+  --landing-glow-brand: rgba(16, 185, 129, 0.15);
+  --landing-glow-red: rgba(239, 68, 68, 0.12);
 }
 
 .dark {

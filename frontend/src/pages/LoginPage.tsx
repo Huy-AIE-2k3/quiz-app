@@ -8,7 +8,7 @@
  * - Anti-double-click form submit protection.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { AlertCircle } from 'lucide-react';
 import { Card } from '../components/ui/Card';
@@ -18,6 +18,7 @@ import { Badge } from '../components/ui/Badge';
 import { useAuth, AuthUser } from '../context/AuthContext';
 import { request, ApiError, NetworkError } from '../lib/api';
 import { VI } from '../lib/i18n/vi';
+import './LandingPage.css';
 
 interface BackendLoginResponse {
   access_token?: string;
@@ -46,8 +47,13 @@ export const LoginPage: React.FC = () => {
   const rawReturnTo = searchParams.get('returnTo');
   const returnTo = rawReturnTo && rawReturnTo.startsWith('/') ? rawReturnTo : null;
 
+  // Enforce default dark theme for login page
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+  }, []);
+
   // If already authenticated, redirect immediately
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated) {
       if (returnTo) {
         navigate(returnTo, { replace: true });
@@ -129,22 +135,27 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-text-primary flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="dark min-h-screen bg-canvas text-text-primary flex flex-col justify-center items-center p-4 relative overflow-hidden selection:bg-brand selection:text-canvas">
+      {/* Background Dot Matrix Canvas & Ambient Glow */}
+      <div className="fixed inset-0 landing-dot-matrix pointer-events-none z-0" />
+      <div className="fixed top-1/4 -left-36 w-80 h-80 bg-brand/10 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="fixed bottom-1/4 -right-36 w-80 h-80 bg-status-wrong-border/10 rounded-full blur-[120px] pointer-events-none z-0" />
+
+      <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <Link to="/" className="inline-flex items-center space-x-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-brand inline-block shadow-sm" />
+            <span className="w-3.5 h-3.5 rounded-full bg-brand inline-block shadow-sm shadow-brand/40" />
             <span className="text-2xl font-bold font-display tracking-tight">MATHRIX</span>
             <Badge variant="brand" size="sm">
               TOÁN - TIN
             </Badge>
           </Link>
-          <p className="text-xs text-text-muted">{VI.auth.loginSubtitle}</p>
+          <p className="text-xs text-text-muted font-sans">{VI.auth.loginSubtitle}</p>
         </div>
 
         {/* Login Card */}
-        <Card className="p-6 sm:p-8 space-y-6 border-line-subtle shadow-md">
+        <Card className="p-6 sm:p-8 space-y-6 border-line-subtle shadow-2xl bg-surface relative z-10">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1">
               <label htmlFor="username" className="block text-xs font-semibold text-text-secondary">
@@ -174,6 +185,7 @@ export const LoginPage: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
+                isPasswordToggle
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
@@ -197,7 +209,7 @@ export const LoginPage: React.FC = () => {
               variant="primary"
               size="md"
               disabled={isLoading}
-              className="w-full justify-center mt-2"
+              className="w-full justify-center mt-2 shadow-lg shadow-brand/20"
             >
               {isLoading ? VI.auth.signingIn : VI.auth.signIn}
             </Button>
