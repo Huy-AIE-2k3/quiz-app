@@ -57,6 +57,7 @@ erDiagram
 
     ATTEMPTS ||--o{ ANSWERS : "records"
     QUESTIONS ||--o{ ANSWERS : "receives"
+    ANSWERS |o--o| FILES : "attaches_submission"
 
     USERS {
         uuid id PK "UUIDv4"
@@ -119,12 +120,12 @@ erDiagram
         uuid id PK "UUIDv4"
         uuid exam_id FK "De thi so huu"
         integer position "Thu tu cau hoi, Deferrable Deferred"
-        varchar question_type "Check in mcq, multi_select, true_false, short_answer, file_upload"
+        varchar question_type "Check: mcq | true_false | short_answer | file_upload"
         text content_md "Noi dung cau hoi Markdown va KaTeX"
-        jsonb choices "Danh sach lua chon lua chon lua chon"
-        jsonb answer_key "Dap an dung chi admin duoc xem"
-        numeric points "Diem so, default 1.00, check points >= 0"
-        integer version "Khoa lac quan, default 1"
+        jsonb config "Cau hinh tuy bien theo 4 dang cau hoi"
+        jsonb answer_key "Dap an dung va bieu diem chi tiet (bao mat)"
+        numeric points "Diem toi da cua cau, default 1.00, check >= 0"
+        integer version "Khoa lac quan optimistic lock, default 1"
     }
 
     ATTEMPTS {
@@ -143,12 +144,15 @@ erDiagram
     ANSWERS {
         uuid id PK "UUIDv4"
         uuid attempt_id FK "Unique attempt_id va question_id"
-        uuid question_id FK "Cau hoi"
-        jsonb value "Gia tri cau tra loi gon cua hoc sinh"
+        uuid question_id FK "Cau hoi tuong ung"
+        uuid file_id FK "Khoa ngoai tep tin bai lam tu luan neu co"
+        jsonb value "Dap an hoc sinh nop (chon/so/file)"
+        jsonb sub_scores "Diem chi tiet tung y nho a b c d hoac tieu chi"
         bigint client_seq "Sequence client chong out-of-order, default 0"
-        numeric score "Diem cham dat duoc"
-        boolean is_correct "Dung hoac Sai"
-        uuid graded_by FK "Nguoi cham tay"
+        numeric score "Tong diem dat duoc cua cau"
+        boolean is_correct "Dung hoan toan hoac Sai"
+        text feedback_md "Loi nhan xet cua giao vien khi cham tay"
+        uuid graded_by FK "Giao vien cham tay"
         timestamptz graded_at "Thoi diem cham"
         integer version "Khoa lac quan, default 1"
         timestamptz updated_at "Thoi diem cap nhat"
