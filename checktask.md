@@ -23,7 +23,7 @@
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[ ]`   |     0%     |
+| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     20%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
@@ -194,23 +194,23 @@
 
 ### GIAI ĐOẠN 2. NỀN TẢNG BACKEND, CSDL & XÁC THỰC (4 NGÀY)
 
-- [ ] **Bước 2.1 — Khung ứng dụng FastAPI, Middleware & Xử lý lỗi tập trung**
+- [x] **Bước 2.1 — Khung ứng dụng FastAPI, Middleware & Xử lý lỗi tập trung**
 
-  - [ ] Cấu hình FastAPI `create_app()` với kiến trúc thư mục chuẩn (`core/`, `db/`, `models/`, `schemas/`, `routers/`, `services/`).
-  - [ ] Thiết lập chuỗi Middleware theo thứ tự: `RequestID` $\to$ `AccessLog` $\to$ `SecurityHeaders` $\to$ `CORS` $\to$ `GZip`.
-  - [ ] Giới hạn kích thước body mặc định 1 MB (bắt lỗi 413).
-  - [ ] Định dạng lỗi thống nhất qua custom exception `AppError` trả về JSON `{"error": {...}}`.
-  - [ ] Cung cấp các endpoint: `/healthz` (không chạm DB), `/readyz` (timeout 2s kiểm tra DB), `/api/v1/time`.
-  - [ ] Cấu hình Logger định dạng JSON, tự động che trường mật khẩu, token, authorization, answer_key.
+  - [x] Cấu hình FastAPI `create_app()` với kiến trúc thư mục chuẩn (`core/`, `db/`, `models/`, `schemas/`, `routers/`, `services/`).
+  - [x] Thiết lập chuỗi Middleware theo thứ tự: `RequestID` $\to$ `AccessLog` $\to$ `SecurityHeaders` $\to$ `CORS` $\to$ `GZip`.
+  - [x] Giới hạn kích thước body mặc định 1 MB (bắt lỗi 413 qua `BodySizeLimitMiddleware`).
+  - [x] Định dạng lỗi thống nhất qua custom exception `AppError` trả về JSON `{"error": {...}}`.
+  - [x] Cung cấp các endpoint: `/healthz` (không chạm DB), `/readyz` (timeout 2s kiểm tra DB), `/api/v1/time`.
+  - [x] Cấu hình Logger định dạng JSON, tự động che trường mật khẩu, token, authorization, answer_key.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-2.1-01`: Lỗi nghiệp vụ trả đúng HTTP status, cấu trúc JSON và có header `X-Request-ID`.
-    - [ ] `TC-2.1-02`: Lỗi 500 không bị lộ stack trace ra phía client, có stack đầy đủ trong server log.
-    - [ ] `TC-2.1-03`: Tắt DB thì `/readyz` trả 503 kèm `Retry-After`, `/healthz` vẫn trả 200.
-    - [ ] `TC-2.1-04`: Gửi payload JSON > 1 MB bị từ chối ngay với mã 413/400.
-    - [ ] `TC-2.1-05`: Origin không trong whitelist bị chặn CORS preflight.
-    - [ ] `TC-2.1-06`: Log đăng nhập không chứa mật khẩu gốc của người dùng.
-    - [ ] `TC-2.1-07`: Request sai schema Pydantic trả về 422 validation_error rõ trường lỗi.
+    - [x] `TC-2.1-01`: Lỗi nghiệp vụ trả đúng HTTP status, cấu trúc JSON và có header `X-Request-ID`.
+    - [x] `TC-2.1-02`: Lỗi 500 không bị lộ stack trace ra phía client, có stack đầy đủ trong server log.
+    - [x] `TC-2.1-03`: Tắt DB thì `/readyz` trả 503 kèm `Retry-After`, `/healthz` vẫn trả 200.
+    - [x] `TC-2.1-04`: Gửi payload JSON > 1 MB bị từ chối ngay với mã 413/400.
+    - [x] `TC-2.1-05`: Origin không trong whitelist bị chặn CORS preflight.
+    - [x] `TC-2.1-06`: Log đăng nhập không chứa mật khẩu gốc của người dùng.
+    - [x] `TC-2.1-07`: Request sai schema Pydantic trả về 422 validation_error rõ trường lỗi.
 - [ ] **Bước 2.2 — Thiết kế CSDL, SQLAlchemy Models & Alembic Migrations**
 
   - [ ] Thiết kế các bảng: `users`, `classes`, `class_members`, `exams`, `exam_classes`, `questions`, `attempts`, `answers`, `files`, `sessions`, `audit_logs`.

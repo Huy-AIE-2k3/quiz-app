@@ -1,17 +1,38 @@
-"""FastAPI Application Main Entry Point."""
+"""FastAPI Application Main Entry Point & Factory."""
 
-from datetime import UTC, datetime
-
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import text
-from sqlalchemy.engine import create_engine
+from sqlalchemy.exc import OperationalError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.middleware.gzip import GZipMiddleware
 
 from app.core.config import get_settings
+from app.core.errors import (
+    AppError,
+    app_error_handler,
+    http_exception_handler,
+    operational_error_handler,
+    unhandled_exception_handler,
+    validation_error_handler,
+)
+from app.core.logging import setup_logging
+from app.core.middleware import (
+    AccessLogMiddleware,
+    BodySizeLimitMiddleware,
+    RequestIDMiddleware,
+    SecurityHeadersMiddleware,
+)
+from app.routers.dev import router as dev_router
+from app.routers.system import router as system_router
 
 
 def create_app() -> FastAPI:
+    """Application factory for FastAPI instance."""
     settings = get_settings()
+
+    # Configure structured JSON logging with redaction
+    setup_logging(level="DEBUG" if settings.DEBUG else "INFO")
 
     app = FastAPI(
         title="Quiz Toán - Tin API",
@@ -20,41 +41,40 @@ def create_app() -> FastAPI:
         redoc_url=None,
     )
 
-    # CORS configuration
+    # Register centralized exception handlers
+    app.add_exception_handler(AppError, app_error_handler)  # type: ignore
+    app.add_exception_handler(RequestValidationError, validation_error_handler)  # type: ignore
+    app.add_exception_handler(OperationalError, operational_error_handler)  # type: ignore
+    app.add_exception_handler(StarletteHTTPException, http_exception_handler)  # type: ignore
+    app.add_exception_handler(Exception, unhandled_exception_handler)
+
+    # Configure ASGI Middleware stack (executed outside-in)
+    # Execution order on Request:
+    # RequestID -> BodySizeLimit -> AccessLog -> SecurityHeaders -> CORS -> GZip -> Router
+    app.add_middleware(GZipMiddleware, minimum_size=1000)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
+        expose_headers=["X-Request-ID"],
     )
+    app.add_middleware(SecurityHeadersMiddleware)
+    app.add_middleware(AccessLogMiddleware)
+    app.add_middleware(
+        BodySizeLimitMiddleware,
+        default_limit=1_048_576,  # 1 MB default
+        upload_limit=settings.MAX_UPLOAD_MB * 1024 * 1024,
+    )
+    app.add_middleware(RequestIDMiddleware)
 
-    @app.get("/healthz", status_code=status.HTTP_200_OK, tags=["System"])
-    def healthz() -> dict:
-        """Liveness probe: verifies process is alive without touching database."""
-        return {"status": "ok", "app": "quiz-backend"}
+    # Register API Routers
+    app.include_router(system_router)
 
-    @app.get("/readyz", tags=["System"])
-    def readyz(response: Response) -> dict:
-        """Readiness probe: verifies database connection."""
-        try:
-            engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True, pool_timeout=2)
-            with engine.connect() as conn:
-                conn.execute(text("SELECT 1"))
-            return {"status": "ready", "database": "connected"}
-        except Exception as exc:
-            response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
-            response.headers["Retry-After"] = "2"
-            return {"status": "unhealthy", "error": "db_unavailable", "detail": str(exc)}
-
-    @app.get("/api/v1/time", tags=["System"])
-    def server_time() -> dict:
-        """Returns business server time in UTC ISO-8601 with Z and epoch milliseconds."""
-        now = datetime.now(UTC)
-        return {
-            "server_now": now.isoformat().replace("+00:00", "Z"),
-            "epoch_ms": int(now.timestamp() * 1000),
-        }
+    # Include development/diagnostic routes for testing and staging
+    if settings.APP_ENV in ("development", "test") or settings.DEBUG:
+        app.include_router(dev_router)
 
     return app
 
