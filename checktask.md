@@ -14,6 +14,10 @@
 > - Cấm hardcode hoặc gán sẵn bất kỳ tài khoản/mật khẩu mặc định nào trong mã nguồn, file cấu hình, seed script hay migration.
 > - Không tự sinh admin mặc định khi server khởi động. Tài khoản Admin đầu tiên bắt buộc phải do người dùng tự nhập thông tin qua CLI tương tác (`create-admin`).
 > - Mật khẩu học sinh phải do giáo viên tự thiết lập hoặc chủ động chọn tính năng sinh ngẫu nhiên an toàn có xác nhận (tuyệt đối không dùng mật khẩu mặc định cố định như `123456`, ngày sinh...).
+>
+> **QUY TẮC PHÂN NHÁNH GIT (GIT WORKFLOW RULE):**
+> - **Chỉ push vào `dev`**: Trong suốt quá trình thực hiện từng task, toàn bộ commit và lệnh `git push` chỉ được phép đẩy lên nhánh `dev`.
+> - **Điều kiện đẩy sang `main`**: Chỉ chuyển code sang nhánh `main` vào **cuối ngày làm việc** sau khi đã hoàn thành toàn bộ khối lượng công việc trong ngày và kiểm thử đầy đủ 100%.
 
 ---
 
