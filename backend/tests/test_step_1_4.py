@@ -14,7 +14,8 @@ from pathlib import Path
 
 import pytest
 
-SCREENS_DIR = Path("design/screens")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+SCREENS_DIR = PROJECT_ROOT / "design" / "screens"
 
 SLOP_PATTERNS = [
     (

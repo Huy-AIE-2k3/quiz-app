@@ -84,7 +84,7 @@ def test_tc_1_3_03_checkpoint_and_resume():
 
     try:
         # Giả lập tiến trình dừng sau khi sinh SC-05
-        partial_completed = ["SC-01", "SC-02", "SC-03", "SC-04", "SC-05"]
+        partial_completed = ["SC-00", "SC-01", "SC-02", "SC-03", "SC-04", "SC-05"]
         payload = {
             "last_completed_code": "SC-05",
             "completed_codes": partial_completed,
