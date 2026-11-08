@@ -28,7 +28,7 @@
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |    80%    |
+| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
@@ -280,27 +280,27 @@
     - [X] `TC-2.4-06`: `remaining_seconds` làm tròn lên và không bao giờ âm.
     - [X] `TC-2.4-07`: Giả lập lệch giờ > 2s giữa app và DB ghi log cảnh báo `clock_skew`.
     - [X] `TC-2.4-08`: CI grep không phát hiện `datetime.now()` ngoài `core/time.py`.
-- [ ] **Bước 2.5 — Khung Frontend: API Client, Routing & Xử lý lỗi toàn cục**
+- [X] **Bước 2.5 — Khung Frontend: API Client, Routing & Xử lý lỗi toàn cục**
 
-  - [ ] Viết API client `lib/api.ts` phân biệt `ApiError` và `NetworkError`.
-  - [ ] Cấu hình tự động retry tối đa 3 lần cho GET/idempotent request khi gặp lỗi mạng hoặc 502/503/504.
-  - [ ] Xử lý token 401: Chuyển hướng login kèm `returnTo`, riêng trang làm bài giữ nguyên outbox.
-  - [ ] Bắt tín hiệu máy chủ Render ngủ: Chờ > 3s hiện Banner "Đang đánh thức máy chủ", poll `/healthz` tự phục hồi.
-  - [ ] Cấu hình TanStack Query (`staleTime: 30s`, tắt refetchOnWindowFocus khi đang làm bài).
-  - [ ] Bộ định tuyến React Router bọc `RequireAuth(role)`.
-  - [ ] Bắt sự kiện `vite:preloadError` khi có deploy bản mới, hiện hộp thoại tải lại mà không mất draft.
-  - [ ] Quản lý từ điển tiếng Việt tập trung `lib/i18n/vi.ts`.
+  - [X] Viết API client `lib/api.ts` phân biệt `ApiError` và `NetworkError`.
+  - [X] Cấu hình tự động retry tối đa 3 lần cho GET/idempotent request khi gặp lỗi mạng hoặc 502/503/504.
+  - [X] Xử lý token 401: Chuyển hướng login kèm `returnTo`, riêng trang làm bài giữ nguyên outbox.
+  - [X] Bắt tín hiệu máy chủ Render ngủ: Chờ > 3s hiện Banner "Đang đánh thức máy chủ", poll `/healthz` tự phục hồi.
+  - [X] Cấu hình TanStack Query (`staleTime: 30s`, tắt refetchOnWindowFocus khi đang làm bài).
+  - [X] Bộ định tuyến React Router bọc `RequireAuth(role)`.
+  - [X] Bắt sự kiện `vite:preloadError` khi có deploy bản mới, hiện hộp thoại tải lại mà không mất draft.
+  - [X] Quản lý từ điển tiếng Việt tập trung `lib/i18n/vi.ts`.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-2.5-01`: Phân biệt rành mạch giữa HTTP 500 (ApiError) và mất mạng (NetworkError).
-    - [ ] `TC-2.5-02`: GET request tự động thử lại thành công khi server chập chờn 503.
-    - [ ] `TC-2.5-03`: POST không idempotent không bao giờ tự động thử lại khi mất mạng.
-    - [ ] `TC-2.5-04`: Token hết hạn tự động đưa về login và chuyển lại trang cũ sau đăng nhập.
-    - [ ] `TC-2.5-05`: Banner "Đang đánh thức máy chủ" tự động ẩn khi server khởi động xong.
-    - [ ] `TC-2.5-06`: Máy chủ tắt hẳn quá 90s hiện thông báo lỗi kèm nút thử lại thủ công.
-    - [ ] `TC-2.5-07`: Deploy bản mới kích hoạt preload error nhưng outbox trong localStorage vẫn nguyên vẹn.
-    - [ ] `TC-2.5-08`: Học sinh không thể truy cập URL admin và ngược lại.
-    - [ ] `TC-2.5-09`: Khi `localStorage` bị chặn, ứng dụng tự fallback lưu phiên trên bộ nhớ tạm.
+    - [X] `TC-2.5-01`: Phân biệt rành mạch giữa HTTP 500 (ApiError) và mất mạng (NetworkError).
+    - [X] `TC-2.5-02`: GET request tự động thử lại thành công khi server chập chờn 503.
+    - [X] `TC-2.5-03`: POST không idempotent không bao giờ tự động thử lại khi mất mạng.
+    - [X] `TC-2.5-04`: Token hết hạn tự động đưa về login và chuyển lại trang cũ sau đăng nhập.
+    - [X] `TC-2.5-05`: Banner "Đang đánh thức máy chủ" tự động ẩn khi server khởi động xong.
+    - [X] `TC-2.5-06`: Máy chủ tắt hẳn quá 90s hiện thông báo lỗi kèm nút thử lại thủ công.
+    - [X] `TC-2.5-07`: Deploy bản mới kích hoạt preload error nhưng outbox trong localStorage vẫn nguyên vẹn.
+    - [X] `TC-2.5-08`: Học sinh không thể truy cập URL admin và ngược lại.
+    - [X] `TC-2.5-09`: Khi `localStorage` bị chặn, ứng dụng tự fallback lưu phiên trên bộ nhớ tạm.
 
 ---
 

@@ -1,65 +1,84 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { ToastProvider, Button, Badge } from './components';
+/**
+ * Main Application Shell & Root Routing.
+ *
+ * Implements:
+ * - QueryClientProvider (TanStack Query)
+ * - AuthProvider & Role Guards (RequireAuth)
+ * - Global ErrorBoundary & Vite Chunk update handling
+ * - Server Wake-up notification Banner & Storage fallback alert
+ * - Strict Guest routes (Landing page and Login only)
+ */
 
-// Code-splitting for dev showroom to keep initial bundle size minimal (TC-1.5-05)
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/queryClient';
+import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './components';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { ServerWakeBanner } from './components/common/ServerWakeBanner';
+import { StorageWarningBanner } from './components/common/StorageWarningBanner';
+import { RequireAuth } from './components/auth/RequireAuth';
+
+import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/LoginPage';
+import { AdminClassesPage } from './pages/admin/AdminClassesPage';
+import { StudentExamsPage } from './pages/student/StudentExamsPage';
+
+// Code-splitting for dev showroom to keep production bundle minimal
 const DevComponentsPage = lazy(() =>
   import('./pages/DevComponentsPage').then((m) => ({ default: m.DevComponentsPage }))
 );
 
-const HomePlaceholder: React.FC = () => {
+const AppRoutes: React.FC = () => {
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 bg-canvas text-text-primary">
-      <div className="max-w-md w-full bg-surface border border-line-subtle rounded-lg p-6 shadow-sm text-left">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-3 h-3 rounded-full bg-brand animate-pulse"></div>
-            <h1 className="text-xl font-bold font-display text-text-primary">Quiz Toán - Tin</h1>
-          </div>
-          <Badge variant="brand" size="sm">
-            MATHRIX
-          </Badge>
-        </div>
+    <Routes>
+      {/* Public routes for Guests */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/dev/components" element={<DevComponentsPage />} />
 
-        <p className="text-text-muted text-sm mb-6 font-sans">
-          Hệ thống kiểm tra trực tuyến nội bộ dành cho học sinh Toán &amp; Tin học.
-        </p>
+      {/* Protected Admin Routes */}
+      <Route element={<RequireAuth allowedRoles={['admin']} />}>
+        <Route path="/a" element={<Navigate to="/a/classes" replace />} />
+        <Route path="/a/classes" element={<AdminClassesPage />} />
+      </Route>
 
-        <div className="p-3 bg-elevated rounded-md border border-line-subtle text-xs text-text-secondary mb-6">
-          Thư viện React Components chuẩn hóa Design System Emerald Precision đã sẵn sàng (Giai đoạn 1.5).
-        </div>
+      {/* Protected Student Routes */}
+      <Route element={<RequireAuth allowedRoles={['student']} />}>
+        <Route path="/s" element={<Navigate to="/s/exams" replace />} />
+        <Route path="/s/exams" element={<StudentExamsPage />} />
+      </Route>
 
-        <div className="flex items-center justify-between pt-2 border-t border-line-subtle">
-          <Link to="/dev/components">
-            <Button size="sm" variant="outline">
-              Mở /dev/components
-            </Button>
-          </Link>
-          <span className="text-[11px] font-mono text-text-muted">Mathrix UI v0.1</span>
-        </div>
-      </div>
-    </main>
+      {/* Catch-all fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 
 export const App: React.FC = () => {
   return (
-    <ToastProvider>
-      <BrowserRouter>
-        <Suspense
-          fallback={
-            <div className="min-h-screen flex items-center justify-center bg-canvas text-text-primary">
-              <span className="font-mono text-xs text-text-muted">Đang tải Mathrix UI...</span>
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<HomePlaceholder />} />
-            <Route path="/dev/components" element={<DevComponentsPage />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </ToastProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ToastProvider>
+            <ServerWakeBanner />
+            <StorageWarningBanner />
+            <BrowserRouter>
+              <Suspense
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center bg-canvas text-text-primary">
+                    <span className="font-mono text-xs text-text-muted">Đang tải Mathrix UI...</span>
+                  </div>
+                }
+              >
+                <AppRoutes />
+              </Suspense>
+            </BrowserRouter>
+          </ToastProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
