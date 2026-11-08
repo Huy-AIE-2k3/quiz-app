@@ -109,3 +109,17 @@ def clear_failed_logins(client_ip: str, username: str) -> None:
     key = (client_ip, username.lower())
     with _failed_lock:
         _failed_attempts.pop(key, None)
+
+
+SAFE_PASSWORD_CHARS = "23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+
+
+def generate_random_password(length: int = 8) -> str:
+    """Generates an unambiguous, human-friendly random password containing letters and digits.
+
+    Excludes visually ambiguous characters (0, O, I, l, 1).
+    """
+    while True:
+        pwd = "".join(secrets.choice(SAFE_PASSWORD_CHARS) for _ in range(length))
+        if any(c.isdigit() for c in pwd) and any(c.isalpha() for c in pwd):
+            return pwd

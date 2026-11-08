@@ -15,6 +15,7 @@ from app.db.session import get_db
 from app.models import Session as SessionModel
 from app.models import User
 from app.routers.admin_classes import router as classes_router
+from app.routers.admin_students import router as students_router
 
 router = APIRouter(
     prefix="/api/v1/admin",
@@ -22,6 +23,7 @@ router = APIRouter(
     dependencies=[Depends(require_admin)],
 )
 router.include_router(classes_router)
+router.include_router(students_router)
 
 
 @router.get("/dashboard", status_code=status.HTTP_200_OK)

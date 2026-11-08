@@ -3,7 +3,7 @@
 import uuid
 
 from fastapi import APIRouter, Depends, Query, status
-from sqlalchemy import func, or_, select
+from sqlalchemy import delete, func, or_, select
 from sqlalchemy.orm import Session
 
 from app.core.dependencies import require_admin
@@ -16,6 +16,7 @@ from app.schemas.class_schema import (
     ClassResponse,
     ClassUpdate,
 )
+from app.schemas.student_schema import EnrollmentRequest, EnrollmentResponse
 
 router = APIRouter(
     prefix="/classes",
@@ -307,3 +308,94 @@ def delete_class(
     db.commit()
 
     return {"status": "deleted", "id": str(class_id)}
+
+
+@router.put(
+    "/{class_id}/members",
+    response_model=EnrollmentResponse,
+    status_code=status.HTTP_200_OK,
+)
+def set_class_members(
+    class_id: uuid.UUID,
+    payload: EnrollmentRequest,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin),
+) -> EnrollmentResponse:
+    """Idempotently updates classroom membership using set diff.
+
+    Acquires row-level exclusive lock on class (SELECT FOR UPDATE) to serialize
+    concurrent modifications.
+    Validates that all user IDs exist, are active, and have role='student'.
+    Rolls back 100% if any ID is invalid.
+    """
+    # 1. Lock class row exclusively
+    cls_obj = db.execute(
+        select(Class).where(Class.id == class_id).with_for_update()
+    ).scalar_one_or_none()
+    if not cls_obj:
+        raise AppError(code="class_not_found", message="Không tìm thấy lớp học.", status_code=404)
+
+    if cls_obj.is_archived:
+        raise AppError(
+            code="class_archived",
+            message="Lớp đã được lưu trữ, không thể thay đổi danh sách học sinh.",
+            status_code=409,
+        )
+
+    target_uids = list(set(payload.user_ids))
+
+    # 2. Validate all student IDs
+    if target_uids:
+        valid_students = (
+            db.execute(
+                select(User.id).where(
+                    User.id.in_(target_uids),
+                    User.role == "student",
+                    User.is_active.is_(True),
+                )
+            )
+            .scalars()
+            .all()
+        )
+        valid_set = set(valid_students)
+        invalid_uids = [str(uid) for uid in target_uids if uid not in valid_set]
+        if invalid_uids:
+            raise AppError(
+                code="invalid_members",
+                message=(
+                    "Danh sách chứa ID học sinh không hợp lệ, không tồn tại hoặc đã bị vô hiệu hóa."
+                ),
+                status_code=422,
+                details={"invalid_user_ids": invalid_uids},
+            )
+
+    # 3. Idempotent set diff
+    current_members = set(
+        db.execute(select(ClassMember.student_id).where(ClassMember.class_id == class_id))
+        .scalars()
+        .all()
+    )
+    target_set = set(target_uids)
+
+    to_add = target_set - current_members
+    to_remove = current_members - target_set
+
+    if to_remove:
+        db.execute(
+            delete(ClassMember).where(
+                ClassMember.class_id == class_id,
+                ClassMember.student_id.in_(to_remove),
+            )
+        )
+
+    for sid in to_add:
+        db.add(ClassMember(class_id=class_id, student_id=sid))
+
+    db.commit()
+
+    return EnrollmentResponse(
+        class_id=class_id,
+        added=len(to_add),
+        removed=len(to_remove),
+        total=len(target_set),
+    )

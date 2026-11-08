@@ -29,7 +29,7 @@
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     25%     |
+| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     50%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
@@ -321,25 +321,25 @@
     - [X] `TC-3.1-05`: Phân trang với tham số biên (limit=0, offset âm) được validate chuẩn.
     - [X] `TC-3.1-06`: Tải danh sách 50 lớp chỉ tốn $\le 3$ câu query SQL.
     - [X] `TC-3.1-07`: Sửa đồng thời cùng version trả 409 cho người đến sau.
-- [ ] **Bước 3.2 — API Quản lý Học sinh & Ghi danh vào Lớp**
+- [X] **Bước 3.2 — API Quản lý Học sinh & Ghi danh vào Lớp**
 
-  - [ ] CRUD học sinh: Chuẩn hóa username regex `^[a-z0-9._-]{3,32}$`, chuẩn hóa tên Unicode NFC.
-  - [ ] Mật khẩu học sinh do giáo viên tự nhập hoặc chủ động chọn "Tự sinh ngẫu nhiên an toàn" (tuyệt đối không dùng mật khẩu mặc định cố định); chỉ trả về mật khẩu gốc **duy nhất 1 lần** khi tạo/reset.
-  - [ ] Ghi danh theo tập hợp (`PUT /admin/classes/{id}/members` body `{user_ids: [...]}`):
-    - [ ] Khóa dòng lớp `SELECT ... FOR UPDATE`.
-    - [ ] Thao tác idempotent (tính tập thêm/bớt và thực thi trong 1 transaction).
-  - [ ] Rút học sinh khỏi lớp giữa chừng: Không hủy bài làm đang thi dở của học sinh.
-  - [ ] Khóa tài khoản / Đặt lại mật khẩu: Hủy toàn bộ `sessions` hiện có của học sinh.
+  - [X] CRUD học sinh: Chuẩn hóa username regex `^[a-z0-9._-]{3,32}$`, chuẩn hóa tên Unicode NFC.
+  - [X] Mật khẩu học sinh do giáo viên tự nhập hoặc chủ động chọn "Tự sinh ngẫu nhiên an toàn" (tuyệt đối không dùng mật khẩu mặc định cố định); chỉ trả về mật khẩu gốc **duy nhất 1 lần** khi tạo/reset.
+  - [X] Ghi danh theo tập hợp (`PUT /admin/classes/{id}/members` body `{user_ids: [...]}`):
+    - [X] Khóa dòng lớp `SELECT ... FOR UPDATE`.
+    - [X] Thao tác idempotent (tính tập thêm/bớt và thực thi trong 1 transaction).
+  - [X] Rút học sinh khỏi lớp giữa chừng: Không hủy bài làm đang thi dở của học sinh.
+  - [X] Khóa tài khoản / Đặt lại mật khẩu: Hủy toàn bộ `sessions` hiện có của học sinh.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-3.2-01`: Tạo học sinh validate chặt username, từ chối trùng lặp.
-    - [ ] `TC-3.2-02`: Mật khẩu sinh tự động chỉ xuất hiện trong phản hồi tạo mới, không thấy ở GET.
-    - [ ] `TC-3.2-03`: Ghi danh cùng 1 danh sách nhiều lần không sinh lỗi và không nhân đôi dữ liệu.
-    - [ ] `TC-3.2-04`: Danh sách ghi danh chứa ID không tồn tại sẽ rollback toàn bộ.
-    - [ ] `TC-3.2-05`: Học sinh thuộc nhiều lớp nhận đề thi không bị nhân đôi đề.
-    - [ ] `TC-3.2-06`: Hai admin cùng ghi danh đồng thời được tuần tự hóa, dữ liệu toàn vẹn.
-    - [ ] `TC-3.2-07`: Rút học sinh khỏi lớp khi đang làm bài thi vẫn cho phép nộp bài bình thường.
-    - [ ] `TC-3.2-08`: Khóa tài khoản lập tức thu hồi quyền và đá phiên đăng nhập.
+    - [X] `TC-3.2-01`: Tạo học sinh validate chặt username, từ chối trùng lặp.
+    - [X] `TC-3.2-02`: Mật khẩu sinh tự động chỉ xuất hiện trong phản hồi tạo mới, không thấy ở GET.
+    - [X] `TC-3.2-03`: Ghi danh cùng 1 danh sách nhiều lần không sinh lỗi và không nhân đôi dữ liệu.
+    - [X] `TC-3.2-04`: Danh sách ghi danh chứa ID không tồn tại sẽ rollback toàn bộ.
+    - [X] `TC-3.2-05`: Học sinh thuộc nhiều lớp nhận đề thi không bị nhân đôi đề.
+    - [X] `TC-3.2-06`: Hai admin cùng ghi danh đồng thời được tuần tự hóa, dữ liệu toàn vẹn.
+    - [X] `TC-3.2-07`: Rút học sinh khỏi lớp khi đang làm bài thi vẫn cho phép nộp bài bình thường.
+    - [X] `TC-3.2-08`: Khóa tài khoản lập tức thu hồi quyền và đá phiên đăng nhập.
 - [ ] **Bước 3.3 — Nhập học sinh hàng loạt bằng CSV (Quy trình 2 pha)**
 
   - [ ] Xử lý encoding file: Tự nhận diện UTF-8 có BOM và Windows-1258 (Excel tiếng Việt).
