@@ -224,6 +224,75 @@ def seed_development_data(admin_username: str | None = None) -> None:
         print("[OK] Hoàn tất quá trình seed dữ liệu phát triển.")
 
 
+def create_admin_user(
+    username: str | None = None,
+    password: str | None = None,
+    full_name: str | None = None,
+) -> bool:
+    """Creates an administrator account enforcing security policies (min len 12, no defaults)."""
+    import getpass
+
+    from app.core.security import hash_password
+
+    if not username:
+        try:
+            username = input("Nhập tên đăng nhập admin (tối thiểu 3 ký tự): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nĐã hủy thao tác.")
+            return False
+
+    username_clean = username.strip().lower()
+    if len(username_clean) < 3:
+        print("ERROR: Tên đăng nhập phải có ít nhất 3 ký tự.")
+        return False
+
+    session_factory = get_session_factory()
+    with session_factory() as db:
+        existing = db.execute(
+            select(User).where(User.username == username_clean)
+        ).scalar_one_or_none()
+        if existing:
+            print(f"ERROR: Tên đăng nhập '{username_clean}' đã tồn tại trong hệ thống.")
+            return False
+
+        if not full_name:
+            try:
+                full_name = input("Nhập họ và tên đầy đủ: ").strip()
+            except (EOFError, KeyboardInterrupt):
+                full_name = "Quản trị viên"
+            if not full_name:
+                full_name = "Quản trị viên"
+
+        if not password:
+            try:
+                pw1 = getpass.getpass("Nhập mật khẩu bảo mật (tối thiểu 12 ký tự): ")
+                pw2 = getpass.getpass("Xác nhận lại mật khẩu: ")
+                if pw1 != pw2:
+                    print("ERROR: Mật khẩu xác nhận không khớp.")
+                    return False
+                password = pw1
+            except (EOFError, KeyboardInterrupt):
+                print("\nĐã hủy thao tác.")
+                return False
+
+        if len(password) < 12:
+            print("ERROR: Mật khẩu phải có độ dài tối thiểu 12 ký tự theo chuẩn bảo mật.")
+            return False
+
+        hashed_pw = hash_password(password)
+        new_admin = User(
+            username=username_clean,
+            full_name=full_name,
+            hashed_password=hashed_pw,
+            role="admin",
+            is_active=True,
+        )
+        db.add(new_admin)
+        db.commit()
+        print(f"[+] Khởi tạo thành công tài khoản quản trị viên: {username_clean} ({full_name})")
+        return True
+
+
 def main() -> None:
     """CLI dispatcher."""
     parser = argparse.ArgumentParser(description="Quiz App CLI Management Utility")
@@ -238,9 +307,25 @@ def main() -> None:
         help="Username of existing administrator to attribute created exam",
     )
 
+    # Create admin command
+    admin_parser = subparsers.add_parser(
+        "create-admin", help="Interactively create the initial administrator account"
+    )
+    admin_parser.add_argument("--username", type=str, default=None, help="Administrator username")
+    admin_parser.add_argument("--password", type=str, default=None, help="Administrator password")
+    admin_parser.add_argument("--full-name", type=str, default=None, help="Full display name")
+
     args = parser.parse_args()
     if args.command == "seed":
         seed_development_data(admin_username=args.admin_username)
+    elif args.command == "create-admin":
+        success = create_admin_user(
+            username=args.username,
+            password=args.password,
+            full_name=args.full_name,
+        )
+        if not success:
+            sys.exit(1)
 
 
 if __name__ == "__main__":

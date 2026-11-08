@@ -23,8 +23,8 @@ from app.core.middleware import (
     RequestIDMiddleware,
     SecurityHeadersMiddleware,
 )
+from app.routers import admin_router, auth_router, student_router, system_router
 from app.routers.dev import router as dev_router
-from app.routers.system import router as system_router
 
 
 def create_app() -> FastAPI:
@@ -70,6 +70,9 @@ def create_app() -> FastAPI:
     app.add_middleware(RequestIDMiddleware)
 
     # Register API Routers
+    app.include_router(auth_router)
+    app.include_router(admin_router)
+    app.include_router(student_router)
     app.include_router(system_router)
 
     # Include development/diagnostic routes for testing and staging

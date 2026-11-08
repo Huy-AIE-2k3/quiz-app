@@ -27,7 +27,7 @@
 | ----------------------- | --------------------------------------------------------------------------- | ------------------------------ | :----------: | :--------: |
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
-| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     40%    |
+| **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[-]`   |     60%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
@@ -239,28 +239,28 @@
     - [x] `TC-2.2-06`: Chèn giá trị status không hợp lệ bị check constraint từ chối.
     - [x] `TC-2.2-07`: Tự động phục hồi kết nối thành công khi Postgres thức dậy sau khi sleep.
     - [x] `TC-2.2-08`: `EXPLAIN` truy vấn sweeper sử dụng đúng partial index `ix_attempts_active_deadline`.
-- [ ] **Bước 2.3 — Xác thực, Phiên làm việc & Phân quyền bảo mật**
+- [x] **Bước 2.3 — Xác thực, Phiên làm việc & Phân quyền bảo mật**
 
-  - [ ] Băm mật khẩu bằng Argon2id (`argon2-cffi`), giới hạn đồng thời bằng `threading.BoundedSemaphore(3)` chống cạn RAM.
-  - [ ] Chống timing attack khi đăng nhập: Luôn verify với dummy hash nếu username không tồn tại.
-  - [ ] Tạo phiên đăng nhập token ngẫu nhiên 32 bytes an toàn, lưu `sha256(token)` trong bảng `sessions`.
-  - [ ] Áp dụng cơ chế hết hạn trượt (`SESSION_TTL_HOURS = 12`), chỉ ghi nhận `last_seen_at` mỗi 5 phút/lần.
-  - [ ] Cho phép đăng nhập đồng thời nhiều thiết bị (không ép 1 phiên/tài khoản).
-  - [ ] Giới hạn tần suất bằng `slowapi`: Max 10 lần sai/phút theo IP + username, 120 lần/phút theo IP.
-  - [ ] Tạo dependencies phân quyền FastAPI: `require_admin`, `require_student`.
-  - [ ] Viết CLI tương tác tạo tài khoản admin đầu tiên: `python -m app.cli create-admin` (người dùng tự gõ username và nhập mật khẩu ẩn ký tự với getpass, xác nhận lại, kiểm tra độ dài $\ge 12$; cấm tự sinh admin mặc định khi server start).
+  - [x] Băm mật khẩu bằng Argon2id (`argon2-cffi`), giới hạn đồng thời bằng `threading.BoundedSemaphore(3)` chống cạn RAM.
+  - [x] Chống timing attack khi đăng nhập: Luôn verify với dummy hash nếu username không tồn tại.
+  - [x] Tạo phiên đăng nhập token ngẫu nhiên 32 bytes an toàn, lưu `sha256(token)` trong bảng `sessions`.
+  - [x] Áp dụng cơ chế hết hạn trượt (`SESSION_TTL_HOURS = 12`), chỉ ghi nhận `last_seen_at` mỗi 5 phút/lần.
+  - [x] Cho phép đăng nhập đồng thời nhiều thiết bị (không ép 1 phiên/tài khoản).
+  - [x] Giới hạn tần suất bằng `slowapi`: Max 10 lần sai/phút theo IP + username, 120 lần/phút theo IP.
+  - [x] Tạo dependencies phân quyền FastAPI: `require_admin`, `require_student`.
+  - [x] Viết CLI tương tác tạo tài khoản admin đầu tiên: `python -m app.cli create-admin` (người dùng tự gõ username và nhập mật khẩu ẩn ký tự với getpass, xác nhận lại, kiểm tra độ dài $\ge 12$; cấm tự sinh admin mặc định khi server start).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-2.3-01`: Đăng nhập đúng nhận token và role, gọi `/auth/me` trả về đúng user.
-    - [ ] `TC-2.3-02`: Thời gian phản hồi khi sai mật khẩu và sai username lệch nhau không quá 30%.
-    - [ ] `TC-2.3-03`: Bảng `sessions` không lưu token gốc, chỉ lưu sha256 hex.
-    - [ ] `TC-2.3-04`: Token hết hạn hoặc bị admin thu hồi sẽ nhận mã 401.
-    - [ ] `TC-2.3-05`: Thử sai 11 lần/phút bị chặn rate-limit 429, user khác cùng IP không bị ảnh hưởng.
-    - [ ] `TC-2.3-06`: 40 học sinh đăng nhập cùng lúc từ 1 IP thành công, RAM máy chủ tăng an toàn < 200 MB.
-    - [ ] `TC-2.3-07`: Học sinh gọi endpoint `/admin/*` bị trả 403, ẩn danh nhận 401.
-    - [ ] `TC-2.3-08`: Khóa tài khoản học sinh thì toàn bộ phiên lập tức bị hủy.
-    - [ ] `TC-2.3-09`: Header Authorization sai định dạng trả 401, không văng lỗi 500.
-    - [ ] `TC-2.3-10`: Khởi tạo admin do người dùng tự quyết qua CLI create-admin; khởi động server khi chưa có admin an toàn (không tự sinh tài khoản mặc định); tạo trùng báo lỗi rõ ràng.
+    - [x] `TC-2.3-01`: Đăng nhập đúng nhận token và role, gọi `/auth/me` trả về đúng user.
+    - [x] `TC-2.3-02`: Thời gian phản hồi khi sai mật khẩu và sai username lệch nhau không quá 30%.
+    - [x] `TC-2.3-03`: Bảng `sessions` không lưu token gốc, chỉ lưu sha256 hex.
+    - [x] `TC-2.3-04`: Token hết hạn hoặc bị admin thu hồi sẽ nhận mã 401.
+    - [x] `TC-2.3-05`: Thử sai 11 lần/phút bị chặn rate-limit 429, user khác cùng IP không bị ảnh hưởng.
+    - [x] `TC-2.3-06`: 40 học sinh đăng nhập cùng lúc từ 1 IP thành công, RAM máy chủ tăng an toàn < 200 MB.
+    - [x] `TC-2.3-07`: Học sinh gọi endpoint `/admin/*` bị trả 403, ẩn danh nhận 401.
+    - [x] `TC-2.3-08`: Khóa tài khoản học sinh thì toàn bộ phiên lập tức bị hủy.
+    - [x] `TC-2.3-09`: Header Authorization sai định dạng trả 401, không văng lỗi 500.
+    - [x] `TC-2.3-10`: Khởi tạo admin do người dùng tự quyết qua CLI create-admin; khởi động server khi chưa có admin an toàn (không tự sinh tài khoản mặc định); tạo trùng báo lỗi rõ ràng.
 - [ ] **Bước 2.4 — Dịch vụ thời gian nghiệp vụ (`Clock`) & Các hàm thuần**
 
   - [ ] Cài đặt interface `Clock` và `SystemClock` (dùng UTC), hỗ trợ `FakeClock` cho kiểm thử.

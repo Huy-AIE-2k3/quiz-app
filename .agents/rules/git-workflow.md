@@ -17,3 +17,4 @@ description: "Quy tắc phân nhánh Git và chính sách đẩy code sang nhán
      1. Đã hoàn thành toàn bộ khối lượng công việc dự kiến của ngày hôm đó.
      2. Đã chạy kiểm thử tự động đầy đủ (100% Backend Pytest, 100% Frontend Vitest, Linting không lỗi).
    - Được sự xác nhận của người dùng tại thời điểm tổng kết ngày làm việc.
+
