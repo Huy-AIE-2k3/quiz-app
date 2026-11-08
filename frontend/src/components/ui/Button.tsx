@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, useRef, forwardRef } from 'react';
 import { Loader2 } from 'lucide-react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,9 +31,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const isSubmittingRef = useRef(false);
 
     const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (loading || isSubmitting || disabled) {
+      if (loading || isSubmitting || isSubmittingRef.current || disabled) {
         e.preventDefault();
         return;
       }
@@ -41,6 +42,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       if (!onClick) return;
 
       if (type === 'submit' || preventDoubleClick) {
+        isSubmittingRef.current = true;
         setIsSubmitting(true);
         try {
           const result: unknown = onClick(e);
@@ -48,6 +50,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             await (result as Promise<unknown>);
           }
         } finally {
+          isSubmittingRef.current = false;
           setIsSubmitting(false);
         }
       } else {

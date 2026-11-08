@@ -29,7 +29,7 @@
 | **Giai đoạn 0** | Chuẩn bị môi trường, tài khoản dịch vụ, Stitch MCP & Skill         | 1–2 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[-]`   |     75%     |
+| **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
@@ -360,24 +360,24 @@
     - [X] `TC-3.3-08`: Ô dữ liệu chứa dấu phẩy và ngoặc kép được parse chính xác.
     - [X] `TC-3.3-09`: Mật khẩu sinh ra không chứa ký tự gây nhầm và có cả chữ lẫn số.
     - [X] `TC-3.3-10`: Mã lớp trong CSV không tồn tại sẽ báo lỗi dòng cụ thể, không tự tạo lớp.
-- [ ] **Bước 3.4 — Giao diện Quản trị: Lớp, Học sinh & Wizard nhập CSV**
+- [X] **Bước 3.4 — Giao diện Quản trị: Lớp, Học sinh & Wizard nhập CSV**
 
-  - [ ] Xây dựng trang danh sách lớp, chi tiết lớp (tab Học sinh, Ghi danh, Nhập CSV).
-  - [ ] Xây dựng trang danh sách học sinh (tìm kiếm debounce 300ms, hủy request cũ qua AbortController).
-  - [ ] Wizard nhập CSV 3 bước:
-    - [ ] Bước 1: Kéo thả/chọn file, kiểm tra định dạng/dung lượng.
-    - [ ] Bước 2: Hiển thị bảng kết quả dry-run (dòng hợp lệ màu xanh, dòng lỗi màu đỏ kèm lý do), nút xác nhận bị disable nếu còn dòng lỗi.
-    - [ ] Bước 3: Xác nhận lưu, hiển thị bảng mật khẩu và nút "Tải CSV mật khẩu".
-  - [ ] Hộp thoại xác nhận nguy hiểm (`ConfirmDialog`) cho xóa lớp, reset mật khẩu, khóa tài khoản.
+  - [X] Xây dựng trang danh sách lớp, chi tiết lớp (tab Học sinh, Ghi danh, Nhập CSV).
+  - [X] Xây dựng trang danh sách học sinh (tìm kiếm debounce 300ms, hủy request cũ qua AbortController).
+  - [X] Wizard nhập CSV 3 bước:
+    - [X] Bước 1: Kéo thả/chọn file, kiểm tra định dạng/dung lượng.
+    - [X] Bước 2: Hiển thị bảng kết quả dry-run (dòng hợp lệ màu xanh, dòng lỗi màu đỏ kèm lý do), nút xác nhận bị disable nếu còn dòng lỗi.
+    - [X] Bước 3: Xác nhận lưu, hiển thị bảng mật khẩu và nút "Tải CSV mật khẩu".
+  - [X] Hộp thoại xác nhận nguy hiểm (`ConfirmDialog`) cho xóa lớp, reset mật khẩu, khóa tài khoản.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-3.4-01`: E2E luồng tạo lớp $\to$ import CSV 10 học sinh $\to$ ghi danh $\to$ tải CSV mật khẩu.
-    - [ ] `TC-3.4-02`: Lỗi validate từ API hiển thị chính xác ngay dưới ô input tương ứng.
-    - [ ] `TC-3.4-03`: Bấm đúp nút "Tạo lớp" chỉ gửi 1 request và tạo đúng 1 lớp.
-    - [ ] `TC-3.4-04`: File CSV có dòng lỗi thì nút "Xác nhận nhập" bị vô hiệu hóa.
-    - [ ] `TC-3.4-05`: Gõ nhanh ô tìm kiếm không bị hiện tượng kết quả cũ đè kết quả mới.
-    - [ ] `TC-3.4-06`: Xung đột phiên bản 409 hiển thị thông báo yêu cầu tải lại dữ liệu.
-    - [ ] `TC-3.4-07`: Mất mạng khi bấm xác nhận nhập hiện cảnh báo rõ ràng, không tự ý gửi lại.
+    - [X] `TC-3.4-01`: E2E luồng tạo lớp $\to$ import CSV 10 học sinh $\to$ ghi danh $\to$ tải CSV mật khẩu.
+    - [X] `TC-3.4-02`: Lỗi validate từ API hiển thị chính xác ngay dưới ô input tương ứng.
+    - [X] `TC-3.4-03`: Bấm đúp nút "Tạo lớp" chỉ gửi 1 request và tạo đúng 1 lớp.
+    - [X] `TC-3.4-04`: File CSV có dòng lỗi thì nút "Xác nhận nhập" bị vô hiệu hóa.
+    - [X] `TC-3.4-05`: Gõ nhanh ô tìm kiếm không bị hiện tượng kết quả cũ đè kết quả mới.
+    - [X] `TC-3.4-06`: Xung đột phiên bản 409 hiển thị thông báo yêu cầu tải lại dữ liệu.
+    - [X] `TC-3.4-07`: Mất mạng khi bấm xác nhận nhập hiện cảnh báo rõ ràng, không tự ý gửi lại.
 
 ---
 

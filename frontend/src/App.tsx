@@ -23,6 +23,8 @@ import { RequireAuth } from './components/auth/RequireAuth';
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { AdminClassesPage } from './pages/admin/AdminClassesPage';
+import { AdminClassDetailPage } from './pages/admin/AdminClassDetailPage';
+import { AdminStudentsPage } from './pages/admin/AdminStudentsPage';
 import { StudentExamsPage } from './pages/student/StudentExamsPage';
 
 // Code-splitting for dev showroom to keep production bundle minimal
@@ -42,6 +44,8 @@ const AppRoutes: React.FC = () => {
       <Route element={<RequireAuth allowedRoles={['admin']} />}>
         <Route path="/a" element={<Navigate to="/a/classes" replace />} />
         <Route path="/a/classes" element={<AdminClassesPage />} />
+        <Route path="/a/classes/:classId" element={<AdminClassDetailPage />} />
+        <Route path="/a/students" element={<AdminStudentsPage />} />
       </Route>
 
       {/* Protected Student Routes */}
