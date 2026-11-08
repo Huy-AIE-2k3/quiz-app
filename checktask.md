@@ -82,10 +82,11 @@
   - [X] Cài đặt Google Cloud SDK (`gcloud`), đăng nhập và kiểm tra xác thực Google Cloud ADC.
   - [X] Kích hoạt API Stitch: `stitch.googleapis.com` hoạt động bình thường.
   - [X] Cấu hình Stitch MCP và kiểm tra gọi công cụ thực tế (`list_projects`, `list_screens`, `list_design_systems`).
-  - [X] Cài đặt đầy đủ 8 skill thiết kế vào `.agents/skills/`:
+  - [X] Cài đặt đầy đủ các skill vào `.agents/skills/`:
     - [X] `google-labs-code/stitch-skills` (`stitch-generate-design`, `stitch-loop`, `design-md`, `enhance-prompt`, `stitch-react-components`, `taste-design`).
     - [X] `anthropics/skills` (`frontend-design`).
     - [X] `pbakaus/impeccable` (`impeccable`).
+    - [X] `mermaid.ai` (`mermaid` - Thiết kế mô hình CSDL ERD & sơ đồ kiến trúc cho Giai đoạn 2).
   - [X] Chuẩn bị tài liệu và quy trình xuất thiết kế thủ công dự phòng `docs/ux/stitch-workflow.md`.
 
   - **Kiểm thử cần đạt:**

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mermaid Preview - erd_quiz_toan_tin</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose'
+        });
+    </script>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 2rem;
+        }
+        .diagram-container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        h2 {
+            color: #58a6ff;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mermaid Preview - erd_quiz_toan_tin</h1>
+
+    <div class="diagram-container">
+        <h2>Sơ đồ #1</h2>
+        <div class="mermaid">
+erDiagram
+    USERS ||--o{ SESSIONS : "auth_sessions"
+    USERS ||--o{ AUDIT_LOGS : "triggered_by"
+    USERS ||--o{ CLASS_MEMBERS : "enrolled_in"
+    USERS ||--o{ ATTEMPTS : "takes"
+    USERS ||--o{ FILES : "uploaded_by"
+
+    CLASSES ||--o{ CLASS_MEMBERS : "has_students"
+    CLASSES ||--o{ EXAM_CLASSES : "assigned_exams"
+
+    EXAMS ||--o{ EXAM_CLASSES : "assigned_to_classes"
+    EXAMS ||--o{ QUESTIONS : "contains"
+    EXAMS ||--o{ ATTEMPTS : "participations"
+
+    QUESTIONS ||--o{ ANSWERS : "evaluated_in"
+    ATTEMPTS ||--o{ ANSWERS : "records"
+
+    USERS {
+        uuid id PK "UUIDv4"
+        varchar username UK "Check: lower(username) = username, len >= 3"
+        varchar full_name "Họ và tên học sinh / giáo viên"
+        varchar hashed_password "Argon2id hash"
+        varchar role "admin | student"
+        boolean is_active "Mặc định: true"
+        timestamp created_at "UTC ISO-8601"
+        timestamp updated_at "UTC ISO-8601"
+    }
+
+    SESSIONS {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "Xóa cascade khi user bị xóa"
+        varchar token_hash UK "sha256 hex của raw token 32 bytes"
+        timestamp created_at "Thời điểm đăng nhập"
+        timestamp expires_at "Thời hạn hết hạn (TTL 12h)"
+        timestamp last_seen_at "Cập nhật mỗi 5 phút"
+        varchar user_agent "Thông tin trình duyệt"
+        varchar ip_address "Địa chỉ IP client"
+    }
+
+    CLASSES {
+        uuid id PK "UUIDv4"
+        varchar code UK "Mã định danh lớp (ví dụ: 12A1, TIN_CHUYEN)"
+        varchar name "Tên lớp hiển thị"
+        integer academic_year "Năm học (ví dụ: 2025)"
+        boolean is_archived "Mặc định: false"
+        timestamp created_at "UTC ISO-8601"
+    }
+
+    CLASS_MEMBERS {
+        uuid id PK "UUIDv4"
+        uuid class_id FK "Lớp học"
+        uuid student_id FK "Học sinh (role = student)"
+        timestamp joined_at "Thời điểm vào lớp"
+    }
+
+    EXAMS {
+        uuid id PK "UUIDv4"
+        varchar title "Tiêu đề đề thi / khảo sát"
+        text description_md "Mô tả / Hướng dẫn Markdown"
+        varchar subject "math | computer_science"
+        integer duration_minutes "Thời gian làm bài (phút)"
+        varchar status "draft | published | locked | archived"
+        timestamp open_at "Thời điểm mở đề (null = mở ngay)"
+        timestamp close_at "Thời điểm đóng đề (null = vô thời hạn)"
+        timestamp locked_at "Khóa cấu trúc đề khi có học sinh đầu tiên nộp"
+        integer version "Khóa lạc quan, mặc định: 1"
+        uuid created_by FK "Admin / Giáo viên tạo đề"
+        timestamp created_at "UTC ISO-8601"
+    }
+
+    EXAM_CLASSES {
+        uuid id PK "UUIDv4"
+        uuid exam_id FK "Đề thi"
+        uuid class_id FK "Lớp được giao"
+    }
+
+    QUESTIONS {
+        uuid id PK "UUIDv4"
+        uuid exam_id FK "Đề thi sở hữu"
+        integer position "Thứ tự câu hỏi (DEFERRABLE INITIALLY DEFERRED)"
+        varchar question_type "mcq | multi_select | true_false | short_answer | file_upload"
+        text content_md "Nội dung câu hỏi (Markdown + KaTeX)"
+        jsonb choices "Danh sách lựa chọn (nếu là MCQ/MS/TF)"
+        jsonb answer_key "Đáp án đúng (chỉ admin được xem, tuyệt đối cấm trả về student)"
+        numeric points "Điểm số của câu (bước nhảy 0.25)"
+        integer version "Khóa lạc quan, mặc định: 1"
+    }
+
+    ATTEMPTS {
+        uuid id PK "UUIDv4"
+        uuid exam_id FK "Đề thi (Unique: exam_id, student_id)"
+        uuid student_id FK "Học sinh làm bài"
+        varchar status "in_progress | submitted | timeout"
+        timestamp started_at "Thời điểm bấm bắt đầu"
+        timestamp deadline_at "Hạn chót tính theo server"
+        bigint shuffle_seed "Seed ngẫu nhiên thứ tự câu/lựa chọn"
+        numeric score_total "Điểm tổng kết"
+        timestamp submitted_at "Thời điểm nộp bài"
+        timestamp created_at "UTC ISO-8601"
+    }
+
+    ANSWERS {
+        uuid id PK "UUIDv4"
+        uuid attempt_id FK "Lần làm bài (Unique: attempt_id, question_id)"
+        uuid question_id FK "Câu hỏi"
+        jsonb value "Giá trị câu trả lời của học sinh"
+        bigint client_seq "Thứ tự sequence của client (chống out-of-order)"
+        numeric score "Điểm số đạt được"
+        boolean is_correct "Đúng / Sai"
+        integer version "Khóa lạc quan, mặc định: 1"
+        timestamp updated_at "Thời điểm cập nhật gần nhất"
+    }
+
+    FILES {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "Người tải lên"
+        varchar original_name "Tên tệp gốc"
+        varchar s3_key "Đường dẫn định danh trên Cloudflare R2 / MinIO"
+        varchar mime_type "Loại tệp MIME"
+        bigint size_bytes "Kích thước tệp (bytes)"
+        timestamp created_at "UTC ISO-8601"
+    }
+
+    AUDIT_LOGS {
+        uuid id PK "UUIDv4"
+        uuid user_id FK "Người thực hiện (có thể null nếu hệ thống)"
+        varchar action "Tên hành động (LOGIN, SUBMIT_EXAM, UPDATE_SCORE...)"
+        varchar resource_type "Tên đối tượng tác động"
+        varchar resource_id "ID đối tượng"
+        jsonb details "Dữ liệu chi tiết bổ sung (đã lọc dữ liệu nhạy cảm)"
+        varchar ip_address "Địa chỉ IP"
+        timestamp created_at "UTC ISO-8601"
+    }
+        </div>
+    </div>
+
+</body>
+</html>

@@ -19,3 +19,4 @@ test_defaults = {
 
 for key, value in test_defaults.items():
     os.environ.setdefault(key, value)
+

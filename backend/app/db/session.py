@@ -58,3 +58,4 @@ def check_db_health(timeout: float = 2.0) -> bool:
         conn.execution_options(timeout=timeout)
         conn.execute(text("SELECT 1"))
     return True
+
