@@ -1,6 +1,7 @@
 """System Endpoints: Health Check (/healthz), Readiness Check (/readyz), and Clock (/api/v1/time).
 """
 
+import os
 from datetime import UTC, datetime
 
 from fastapi import APIRouter, Response, status
@@ -29,8 +30,9 @@ def readyz(response: Response) -> dict:
     Returns 503 with Retry-After header if Neon database is sleeping or unreachable.
     """
     settings = get_settings()
+    db_url = os.environ.get("DATABASE_URL", settings.DATABASE_URL)
     try:
-        engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True, pool_timeout=2.0)
+        engine = create_engine(db_url, pool_pre_ping=True, pool_timeout=2.0)
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         return {"status": "ready", "database": "connected"}
