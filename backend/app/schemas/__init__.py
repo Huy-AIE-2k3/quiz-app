@@ -30,6 +30,15 @@ from app.schemas.common import (
     ReadyResponse,
     ServerTimeResponse,
 )
+from app.schemas.exam_schema import (
+    ExamCreate,
+    ExamDetailResponse,
+    ExamListResponse,
+    ExamReorderQuestions,
+    ExamStatusTransition,
+    ExamUpdate,
+    ExamValidationResult,
+)
 from app.schemas.student_question import (
     FORBIDDEN_STUDENT_KEYS,
     STUDENT_CONFIG_KEYS,
@@ -66,6 +75,13 @@ __all__ = [
     "ErrorBody",
     "ErrorDetail",
     "ErrorResponse",
+    "ExamCreate",
+    "ExamDetailResponse",
+    "ExamListResponse",
+    "ExamReorderQuestions",
+    "ExamStatusTransition",
+    "ExamUpdate",
+    "ExamValidationResult",
     "HealthResponse",
     "ReadyResponse",
     "QuestionCreate",

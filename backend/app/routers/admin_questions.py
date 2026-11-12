@@ -11,7 +11,11 @@ from app.core.dependencies import require_admin
 from app.core.errors import AppError
 from app.db.session import get_db
 from app.models import Exam, Question, User
-from app.schemas.admin_question import QuestionCreate, QuestionResponse
+from app.schemas.admin_question import (
+    QuestionCreate,
+    QuestionResponse,
+    QuestionUpdate,
+)
 
 router = APIRouter(
     prefix="/exams/{exam_id}/questions",
@@ -31,6 +35,14 @@ def create_question(
     exam = db.get(Exam, exam_id)
     if not exam:
         raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
+
+    # Content lock check
+    if exam.locked_at is not None:
+        raise AppError(
+            code="exam_locked",
+            message="Không thể thêm câu hỏi vì bài thi đã bị khóa nội dung.",
+            status_code=409,
+        )
 
     # Determine position if not explicitly supplied
     if payload.position is None:
@@ -93,6 +105,14 @@ def list_questions(
     if not exam:
         raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
 
+    # Content lock check
+    if exam.locked_at is not None:
+        raise AppError(
+            code="exam_locked",
+            message="Không thể thêm câu hỏi vì bài thi đã bị khóa nội dung.",
+            status_code=409,
+        )
+
     questions = db.scalars(
         select(Question).where(Question.exam_id == exam_id).order_by(Question.position.asc())
     ).all()
@@ -144,6 +164,70 @@ def get_question(
     )
 
 
+@router.put("/{question_id}", response_model=QuestionResponse, status_code=status.HTTP_200_OK)
+def update_question(
+    exam_id: uuid.UUID,
+    question_id: uuid.UUID,
+    payload: QuestionUpdate,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin),
+) -> Any:
+    """Updates a question in an exam with optimistic locking and content lock check."""
+    exam = db.get(Exam, exam_id)
+    if not exam:
+        raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
+
+    if exam.locked_at is not None:
+        raise AppError(
+            code="exam_locked",
+            message="Không thể chỉnh sửa câu hỏi vì bài thi đã bị khóa nội dung.",
+            status_code=409,
+        )
+
+    question = db.scalar(
+        select(Question).where(Question.exam_id == exam_id, Question.id == question_id)
+    )
+    if not question:
+        raise AppError(
+            code="question_not_found", message="Không tìm thấy câu hỏi.", status_code=404
+        )
+
+    if payload.version != question.version:
+        raise AppError(
+            code="version_conflict",
+            message="Dữ liệu câu hỏi đã bị sửa đổi bởi người khác. Vui lòng tải lại.",
+            status_code=409,
+        )
+
+    if payload.points is not None:
+        question.points = payload.points
+    if payload.content_md is not None:
+        question.content_md = payload.content_md
+    if payload.config is not None:
+        question.config = payload.config
+    if payload.answer_key is not None:
+        question.answer_key = payload.answer_key
+    if payload.explanation_md is not None:
+        question.explanation_md = payload.explanation_md
+
+    question.version += 1
+    db.commit()
+    db.refresh(question)
+
+    return QuestionResponse(
+        id=question.id,
+        exam_id=question.exam_id,
+        position=question.position,
+        type=question.question_type,
+        content_md=question.content_md,
+        points=question.points,
+        config=question.config,
+        answer_key=question.answer_key,
+        explanation_md=question.explanation_md,
+        version=question.version,
+    )
+
+
 @router.delete("/{question_id}", status_code=status.HTTP_200_OK)
 def delete_question(
     exam_id: uuid.UUID,
@@ -152,6 +236,17 @@ def delete_question(
     admin: User = Depends(require_admin),
 ) -> dict:
     """Deletes a question from an exam."""
+    exam = db.get(Exam, exam_id)
+    if not exam:
+        raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
+
+    if exam.locked_at is not None:
+        raise AppError(
+            code="exam_locked",
+            message="Không thể xóa câu hỏi vì bài thi đã bị khóa nội dung.",
+            status_code=409,
+        )
+
     question = db.scalar(
         select(Question).where(Question.exam_id == exam_id, Question.id == question_id)
     )

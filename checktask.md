@@ -30,12 +30,12 @@
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    25%     |
+| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    50%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~41%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~43%    |
 
 ---
 
@@ -404,25 +404,25 @@
     - [X] `TC-4.1-06`: Câu hỏi hỏng dữ liệu trong DB được đánh dấu `unavailable`, không làm sập cả đề.
     - [X] `TC-4.1-07`: Xáo trộn lựa chọn cùng seed cho thứ tự giống hệt nhau, khác seed cho thứ tự khác.
     - [X] `TC-4.1-08`: Câu Đúng/Sai 3 mệnh đề chọn mode THPT tự động chuyển sang proportional kèm cảnh báo.
-- [ ] **Bước 4.2 — API Đề thi, Vòng đời đề thi & Khóa nội dung**
+- [X] **Bước 4.2 — API Đề thi, Vòng đời đề thi & Khóa nội dung**
 
-  - [ ] Máy trạng thái vòng đời đề: `draft` $\to$ `published` $\to$ `closed` $\to$ `archived`.
-  - [ ] Endpoint `GET /admin/exams/{id}/validate` kiểm tra điều kiện trước khi xuất bản.
-  - [ ] Cơ chế khóa nội dung đề thi (`locked_at`): Khi có học sinh đầu tiên bắt đầu làm bài $\to$ khóa cứng không cho sửa/xóa/đổi thứ tự câu hỏi và điểm số.
-  - [ ] Cho phép sửa các thông tin không ảnh hưởng bài làm sau khi khóa: Tiêu đề, mô tả, hiển thị kết quả, gia hạn `close_at`.
-  - [ ] API đổi thứ tự câu hỏi trong 1 transaction nhờ ràng buộc `DEFERRABLE`.
-  - [ ] API nhân bản đề thi: Sao chép đề, câu hỏi, và sao chép đối tượng ảnh trên R2 sang khóa mới.
+  - [X] Máy trạng thái vòng đời đề: `draft` $\to$ `published` $\to$ `closed` $\to$ `archived`.
+  - [X] Endpoint `GET /admin/exams/{id}/validate` kiểm tra điều kiện trước khi xuất bản.
+  - [X] Cơ chế khóa nội dung đề thi (`locked_at`): Khi có học sinh đầu tiên bắt đầu làm bài $\to$ khóa cứng không cho sửa/xóa/đổi thứ tự câu hỏi và điểm số.
+  - [X] Cho phép sửa các thông tin không ảnh hưởng bài làm sau khi khóa: Tiêu đề, mô tả, hiển thị kết quả, gia hạn `close_at`.
+  - [X] API đổi thứ tự câu hỏi trong 1 transaction nhờ ràng buộc `DEFERRABLE`.
+  - [X] API nhân bản đề thi: Sao chép đề, câu hỏi, và sao chép đối tượng ảnh trên R2 sang khóa mới.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-4.2-01`: Chuyển trạng thái đúng ma trận hợp lệ; chuyển sai trả về 409 invalid_transition.
-    - [ ] `TC-4.2-02`: Xuất bản đề chưa có câu hỏi hoặc chưa giao lớp bị từ chối kèm danh sách lỗi.
-    - [ ] `TC-4.2-03`: Khi có học sinh bắt đầu làm bài, sửa điểm câu hỏi hoặc xóa câu bị chặn 409 exam_locked.
-    - [ ] `TC-4.2-04`: Gia hạn `close_at` của đề thi không làm thay đổi hạn của attempt đang làm dở.
-    - [ ] `TC-4.2-05`: Đổi thứ tự câu hỏi bằng danh sách ID mới thành công, gửi thiếu/thừa ID trả 422.
-    - [ ] `TC-4.2-06`: Nhân bản đề thi sao chép cả ảnh sang file R2 mới độc lập hoàn toàn.
-    - [ ] `TC-4.2-07`: Lỗi giữa chừng khi sao chép ảnh R2 sẽ rollback toàn bộ và xóa ảnh rác.
-    - [ ] `TC-4.2-08`: Sửa đồng thời cùng version của đề thi trả 409 cho người sau.
-    - [ ] `TC-4.2-09`: Đề đã đóng chỉ được mở lại nếu close_at còn ở tương lai hoặc NULL.
+    - [X] `TC-4.2-01`: Chuyển trạng thái đúng ma trận hợp lệ; chuyển sai trả về 409 invalid_transition.
+    - [X] `TC-4.2-02`: Xuất bản đề chưa có câu hỏi hoặc chưa giao lớp bị từ chối kèm danh sách lỗi.
+    - [X] `TC-4.2-03`: Khi có học sinh bắt đầu làm bài, sửa điểm câu hỏi hoặc xóa câu bị chặn 409 exam_locked.
+    - [X] `TC-4.2-04`: Gia hạn `close_at` của đề thi không làm thay đổi hạn của attempt đang làm dở.
+    - [X] `TC-4.2-05`: Đổi thứ tự câu hỏi bằng danh sách ID mới thành công, gửi thiếu/thừa ID trả 422.
+    - [X] `TC-4.2-06`: Nhân bản đề thi sao chép cả ảnh sang file R2 mới độc lập hoàn toàn.
+    - [X] `TC-4.2-07`: Lỗi giữa chừng khi sao chép ảnh R2 sẽ rollback toàn bộ và xóa ảnh rác.
+    - [X] `TC-4.2-08`: Sửa đồng thời cùng version của đề thi trả 409 cho người sau.
+    - [X] `TC-4.2-09`: Đề đã đóng chỉ được mở lại nếu close_at còn ở tương lai hoặc NULL.
 - [ ] **Bước 4.3 — Tải ảnh cho đề thi & Phát ảnh bảo mật**
 
   - [ ] Client nén ảnh bằng `browser-image-compression` trước khi tải lên.

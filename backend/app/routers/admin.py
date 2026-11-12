@@ -15,6 +15,7 @@ from app.db.session import get_db
 from app.models import Session as SessionModel
 from app.models import User
 from app.routers.admin_classes import router as classes_router
+from app.routers.admin_exams import router as exams_router
 from app.routers.admin_questions import router as questions_router
 from app.routers.admin_students import router as students_router
 
@@ -25,6 +26,7 @@ router = APIRouter(
 )
 router.include_router(classes_router)
 router.include_router(students_router)
+router.include_router(exams_router)
 router.include_router(questions_router)
 
 
