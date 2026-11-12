@@ -30,12 +30,12 @@
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[ ]`   |     0%     |
+| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    25%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~38%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~41%    |
 
 ---
 
@@ -383,27 +383,27 @@
 
 ### GIAI ĐOẠN 4. SOẠN ĐỀ & QUẢN LÝ ĐỀ THI (5 NGÀY)
 
-- [ ] **Bước 4.1 — Lược đồ 5 dạng câu hỏi & Góc nhìn học sinh (Allow-list)**
+- [X] **Bước 4.1 — Lược đồ 5 dạng câu hỏi & Góc nhìn học sinh (Allow-list)**
 
-  - [ ] Định nghĩa Pydantic Union cho 5 dạng câu: `mcq`, `tf`, `short_text`, `short_number`, `file_upload`.
-  - [ ] Kiểm tra ràng buộc cấu hình và đáp án từng dạng:
-    - [ ] `mcq`: 2–8 lựa chọn, ID đục `o1...o8`, correct nằm trong danh sách.
-    - [ ] `tf`: 1–8 mệnh đề, boolean key, chế độ chấm THPT (tự chuyển proportional nếu khác 4 mệnh đề).
-    - [ ] `short_text`: Danh sách chuỗi chấp nhận, tùy chọn chấm tự động/thủ công, cờ review_wrong.
-    - [ ] `short_number`: Parse số chuẩn khoa học, sai số tuyệt đối/tương đối.
-    - [ ] `file_upload`: Giới hạn số file (1–5), dung lượng tối đa (1–MAX_MB), đuôi file hợp lệ.
-  - [ ] Xây dựng hàm `student_view()` lọc triệt để bằng **allow-list**: Tuyệt đối không để lộ `answer_key`, `explanation_md`, `accepted`, `correct` ra học sinh.
-  - [ ] Hỗ trợ xáo trộn lựa chọn trắc nghiệm ổn định bằng `stable_key(seed, qid, oid)`.
+  - [X] Định nghĩa Pydantic Union cho 5 dạng câu: `mcq`, `tf`, `short_text`, `short_number`, `file_upload`.
+  - [X] Kiểm tra ràng buộc cấu hình và đáp án từng dạng:
+    - [X] `mcq`: 2–8 lựa chọn, ID đục `o1...o8`, correct nằm trong danh sách.
+    - [X] `tf`: 1–8 mệnh đề, boolean key, chế độ chấm THPT (tự chuyển proportional nếu khác 4 mệnh đề).
+    - [X] `short_text`: Danh sách chuỗi chấp nhận, tùy chọn chấm tự động/thủ công, cờ review_wrong.
+    - [X] `short_number`: Parse số chuẩn khoa học, sai số tuyệt đối/tương đối.
+    - [X] `file_upload`: Giới hạn số file (1–5), dung lượng tối đa (1–MAX_MB), đuôi file hợp lệ.
+  - [X] Xây dựng hàm `student_view()` lọc triệt để bằng **allow-list**: Tuyệt đối không để lộ `answer_key`, `explanation_md`, `accepted`, `correct` ra học sinh.
+  - [X] Hỗ trợ xáo trộn lựa chọn trắc nghiệm ổn định bằng `stable_key(seed, qid, oid)`.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-4.1-01`: Tạo thành công câu hỏi hợp lệ cho cả 5 dạng.
-    - [ ] `TC-4.1-02`: Cấu hình sai lược đồ (MCQ 1 lựa chọn, file_upload đuôi .exe) bị từ chối 422.
-    - [ ] `TC-4.1-03`: Điểm câu hỏi âm hoặc vượt 100 điểm hoặc quá 2 số thập phân bị từ chối.
-    - [ ] `TC-4.1-04`: Quét đệ quy JSON trả về qua `student_view`, đảm bảo 0 rò rỉ đáp án/giải thích.
-    - [ ] `TC-4.1-05`: Property test Hypothesis sinh câu ngẫu nhiên đảm bảo góc nhìn học sinh luôn sạch.
-    - [ ] `TC-4.1-06`: Câu hỏi hỏng dữ liệu trong DB được đánh dấu `unavailable`, không làm sập cả đề.
-    - [ ] `TC-4.1-07`: Xáo trộn lựa chọn cùng seed cho thứ tự giống hệt nhau, khác seed cho thứ tự khác.
-    - [ ] `TC-4.1-08`: Câu Đúng/Sai 3 mệnh đề chọn mode THPT tự động chuyển sang proportional kèm cảnh báo.
+    - [X] `TC-4.1-01`: Tạo thành công câu hỏi hợp lệ cho cả 5 dạng.
+    - [X] `TC-4.1-02`: Cấu hình sai lược đồ (MCQ 1 lựa chọn, file_upload đuôi .exe) bị từ chối 422.
+    - [X] `TC-4.1-03`: Điểm câu hỏi âm hoặc vượt 100 điểm hoặc quá 2 số thập phân bị từ chối.
+    - [X] `TC-4.1-04`: Quét đệ quy JSON trả về qua `student_view`, đảm bảo 0 rò rỉ đáp án/giải thích.
+    - [X] `TC-4.1-05`: Property test Hypothesis sinh câu ngẫu nhiên đảm bảo góc nhìn học sinh luôn sạch.
+    - [X] `TC-4.1-06`: Câu hỏi hỏng dữ liệu trong DB được đánh dấu `unavailable`, không làm sập cả đề.
+    - [X] `TC-4.1-07`: Xáo trộn lựa chọn cùng seed cho thứ tự giống hệt nhau, khác seed cho thứ tự khác.
+    - [X] `TC-4.1-08`: Câu Đúng/Sai 3 mệnh đề chọn mode THPT tự động chuyển sang proportional kèm cảnh báo.
 - [ ] **Bước 4.2 — API Đề thi, Vòng đời đề thi & Khóa nội dung**
 
   - [ ] Máy trạng thái vòng đời đề: `draft` $\to$ `published` $\to$ `closed` $\to$ `archived`.

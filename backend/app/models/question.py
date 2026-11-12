@@ -26,16 +26,17 @@ if TYPE_CHECKING:
 
 
 class Question(Base):
-    """Question item supporting 4 formats (mcq, true_false, short_answer, file_upload)."""
+    """Question item supporting 5 formats (mcq, tf, short_text, short_number, file_upload)."""
 
     __tablename__ = "questions"
 
     __table_args__ = (
         CheckConstraint(
-            "question_type IN ('mcq', 'true_false', 'short_answer', 'file_upload')",
+            "question_type IN ('mcq', 'tf', 'true_false', "
+            "'short_text', 'short_number', 'short_answer', 'file_upload')",
             name="ck_questions_question_type",
         ),
-        CheckConstraint("points >= 0", name="ck_questions_points_non_negative"),
+        CheckConstraint("points > 0 AND points <= 100", name="ck_questions_points_range"),
         UniqueConstraint(
             "exam_id",
             "position",
@@ -64,6 +65,7 @@ class Question(Base):
         default=dict,
         server_default="{}",
     )
+    explanation_md: Mapped[str | None] = mapped_column(Text, nullable=True)
     points: Mapped[Decimal] = mapped_column(
         Numeric(6, 2), nullable=False, default=Decimal("1.00"), server_default="1.00"
     )

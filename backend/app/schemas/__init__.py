@@ -1,5 +1,21 @@
 """Pydantic Schemas Package."""
 
+from app.schemas.admin_question import (
+    MCQAnswerKey,
+    MCQConfig,
+    MCQOption,
+    QuestionCreate,
+    QuestionResponse,
+    QuestionType,
+    QuestionUpdate,
+    ShortNumberAnswerKey,
+    ShortNumberConfig,
+    ShortTextAnswerKey,
+    ShortTextConfig,
+    TFAnswerKey,
+    TFConfig,
+    TFStatement,
+)
 from app.schemas.class_schema import (
     ClassCreate,
     ClassListResponse,
@@ -13,6 +29,13 @@ from app.schemas.common import (
     HealthResponse,
     ReadyResponse,
     ServerTimeResponse,
+)
+from app.schemas.student_question import (
+    FORBIDDEN_STUDENT_KEYS,
+    STUDENT_CONFIG_KEYS,
+    StudentQuestionView,
+    student_view,
+    student_view_list,
 )
 from app.schemas.student_schema import (
     ClassSimple,
@@ -45,6 +68,25 @@ __all__ = [
     "ErrorResponse",
     "HealthResponse",
     "ReadyResponse",
+    "QuestionCreate",
+    "QuestionResponse",
+    "QuestionType",
+    "QuestionUpdate",
+    "MCQConfig",
+    "MCQOption",
+    "MCQAnswerKey",
+    "TFConfig",
+    "TFStatement",
+    "TFAnswerKey",
+    "ShortTextConfig",
+    "ShortTextAnswerKey",
+    "ShortNumberConfig",
+    "ShortNumberAnswerKey",
+    "StudentQuestionView",
+    "student_view",
+    "student_view_list",
+    "STUDENT_CONFIG_KEYS",
+    "FORBIDDEN_STUDENT_KEYS",
     "ResetPasswordRequest",
     "ResetPasswordResponse",
     "ServerTimeResponse",
