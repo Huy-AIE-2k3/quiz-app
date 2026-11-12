@@ -17,6 +17,23 @@ services:
       timeout: 5s
       retries: 5
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: quiz_pgadmin
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PGADMIN_PORT:-5050}:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@quiz.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-Admin123!}
+      PGADMIN_CONFIG_SERVER_MODE: "True"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
   minio:
     image: cgr.dev/chainguard/minio:latest
     container_name: quiz_minio
@@ -39,3 +56,4 @@ services:
 volumes:
   postgres_data:
   minio_data:
+  pgadmin_data:

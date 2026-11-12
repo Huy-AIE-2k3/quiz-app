@@ -35,7 +35,7 @@
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~3%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~38%    |
 
 ---
 
