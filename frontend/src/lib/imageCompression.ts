@@ -105,3 +105,4 @@ export async function compressImageForUpload(
     reader.readAsDataURL(file);
   });
 }
+

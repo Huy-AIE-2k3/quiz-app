@@ -170,7 +170,12 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
     }
   }
 
-  if (body && !normalizedHeaders.has('Content-Type') && typeof body === 'object') {
+  if (
+    body &&
+    !normalizedHeaders.has('Content-Type') &&
+    typeof body === 'object' &&
+    !(body instanceof FormData)
+  ) {
     normalizedHeaders.set('Content-Type', 'application/json');
   }
 

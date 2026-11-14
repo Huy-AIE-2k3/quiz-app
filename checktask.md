@@ -30,12 +30,12 @@
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    75%     |
+| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    80%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~47%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~49%    |
 
 ---
 
@@ -444,27 +444,27 @@
     - [X] `TC-4.3-08`: Chèn mã `asset:` của đề thi khác vào đề này sẽ không hiển thị ảnh.
     - [X] `TC-4.3-09`: Lỗi ghi CSDL sau khi upload R2 sẽ tự động xóa đối tượng bù trừ trên R2.
     - [X] `TC-4.3-10`: Học sinh gọi endpoint upload ảnh đề thi bị trả mã 403.
-- [ ] **Bước 4.4 — Giao diện Soạn đề thi (Live Preview & LaTeX Toolbar)**
+- [X] **Bước 4.4 — Giao diện Soạn đề thi (Live Preview & LaTeX Toolbar)**
 
-  - [ ] Bố cục giao diện 3 cột desktop: Danh sách câu hỏi (kéo thả dnd-kit) | Form soạn thảo | Live Preview.
-  - [ ] Form soạn thảo theo từng dạng câu dùng react-hook-form + zod.
-  - [ ] Thanh công cụ LaTeX chèn nhanh mẫu công thức (phân số, tích phân, căn số, ma trận, hệ phương trình...).
-  - [ ] Hỗ trợ dán ảnh trực tiếp từ Clipboard (`Ctrl+V`) tự động tải lên và chèn Markdown.
-  - [ ] Tự động lưu nháp (Autosave) debounce 1.5s, tạm hoãn khi đang gõ tiếng Việt có dấu (sự kiện composition).
-  - [ ] Bắt sự kiện rời trang `beforeunload` khi còn thay đổi chưa lưu.
-  - [ ] Xử lý xung đột phiên bản 409: Hộp thoại cho phép copy nội dung vào clipboard trước khi tải lại.
+  - [X] Bố cục giao diện 3 cột desktop: Danh sách câu hỏi (kéo thả dnd-kit) | Form soạn thảo | Live Preview.
+  - [X] Form soạn thảo theo từng dạng câu dùng react-hook-form + zod.
+  - [X] Thanh công cụ LaTeX chèn nhanh mẫu công thức (phân số, tích phân, căn số, ma trận, hệ phương trình...).
+  - [X] Hỗ trợ dán ảnh trực tiếp từ Clipboard (`Ctrl+V`) tự động tải lên và chèn Markdown.
+  - [X] Tự động lưu nháp (Autosave) debounce 1.5s, tạm hoãn khi đang gõ tiếng Việt có dấu (sự kiện composition).
+  - [X] Bắt sự kiện rời trang `beforeunload` khi còn thay đổi chưa lưu.
+  - [X] Xử lý xung đột phiên bản 409: Hộp thoại cho phép copy nội dung vào clipboard trước khi tải lại.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-4.4-01`: Soạn đề đủ 5 dạng câu hỏi, lưu và tải lại trang giữ nguyên toàn bộ dữ liệu.
-    - [ ] `TC-4.4-02`: Khung xem trước hiển thị giống hệt giao diện làm bài của học sinh và không lộ đáp án.
-    - [ ] `TC-4.4-03`: Gõ tiếng Việt bộ gõ Telex không bị kích hoạt request lưu giữa chừng ký tự.
-    - [ ] `TC-4.4-04`: Dán ảnh từ clipboard hiển thị thanh tiến trình và chèn ảnh thành công.
-    - [ ] `TC-4.4-05`: Kéo thả đổi vị trí câu hỏi lưu lại đúng thứ tự mới.
-    - [ ] `TC-4.4-06`: Mất mạng khi đang soạn hiển thị cảnh báo "Chưa lưu được" và tự lưu khi có mạng lại.
-    - [ ] `TC-4.4-07`: Mở 2 tab soạn cùng 1 câu sẽ nhận cảnh báo xung đột phiên bản rõ ràng.
-    - [ ] `TC-4.4-08`: Công thức toán gõ sai cú pháp hiện lỗi tại chỗ và tăng bộ đếm cảnh báo.
-    - [ ] `TC-4.4-09`: Đề thi đã khóa sẽ chuyển toàn bộ form sang chế độ chỉ đọc (read-only).
-    - [ ] `TC-4.4-10`: Khung thử số câu `short_number` cho phép giáo viên nhập thử nghiệm các giá trị.
+    - [X] `TC-4.4-01`: Soạn đề đủ 5 dạng câu hỏi, lưu và tải lại trang giữ nguyên toàn bộ dữ liệu.
+    - [X] `TC-4.4-02`: Khung xem trước hiển thị giống hệt giao diện làm bài của học sinh và không lộ đáp án.
+    - [X] `TC-4.4-03`: Gõ tiếng Việt bộ gõ Telex không bị kích hoạt request lưu giữa chừng ký tự.
+    - [X] `TC-4.4-04`: Dán ảnh từ clipboard hiển thị thanh tiến trình và chèn ảnh thành công.
+    - [X] `TC-4.4-05`: Kéo thả đổi vị trí câu hỏi lưu lại đúng thứ tự mới.
+    - [X] `TC-4.4-06`: Mất mạng khi đang soạn hiển thị cảnh báo "Chưa lưu được" và tự lưu khi có mạng lại.
+    - [X] `TC-4.4-07`: Mở 2 tab soạn cùng 1 câu sẽ nhận cảnh báo xung đột phiên bản rõ ràng.
+    - [X] `TC-4.4-08`: Công thức toán gõ sai cú pháp hiện lỗi tại chỗ và tăng bộ đếm cảnh báo.
+    - [X] `TC-4.4-09`: Đề thi đã khóa sẽ chuyển toàn bộ form sang chế độ chỉ đọc (read-only).
+    - [X] `TC-4.4-10`: Khung thử số câu `short_number` cho phép giáo viên nhập thử nghiệm các giá trị.
 - [ ] **Bước 4.5 — Xuất bản, Giao lớp & Chế độ xem trước Học sinh**
 
   - [ ] Hộp thoại xuất bản hiển thị kết quả kiểm tra `validate` (cảnh báo công thức hỏng, lớp được giao, số học sinh).

@@ -53,3 +53,4 @@ def downgrade() -> None:
     op.drop_constraint(op.f("fk_files_exam_id_exams"), "files", type_="foreignkey")
     op.drop_column("files", "kind")
     op.drop_column("files", "exam_id")
+

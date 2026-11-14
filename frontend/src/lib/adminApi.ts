@@ -102,6 +102,76 @@ export interface CsvImportResult {
   csv_export_content?: string | null;
 }
 
+// Exam & Question Types for Step 4.4
+export type QuestionType = 'mcq' | 'tf' | 'short_text' | 'short_number' | 'file_upload';
+
+export interface McqOption {
+  id: string;
+  content_md: string;
+}
+
+export interface TfStatement {
+  id: string;
+  statement: string;
+}
+
+export interface AdminQuestionItem {
+  id: string;
+  exam_id: string;
+  position: number;
+  type: QuestionType;
+  points: string | number;
+  content_md: string;
+  explanation_md?: string | null;
+  config: Record<string, any>;
+  answer_key: Record<string, any>;
+  version: number;
+  created_at: string;
+}
+
+export interface ExamDetailItem {
+  id: string;
+  title: string;
+  description_md?: string | null;
+  subject: 'math' | 'computer_science';
+  duration_minutes: number;
+  status: 'draft' | 'published' | 'closed' | 'archived';
+  open_at?: string | null;
+  close_at?: string | null;
+  locked_at?: string | null;
+  shuffle_questions: boolean;
+  shuffle_options: boolean;
+  result_visibility: 'immediate' | 'after_close' | 'manual';
+  version: number;
+  created_by: string;
+  created_at: string;
+  questions?: AdminQuestionItem[];
+}
+
+export interface ExamValidationIssue {
+  field?: string;
+  code: string;
+  message: string;
+}
+
+export interface ExamValidationResult {
+  valid: boolean;
+  issues: ExamValidationIssue[];
+  question_count: number;
+  total_points: string;
+  class_count: number;
+}
+
+export interface UploadAssetResponse {
+  asset: string;
+  markdown: string;
+  file_id: string;
+  size_bytes: number;
+  mime_type: string;
+  width?: number;
+  height?: number;
+}
+
 export const adminApi = {
   // Classes
   listClasses: (params: { search?: string; limit?: number; offset?: number; is_archived?: boolean } = {}) => {
@@ -205,6 +275,90 @@ export const adminApi = {
     formData.append('file', file);
 
     return request<CsvImportResult>(`/api/v1/admin/students/import?${query.toString()}`, {
+      method: 'POST',
+      body: formData,
+    });
+  },
+
+  // Exams (Step 4.2 & 4.4)
+  getExam: (examId: string) => {
+    return request<ExamDetailItem>(`/api/v1/admin/exams/${examId}`);
+  },
+
+  updateExam: (examId: string, payload: Partial<ExamDetailItem> & { version: number }) => {
+    return request<ExamDetailItem>(`/api/v1/admin/exams/${examId}`, {
+      method: 'PATCH',
+      body: payload,
+    });
+  },
+
+  validateExam: (examId: string) => {
+    return request<ExamValidationResult>(`/api/v1/admin/exams/${examId}/validate`);
+  },
+
+  transitionExamStatus: (examId: string, targetStatus: string) => {
+    return request<{ status: string; current_status: string }>(
+      `/api/v1/admin/exams/${examId}/status`,
+      {
+        method: 'POST',
+        body: { target_status: targetStatus },
+      }
+    );
+  },
+
+  reorderQuestions: (examId: string, orderedIds: string[]) => {
+    return request<{ status: string; count: number }>(
+      `/api/v1/admin/exams/${examId}/questions/reorder`,
+      {
+        method: 'POST',
+        body: { ordered_ids: orderedIds },
+      }
+    );
+  },
+
+  duplicateExam: (examId: string) => {
+    return request<ExamDetailItem>(`/api/v1/admin/exams/${examId}/duplicate`, {
+      method: 'POST',
+    });
+  },
+
+  // Questions (Step 4.1 & 4.4)
+  listExamQuestions: (examId: string) => {
+    return request<AdminQuestionItem[]>(`/api/v1/admin/exams/${examId}/questions`);
+  },
+
+  createQuestion: (examId: string, payload: Partial<AdminQuestionItem>) => {
+    return request<AdminQuestionItem>(`/api/v1/admin/exams/${examId}/questions`, {
+      method: 'POST',
+      body: payload,
+    });
+  },
+
+  updateQuestion: (
+    questionId: string,
+    payload: Partial<AdminQuestionItem> & { version?: number }
+  ) => {
+    return request<AdminQuestionItem>(`/api/v1/admin/questions/${questionId}`, {
+      method: 'PATCH',
+      body: payload,
+    });
+  },
+
+  deleteQuestion: (questionId: string) => {
+    return request<{ status: string; question_id: string }>(
+      `/api/v1/admin/questions/${questionId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+  },
+
+  // Assets (Step 4.3 & 4.4)
+  uploadAsset: (examId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('exam_id', examId);
+    formData.append('file', file);
+    return request<UploadAssetResponse>('/api/v1/admin/assets', {
       method: 'POST',
       body: formData,
     });
