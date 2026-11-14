@@ -14,6 +14,7 @@ import uuid
 from collections.abc import Callable
 from datetime import datetime
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -46,6 +47,51 @@ def validate_exam_for_publish(exam: Exam, db: Session, now: datetime | None = No
         if total_points <= Decimal("0"):
             errors.append("Tổng điểm của các câu hỏi trong đề thi phải lớn hơn 0.")
 
+        # Question-level integrity checks (TC-4.5-03)
+        for q in questions:
+            q_type = getattr(q, "question_type", None) or getattr(q, "type", None)
+            cfg = q.config or {}
+            ans = q.answer_key or {}
+
+            if q_type == "mcq":
+                options = cfg.get("options") or []
+                if len(options) < 2:
+                    errors.append(f"Câu {q.position} (Trắc nghiệm): Phải có ít nhất 2 lựa chọn.")
+                correct = ans.get("correct")
+                valid_opt_ids = {opt.get("id") for opt in options if isinstance(opt, dict)}
+                if not correct or correct not in valid_opt_ids:
+                    errors.append(f"Câu {q.position} (Trắc nghiệm): Chưa chọn đáp án đúng.")
+
+            elif q_type == "tf":
+                statements = cfg.get("statements") or []
+                if len(statements) < 1:
+                    errors.append(f"Câu {q.position} (Đúng/Sai): Phải có ít nhất 1 mệnh đề.")
+                missing_stmts = [
+                    s.get("id")
+                    for s in statements
+                    if isinstance(s, dict)
+                    and (s.get("id") not in ans or ans[s.get("id")] not in (True, False))
+                ]
+                if missing_stmts:
+                    errors.append(
+                        f"Câu {q.position} (Đúng/Sai): "
+                        "Chưa chọn đáp án Đúng/Sai cho tất cả các mệnh đề."
+                    )
+
+            elif q_type == "short_text":
+                if cfg.get("grading") == "auto":
+                    accepted = ans.get("accepted") or []
+                    if not accepted or not any(str(a).strip() for a in accepted):
+                        errors.append(
+                            f"Câu {q.position} (Trả lời ngắn): "
+                            "Chưa nhập đáp án được chấp nhận khi chấm tự động."
+                        )
+
+            elif q_type == "short_number":
+                values = ans.get("values") or []
+                if not values or not any(str(v).strip() for v in values):
+                    errors.append(f"Câu {q.position} (Điền số): Chưa nhập giá trị số đúng.")
+
     # 2. Check assigned classes
     assigned_classes = db.scalars(
         select(Class)
@@ -74,6 +120,64 @@ def validate_exam_for_publish(exam: Exam, db: Session, now: datetime | None = No
         errors.append("Thời điểm đóng đề (close_at) đã ở trong quá khứ.")
 
     return errors
+
+
+def check_exam_latex_warnings(questions: list[Question]) -> list[str]:
+    """Detects potential KaTeX syntax issues across all questions and returns warnings."""
+    warnings: list[str] = []
+    for q in questions:
+        content = q.content_md or ""
+        unescaped_dollars = len(re.findall(r"(?<!\\)\$", content))
+        if unescaped_dollars % 2 != 0:
+            warnings.append(
+                f"Câu {q.position}: Phát hiện dấu công thức '$' chưa đóng cặp hoàn chỉnh."
+            )
+        elif r"\frac{" in content and content.count("{") != content.count("}"):
+            warnings.append(
+                f"Câu {q.position}: "
+                "Phát hiện công thức phân số '\\frac' có thể chưa đóng ngoặc nhọn đúng."
+            )
+    return warnings
+
+
+def validate_exam_details(
+    exam: Exam, db: Session, now: datetime | None = None
+) -> tuple[list[str], list[str], dict[str, Any]]:
+    """Returns (errors, warnings, summary_dict) for pre-publish inspection."""
+    errors = validate_exam_for_publish(exam, db, now=now)
+    questions = db.scalars(
+        select(Question).where(Question.exam_id == exam.id).order_by(Question.position.asc())
+    ).all()
+    warnings = check_exam_latex_warnings(questions)
+
+    assigned_classes = db.scalars(
+        select(Class)
+        .join(ExamClass, ExamClass.class_id == Class.id)
+        .where(ExamClass.exam_id == exam.id)
+    ).all()
+
+    from app.models.class_model import ClassMember
+
+    student_count = (
+        db.scalar(
+            select(func.count(func.distinct(ClassMember.student_id)))
+            .join(ExamClass, ExamClass.class_id == ClassMember.class_id)
+            .where(ExamClass.exam_id == exam.id)
+        )
+        or 0
+    )
+
+    total_points = sum((q.points for q in questions), Decimal("0.00"))
+
+    summary = {
+        "question_count": len(questions),
+        "total_points": total_points,
+        "duration_minutes": exam.duration_minutes,
+        "class_count": len(assigned_classes),
+        "student_count": student_count,
+    }
+
+    return errors, warnings, summary
 
 
 def transition_exam_status(

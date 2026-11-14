@@ -81,3 +81,4 @@ export const LatexToolbar: React.FC<LatexToolbarProps> = ({
     </div>
   );
 };
+

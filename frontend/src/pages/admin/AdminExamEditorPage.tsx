@@ -22,6 +22,7 @@ import {
   AlertTriangle,
   Lock,
   Copy,
+  Layers,
   Image as ImageIcon,
   Loader2,
 } from 'lucide-react';
@@ -38,6 +39,8 @@ import { LatexToolbar } from '../../components/exam-editor/LatexToolbar';
 import { QuestionListSidebar } from '../../components/exam-editor/QuestionListSidebar';
 import { LivePreviewPanel } from '../../components/exam-editor/LivePreviewPanel';
 import { VersionConflictModal } from '../../components/exam-editor/VersionConflictModal';
+import { PublishExamModal } from '../../components/exam-editor/PublishExamModal';
+import { AssignClassesModal } from '../../components/exam-editor/AssignClassesModal';
 import { McqEditor } from '../../components/exam-editor/types/McqEditor';
 import { TfEditor } from '../../components/exam-editor/types/TfEditor';
 import { ShortTextEditor } from '../../components/exam-editor/types/ShortTextEditor';
@@ -72,6 +75,10 @@ export const AdminExamEditorPage: React.FC = () => {
 
   // Version conflict modal (TC-4.4-07)
   const [conflictModalOpen, setConflictModalOpen] = useState(false);
+
+  // Publish and Assign Classes modals (Step 4.5)
+  const [publishModalOpen, setPublishModalOpen] = useState(false);
+  const [assignClassesModalOpen, setAssignClassesModalOpen] = useState(false);
 
   // LaTeX formula error count (TC-4.4-08)
   const [formulaErrorCount, setFormulaErrorCount] = useState(0);
@@ -504,26 +511,43 @@ export const AdminExamEditorPage: React.FC = () => {
             </div>
           )}
 
-          {/* Preview Button */}
+          {/* Assign Classes Button (Step 4.5) */}
+          <button
+            type="button"
+            onClick={() => setAssignClassesModalOpen(true)}
+            className="h-8 px-3 rounded-md border border-border-subtle bg-surface-elevated hover:bg-border-subtle text-text-secondary hover:text-text-primary text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+            title="Phân công lớp học"
+          >
+            <Layers className="w-3.5 h-3.5 text-brand" />
+            <span>Giao lớp ({exam.assigned_classes?.length || 0})</span>
+          </button>
+
+          {/* Preview Button (TC-4.5-01) */}
           <Link
             to={`/a/exams/${exam.id}/preview`}
-            className="h-8 px-3 rounded-md border border-border-subtle bg-elevated hover:bg-border-subtle text-text-secondary hover:text-text-primary text-xs font-medium flex items-center gap-1.5 transition-colors"
+            className="h-8 px-3 rounded-md border border-border-subtle bg-surface-elevated hover:bg-border-subtle text-text-secondary hover:text-text-primary text-xs font-medium flex items-center gap-1.5 transition-colors"
+            title="Xem trước như học sinh (Sandbox)"
           >
-            <Eye className="w-3.5 h-3.5" />
+            <Eye className="w-3.5 h-3.5 text-brand" />
             <span>Xem trước đề</span>
           </Link>
 
           {/* Publish / Status Badge */}
-          {isLocked ? (
-            <div className="h-8 px-3 rounded-md bg-status-flagged/10 border border-status-flagged/30 text-status-flagged text-xs font-mono font-semibold flex items-center gap-1.5">
+          {exam.status === 'published' ? (
+            <div className="h-8 px-3 rounded-md bg-status-correct-bg border border-status-correct-border text-status-correct-text text-xs font-mono font-semibold flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5" />
+              <span>Đã xuất bản</span>
+            </div>
+          ) : isLocked ? (
+            <div className="h-8 px-3 rounded-md bg-status-review-bg border border-status-review-border text-status-review-text text-xs font-mono font-semibold flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5" />
               <span>Đang khóa (Có thí sinh)</span>
             </div>
           ) : (
             <button
               type="button"
-              onClick={() => navigate(`/a/exams/${exam.id}/preview`)}
-              className="h-8 px-4 rounded-md bg-brand hover:bg-brand-hover text-canvas font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-sm"
+              onClick={() => setPublishModalOpen(true)}
+              className="h-8 px-4 rounded-md bg-brand hover:brightness-110 active:brightness-95 text-text-on-brand font-semibold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Xuất bản</span>
@@ -827,6 +851,33 @@ export const AdminExamEditorPage: React.FC = () => {
           });
         }}
       />
+
+      {/* Publish Exam Modal (Step 4.5 & TC-4.5-03, TC-4.5-05, TC-4.5-06) */}
+      {exam && (
+        <PublishExamModal
+          isOpen={publishModalOpen}
+          exam={exam}
+          questions={questions}
+          onClose={() => setPublishModalOpen(false)}
+          onPublished={(updated) => {
+            setExam(updated);
+            toast.success('Đề thi đã được xuất bản thành công!', 'Xuất bản thành công');
+          }}
+        />
+      )}
+
+      {/* Assign Classes Modal (Step 4.5 & TC-4.5-04) */}
+      {exam && (
+        <AssignClassesModal
+          isOpen={assignClassesModalOpen}
+          exam={exam}
+          onClose={() => setAssignClassesModalOpen(false)}
+          onUpdated={(updated) => {
+            setExam(updated);
+            toast.success('Đã cập nhật danh sách lớp phân công cho đề thi.', 'Đã lưu phân công');
+          }}
+        />
+      )}
     </div>
   );
 };

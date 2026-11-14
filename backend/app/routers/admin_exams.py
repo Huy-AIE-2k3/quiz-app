@@ -1,5 +1,6 @@
 """Admin Exams Router (/api/v1/admin/exams/*)."""
 
+import random
 import uuid
 from decimal import Decimal
 from typing import Any
@@ -12,19 +13,24 @@ from app.core.dependencies import require_admin
 from app.core.errors import AppError
 from app.db.session import get_db
 from app.models import Attempt, Class, Exam, ExamClass, Question, User
+from app.models.class_model import ClassMember
 from app.schemas.exam_schema import (
+    ExamAssignClassesPayload,
     ExamCreate,
     ExamDetailResponse,
     ExamListResponse,
+    ExamPreviewResponse,
     ExamReorderQuestions,
     ExamStatusTransition,
     ExamUpdate,
     ExamValidationResult,
+    ExamValidationSummary,
 )
+from app.schemas.student_question import student_view_list
 from app.services.exam_service import (
     duplicate_exam_with_assets,
     transition_exam_status,
-    validate_exam_for_publish,
+    validate_exam_details,
 )
 
 router = APIRouter(
@@ -262,6 +268,10 @@ def change_exam_status(
     if not exam:
         raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
 
+    # TC-4.5-06: Idempotent handling for concurrent publish
+    if exam.status == payload.status:
+        return _build_exam_detail(exam, db)
+
     if payload.version != exam.version:
         raise AppError(
             code="version_conflict",
@@ -292,8 +302,133 @@ def validate_exam_endpoint(
     if not exam:
         raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
 
-    errors = validate_exam_for_publish(exam, db)
-    return ExamValidationResult(valid=len(errors) == 0, errors=errors)
+    errors, warnings, summary_dict = validate_exam_details(exam, db)
+    return ExamValidationResult(
+        valid=len(errors) == 0,
+        errors=errors,
+        warnings=warnings,
+        summary=ExamValidationSummary(**summary_dict),
+    )
+
+
+@router.put("/{exam_id}/classes", response_model=ExamDetailResponse, status_code=status.HTTP_200_OK)
+def assign_exam_classes(
+    exam_id: uuid.UUID,
+    payload: ExamAssignClassesPayload,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin),
+) -> Any:
+    """Updates the set of classes assigned to an exam (TC-4.5-04).
+
+    If exam is locked (or students have started attempts):
+    A class that currently has attempts by its students CANNOT be removed (409 cannot_remove_class).
+    Adding new classes is permitted.
+    """
+    exam = db.get(Exam, exam_id)
+    if not exam:
+        raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
+
+    requested_ids = set(payload.class_ids)
+    if requested_ids:
+        classes = db.scalars(select(Class).where(Class.id.in_(requested_ids))).all()
+        found_ids = {c.id for c in classes}
+        missing = requested_ids - found_ids
+        if missing:
+            raise AppError(
+                code="class_not_found",
+                message=f"Một số lớp học không tồn tại: {[str(m) for m in missing]}",
+                status_code=404,
+            )
+
+    current_assignments = db.scalars(
+        select(ExamClass).where(ExamClass.exam_id == exam.id)
+    ).all()
+    current_class_ids = {ea.class_id for ea in current_assignments}
+
+    removed_class_ids = current_class_ids - requested_ids
+
+    if removed_class_ids and exam.locked_at is not None:
+        for cid in removed_class_ids:
+            attempt_count = (
+                db.scalar(
+                    select(func.count(Attempt.id))
+                    .join(ClassMember, ClassMember.student_id == Attempt.student_id)
+                    .where(Attempt.exam_id == exam.id, ClassMember.class_id == cid)
+                )
+                or 0
+            )
+            if attempt_count > 0:
+                cls_obj = db.get(Class, cid)
+                cls_name = cls_obj.name if cls_obj else str(cid)
+                raise AppError(
+                    code="cannot_remove_class",
+                    message=(
+                        f"Không thể rút lớp '{cls_name}' khỏi bài thi vì đã có "
+                        "học sinh thuộc lớp này bắt đầu làm bài."
+                    ),
+                    status_code=409,
+                )
+
+    db.execute(delete(ExamClass).where(ExamClass.exam_id == exam.id))
+    for cid in requested_ids:
+        db.add(ExamClass(exam_id=exam.id, class_id=cid))
+
+    exam.version += 1
+    db.commit()
+    db.refresh(exam)
+    return _build_exam_detail(exam, db)
+
+
+@router.get(
+    "/{exam_id}/preview",
+    response_model=ExamPreviewResponse,
+    status_code=status.HTTP_200_OK,
+)
+def get_exam_preview(
+    exam_id: uuid.UUID,
+    seed: int | None = Query(default=None),
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin),
+) -> Any:
+    """Returns student-view representation of the exam and questions for teacher sandbox preview.
+
+    TC-4.5-01:
+    - Never creates any row in `attempts` or `answers`.
+    - Never sets `locked_at` on the exam.
+    """
+    exam = db.get(Exam, exam_id)
+    if not exam:
+        raise AppError(code="exam_not_found", message="Không tìm thấy bài thi.", status_code=404)
+
+    questions = db.scalars(
+        select(Question).where(Question.exam_id == exam_id).order_by(Question.position.asc())
+    ).all()
+
+    effective_seed = seed if seed is not None else 42
+
+    student_questions = student_view_list(
+        questions,
+        seed=effective_seed,
+        shuffle_options=exam.shuffle_options,
+        exam_id=exam_id,
+        db=db,
+    )
+
+    if exam.shuffle_questions and len(student_questions) > 1:
+        rng = random.Random(effective_seed)
+        rng.shuffle(student_questions)
+
+    return ExamPreviewResponse(
+        id=exam.id,
+        title=exam.title,
+        description_md=exam.description_md,
+        subject=exam.subject,
+        duration_minutes=exam.duration_minutes,
+        status=exam.status,
+        shuffle_questions=exam.shuffle_questions,
+        shuffle_options=exam.shuffle_options,
+        questions=student_questions,
+    )
 
 
 @router.post("/{exam_id}/questions/reorder", status_code=status.HTTP_200_OK)

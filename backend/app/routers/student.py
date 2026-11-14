@@ -13,7 +13,8 @@ from sqlalchemy.orm import Session
 from app.core.dependencies import require_student
 from app.core.errors import AppError
 from app.db.session import get_db
-from app.models import Exam, Question, User
+from app.models import Exam, ExamClass, Question, User
+from app.models.class_model import ClassMember
 from app.schemas.student_question import student_view_list
 
 router = APIRouter(
@@ -32,6 +33,38 @@ def student_dashboard(student: User = Depends(require_student)) -> dict:
         "student_id": str(student.id),
         "username": student.username,
     }
+
+
+@router.get("/exams", status_code=status.HTTP_200_OK)
+def list_student_exams(
+    db: Session = Depends(get_db),
+    student: User = Depends(require_student),
+) -> list[dict[str, Any]]:
+    """Returns published exams assigned to classes that the student belongs to (TC-4.5-02)."""
+    query = (
+        select(Exam)
+        .join(ExamClass, ExamClass.exam_id == Exam.id)
+        .join(ClassMember, ClassMember.class_id == ExamClass.class_id)
+        .where(
+            ClassMember.student_id == student.id,
+            Exam.status == "published",
+        )
+        .distinct()
+        .order_by(Exam.created_at.desc())
+    )
+    exams = db.scalars(query).all()
+    return [
+        {
+            "id": str(e.id),
+            "title": e.title,
+            "subject": e.subject,
+            "duration_minutes": e.duration_minutes,
+            "status": e.status,
+            "open_at": e.open_at.isoformat() if e.open_at else None,
+            "close_at": e.close_at.isoformat() if e.close_at else None,
+        }
+        for e in exams
+    ]
 
 
 @router.get("/exams/{exam_id}/questions", status_code=status.HTTP_200_OK)

@@ -146,3 +146,4 @@ export const McqEditor: React.FC<McqEditorProps> = ({
     </div>
   );
 };
+

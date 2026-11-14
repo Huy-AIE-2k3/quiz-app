@@ -93,11 +93,43 @@ class ExamReorderQuestions(BaseModel):
     ordered_ids: list[uuid.UUID] = Field(..., min_length=1)
 
 
+class ExamAssignClassesPayload(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    class_ids: list[uuid.UUID] = Field(default_factory=list)
+
+
+class ExamValidationSummary(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    question_count: int
+    total_points: Decimal
+    duration_minutes: int
+    class_count: int
+    student_count: int
+
+
 class ExamValidationResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     valid: bool
-    errors: list[str]
+    errors: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    summary: ExamValidationSummary | None = None
+
+
+class ExamPreviewResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    title: str
+    description_md: str
+    subject: str
+    duration_minutes: int
+    status: str
+    shuffle_questions: bool
+    shuffle_options: bool
+    questions: list[dict[str, Any]]
 
 
 class AssignedClassInfo(BaseModel):

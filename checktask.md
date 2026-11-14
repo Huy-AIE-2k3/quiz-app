@@ -30,12 +30,12 @@
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    80%     |
+| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~49%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~50%    |
 
 ---
 
@@ -465,20 +465,20 @@
     - [X] `TC-4.4-08`: Công thức toán gõ sai cú pháp hiện lỗi tại chỗ và tăng bộ đếm cảnh báo.
     - [X] `TC-4.4-09`: Đề thi đã khóa sẽ chuyển toàn bộ form sang chế độ chỉ đọc (read-only).
     - [X] `TC-4.4-10`: Khung thử số câu `short_number` cho phép giáo viên nhập thử nghiệm các giá trị.
-- [ ] **Bước 4.5 — Xuất bản, Giao lớp & Chế độ xem trước Học sinh**
+- [X] **Bước 4.5 — Xuất bản, Giao lớp & Chế độ xem trước Học sinh**
 
-  - [ ] Hộp thoại xuất bản hiển thị kết quả kiểm tra `validate` (cảnh báo công thức hỏng, lớp được giao, số học sinh).
-  - [ ] API giao lớp cho đề thi: Không cho phép rút lớp đã có học sinh làm bài khi đề đã khóa.
-  - [ ] Endpoint `GET /admin/exams/{id}/preview` trả về góc nhìn học sinh, **tuyệt đối không tạo attempt và không khóa đề**.
-  - [ ] Chế độ xem trước trên frontend chạy sandbox (lưu bài trên RAM, đồng hồ giả lập).
+  - [X] Hộp thoại xuất bản hiển thị kết quả kiểm tra `validate` (cảnh báo công thức hỏng, lớp được giao, số học sinh).
+  - [X] API giao lớp cho đề thi: Không cho phép rút lớp đã có học sinh làm bài khi đề đã khóa.
+  - [X] Endpoint `GET /admin/exams/{id}/preview` trả về góc nhìn học sinh, **tuyệt đối không tạo attempt và không khóa đề**.
+  - [X] Chế độ xem trước trên frontend chạy sandbox (lưu bài trên RAM, đồng hồ giả lập).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-4.5-01`: Mở chế độ xem trước và làm thử bài không làm tăng attempt và không set locked_at.
-    - [ ] `TC-4.5-02`: Xuất bản đề thi thành công, học sinh lớp được giao thấy đề, lớp khác không thấy.
-    - [ ] `TC-4.5-03`: Đề thiếu điều kiện bắt buộc (chưa chọn đáp án đúng) không cho bấm Xuất bản.
-    - [ ] `TC-4.5-04`: Không thể rút lớp khỏi đề thi khi đã có học sinh thuộc lớp đó bắt đầu làm bài.
-    - [ ] `TC-4.5-05`: Cảnh báo công thức toán lỗi trong đề hiển thị danh sách câu cụ thể trước khi xuất bản.
-    - [ ] `TC-4.5-06`: Hai admin bấm Xuất bản cùng lúc được xử lý an toàn không sinh lỗi 500.
+    - [X] `TC-4.5-01`: Mở chế độ xem trước và làm thử bài không làm tăng attempt và không set locked_at.
+    - [X] `TC-4.5-02`: Xuất bản đề thi thành công, học sinh lớp được giao thấy đề, lớp khác không thấy.
+    - [X] `TC-4.5-03`: Đề thiếu điều kiện bắt buộc (chưa chọn đáp án đúng) không cho bấm Xuất bản.
+    - [X] `TC-4.5-04`: Không thể rút lớp khỏi đề thi khi đã có học sinh thuộc lớp đó bắt đầu làm bài.
+    - [X] `TC-4.5-05`: Cảnh báo công thức toán lỗi trong đề hiển thị danh sách câu cụ thể trước khi xuất bản.
+    - [X] `TC-4.5-06`: Hai admin bấm Xuất bản cùng lúc được xử lý an toàn không sinh lỗi 500.
 
 ---
 

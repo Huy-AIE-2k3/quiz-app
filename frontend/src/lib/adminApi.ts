@@ -145,21 +145,52 @@ export interface ExamDetailItem {
   version: number;
   created_by: string;
   created_at: string;
+  assigned_classes?: { id: string; name: string; code: string; is_archived: boolean }[];
+  question_count?: number;
+  total_points?: string | number;
+  attempt_count?: number;
   questions?: AdminQuestionItem[];
 }
 
-export interface ExamValidationIssue {
-  field?: string;
-  code: string;
-  message: string;
+export interface ExamValidationSummary {
+  question_count: number;
+  total_points: string | number;
+  duration_minutes: number;
+  class_count: number;
+  student_count: number;
 }
 
 export interface ExamValidationResult {
   valid: boolean;
-  issues: ExamValidationIssue[];
-  question_count: number;
-  total_points: string;
-  class_count: number;
+  errors: string[];
+  warnings?: string[];
+  summary?: ExamValidationSummary;
+  // Compatibility helpers
+  issues?: { code: string; message: string }[];
+  question_count?: number;
+  total_points?: string;
+  class_count?: number;
+}
+
+export interface ExamPreviewQuestion {
+  id: string;
+  type: QuestionType;
+  content_md: string;
+  points: string;
+  config: Record<string, any>;
+  unavailable?: boolean;
+}
+
+export interface ExamPreviewResponse {
+  id: string;
+  title: string;
+  description_md: string;
+  subject: string;
+  duration_minutes: number;
+  status: 'draft' | 'published' | 'closed' | 'archived';
+  shuffle_questions: boolean;
+  shuffle_options: boolean;
+  questions: ExamPreviewQuestion[];
 }
 
 export interface UploadAssetResponse {
@@ -296,14 +327,26 @@ export const adminApi = {
     return request<ExamValidationResult>(`/api/v1/admin/exams/${examId}/validate`);
   },
 
-  transitionExamStatus: (examId: string, targetStatus: string) => {
-    return request<{ status: string; current_status: string }>(
+  transitionExamStatus: (examId: string, targetStatus: string, version: number = 1) => {
+    return request<ExamDetailItem>(
       `/api/v1/admin/exams/${examId}/status`,
       {
         method: 'POST',
-        body: { target_status: targetStatus },
+        body: { status: targetStatus, version },
       }
     );
+  },
+
+  assignExamClasses: (examId: string, classIds: string[]) => {
+    return request<ExamDetailItem>(`/api/v1/admin/exams/${examId}/classes`, {
+      method: 'PUT',
+      body: { class_ids: classIds },
+    });
+  },
+
+  getExamPreview: (examId: string, seed?: number) => {
+    const qs = seed !== undefined ? `?seed=${seed}` : '';
+    return request<ExamPreviewResponse>(`/api/v1/admin/exams/${examId}/preview${qs}`);
   },
 
   reorderQuestions: (examId: string, orderedIds: string[]) => {

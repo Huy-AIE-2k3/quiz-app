@@ -26,6 +26,7 @@ import { AdminClassesPage } from './pages/admin/AdminClassesPage';
 import { AdminClassDetailPage } from './pages/admin/AdminClassDetailPage';
 import { AdminStudentsPage } from './pages/admin/AdminStudentsPage';
 import { AdminExamEditorPage } from './pages/admin/AdminExamEditorPage';
+import { AdminExamSandboxPreviewPage } from './pages/admin/AdminExamSandboxPreviewPage';
 import { StudentExamsPage } from './pages/student/StudentExamsPage';
 
 // Code-splitting for dev showroom to keep production bundle minimal
@@ -48,6 +49,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/a/classes/:classId" element={<AdminClassDetailPage />} />
         <Route path="/a/students" element={<AdminStudentsPage />} />
         <Route path="/a/exams/:examId/edit" element={<AdminExamEditorPage />} />
+        <Route path="/a/exams/:examId/preview" element={<AdminExamSandboxPreviewPage />} />
       </Route>
 
       {/* Protected Student Routes */}
