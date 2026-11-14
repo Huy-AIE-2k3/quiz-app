@@ -14,6 +14,7 @@ from app.core.errors import AppError
 from app.db.session import get_db
 from app.models import Session as SessionModel
 from app.models import User
+from app.routers.admin_assets import router as assets_router
 from app.routers.admin_classes import router as classes_router
 from app.routers.admin_exams import router as exams_router
 from app.routers.admin_questions import router as questions_router
@@ -28,6 +29,7 @@ router.include_router(classes_router)
 router.include_router(students_router)
 router.include_router(exams_router)
 router.include_router(questions_router)
+router.include_router(assets_router)
 
 
 @router.get("/dashboard", status_code=status.HTTP_200_OK)

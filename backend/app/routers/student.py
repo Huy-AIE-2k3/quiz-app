@@ -62,4 +62,6 @@ def get_exam_questions(
         questions,
         seed=effective_seed,
         shuffle_options=shuffle_options,
+        exam_id=exam_id,
+        db=db,
     )

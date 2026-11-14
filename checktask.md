@@ -30,12 +30,12 @@
 | **Giai đoạn 1** | UI/UX, Design System, sinh màn hình Stitch, rà slop, React Components    | 5–6 ngày                     |   `[x]`   |    100%    |
 | **Giai đoạn 2** | Nền tảng Backend FastAPI, CSDL SQLAlchemy/Alembic, Auth, Khung Frontend   | 4 ngày                        |   `[x]`   |    100%    |
 | **Giai đoạn 3** | Quản lý Lớp, Học sinh, Ghi danh, Nhập CSV 2 pha                        | 3 ngày                        |   `[x]`   |    100%    |
-| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    50%     |
+| **Giai đoạn 4** | Soạn đề 5 dạng câu, LaTeX, Ảnh asset, Vòng đời đề thi            | 5 ngày                        |   `[-]`   |    75%     |
 | **Giai đoạn 5** | Làm bài, Tự lưu Outbox, Đồng hồ Monotonic, Tự nộp, Nộp file       | 8 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 6** | Bộ máy chấm điểm, Chấm tay, Công bố, Giám sát, Xuất/Dọn CSV     | 5 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 7** | Đảm bảo chất lượng: Bảo mật, Tải (40 user), Chaos, E2E, Thiết bị | 4 ngày                        |   `[ ]`   |     0%     |
 | **Giai đoạn 8** | Hosting (Pages + Render + Neon + R2), Giữ thức, Diễn tập & Go-Live      | 3 ngày                        |   `[ ]`   |     0%     |
-| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~43%    |
+| **TỔNG**         | **Toàn bộ dự án từ chuẩn bị đến go-live**                    | **~38 ngày làm việc** |   `[-]`   |    ~47%    |
 
 ---
 
@@ -423,27 +423,27 @@
     - [X] `TC-4.2-07`: Lỗi giữa chừng khi sao chép ảnh R2 sẽ rollback toàn bộ và xóa ảnh rác.
     - [X] `TC-4.2-08`: Sửa đồng thời cùng version của đề thi trả 409 cho người sau.
     - [X] `TC-4.2-09`: Đề đã đóng chỉ được mở lại nếu close_at còn ở tương lai hoặc NULL.
-- [ ] **Bước 4.3 — Tải ảnh cho đề thi & Phát ảnh bảo mật**
+- [X] **Bước 4.3 — Tải ảnh cho đề thi & Phát ảnh bảo mật**
 
-  - [ ] Client nén ảnh bằng `browser-image-compression` trước khi tải lên.
-  - [ ] Server đọc stream kiểm tra dung lượng $\le 5$ MB, chặn ngay lập tức nếu vượt ngưỡng.
-  - [ ] Kiểm tra chữ ký file thực tế bằng Pillow, chặn file SVG, chặn "bom ảnh" qua `MAX_IMAGE_PIXELS`.
-  - [ ] Re-encode ảnh sang định dạng chuẩn WEBP (loại bỏ toàn bộ dữ liệu EXIF/GPS).
-  - [ ] Lưu trữ trên Cloudflare R2 khóa `exams/{exam_id}/img/{uuid}.webp`, lưu DB bảng `files`.
-  - [ ] Cơ chế phát ảnh an toàn: Thay thế thẻ `asset:<uuid>` thành URL ký tạm thời (TTL 6 giờ).
-  - [ ] Chặn tham chiếu chéo: Chỉ phát ảnh thuộc quyền sở hữu của đúng đề thi đó.
+  - [X] Client nén ảnh bằng `browser-image-compression` trước khi tải lên.
+  - [X] Server đọc stream kiểm tra dung lượng $\le 5$ MB, chặn ngay lập tức nếu vượt ngưỡng.
+  - [X] Kiểm tra chữ ký file thực tế bằng Pillow, chặn file SVG, chặn "bom ảnh" qua `MAX_IMAGE_PIXELS`.
+  - [X] Re-encode ảnh sang định dạng chuẩn WEBP (loại bỏ toàn bộ dữ liệu EXIF/GPS).
+  - [X] Lưu trữ trên Cloudflare R2 khóa `exams/{exam_id}/img/{uuid}.webp`, lưu DB bảng `files`.
+  - [X] Cơ chế phát ảnh an toàn: Thay thế thẻ `asset:<uuid>` thành URL ký tạm thời (TTL 6 giờ).
+  - [X] Chặn tham chiếu chéo: Chỉ phát ảnh thuộc quyền sở hữu của đúng đề thi đó.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-4.3-01`: Tải ảnh PNG hợp lệ lưu thành công dạng WEBP và sinh mã `asset:<uuid>`.
-    - [ ] `TC-4.3-02`: Đổi đuôi file exe/pdf thành png bị từ chối 415 invalid_image.
-    - [ ] `TC-4.3-03`: Tải ảnh quá 5 MB bị ngắt kết nối ngay và trả mã 413.
-    - [ ] `TC-4.3-04`: Ảnh bom giải nén kích thước 30.000x30.000 px bị từ chối, server không treo.
-    - [ ] `TC-4.3-05`: File SVG chứa mã JavaScript độc hại bị từ chối.
-    - [ ] `TC-4.3-06`: Ảnh chụp điện thoại có tọa độ GPS trong EXIF bị xóa sạch sau khi upload.
-    - [ ] `TC-4.3-07`: URL ký phát ảnh hết hạn sau thời gian TTL quy định.
-    - [ ] `TC-4.3-08`: Chèn mã `asset:` của đề thi khác vào đề này sẽ không hiển thị ảnh.
-    - [ ] `TC-4.3-09`: Lỗi ghi CSDL sau khi upload R2 sẽ tự động xóa đối tượng bù trừ trên R2.
-    - [ ] `TC-4.3-10`: Học sinh gọi endpoint upload ảnh đề thi bị trả mã 403.
+    - [X] `TC-4.3-01`: Tải ảnh PNG hợp lệ lưu thành công dạng WEBP và sinh mã `asset:<uuid>`.
+    - [X] `TC-4.3-02`: Đổi đuôi file exe/pdf thành png bị từ chối 415 invalid_image.
+    - [X] `TC-4.3-03`: Tải ảnh quá 5 MB bị ngắt kết nối ngay và trả mã 413.
+    - [X] `TC-4.3-04`: Ảnh bom giải nén kích thước 30.000x30.000 px bị từ chối, server không treo.
+    - [X] `TC-4.3-05`: File SVG chứa mã JavaScript độc hại bị từ chối.
+    - [X] `TC-4.3-06`: Ảnh chụp điện thoại có tọa độ GPS trong EXIF bị xóa sạch sau khi upload.
+    - [X] `TC-4.3-07`: URL ký phát ảnh hết hạn sau thời gian TTL quy định.
+    - [X] `TC-4.3-08`: Chèn mã `asset:` của đề thi khác vào đề này sẽ không hiển thị ảnh.
+    - [X] `TC-4.3-09`: Lỗi ghi CSDL sau khi upload R2 sẽ tự động xóa đối tượng bù trừ trên R2.
+    - [X] `TC-4.3-10`: Học sinh gọi endpoint upload ảnh đề thi bị trả mã 403.
 - [ ] **Bước 4.4 — Giao diện Soạn đề thi (Live Preview & LaTeX Toolbar)**
 
   - [ ] Bố cục giao diện 3 cột desktop: Danh sách câu hỏi (kéo thả dnd-kit) | Form soạn thảo | Live Preview.

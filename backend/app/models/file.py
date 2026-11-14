@@ -19,6 +19,7 @@ from app.db.base import Base
 
 if TYPE_CHECKING:
     from app.models.answer import Answer
+    from app.models.exam import Exam
     from app.models.user import User
 
 
@@ -33,6 +34,12 @@ class File(Base):
     user_id: Mapped[uuid.UUID] = mapped_column(
         Uuid, ForeignKey("users.id", ondelete="RESTRICT"), nullable=False, index=True
     )
+    exam_id: Mapped[uuid.UUID | None] = mapped_column(
+        Uuid, ForeignKey("exams.id", ondelete="CASCADE"), nullable=True, index=True
+    )
+    kind: Mapped[str] = mapped_column(
+        String(32), server_default="question_image", nullable=False, index=True
+    )
     original_name: Mapped[str] = mapped_column(String(255), nullable=False)
     s3_key: Mapped[str] = mapped_column(String(512), unique=True, nullable=False, index=True)
     mime_type: Mapped[str] = mapped_column(String(128), nullable=False)
@@ -43,4 +50,5 @@ class File(Base):
 
     # Relationships
     user: Mapped["User"] = relationship("User", back_populates="files")
+    exam: Mapped["Exam | None"] = relationship("Exam", back_populates="files")
     answers: Mapped[list["Answer"]] = relationship("Answer", back_populates="file")

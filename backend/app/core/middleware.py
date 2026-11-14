@@ -63,7 +63,12 @@ class BodySizeLimitMiddleware:
             return
 
         path = scope.get("path", "")
-        limit = self.upload_limit if "/upload" in path else self.default_limit
+        if "/assets" in path:
+            limit = 5 * 1024 * 1024  # 5 MB for exam assets
+        elif "/upload" in path:
+            limit = self.upload_limit
+        else:
+            limit = self.default_limit
 
         headers = dict(scope.get("headers", []))
         content_length_raw = headers.get(b"content-length")

@@ -22,6 +22,7 @@ from app.db.base import Base
 if TYPE_CHECKING:
     from app.models.attempt import Attempt
     from app.models.class_model import Class
+    from app.models.file import File
     from app.models.question import Question
     from app.models.user import User
 
@@ -90,6 +91,9 @@ class Exam(Base):
         order_by="Question.position",
     )
     attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="exam")
+    files: Mapped[list["File"]] = relationship(
+        "File", back_populates="exam", cascade="all, delete-orphan"
+    )
 
 
 class ExamClass(Base):

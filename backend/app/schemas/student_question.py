@@ -74,6 +74,10 @@ def student_view(
     q: Any,
     seed: int | None = None,
     shuffle_options: bool = False,
+    exam_id: uuid.UUID | None = None,
+    db: Any | None = None,
+    storage: Any | None = None,
+    ttl: int = 6 * 3600,
 ) -> dict[str, Any]:
     """Serializes a question object, schema, or dict into a student-facing representation.
 
@@ -82,7 +86,8 @@ def student_view(
     2. Filters config to only include allowed keys for that question type.
     3. If question is MCQ and shuffle_options is True, stably shuffles options using seed.
     4. Omits answer_key, explanation_md, and all unapproved fields.
-    5. If data is corrupted/invalid in DB, marks question with 'unavailable': True without crashing.
+    5. Resolves asset:<uuid> to signed presigned URLs if db and exam_id are provided (Step 4.3).
+    6. If data is corrupted/invalid in DB, marks question with 'unavailable': True without crashing.
     """
     # Extract identifiers and raw attributes
     if isinstance(q, dict):
@@ -196,6 +201,26 @@ def student_view(
             else:
                 filtered_config[k] = copy.deepcopy(val)
 
+    # Step 4.3: Resolve asset:<uuid> to signed presigned URLs if db and exam_id are provided
+    if exam_id is not None and db is not None:
+        from app.services.asset_service import render_assets
+
+        content_md = render_assets(content_md, exam_id, db, storage=storage, ttl=ttl)
+
+        if "options" in filtered_config and isinstance(filtered_config["options"], list):
+            for opt in filtered_config["options"]:
+                if isinstance(opt, dict) and "content_md" in opt:
+                    opt["content_md"] = render_assets(
+                        opt["content_md"], exam_id, db, storage=storage, ttl=ttl
+                    )
+
+        if "statements" in filtered_config and isinstance(filtered_config["statements"], list):
+            for stmt in filtered_config["statements"]:
+                if isinstance(stmt, dict) and "content_md" in stmt:
+                    stmt["content_md"] = render_assets(
+                        stmt["content_md"], exam_id, db, storage=storage, ttl=ttl
+                    )
+
     # Return STRICT allow-listed dictionary
     return {
         "id": q_id,
@@ -210,6 +235,10 @@ def student_view_list(
     questions: list[Any],
     seed: int | None = None,
     shuffle_options: bool = False,
+    exam_id: uuid.UUID | None = None,
+    db: Any | None = None,
+    storage: Any | None = None,
+    ttl: int = 6 * 3600,
 ) -> list[dict[str, Any]]:
     """Transforms a collection of questions into safe student-facing representations.
 
@@ -219,7 +248,15 @@ def student_view_list(
     res: list[dict[str, Any]] = []
     for q in questions:
         try:
-            view = student_view(q, seed=seed, shuffle_options=shuffle_options)
+            view = student_view(
+                q,
+                seed=seed,
+                shuffle_options=shuffle_options,
+                exam_id=exam_id,
+                db=db,
+                storage=storage,
+                ttl=ttl,
+            )
             res.append(view)
         except Exception as e:
             logger.exception(

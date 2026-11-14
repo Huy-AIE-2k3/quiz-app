@@ -24,6 +24,7 @@ from app.core.middleware import (
     SecurityHeadersMiddleware,
 )
 from app.routers import admin_router, auth_router, student_router, system_router
+from app.routers.admin_assets import legacy_router as legacy_admin_assets_router
 from app.routers.dev import router as dev_router
 
 
@@ -72,6 +73,7 @@ def create_app() -> FastAPI:
     # Register API Routers
     app.include_router(auth_router)
     app.include_router(admin_router)
+    app.include_router(legacy_admin_assets_router)
     app.include_router(student_router)
     app.include_router(system_router)
 
