@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import {
@@ -181,6 +182,40 @@ describe('TC-1.5-01: UI Component States (Default, Loading, Disabled, Error)', (
     expect(screen.getByText('Xác nhận nộp bài')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Xác nhận' }));
     expect(handleConfirm).toHaveBeenCalledTimes(1);
+  });
+
+  it('Modal: typing in form inputs inside modal does not steal focus or jump to close button', async () => {
+    const TestModalForm = () => {
+      const [isOpen, setIsOpen] = React.useState(true);
+      const [text, setText] = React.useState('');
+      return (
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Test Input Focus">
+          <input
+            data-testid="modal-input"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </Modal>
+      );
+    };
+
+    render(<TestModalForm />);
+    const input = screen.getByTestId('modal-input');
+    const closeBtn = screen.getByRole('button', { name: 'Đóng hộp thoại' });
+
+    // Focus input and type characters
+    input.focus();
+    expect(document.activeElement).toBe(input);
+
+    fireEvent.change(input, { target: { value: 'h' } });
+    await new Promise((r) => setTimeout(r, 70));
+    expect(document.activeElement).toBe(input);
+    expect(document.activeElement).not.toBe(closeBtn);
+
+    fireEvent.change(input, { target: { value: 'huy' } });
+    await new Promise((r) => setTimeout(r, 70));
+    expect(document.activeElement).toBe(input);
+    expect(document.activeElement).not.toBe(closeBtn);
   });
 
   it('Skeleton, EmptyState, ErrorState, Banner, and Pagination render cleanly', () => {

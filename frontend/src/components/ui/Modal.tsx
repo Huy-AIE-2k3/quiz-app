@@ -23,23 +23,36 @@ export const Modal: React.FC<ModalProps> = ({
   className = '',
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   const titleId = useId();
   const descId = useId();
 
-  // Focus trap & Escape key
+  // Focus trap, Escape key, and body scroll lock
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      if (previousActiveElementRef.current) {
+        previousActiveElementRef.current.focus?.();
+        previousActiveElementRef.current = null;
+      }
+      return;
+    }
+
+    previousActiveElementRef.current = document.activeElement as HTMLElement | null;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
-        onClose();
+        onCloseRef.current();
         return;
       }
 
       if (e.key === 'Tab' && modalRef.current) {
         const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button:not([disabled]), [href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
         );
         if (focusableElements.length === 0) return;
 
@@ -56,18 +69,46 @@ export const Modal: React.FC<ModalProps> = ({
       }
     };
 
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
 
-    // Initial focus into modal
+    // Initial focus on open: prioritize form inputs or explicit autofocus over the close button
     const timer = setTimeout(() => {
-      if (modalRef.current) {
-        const firstFocusable = modalRef.current.querySelector<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        firstFocusable?.focus();
+      if (!modalRef.current) return;
+      // Never steal focus if user is already typing or interacting inside the modal
+      if (modalRef.current.contains(document.activeElement)) return;
+
+      // 1. Explicit autofocus attribute
+      const explicitAutoFocus = modalRef.current.querySelector<HTMLElement>(
+        '[autofocus], [data-autofocus]'
+      );
+      if (explicitAutoFocus) {
+        explicitAutoFocus.focus();
+        return;
       }
+
+      // 2. First editable form input / textarea / select
+      const firstInput = modalRef.current.querySelector<HTMLElement>(
+        'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])'
+      );
+      if (firstInput) {
+        firstInput.focus();
+        return;
+      }
+
+      // 3. Main action button in footer (excluding close button)
+      const actionButton = modalRef.current.querySelector<HTMLElement>(
+        'button:not([aria-label="Đóng hộp thoại"]):not([disabled])'
+      );
+      if (actionButton) {
+        actionButton.focus();
+        return;
+      }
+
+      // 4. Fallback to any focusable element
+      const firstFocusable = modalRef.current.querySelector<HTMLElement>(
+        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
     }, 50);
 
     return () => {
@@ -75,7 +116,7 @@ export const Modal: React.FC<ModalProps> = ({
       window.removeEventListener('keydown', handleKeyDown);
       clearTimeout(timer);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

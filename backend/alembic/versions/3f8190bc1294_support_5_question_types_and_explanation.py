@@ -39,6 +39,9 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     """Downgrade schema."""
+    op.execute(
+        "ALTER TABLE questions DROP CONSTRAINT IF EXISTS ck_questions_ck_questions_question_type"
+    )
     op.execute("ALTER TABLE questions DROP CONSTRAINT IF EXISTS ck_questions_question_type")
     op.create_check_constraint(
         "ck_questions_question_type",

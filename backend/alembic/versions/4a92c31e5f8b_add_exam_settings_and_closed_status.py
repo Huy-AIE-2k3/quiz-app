@@ -72,10 +72,16 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     """Downgrade schema."""
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_ck_exams_result_visibility")
     op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_result_visibility")
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_ck_exams_duration_range")
     op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_duration_range")
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_ck_exams_subject")
     op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_subject")
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_ck_exams_status")
     op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_status")
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_ck_exams_duration_positive")
+    op.execute("ALTER TABLE exams DROP CONSTRAINT IF EXISTS ck_exams_duration_positive")
 
     op.create_check_constraint(
         "ck_exams_status",
