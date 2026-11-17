@@ -105,6 +105,7 @@ def list_students(
     limit: int = Query(default=20, ge=1, le=100, description="Số lượng học sinh mỗi trang (1-100)"),
     offset: int = Query(default=0, ge=0, description="Vị trí bắt đầu (>= 0)"),
     q: str | None = Query(default=None, description="Từ khóa tìm kiếm theo họ tên hoặc username"),
+    search: str | None = Query(default=None, description="Từ khóa tìm kiếm (bí danh cho q)"),
     class_id: uuid.UUID | None = Query(default=None, description="Lọc theo lớp học"),
     is_active: bool | None = Query(default=None, description="Lọc theo trạng thái hoạt động"),
     db: Session = Depends(get_db),
@@ -116,8 +117,9 @@ def list_students(
     if is_active is not None:
         filters.append(User.is_active == is_active)
 
-    if q and q.strip():
-        escaped_q = escape_like_pattern(q.strip())
+    search_keyword = (search or q or "").strip()
+    if search_keyword:
+        escaped_q = escape_like_pattern(search_keyword)
         pattern = f"%{escaped_q}%"
         filters.append(
             or_(

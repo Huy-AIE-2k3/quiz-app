@@ -251,11 +251,15 @@ export const adminApi = {
 
   // Students
   listStudents: (
-    params: { search?: string; class_id?: string; is_active?: boolean; limit?: number; offset?: number } = {},
+    params: { search?: string; q?: string; class_id?: string; is_active?: boolean; limit?: number; offset?: number } = {},
     signal?: AbortSignal
   ) => {
     const query = new URLSearchParams();
-    if (params.search) query.set('search', params.search);
+    const searchVal = params.search || params.q;
+    if (searchVal) {
+      query.set('search', searchVal);
+      query.set('q', searchVal);
+    }
     if (params.class_id) query.set('class_id', params.class_id);
     if (params.is_active !== undefined) query.set('is_active', String(params.is_active));
     if (params.limit !== undefined) query.set('limit', String(params.limit));

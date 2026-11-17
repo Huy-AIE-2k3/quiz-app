@@ -33,14 +33,14 @@ export const AdminClassDetailPage: React.FC = () => {
   // 2. Fetch Enrolled Students in this class
   const { data: membersData, isLoading: isMembersLoading } = useQuery({
     queryKey: ['admin', 'students', 'class', classId],
-    queryFn: () => adminApi.listStudents({ class_id: classId, limit: 200 }),
+    queryFn: () => adminApi.listStudents({ class_id: classId, limit: 100 }),
     enabled: !!classId,
   });
 
   // 3. Fetch All Students for Enrollment Selection
   const { data: allStudentsData, isLoading: isAllStudentsLoading } = useQuery({
     queryKey: ['admin', 'students', 'enrollment_pool', enrollSearch],
-    queryFn: () => adminApi.listStudents({ search: enrollSearch.trim() || undefined, limit: 200 }),
+    queryFn: () => adminApi.listStudents({ search: enrollSearch.trim() || undefined, limit: 100 }),
     enabled: activeTab === 'enroll',
   });
 
