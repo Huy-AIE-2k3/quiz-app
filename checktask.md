@@ -486,20 +486,20 @@
 
 > **Nguyên tắc:** Bắt buộc áp dụng TDD (viết test trước khi code), kiểm thử đồng thời trên **PostgreSQL thật**.
 
-- [ ] **Bước 5.1 — Danh sách đề & Trang giới thiệu đề của Học sinh**
+- [X] **Bước 5.1 — Danh sách đề & Trang giới thiệu đề của Học sinh**
 
-  - [ ] Truy vấn đề thi lọc theo lớp của học sinh, tính toán trạng thái động: `upcoming`, `open`, `closed`, `in_progress`, `submitted`, `result_available`.
-  - [ ] Sử dụng allow-list trường trả về, tuyệt đối không trả đáp án hay cấu hình nội bộ.
-  - [ ] Endpoint `GET /student/exams/{id}` trả về thông tin giới thiệu đề thi (đề không thuộc lớp trả về 404).
+  - [X] Truy vấn đề thi lọc theo lớp của học sinh, tính toán trạng thái động: `upcoming`, `open`, `closed`, `in_progress`, `submitted`, `result_available`.
+  - [X] Sử dụng allow-list trường trả về, tuyệt đối không trả đáp án hay cấu hình nội bộ.
+  - [X] Endpoint `GET /student/exams/{id}` trả về thông tin giới thiệu đề thi (đề không thuộc lớp trả về 404).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.1-01`: Học sinh chỉ thấy đề của lớp mình, gọi ID đề lớp khác nhận mã 404.
-    - [ ] `TC-5.1-02`: Học sinh thuộc nhiều lớp được giao cùng 1 đề chỉ thấy đề xuất hiện đúng 1 lần.
-    - [ ] `TC-5.1-03`: Trạng thái đề hiển thị chính xác theo các mốc thời gian server.
-    - [ ] `TC-5.1-04`: Trạng thái hiển thị đúng sau khi làm bài (in_progress, submitted) và không lộ điểm.
-    - [ ] `TC-5.1-05`: Đề nháp (draft) và đề lưu trữ (archived) không bao giờ hiển thị.
-    - [ ] `TC-5.1-06`: Đề đã đóng nhưng học sinh đã làm vẫn hiển thị để xem lại trạng thái.
-    - [ ] `TC-5.1-07`: Lỗi kết nối DB tạm thời trả 503 để client retry, không hiển thị danh sách rỗng giả.
+    - [X] `TC-5.1-01`: Học sinh chỉ thấy đề của lớp mình, gọi ID đề lớp khác nhận mã 404.
+    - [X] `TC-5.1-02`: Học sinh thuộc nhiều lớp được giao cùng 1 đề chỉ thấy đề xuất hiện đúng 1 lần.
+    - [X] `TC-5.1-03`: Trạng thái đề hiển thị chính xác theo các mốc thời gian server.
+    - [X] `TC-5.1-04`: Trạng thái hiển thị đúng sau khi làm bài (in_progress, submitted) và không lộ điểm.
+    - [X] `TC-5.1-05`: Đề nháp (draft) và đề lưu trữ (archived) không bao giờ hiển thị.
+    - [X] `TC-5.1-06`: Đề đã đóng nhưng học sinh đã làm vẫn hiển thị để xem lại trạng thái.
+    - [X] `TC-5.1-07`: Lỗi kết nối DB tạm thời trả 503 để client retry, không hiển thị danh sách rỗng giả.
 - [ ] **Bước 5.2 — Bắt đầu làm bài thi (Idempotent & Chống bão click)**
 
   - [ ] Thuật toán tạo attempt trong 1 transaction:

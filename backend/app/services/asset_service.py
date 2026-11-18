@@ -133,4 +133,3 @@ def render_question_assets(
         result["config"] = cfg
 
     return result
-

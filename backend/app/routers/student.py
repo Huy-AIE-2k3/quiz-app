@@ -12,10 +12,12 @@ from sqlalchemy.orm import Session
 
 from app.core.dependencies import require_student
 from app.core.errors import AppError
+from app.core.time import Clock, get_clock
 from app.db.session import get_db
-from app.models import Exam, ExamClass, Question, User
-from app.models.class_model import ClassMember
+from app.models import Exam, Question, User
+from app.schemas.student_exam_schema import StudentExamDetail, StudentExamListItem
 from app.schemas.student_question import student_view_list
+from app.services.student_exam_service import get_student_exam_detail, get_student_exams
 
 router = APIRouter(
     prefix="/api/v1/student",
@@ -35,36 +37,25 @@ def student_dashboard(student: User = Depends(require_student)) -> dict:
     }
 
 
-@router.get("/exams", status_code=status.HTTP_200_OK)
+@router.get("/exams", response_model=list[StudentExamListItem], status_code=status.HTTP_200_OK)
 def list_student_exams(
     db: Session = Depends(get_db),
     student: User = Depends(require_student),
-) -> list[dict[str, Any]]:
-    """Returns published exams assigned to classes that the student belongs to (TC-4.5-02)."""
-    query = (
-        select(Exam)
-        .join(ExamClass, ExamClass.exam_id == Exam.id)
-        .join(ClassMember, ClassMember.class_id == ExamClass.class_id)
-        .where(
-            ClassMember.student_id == student.id,
-            Exam.status == "published",
-        )
-        .distinct()
-        .order_by(Exam.created_at.desc())
-    )
-    exams = db.scalars(query).all()
-    return [
-        {
-            "id": str(e.id),
-            "title": e.title,
-            "subject": e.subject,
-            "duration_minutes": e.duration_minutes,
-            "status": e.status,
-            "open_at": e.open_at.isoformat() if e.open_at else None,
-            "close_at": e.close_at.isoformat() if e.close_at else None,
-        }
-        for e in exams
-    ]
+    clock: Clock = Depends(get_clock),
+) -> list[StudentExamListItem]:
+    """Returns accessible exams for the student with dynamic real-time states (Step 5.1)."""
+    return get_student_exams(db, student.id, clock.now())
+
+
+@router.get("/exams/{exam_id}", response_model=StudentExamDetail, status_code=status.HTTP_200_OK)
+def get_student_exam(
+    exam_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    student: User = Depends(require_student),
+    clock: Clock = Depends(get_clock),
+) -> StudentExamDetail:
+    """Returns student exam introduction view with markdown rendering (Step 5.1)."""
+    return get_student_exam_detail(db, student.id, exam_id, clock.now())
 
 
 @router.get("/exams/{exam_id}/questions", status_code=status.HTTP_200_OK)

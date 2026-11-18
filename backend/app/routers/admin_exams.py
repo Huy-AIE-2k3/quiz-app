@@ -340,9 +340,7 @@ def assign_exam_classes(
                 status_code=404,
             )
 
-    current_assignments = db.scalars(
-        select(ExamClass).where(ExamClass.exam_id == exam.id)
-    ).all()
+    current_assignments = db.scalars(select(ExamClass).where(ExamClass.exam_id == exam.id)).all()
     current_class_ids = {ea.class_id for ea in current_assignments}
 
     removed_class_ids = current_class_ids - requested_ids

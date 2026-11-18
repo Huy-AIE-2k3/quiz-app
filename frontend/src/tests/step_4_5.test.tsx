@@ -225,8 +225,10 @@ describe('Step 4.5: Publishing, Class Assignment & Student Preview Suite', () =>
         { id: 'c1', name: 'Lớp 12A1', code: '12A1', is_archived: false },
         { id: 'c2', name: 'Lớp 12A2', code: '12A2', is_archived: false },
         { id: 'c3', name: 'Lớp 12A3', code: '12A3', is_archived: false },
-      ],
+      ] as any,
       total: 3,
+      limit: 50,
+      offset: 0,
     });
 
     vi.spyOn(adminApi, 'assignExamClasses').mockRejectedValue({

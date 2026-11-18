@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     BigInteger,
+    Boolean,
     CheckConstraint,
     DateTime,
     ForeignKey,
@@ -59,6 +60,9 @@ class Attempt(Base):
     deadline_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     shuffle_seed: Mapped[int] = mapped_column(BigInteger, nullable=False)
     score_total: Mapped[Decimal | None] = mapped_column(Numeric(6, 2), nullable=True)
+    released: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default="false"
+    )
     submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

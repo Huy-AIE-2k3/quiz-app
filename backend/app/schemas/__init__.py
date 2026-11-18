@@ -39,6 +39,11 @@ from app.schemas.exam_schema import (
     ExamUpdate,
     ExamValidationResult,
 )
+from app.schemas.student_exam_schema import (
+    StudentExamDetail,
+    StudentExamListItem,
+    StudentExamState,
+)
 from app.schemas.student_question import (
     FORBIDDEN_STUDENT_KEYS,
     STUDENT_CONFIG_KEYS,
@@ -98,6 +103,9 @@ __all__ = [
     "ShortTextAnswerKey",
     "ShortNumberConfig",
     "ShortNumberAnswerKey",
+    "StudentExamDetail",
+    "StudentExamListItem",
+    "StudentExamState",
     "StudentQuestionView",
     "student_view",
     "student_view_list",

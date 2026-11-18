@@ -244,12 +244,8 @@ def test_tc_4_5_02_published_exam_visibility_by_class(mock_admin, mock_student_1
     exam_class_2 = ExamClass(exam_id=exam.id, class_id=class_b.id)
 
     def get_student_exams(student, db_members, db_exam_classes, db_exams):
-        assigned_cids = {
-            ec.class_id for ec in db_exam_classes if ec.exam_id == exam.id
-        }
-        student_cids = {
-            m.class_id for m in db_members if m.student_id == student.id
-        }
+        assigned_cids = {ec.class_id for ec in db_exam_classes if ec.exam_id == exam.id}
+        student_cids = {m.class_id for m in db_members if m.student_id == student.id}
         if assigned_cids.intersection(student_cids) and exam.status == "published":
             return [exam]
         return []
