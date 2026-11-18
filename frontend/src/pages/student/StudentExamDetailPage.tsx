@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   ArrowLeft,
   Calendar,
@@ -31,6 +31,7 @@ import { Card } from '../../components/ui/Card';
 import { ErrorState } from '../../components/ui/ErrorState';
 import { MathText } from '../../components/ui/MathText';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { useToast } from '../../components/ui/useToast';
 import {
   formatDateTime,
   getStateBadgeConfig,
@@ -41,6 +42,8 @@ export const StudentExamDetailPage: React.FC = () => {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const {
     data: exam,
@@ -55,6 +58,24 @@ export const StudentExamDetailPage: React.FC = () => {
       return studentApi.getExam(examId);
     },
     enabled: Boolean(examId),
+  });
+
+  const startMutation = useMutation({
+    mutationFn: () => {
+      if (!examId) throw new Error('Mã đề thi không hợp lệ');
+      return studentApi.startExam(examId);
+    },
+    onSuccess: (data) => {
+      if (data.status === 'submitted') {
+        toast.info('Bài thi này đã hoàn thành hoặc đã quá hạn.');
+        queryClient.invalidateQueries({ queryKey: ['student-exam-detail', examId] });
+      } else {
+        navigate(`/s/exams/${examId}/take`);
+      }
+    },
+    onError: (err: { message?: string }) => {
+      toast.error(err?.message || 'Không thể bắt đầu làm bài thi.', 'Lỗi');
+    },
   });
 
   return (
@@ -258,7 +279,9 @@ export const StudentExamDetailPage: React.FC = () => {
                     size="lg"
                     className="w-full sm:w-auto px-8"
                     iconLeft={<PlayCircle className="w-5 h-5" />}
-                    onClick={() => navigate(`/s/exams/${exam.id}/take`)}
+                    disabled={startMutation.isPending}
+                    loading={startMutation.isPending}
+                    onClick={() => startMutation.mutate()}
                   >
                     {exam.state === 'in_progress' ? 'Tiếp tục làm bài' : 'Bắt đầu làm bài'}
                   </Button>

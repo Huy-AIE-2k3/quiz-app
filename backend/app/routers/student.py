@@ -15,9 +15,17 @@ from app.core.errors import AppError
 from app.core.time import Clock, get_clock
 from app.db.session import get_db
 from app.models import Exam, Question, User
-from app.schemas.student_exam_schema import StudentExamDetail, StudentExamListItem
+from app.schemas.student_exam_schema import (
+    StudentExamDetail,
+    StudentExamListItem,
+    StudentStartAttemptResponse,
+)
 from app.schemas.student_question import student_view_list
-from app.services.student_exam_service import get_student_exam_detail, get_student_exams
+from app.services.student_exam_service import (
+    get_student_exam_detail,
+    get_student_exams,
+    start_student_attempt,
+)
 
 router = APIRouter(
     prefix="/api/v1/student",
@@ -56,6 +64,21 @@ def get_student_exam(
 ) -> StudentExamDetail:
     """Returns student exam introduction view with markdown rendering (Step 5.1)."""
     return get_student_exam_detail(db, student.id, exam_id, clock.now())
+
+
+@router.post(
+    "/exams/{exam_id}/start",
+    response_model=StudentStartAttemptResponse,
+    status_code=status.HTTP_200_OK,
+)
+def start_exam(
+    exam_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    student: User = Depends(require_student),
+    clock: Clock = Depends(get_clock),
+) -> StudentStartAttemptResponse:
+    """Idempotently starts or resumes a student exam attempt session (Step 5.2)."""
+    return start_student_attempt(db, student, exam_id, clock)
 
 
 @router.get("/exams/{exam_id}/questions", status_code=status.HTTP_200_OK)

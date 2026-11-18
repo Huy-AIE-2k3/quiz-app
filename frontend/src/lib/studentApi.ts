@@ -42,6 +42,17 @@ export interface StudentExamDetail {
   can_start: boolean;
 }
 
+export interface StudentStartAttemptResponse {
+  id: string;
+  exam_id: string;
+  status: 'in_progress' | 'submitted';
+  started_at: string;
+  deadline_at: string;
+  submitted_at?: string | null;
+  remaining_seconds: number;
+  server_now: string;
+}
+
 export const studentApi = {
   listExams: async (): Promise<StudentExamListItem[]> => {
     return request<StudentExamListItem[]>('/api/v1/student/exams');
@@ -49,5 +60,11 @@ export const studentApi = {
 
   getExam: async (examId: string): Promise<StudentExamDetail> => {
     return request<StudentExamDetail>(`/api/v1/student/exams/${examId}`);
+  },
+
+  startExam: async (examId: string): Promise<StudentStartAttemptResponse> => {
+    return request<StudentStartAttemptResponse>(`/api/v1/student/exams/${examId}/start`, {
+      method: 'POST',
+    });
   },
 };

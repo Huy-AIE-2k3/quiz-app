@@ -277,8 +277,8 @@ def create_admin_user(
                 print("\nĐã hủy thao tác.")
                 return False
 
-        if len(password) < 6:
-            print("ERROR: Mật khẩu phải có độ dài tối thiểu 6 ký tự.")
+        if len(password) < 12:
+            print("ERROR: Mật khẩu phải có độ dài tối thiểu 12 ký tự theo chuẩn bảo mật.")
             return False
 
         hashed_pw = hash_password(password)

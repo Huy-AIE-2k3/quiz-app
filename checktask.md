@@ -500,25 +500,25 @@
     - [X] `TC-5.1-05`: Đề nháp (draft) và đề lưu trữ (archived) không bao giờ hiển thị.
     - [X] `TC-5.1-06`: Đề đã đóng nhưng học sinh đã làm vẫn hiển thị để xem lại trạng thái.
     - [X] `TC-5.1-07`: Lỗi kết nối DB tạm thời trả 503 để client retry, không hiển thị danh sách rỗng giả.
-- [ ] **Bước 5.2 — Bắt đầu làm bài thi (Idempotent & Chống bão click)**
+- [X] **Bước 5.2 — Bắt đầu làm bài thi (Idempotent & Chống bão click)**
 
-  - [ ] Thuật toán tạo attempt trong 1 transaction:
-    - [ ] Kiểm tra đề hợp lệ, trong khung giờ mở.
-    - [ ] Tính toán `deadline = compute_deadline(now, duration, 0, close_at)`.
-    - [ ] Chèn bản ghi `Attempt` bằng `INSERT ... ON CONFLICT (exam_id, student_id) DO NOTHING`.
-    - [ ] Nếu bản ghi đã tồn tại $\to$ trả về attempt hiện có (resume hoặc finalize lười nếu đã quá hạn).
-    - [ ] Khóa nội dung đề thi (`locked_at = now`) nếu đây là attempt đầu tiên của đề.
+  - [X] Thuật toán tạo attempt trong 1 transaction:
+    - [X] Kiểm tra đề hợp lệ, trong khung giờ mở.
+    - [X] Tính toán `deadline = compute_deadline(now, duration, 0, close_at)`.
+    - [X] Chèn bản ghi `Attempt` bằng `INSERT ... ON CONFLICT (exam_id, student_id) DO NOTHING`.
+    - [X] Nếu bản ghi đã tồn tại $\to$ trả về attempt hiện có (resume hoặc finalize lười nếu đã quá hạn).
+    - [X] Khóa nội dung đề thi (`locked_at = now`) nếu đây là attempt đầu tiên của đề.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.2-01`: Bắt đầu bài thi bình thường, tính đúng deadline_at và gán locked_at cho đề.
-    - [ ] `TC-5.2-02`: 10 luồng gọi bắt đầu đồng thời trên PostgreSQL thật chỉ tạo ra duy nhất 1 attempt.
-    - [ ] `TC-5.2-03`: Mở trên 2 thiết bị cùng lúc nhận về cùng 1 attempt_id và deadline.
-    - [ ] `TC-5.2-04`: Kiểm tra đúng các khung giờ trước open_at, chạm sát close_at, và sau close_at.
-    - [ ] `TC-5.2-05`: Học sinh không thuộc lớp hoặc bị khóa tài khoản không thể bắt đầu làm bài.
-    - [ ] `TC-5.2-06`: Gọi lại API start khi bài đã nộp trả về trạng thái đã nộp (không tạo attempt mới).
-    - [ ] `TC-5.2-07`: Gọi lại API start khi bài đã quá hạn tự động kích hoạt nộp lười.
-    - [ ] `TC-5.2-08`: Giá trị `locked_at` của đề thi giữ nguyên mốc thời gian của người đầu tiên làm bài.
-    - [ ] `TC-5.2-09`: Gọi start với đề đang ở trạng thái draft nhận mã 404.
+    - [X] `TC-5.2-01`: Bắt đầu bài thi bình thường, tính đúng deadline_at và gán locked_at cho đề.
+    - [X] `TC-5.2-02`: 10 luồng gọi bắt đầu đồng thời trên PostgreSQL thật chỉ tạo ra duy nhất 1 attempt.
+    - [X] `TC-5.2-03`: Mở trên 2 thiết bị cùng lúc nhận về cùng 1 attempt_id và deadline.
+    - [X] `TC-5.2-04`: Kiểm tra đúng các khung giờ trước open_at, chạm sát close_at, và sau close_at.
+    - [X] `TC-5.2-05`: Học sinh không thuộc lớp hoặc bị khóa tài khoản không thể bắt đầu làm bài.
+    - [X] `TC-5.2-06`: Gọi lại API start khi bài đã nộp trả về trạng thái đã nộp (không tạo attempt mới).
+    - [X] `TC-5.2-07`: Gọi lại API start khi bài đã quá hạn tự động kích hoạt nộp lười.
+    - [X] `TC-5.2-08`: Giá trị `locked_at` của đề thi giữ nguyên mốc thời gian của người đầu tiên làm bài.
+    - [X] `TC-5.2-09`: Gọi start với đề đang ở trạng thái draft nhận mã 404.
 - [ ] **Bước 5.3 — Nạp bài làm (Tiếp tục thi) & Xáo trộn đề thi ổn định**
 
   - [ ] API `GET /student/attempts/{id}` kiểm tra quyền sở hữu (sai trả 404).

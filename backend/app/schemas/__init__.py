@@ -43,6 +43,7 @@ from app.schemas.student_exam_schema import (
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
+    StudentStartAttemptResponse,
 )
 from app.schemas.student_question import (
     FORBIDDEN_STUDENT_KEYS,
@@ -106,6 +107,7 @@ __all__ = [
     "StudentExamDetail",
     "StudentExamListItem",
     "StudentExamState",
+    "StudentStartAttemptResponse",
     "StudentQuestionView",
     "student_view",
     "student_view_list",

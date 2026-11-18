@@ -54,3 +54,21 @@ class StudentExamDetail(BaseModel):
     can_start: bool = Field(default=False)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class StudentStartAttemptResponse(BaseModel):
+    """Allow-list schema for starting or resuming an attempt (Step 5.2).
+
+    Guarantees 0% leakage of internal scoring configs, answers, or keys.
+    """
+
+    id: uuid.UUID
+    exam_id: uuid.UUID
+    status: str
+    started_at: datetime
+    deadline_at: datetime
+    submitted_at: datetime | None = None
+    remaining_seconds: int
+    server_now: datetime
+
+    model_config = ConfigDict(from_attributes=True)
