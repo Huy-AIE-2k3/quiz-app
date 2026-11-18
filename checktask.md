@@ -519,24 +519,24 @@
     - [X] `TC-5.2-07`: Gọi lại API start khi bài đã quá hạn tự động kích hoạt nộp lười.
     - [X] `TC-5.2-08`: Giá trị `locked_at` của đề thi giữ nguyên mốc thời gian của người đầu tiên làm bài.
     - [X] `TC-5.2-09`: Gọi start với đề đang ở trạng thái draft nhận mã 404.
-- [ ] **Bước 5.3 — Nạp bài làm (Tiếp tục thi) & Xáo trộn đề thi ổn định**
+- [X] **Bước 5.3 — Nạp bài làm (Tiếp tục thi) & Xáo trộn đề thi ổn định**
 
-  - [ ] API `GET /student/attempts/{id}` kiểm tra quyền sở hữu (sai trả 404).
-  - [ ] Nếu quá hạn $deadline + grace$ tự động finalize lười và trả trạng thái đã nộp.
-  - [ ] Xáo trộn câu hỏi và đáp án xác định bằng `sha256(seed + id)` (không dùng hash Python).
-  - [ ] Nhãn A/B/C/D do client tự render theo thứ tự hiển thị (id lựa chọn giữ nguyên mã đục).
-  - [ ] Tối ưu truy vấn bằng `selectinload`, gom ảnh giải quyết bằng 1 truy vấn.
+  - [X] API `GET /student/attempts/{id}` kiểm tra quyền sở hữu (sai trả 404).
+  - [X] Nếu quá hạn $deadline + grace$ tự động finalize lười và trả trạng thái đã nộp.
+  - [X] Xáo trộn câu hỏi và đáp án xác định bằng `sha256(seed + id)` (không dùng hash Python).
+  - [X] Nhãn A/B/C/D do client tự render theo thứ tự hiển thị (id lựa chọn giữ nguyên mã đục).
+  - [X] Tối ưu truy vấn bằng `selectinload`, gom ảnh giải quyết bằng 1 truy vấn.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.3-01`: Gọi tải lại bài thi nhiều lần thứ tự câu hỏi và đáp án giữ nguyên tuyệt đối.
-    - [ ] `TC-5.3-02`: Hai học sinh khác nhau làm cùng đề nhận thứ tự câu/lựa chọn khác nhau.
-    - [ ] `TC-5.3-03`: Quét toàn bộ phản hồi JSON đảm bảo 0 rò rỉ bất kỳ khóa đáp án nào.
-    - [ ] `TC-5.3-04`: Học sinh A gọi ID attempt của học sinh B nhận mã 404.
-    - [ ] `TC-5.3-05`: Đóng tab mở lại nhận đầy đủ các câu đã trả lời kèm `client_seq`.
-    - [ ] `TC-5.3-06`: Nạp bài khi đã quá hạn tự động chuyển trạng thái submitted với submitted_at = deadline.
-    - [ ] `TC-5.3-07`: Tính toán `remaining_seconds` chính xác từng giây.
-    - [ ] `TC-5.3-08`: Nạp bài thi 60 câu có 10 ảnh chỉ tốn $\le 4$ câu lệnh SQL.
-    - [ ] `TC-5.3-09`: Câu hỏi bị lỗi cấu hình hiển thị trạng thái `unavailable` an toàn.
+    - [X] `TC-5.3-01`: Gọi tải lại bài thi nhiều lần thứ tự câu hỏi và đáp án giữ nguyên tuyệt đối.
+    - [X] `TC-5.3-02`: Hai học sinh khác nhau làm cùng đề nhận thứ tự câu/lựa chọn khác nhau.
+    - [X] `TC-5.3-03`: Quét toàn bộ phản hồi JSON đảm bảo 0 rò rỉ bất kỳ khóa đáp án nào.
+    - [X] `TC-5.3-04`: Học sinh A gọi ID attempt của học sinh B nhận mã 404.
+    - [X] `TC-5.3-05`: Đóng tab mở lại nhận đầy đủ các câu đã trả lời kèm `client_seq`.
+    - [X] `TC-5.3-06`: Nạp bài khi đã quá hạn tự động chuyển trạng thái submitted với submitted_at = deadline.
+    - [X] `TC-5.3-07`: Tính toán `remaining_seconds` chính xác từng giây.
+    - [X] `TC-5.3-08`: Nạp bài thi 60 câu có 10 ảnh chỉ tốn $\le 4$ câu lệnh SQL.
+    - [X] `TC-5.3-09`: Câu hỏi bị lỗi cấu hình hiển thị trạng thái `unavailable` an toàn.
 - [ ] **Bước 5.4 — Tự lưu đáp án từng câu (Tuần tự hóa & Chống ghi sau hạn)**
 
   - [ ] Endpoint `PUT /student/attempts/{id}/answers/{question_id}` kèm `client_seq`.

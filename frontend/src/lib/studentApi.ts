@@ -53,6 +53,35 @@ export interface StudentStartAttemptResponse {
   server_now: string;
 }
 
+export interface StudentAnswerItem {
+  question_id: string;
+  value: Record<string, unknown>;
+  client_seq: number;
+}
+
+export interface StudentQuestionItem {
+  id: string;
+  type: 'mcq' | 'tf' | 'short_text' | 'short_number' | 'file_upload';
+  content_md: string;
+  points: string | number;
+  config: Record<string, unknown>;
+  unavailable?: boolean;
+}
+
+export interface StudentAttemptDetail {
+  id: string;
+  exam_id: string;
+  exam_title: string;
+  status: 'in_progress' | 'submitted';
+  started_at: string;
+  deadline_at: string;
+  submitted_at?: string | null;
+  remaining_seconds: number;
+  server_now: string;
+  questions: StudentQuestionItem[];
+  answers: Record<string, StudentAnswerItem>;
+}
+
 export const studentApi = {
   listExams: async (): Promise<StudentExamListItem[]> => {
     return request<StudentExamListItem[]>('/api/v1/student/exams');
@@ -66,5 +95,9 @@ export const studentApi = {
     return request<StudentStartAttemptResponse>(`/api/v1/student/exams/${examId}/start`, {
       method: 'POST',
     });
+  },
+
+  getAttempt: async (attemptId: string): Promise<StudentAttemptDetail> => {
+    return request<StudentAttemptDetail>(`/api/v1/student/attempts/${attemptId}`);
   },
 };

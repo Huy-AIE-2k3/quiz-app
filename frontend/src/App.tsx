@@ -29,6 +29,7 @@ import { AdminExamEditorPage } from './pages/admin/AdminExamEditorPage';
 import { AdminExamSandboxPreviewPage } from './pages/admin/AdminExamSandboxPreviewPage';
 import { StudentExamsPage } from './pages/student/StudentExamsPage';
 import { StudentExamDetailPage } from './pages/student/StudentExamDetailPage';
+import { StudentExamTakePage } from './pages/student/StudentExamTakePage';
 
 // Code-splitting for dev showroom to keep production bundle minimal
 const DevComponentsPage = lazy(() =>
@@ -58,6 +59,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/s" element={<Navigate to="/s/exams" replace />} />
         <Route path="/s/exams" element={<StudentExamsPage />} />
         <Route path="/s/exams/:examId" element={<StudentExamDetailPage />} />
+        <Route path="/s/exams/:examId/take" element={<StudentExamTakePage />} />
+        <Route path="/s/attempts/:attemptId" element={<StudentExamTakePage />} />
       </Route>
 
       {/* Catch-all fallback */}

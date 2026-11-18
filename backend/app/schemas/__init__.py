@@ -40,6 +40,8 @@ from app.schemas.exam_schema import (
     ExamValidationResult,
 )
 from app.schemas.student_exam_schema import (
+    StudentAnswerItem,
+    StudentAttemptDetailResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
@@ -108,6 +110,8 @@ __all__ = [
     "StudentExamListItem",
     "StudentExamState",
     "StudentStartAttemptResponse",
+    "StudentAnswerItem",
+    "StudentAttemptDetailResponse",
     "StudentQuestionView",
     "student_view",
     "student_view_list",

@@ -4,24 +4,28 @@ Handles student exam catalog retrieval, detail presentation, and real-time state
 Enforces strict class isolation and 0% sensitive data leakage.
 """
 
+import hashlib
 import secrets
 import uuid
 from datetime import datetime, timedelta
 from decimal import Decimal
 
 from sqlalchemy import and_, func, or_, select, update
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.core.errors import AppError
 from app.core.time import Clock, compute_deadline, remaining_seconds
 from app.models import Attempt, ClassMember, Exam, ExamClass, Question, User
 from app.schemas.student_exam_schema import (
+    StudentAnswerItem,
+    StudentAttemptDetailResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
     StudentStartAttemptResponse,
 )
-from app.services.asset_service import render_assets
+from app.schemas.student_question import student_view
+from app.services.asset_service import batch_render_questions_assets, render_assets
 
 
 def compute_student_exam_state(
@@ -395,4 +399,122 @@ def start_student_attempt(
         submitted_at=None,
         remaining_seconds=rem,
         server_now=now,
+    )
+
+
+def get_student_attempt_detail(
+    db: Session,
+    user: User,
+    attempt_id: uuid.UUID,
+    clock: Clock,
+) -> StudentAttemptDetailResponse:
+    """Retrieves full student examination attempt details for active taking or resume (Step 5.3).
+
+    Enforces:
+    - Ownership verification: 404 attempt_not_found if not found or belongs to another student.
+    - Account active check: 403 inactive_account.
+    - Lazy finalization: auto-finalizes if past deadline + 10s grace.
+    - Deterministic shuffling: sha256(seed + id) for questions and options.
+    - Zero data leakage: strict allow-list, never leaks answer keys, scores, or explanations.
+    - Query optimization: batch queries <= 4 SQL statements total.
+    """
+    now = clock.now()
+
+    if not user.is_active:
+        raise AppError(code="inactive_account", message="Tài khoản bị khóa.", status_code=403)
+
+    # 1. Fetch Attempt with Exam and Answers in single query + selectinloads (TC-5.3-04, TC-5.3-08)
+    attempt = db.scalar(
+        select(Attempt)
+        .options(
+            joinedload(Attempt.exam).selectinload(Exam.questions),
+            selectinload(Attempt.answers),
+        )
+        .where(Attempt.id == attempt_id)
+    )
+
+    if not attempt or attempt.student_id != user.id:
+        raise AppError(code="attempt_not_found", message="Không tìm thấy bài làm.", status_code=404)
+
+    exam = attempt.exam
+    if not exam:
+        raise AppError(code="exam_not_found", message="Không tìm thấy đề thi.", status_code=404)
+
+    # 2. Check lazy finalization (TC-5.3-06)
+    deadline_at = (
+        attempt.deadline_at
+        if attempt.deadline_at.tzinfo is not None
+        else attempt.deadline_at.replace(tzinfo=now.tzinfo)
+    )
+    started_at = (
+        attempt.started_at
+        if attempt.started_at.tzinfo is not None
+        else attempt.started_at.replace(tzinfo=now.tzinfo)
+    )
+
+    if attempt.status == "in_progress" and now >= deadline_at + timedelta(seconds=10):
+        attempt.status = "submitted"
+        attempt.submitted_at = deadline_at
+        db.commit()
+        db.refresh(attempt)
+
+    submitted_at = (
+        attempt.submitted_at
+        if attempt.submitted_at is None or attempt.submitted_at.tzinfo is not None
+        else attempt.submitted_at.replace(tzinfo=now.tzinfo)
+    )
+
+    # 3. Deterministically order questions (TC-5.3-01, TC-5.3-02)
+    questions = list(exam.questions)
+    seed = attempt.shuffle_seed
+
+    if exam.shuffle_questions:
+        questions.sort(key=lambda q: hashlib.sha256(f"{seed}:{str(q.id)}".encode()).hexdigest())
+    else:
+        questions.sort(key=lambda q: q.position)
+
+    # 4. Serialize questions via student_view with option shuffling (TC-5.3-03, TC-5.3-09)
+    raw_question_views = [
+        student_view(
+            q=q,
+            seed=seed,
+            shuffle_options=exam.shuffle_options,
+            exam_id=exam.id,
+            db=None,  # Defer asset rendering to batch step to eliminate N+1 queries
+        )
+        for q in questions
+    ]
+
+    # 5. Batch render all image assets in a single SQL query (TC-5.3-08)
+    rendered_questions = batch_render_questions_assets(
+        questions_data=raw_question_views,
+        exam_id=exam.id,
+        db=db,
+    )
+
+    # 6. Map answers with client_seq (TC-5.3-05)
+    answers_dict = {
+        str(a.question_id): StudentAnswerItem(
+            question_id=a.question_id,
+            value=a.value or {},
+            client_seq=a.client_seq or 0,
+        )
+        for a in attempt.answers
+    }
+
+    # 7. Compute remaining seconds (TC-5.3-07)
+    rem = 0 if attempt.status == "submitted" else remaining_seconds(now, deadline_at)
+
+    return StudentAttemptDetailResponse(
+        id=attempt.id,
+        exam_id=attempt.exam_id,
+        exam_title=exam.title,
+        status=attempt.status,
+        started_at=started_at,
+        deadline_at=deadline_at,
+        submitted_at=submitted_at,
+        remaining_seconds=rem,
+        server_now=now,
+        questions=rendered_questions,
+        answers=answers_dict,
     )
