@@ -17,6 +17,7 @@ from app.db.session import get_db
 from app.models import Exam, Question, User
 from app.schemas.student_exam_schema import (
     StudentAttemptDetailResponse,
+    StudentAttemptStatusResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentSaveAnswerRequest,
@@ -26,6 +27,7 @@ from app.schemas.student_exam_schema import (
 from app.schemas.student_question import student_view_list
 from app.services.student_exam_service import (
     get_student_attempt_detail,
+    get_student_attempt_status,
     get_student_exam_detail,
     get_student_exams,
     save_student_answer,
@@ -99,6 +101,21 @@ def get_student_attempt(
 ) -> StudentAttemptDetailResponse:
     """Loads student attempt session with deterministic question/option shuffling (Step 5.3)."""
     return get_student_attempt_detail(db, student, attempt_id, clock)
+
+
+@router.get(
+    "/attempts/{attempt_id}/status",
+    response_model=StudentAttemptStatusResponse,
+    status_code=status.HTTP_200_OK,
+)
+def get_attempt_status(
+    attempt_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    student: User = Depends(require_student),
+    clock: Clock = Depends(get_clock),
+) -> StudentAttemptStatusResponse:
+    """Lightweight attempt status sync endpoint for monotonic clock tracking (Step 5.5)."""
+    return get_student_attempt_status(db, student, attempt_id, clock)
 
 
 @router.put(

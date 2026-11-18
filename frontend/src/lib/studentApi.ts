@@ -90,6 +90,15 @@ export interface StudentSaveAnswerResponse {
   value: Record<string, unknown>;
 }
 
+export interface StudentAttemptStatusResponse {
+  id: string;
+  status: 'in_progress' | 'submitted';
+  remaining_seconds: number;
+  server_now: string;
+  deadline_at: string;
+  submitted_at?: string | null;
+}
+
 export const studentApi = {
   listExams: async (): Promise<StudentExamListItem[]> => {
     return request<StudentExamListItem[]>('/api/v1/student/exams');
@@ -107,6 +116,10 @@ export const studentApi = {
 
   getAttempt: async (attemptId: string): Promise<StudentAttemptDetail> => {
     return request<StudentAttemptDetail>(`/api/v1/student/attempts/${attemptId}`);
+  },
+
+  getAttemptStatus: async (attemptId: string): Promise<StudentAttemptStatusResponse> => {
+    return request<StudentAttemptStatusResponse>(`/api/v1/student/attempts/${attemptId}/status`);
   },
 
   saveAnswer: async (

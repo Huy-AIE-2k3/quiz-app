@@ -12,7 +12,7 @@
  * - Submitted state handling.
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -26,7 +26,13 @@ import {
   Loader2,
 } from 'lucide-react';
 
-import { studentApi, StudentAttemptDetail, StudentQuestionItem } from '../../lib/studentApi';
+import {
+  studentApi,
+  StudentAttemptDetail,
+  StudentAttemptStatusResponse,
+  StudentQuestionItem,
+} from '../../lib/studentApi';
+import { useMonotonicTimer } from '../../hooks/useMonotonicTimer';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -49,7 +55,26 @@ export const StudentExamTakePage: React.FC = () => {
     Record<string, { value: Record<string, unknown>; client_seq: number }>
   >({});
   const [saveStatus, setSaveStatus] = useState<Record<string, 'saving' | 'saved' | 'error'>>({});
-  const [secondsRemaining, setSecondsRemaining] = useState<number>(0);
+
+  const isSubmitted = attempt?.status === 'submitted';
+
+  const handleTimeUp = useCallback(() => {
+    setAttempt((prev) => (prev ? { ...prev, status: 'submitted' } : null));
+  }, []);
+
+  const handleStatusSync = useCallback((statusData: StudentAttemptStatusResponse) => {
+    if (statusData.status === 'submitted') {
+      setAttempt((prev) => (prev ? { ...prev, status: 'submitted' } : null));
+    }
+  }, []);
+
+  const { secondsRemaining, formatTimer } = useMonotonicTimer({
+    attemptId: attempt?.id,
+    initialRemainingSeconds: attempt?.remaining_seconds || 0,
+    isSubmitted,
+    onTimeUp: handleTimeUp,
+    onStatusSync: handleStatusSync,
+  });
 
   // Fetch or resolve attempt
   useEffect(() => {
@@ -79,7 +104,6 @@ export const StudentExamTakePage: React.FC = () => {
         if (!isMounted) return;
 
         setAttempt(data);
-        setSecondsRemaining(data.remaining_seconds);
 
         // Restore saved answers from attempt
         const restored: Record<string, { value: Record<string, unknown>; client_seq: number }> = {};
@@ -106,31 +130,8 @@ export const StudentExamTakePage: React.FC = () => {
     };
   }, [examId, location.state]);
 
-  // Countdown timer
-  useEffect(() => {
-    if (secondsRemaining <= 0 || attempt?.status === 'submitted') return;
-
-    const timer = setInterval(() => {
-      setSecondsRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [secondsRemaining, attempt?.status]);
-
   const questions = useMemo(() => attempt?.questions || [], [attempt?.questions]);
   const currentQuestion: StudentQuestionItem | undefined = questions[activeQuestionIdx];
-
-  const formatTimer = (totalSeconds: number) => {
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
 
   const answeredCount = useMemo(() => {
     return Object.values(localAnswers).filter(
@@ -199,7 +200,6 @@ export const StudentExamTakePage: React.FC = () => {
     );
   }
 
-  const isSubmitted = attempt.status === 'submitted';
   const currentSaveStatus = currentQuestion ? saveStatus[currentQuestion.id] : undefined;
 
   return (

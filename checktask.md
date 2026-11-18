@@ -553,21 +553,21 @@
     - [X] `TC-5.4-06`: Dữ liệu đáp án gửi sai schema dạng câu bị từ chối 422.
     - [X] `TC-5.4-07`: Đáp án đã báo lưu thành công trước thời điểm nộp chắc chắn được tính điểm.
     - [X] `TC-5.4-08`: Hai tab cùng lưu 2 câu hỏi khác nhau diễn ra song song không nghẽn nhờ `FOR SHARE`.
-- [ ] **Bước 5.5 — Đồng hồ đếm ngược Client & Cơ chế chống gian lận giờ**
+- [X] **Bước 5.5 — Đồng hồ đếm ngược Client & Cơ chế chống gian lận giờ**
 
-  - [ ] Đồng hồ đếm ngược sử dụng `performance.now()` làm gốc đơn điệu (chống việc học sinh chỉnh giờ máy tính).
-  - [ ] Tính độ lệch: $offset = server\_now - client\_timestamp$.
-  - [ ] Endpoint đồng bộ nhẹ `GET /student/attempts/{id}/status` trả về `remaining_seconds`.
-  - [ ] Tự động đồng bộ lại đồng hồ khi: Tab hiển thị lại (`visibilitychange`), mạng online trở lại, máy thức dậy.
-  - [ ] Khi hết giờ đơn điệu $\to$ tự động kích hoạt nộp bài.
+  - [X] Đồng hồ đếm ngược sử dụng `performance.now()` làm gốc đơn điệu (chống việc học sinh chỉnh giờ máy tính).
+  - [X] Tính độ lệch: $offset = server\_now - client\_timestamp$.
+  - [X] Endpoint đồng bộ nhẹ `GET /student/attempts/{id}/status` trả về `remaining_seconds`.
+  - [X] Tự động đồng bộ lại đồng hồ khi: Tab hiển thị lại (`visibilitychange`), mạng online trở lại, máy thức dậy.
+  - [X] Khi hết giờ đơn điệu $\to$ tự động kích hoạt nộp bài.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.5-01`: Chỉnh đồng hồ hệ điều hành sớm/muộn 1 tiếng không làm sai lệch thời gian đếm ngược.
-    - [ ] `TC-5.5-02`: Ẩn tab trình duyệt 5 phút rồi mở lại, đồng hồ giảm chính xác 5 phút.
-    - [ ] `TC-5.5-03`: Mất mạng tạm thời đồng hồ vẫn đếm đều bằng `performance.now()`.
-    - [ ] `TC-5.5-04`: Khi hết giờ trên client, hàm tự nộp được gọi ngay lập tức.
-    - [ ] `TC-5.5-05`: Khi giáo viên cộng giờ, lần đồng bộ status tiếp theo cập nhật lại đồng hồ mượt mà.
-    - [ ] `TC-5.5-06`: Polling đồng bộ status dùng ít băng thông (< 1 KB) và không gây tải DB.
+    - [X] `TC-5.5-01`: Chỉnh đồng hồ hệ điều hành sớm/muộn 1 tiếng không làm sai lệch thời gian đếm ngược.
+    - [X] `TC-5.5-02`: Ẩn tab trình duyệt 5 phút rồi mở lại, đồng hồ giảm chính xác 5 phút.
+    - [X] `TC-5.5-03`: Mất mạng tạm thời đồng hồ vẫn đếm đều bằng `performance.now()`.
+    - [X] `TC-5.5-04`: Khi hết giờ trên client, hàm tự nộp được gọi ngay lập tức.
+    - [X] `TC-5.5-05`: Khi giáo viên cộng giờ, lần đồng bộ status tiếp theo cập nhật lại đồng hồ mượt mà.
+    - [X] `TC-5.5-06`: Polling đồng bộ status dùng ít băng thông (< 1 KB) và không gây tải DB.
 - [ ] **Bước 5.6 — Hàng đợi lưu trữ Ngoại tuyến (Offline Outbox trong localStorage)**
 
   - [ ] Xây dựng `AnswerStore` lưu trữ cục bộ trên `localStorage`.

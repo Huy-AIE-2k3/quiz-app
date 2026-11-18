@@ -22,6 +22,7 @@ from app.models import Answer, Attempt, ClassMember, Exam, ExamClass, Question, 
 from app.schemas.student_exam_schema import (
     StudentAnswerItem,
     StudentAttemptDetailResponse,
+    StudentAttemptStatusResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
@@ -796,3 +797,68 @@ def save_student_answer(
                     value=existing.value,
                 )
             raise
+
+
+def get_student_attempt_status(
+    db: Session,
+    user: User,
+    attempt_id: uuid.UUID,
+    clock: Clock,
+) -> StudentAttemptStatusResponse:
+    """Lightweight attempt status sync endpoint for monotonic countdown clock tracking (Step 5.5).
+
+    Lightweight execution:
+    - Queries ONLY the attempt row (no relations loaded, strictly 1 SQL statement).
+    - Checks ownership: 404 attempt_not_found if not owned by student.
+    - Checks inactive account: 403 inactive_account.
+    - Checks lazy finalization: if in_progress and now >= deadline_at + 10s grace:
+      marks submitted with submitted_at = deadline_at.
+    - Accurately returns remaining_seconds (0 if submitted or past deadline).
+    - Response payload is tiny (< 300 bytes), avoiding DB and bandwidth overhead (TC-5.5-06).
+    """
+    now = clock.now()
+
+    if not user.is_active:
+        raise AppError(
+            code="inactive_account",
+            message="Tài khoản học sinh đã bị khóa.",
+            status_code=403,
+        )
+
+    attempt = db.scalars(select(Attempt).where(Attempt.id == attempt_id)).first()
+
+    if not attempt or attempt.student_id != user.id:
+        raise AppError(
+            code="attempt_not_found",
+            message="Không tìm thấy bài làm.",
+            status_code=404,
+        )
+
+    deadline_at = (
+        attempt.deadline_at
+        if attempt.deadline_at.tzinfo is not None
+        else attempt.deadline_at.replace(tzinfo=now.tzinfo)
+    )
+
+    if attempt.status == "in_progress" and now >= deadline_at + timedelta(seconds=10):
+        attempt.status = "submitted"
+        attempt.submitted_at = deadline_at
+        db.commit()
+        db.refresh(attempt)
+
+    submitted_at = (
+        attempt.submitted_at
+        if attempt.submitted_at is None or attempt.submitted_at.tzinfo is not None
+        else attempt.submitted_at.replace(tzinfo=now.tzinfo)
+    )
+
+    rem = 0 if attempt.status == "submitted" else remaining_seconds(now, deadline_at)
+
+    return StudentAttemptStatusResponse(
+        id=attempt.id,
+        status=attempt.status,
+        remaining_seconds=rem,
+        server_now=now,
+        deadline_at=deadline_at,
+        submitted_at=submitted_at,
+    )

@@ -42,6 +42,7 @@ from app.schemas.exam_schema import (
 from app.schemas.student_exam_schema import (
     StudentAnswerItem,
     StudentAttemptDetailResponse,
+    StudentAttemptStatusResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
@@ -114,6 +115,7 @@ __all__ = [
     "StudentStartAttemptResponse",
     "StudentAnswerItem",
     "StudentAttemptDetailResponse",
+    "StudentAttemptStatusResponse",
     "StudentSaveAnswerRequest",
     "StudentSaveAnswerResponse",
     "StudentQuestionView",

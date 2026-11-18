@@ -125,3 +125,21 @@ class StudentSaveAnswerResponse(BaseModel):
     value: dict[str, Any] = Field(default_factory=dict)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class StudentAttemptStatusResponse(BaseModel):
+    """Lightweight sync schema for monotonic countdown clock tracking (Step 5.5).
+
+    Guarantees:
+    - Ultra-low bandwidth (< 300 bytes JSON payload).
+    - Accurately tracks remaining_seconds, deadline_at, and lazy-finalized submitted status.
+    """
+
+    id: uuid.UUID
+    status: str
+    remaining_seconds: int
+    server_now: datetime
+    deadline_at: datetime
+    submitted_at: datetime | None = None
+
+    model_config = ConfigDict(from_attributes=True)
