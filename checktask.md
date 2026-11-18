@@ -537,22 +537,22 @@
     - [X] `TC-5.3-07`: Tính toán `remaining_seconds` chính xác từng giây.
     - [X] `TC-5.3-08`: Nạp bài thi 60 câu có 10 ảnh chỉ tốn $\le 4$ câu lệnh SQL.
     - [X] `TC-5.3-09`: Câu hỏi bị lỗi cấu hình hiển thị trạng thái `unavailable` an toàn.
-- [ ] **Bước 5.4 — Tự lưu đáp án từng câu (Tuần tự hóa & Chống ghi sau hạn)**
+- [X] **Bước 5.4 — Tự lưu đáp án từng câu (Tuần tự hóa & Chống ghi sau hạn)**
 
-  - [ ] Endpoint `PUT /student/attempts/{id}/answers/{question_id}` kèm `client_seq`.
-  - [ ] Khóa dòng attempt bằng `SELECT ... FOR SHARE` (cho phép nhiều câu lưu đồng thời nhưng chặn finalize chạy cùng lúc).
-  - [ ] Kiểm tra hạn làm bài: $now \le deadline + grace$, quá hạn trả về 409 attempt_closed.
-  - [ ] Upsert đáp án: Chỉ cập nhật nếu `client_seq > answers.client_seq` (chống gói tin cũ đè mới).
+  - [X] Endpoint `PUT /student/attempts/{id}/answers/{question_id}` kèm `client_seq`.
+  - [X] Khóa dòng attempt bằng `SELECT ... FOR SHARE` (cho phép nhiều câu lưu đồng thời nhưng chặn finalize chạy cùng lúc).
+  - [X] Kiểm tra hạn làm bài: $now \le deadline + grace$, quá hạn trả về 409 attempt_closed.
+  - [X] Upsert đáp án: Chỉ cập nhật nếu `client_seq > answers.client_seq` (chống gói tin cũ đè mới).
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.4-01`: Lưu đáp án thành công, `client_seq` và `updated_at` được cập nhật.
-    - [ ] `TC-5.4-02`: Gói tin mạng đến muộn có `client_seq` nhỏ hơn bị bỏ qua không đè đáp án mới.
-    - [ ] `TC-5.4-03`: Gửi lưu đáp án sau $deadline + grace$ bị từ chối 409 attempt_closed.
-    - [ ] `TC-5.4-04`: Lưu đáp án khi attempt đã submitted bị từ chối 409.
-    - [ ] `TC-5.4-05`: Lưu đáp án cho câu hỏi không thuộc đề thi nhận mã 404.
-    - [ ] `TC-5.4-06`: Dữ liệu đáp án gửi sai schema dạng câu bị từ chối 422.
-    - [ ] `TC-5.4-07`: Đáp án đã báo lưu thành công trước thời điểm nộp chắc chắn được tính điểm.
-    - [ ] `TC-5.4-08`: Hai tab cùng lưu 2 câu hỏi khác nhau diễn ra song song không nghẽn nhờ `FOR SHARE`.
+    - [X] `TC-5.4-01`: Lưu đáp án thành công, `client_seq` và `updated_at` được cập nhật.
+    - [X] `TC-5.4-02`: Gói tin mạng đến muộn có `client_seq` nhỏ hơn bị bỏ qua không đè đáp án mới.
+    - [X] `TC-5.4-03`: Gửi lưu đáp án sau $deadline + grace$ bị từ chối 409 attempt_closed.
+    - [X] `TC-5.4-04`: Lưu đáp án khi attempt đã submitted bị từ chối 409.
+    - [X] `TC-5.4-05`: Lưu đáp án cho câu hỏi không thuộc đề thi nhận mã 404.
+    - [X] `TC-5.4-06`: Dữ liệu đáp án gửi sai schema dạng câu bị từ chối 422.
+    - [X] `TC-5.4-07`: Đáp án đã báo lưu thành công trước thời điểm nộp chắc chắn được tính điểm.
+    - [X] `TC-5.4-08`: Hai tab cùng lưu 2 câu hỏi khác nhau diễn ra song song không nghẽn nhờ `FOR SHARE`.
 - [ ] **Bước 5.5 — Đồng hồ đếm ngược Client & Cơ chế chống gian lận giờ**
 
   - [ ] Đồng hồ đếm ngược sử dụng `performance.now()` làm gốc đơn điệu (chống việc học sinh chỉnh giờ máy tính).

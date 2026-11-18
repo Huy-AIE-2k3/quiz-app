@@ -106,3 +106,22 @@ class StudentAttemptDetailResponse(BaseModel):
     answers: dict[str, StudentAnswerItem] = Field(default_factory=dict)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class StudentSaveAnswerRequest(BaseModel):
+    """Payload for auto-saving student answer for a specific question (Step 5.4)."""
+
+    value: dict[str, Any] = Field(default_factory=dict)
+    client_seq: int = Field(default=1, ge=0)
+
+
+class StudentSaveAnswerResponse(BaseModel):
+    """Response returned upon saving or ignoring an answer packet (Step 5.4)."""
+
+    question_id: uuid.UUID
+    client_seq: int
+    status: str  # "saved" or "ignored"
+    updated_at: datetime
+    value: dict[str, Any] = Field(default_factory=dict)
+
+    model_config = ConfigDict(from_attributes=True)

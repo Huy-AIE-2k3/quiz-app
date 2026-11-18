@@ -1,11 +1,13 @@
 /**
- * Student Active Exam Taking Page (Step 5.3).
+ * Student Active Exam Taking Page (Step 5.3 & Step 5.4).
  *
  * Implements:
  * - Load/resume exam attempt with deterministic question/option shuffling.
  * - Client-rendered A/B/C/D labels preserving opaque option IDs.
  * - Restores prior saved answers and client_seq.
+ * - Auto-saving per question with client_seq serialization (Step 5.4).
  * - Remaining time countdown tracking.
+ * - Multi-type question rendering: MCQ, TF, Short Text, Short Number.
  * - Corrupt question fault tolerance (unavailable: true displayed safely).
  * - Submitted state handling.
  */
@@ -20,6 +22,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Send,
+  Check,
+  Loader2,
 } from 'lucide-react';
 
 import { studentApi, StudentAttemptDetail, StudentQuestionItem } from '../../lib/studentApi';
@@ -44,6 +48,7 @@ export const StudentExamTakePage: React.FC = () => {
   const [localAnswers, setLocalAnswers] = useState<
     Record<string, { value: Record<string, unknown>; client_seq: number }>
   >({});
+  const [saveStatus, setSaveStatus] = useState<Record<string, 'saving' | 'saved' | 'error'>>({});
   const [secondsRemaining, setSecondsRemaining] = useState<number>(0);
 
   // Fetch or resolve attempt
@@ -57,12 +62,10 @@ export const StudentExamTakePage: React.FC = () => {
         let targetAttemptId = (location.state as { attemptId?: string } | undefined)?.attemptId;
 
         if (!targetAttemptId && examId) {
-          // Look up attempt_id from exam detail
           const examDetail = await studentApi.getExam(examId);
           if (examDetail.attempt_id) {
             targetAttemptId = examDetail.attempt_id;
           } else {
-            // Start attempt if not started yet
             const startRes = await studentApi.startExam(examId);
             targetAttemptId = startRes.id;
           }
@@ -130,8 +133,38 @@ export const StudentExamTakePage: React.FC = () => {
   };
 
   const answeredCount = useMemo(() => {
-    return Object.keys(localAnswers).length;
+    return Object.values(localAnswers).filter(
+      (ans) => ans.value && Object.keys(ans.value).length > 0
+    ).length;
   }, [localAnswers]);
+
+  // Handle saving an answer with client_seq serialization (Step 5.4)
+  const handleSaveAnswer = async (questionId: string, value: Record<string, unknown>) => {
+    if (!attempt || attempt.status === 'submitted') return;
+
+    const nextSeq = (localAnswers[questionId]?.client_seq || 0) + 1;
+    setLocalAnswers((prev) => ({
+      ...prev,
+      [questionId]: {
+        value,
+        client_seq: nextSeq,
+      },
+    }));
+
+    setSaveStatus((prev) => ({ ...prev, [questionId]: 'saving' }));
+    try {
+      const res = await studentApi.saveAnswer(attempt.id, questionId, value, nextSeq);
+      if (res.status === 'saved' || res.status === 'ignored') {
+        setSaveStatus((prev) => ({ ...prev, [questionId]: 'saved' }));
+      }
+    } catch (err: unknown) {
+      setSaveStatus((prev) => ({ ...prev, [questionId]: 'error' }));
+      const msg = err instanceof Error ? err.message : '';
+      if (msg.includes('409') || msg.includes('attempt_closed')) {
+        setAttempt((prev) => (prev ? { ...prev, status: 'submitted' } : null));
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -167,11 +200,12 @@ export const StudentExamTakePage: React.FC = () => {
   }
 
   const isSubmitted = attempt.status === 'submitted';
+  const currentSaveStatus = currentQuestion ? saveStatus[currentQuestion.id] : undefined;
 
   return (
     <div className="min-h-screen bg-canvas text-text-primary flex flex-col">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-30 bg-surface border-b border-line-subtle px-4 sm:px-6 h-16 flex items-center justify-between shadow-sm">
+      <header className="sticky top-0 z-30 bg-surface border-b border-line-subtle px-4 sm:px-6 h-16 flex items-center justify-between shadow-xs">
         <div className="flex items-center space-x-3 overflow-hidden">
           <Button
             variant="ghost"
@@ -238,8 +272,26 @@ export const StudentExamTakePage: React.FC = () => {
                     </Badge>
                   )}
                 </div>
-                <div className="text-xs font-mono text-text-secondary">
-                  {currentQuestion.points} điểm
+
+                <div className="flex items-center space-x-3">
+                  {currentSaveStatus === 'saving' && (
+                    <span className="text-xs text-text-muted flex items-center gap-1 font-mono">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang lưu...
+                    </span>
+                  )}
+                  {currentSaveStatus === 'saved' && (
+                    <span className="text-xs text-brand flex items-center gap-1 font-mono">
+                      <Check className="w-3.5 h-3.5" /> Đã lưu
+                    </span>
+                  )}
+                  {currentSaveStatus === 'error' && (
+                    <span className="text-xs text-status-wrong-text flex items-center gap-1 font-mono">
+                      <AlertCircle className="w-3.5 h-3.5" /> Chưa lưu được
+                    </span>
+                  )}
+                  <div className="text-xs font-mono text-text-secondary">
+                    {currentQuestion.points} điểm
+                  </div>
                 </div>
               </div>
 
@@ -258,7 +310,7 @@ export const StudentExamTakePage: React.FC = () => {
                 </div>
               )}
 
-              {/* Question Options / Answer area */}
+              {/* 1. MCQ (Single Choice) */}
               {!currentQuestion.unavailable && currentQuestion.type === 'mcq' && (
                 <div className="space-y-3 pt-2">
                   {((currentQuestion.config?.options as Array<{ id: string; content_md: string }>) || []).map(
@@ -270,19 +322,14 @@ export const StudentExamTakePage: React.FC = () => {
                       return (
                         <div
                           key={opt.id}
+                          data-testid={`option-${opt.id}`}
                           onClick={() => {
                             if (isSubmitted) return;
-                            setLocalAnswers((prev) => ({
-                              ...prev,
-                              [currentQuestion.id]: {
-                                value: { selected: opt.id },
-                                client_seq: (prev[currentQuestion.id]?.client_seq || 0) + 1,
-                              },
-                            }));
+                            void handleSaveAnswer(currentQuestion.id, { selected: opt.id });
                           }}
                           className={`p-4 rounded-lg border flex items-start space-x-3 cursor-pointer transition-colors ${
                             isSelected
-                              ? 'bg-subtle-accent border-line-accent shadow-sm'
+                              ? 'bg-subtle-accent border-line-accent shadow-xs'
                               : 'bg-surface border-line-subtle hover:bg-elevated'
                           } ${isSubmitted ? 'cursor-not-allowed opacity-80' : ''}`}
                         >
@@ -304,6 +351,120 @@ export const StudentExamTakePage: React.FC = () => {
                   )}
                 </div>
               )}
+
+              {/* 2. TF (True/False Statements) */}
+              {!currentQuestion.unavailable && currentQuestion.type === 'tf' && (
+                <div className="space-y-3 pt-2">
+                  {((currentQuestion.config?.statements as Array<{ id: string; content_md: string }>) || []).map(
+                    (stmt, idx) => {
+                      const labelLetter = String.fromCharCode(97 + idx);
+                      const currentStmts =
+                        (localAnswers[currentQuestion.id]?.value?.statements as Record<string, boolean>) ||
+                        (localAnswers[currentQuestion.id]?.value as Record<string, boolean>) ||
+                        {};
+                      const val = currentStmts[stmt.id];
+
+                      return (
+                        <div
+                          key={stmt.id}
+                          className="p-4 rounded-lg border border-line-subtle bg-surface flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="flex items-start gap-3 flex-1">
+                            <span className="font-mono font-bold text-xs text-text-muted pt-0.5">
+                              {labelLetter})
+                            </span>
+                            <div className="text-sm text-text-primary">
+                              <MathText content={stmt.content_md} />
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                            <button
+                              type="button"
+                              disabled={isSubmitted}
+                              onClick={() => {
+                                if (isSubmitted) return;
+                                void handleSaveAnswer(currentQuestion.id, {
+                                  statements: { ...currentStmts, [stmt.id]: true },
+                                });
+                              }}
+                              className={`px-3 py-1.5 rounded text-xs font-semibold font-mono border transition-all cursor-pointer ${
+                                val === true
+                                  ? 'bg-brand text-canvas border-brand'
+                                  : 'bg-canvas border-line-subtle text-text-secondary hover:bg-elevated'
+                              } ${isSubmitted ? 'cursor-not-allowed opacity-80' : ''}`}
+                            >
+                              Đúng
+                            </button>
+                            <button
+                              type="button"
+                              disabled={isSubmitted}
+                              onClick={() => {
+                                if (isSubmitted) return;
+                                void handleSaveAnswer(currentQuestion.id, {
+                                  statements: { ...currentStmts, [stmt.id]: false },
+                                });
+                              }}
+                              className={`px-3 py-1.5 rounded text-xs font-semibold font-mono border transition-all cursor-pointer ${
+                                val === false
+                                  ? 'bg-status-wrong-bg text-status-wrong-text border-status-wrong-border'
+                                  : 'bg-canvas border-line-subtle text-text-secondary hover:bg-elevated'
+                              } ${isSubmitted ? 'cursor-not-allowed opacity-80' : ''}`}
+                            >
+                              Sai
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              )}
+
+              {/* 3. Short Text and Short Number */}
+              {!currentQuestion.unavailable &&
+                (currentQuestion.type === 'short_text' || currentQuestion.type === 'short_number') && (
+                  <div className="space-y-3 pt-2">
+                    <label className="block text-xs font-mono font-semibold text-text-secondary">
+                      Nhập câu trả lời của bạn:
+                    </label>
+                    <input
+                      type="text"
+                      disabled={isSubmitted}
+                      value={
+                        String(
+                          localAnswers[currentQuestion.id]?.value?.value ??
+                          localAnswers[currentQuestion.id]?.value?.text ??
+                          ''
+                        )
+                      }
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setLocalAnswers((prev) => ({
+                          ...prev,
+                          [currentQuestion.id]: {
+                            value: currentQuestion.type === 'short_text' ? { text: val } : { value: val },
+                            client_seq: prev[currentQuestion.id]?.client_seq || 0,
+                          },
+                        }));
+                      }}
+                      onBlur={(e) => {
+                        if (isSubmitted) return;
+                        const val = e.target.value;
+                        void handleSaveAnswer(
+                          currentQuestion.id,
+                          currentQuestion.type === 'short_text' ? { text: val } : { value: val }
+                        );
+                      }}
+                      placeholder={
+                        currentQuestion.type === 'short_number'
+                          ? 'Nhập giá trị số (vd: 3.14 hoặc 1/2)...'
+                          : 'Nhập câu trả lời...'
+                      }
+                      className="w-full px-3 py-2 rounded-lg bg-surface border border-line-subtle text-text-primary text-sm focus:outline-hidden focus:border-brand font-mono"
+                    />
+                  </div>
+                )}
 
               {/* Navigation buttons */}
               <div className="flex items-center justify-between pt-6 border-t border-line-subtle">
@@ -349,13 +510,15 @@ export const StudentExamTakePage: React.FC = () => {
             <div className="grid grid-cols-5 gap-2">
               {questions.map((q, idx) => {
                 const isCurrent = idx === activeQuestionIdx;
-                const isAnswered = Boolean(localAnswers[q.id]?.value);
+                const isAnswered = Boolean(
+                  localAnswers[q.id]?.value && Object.keys(localAnswers[q.id]?.value).length > 0
+                );
 
                 return (
                   <button
                     key={q.id}
                     onClick={() => setActiveQuestionIdx(idx)}
-                    className={`h-9 rounded font-mono text-xs font-semibold transition-all ${
+                    className={`h-9 rounded font-mono text-xs font-semibold transition-all cursor-pointer ${
                       isCurrent
                         ? 'ring-2 ring-brand ring-offset-2 ring-offset-canvas'
                         : ''
@@ -380,7 +543,7 @@ export const StudentExamTakePage: React.FC = () => {
                   className="w-full"
                   iconLeft={<Send className="w-4 h-4" />}
                   onClick={() => {
-                    alert('Chức năng nộp bài chính thức sẽ kích hoạt ở Bước 5.8.');
+                    alert('Chức năng nộp bài chính thức sẽ kích hoạt ở Bước 5.7.');
                   }}
                 >
                   Nộp bài thi

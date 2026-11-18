@@ -19,6 +19,8 @@ from app.schemas.student_exam_schema import (
     StudentAttemptDetailResponse,
     StudentExamDetail,
     StudentExamListItem,
+    StudentSaveAnswerRequest,
+    StudentSaveAnswerResponse,
     StudentStartAttemptResponse,
 )
 from app.schemas.student_question import student_view_list
@@ -26,6 +28,7 @@ from app.services.student_exam_service import (
     get_student_attempt_detail,
     get_student_exam_detail,
     get_student_exams,
+    save_student_answer,
     start_student_attempt,
 )
 
@@ -96,6 +99,23 @@ def get_student_attempt(
 ) -> StudentAttemptDetailResponse:
     """Loads student attempt session with deterministic question/option shuffling (Step 5.3)."""
     return get_student_attempt_detail(db, student, attempt_id, clock)
+
+
+@router.put(
+    "/attempts/{attempt_id}/answers/{question_id}",
+    response_model=StudentSaveAnswerResponse,
+    status_code=status.HTTP_200_OK,
+)
+def save_answer(
+    attempt_id: uuid.UUID,
+    question_id: uuid.UUID,
+    payload: StudentSaveAnswerRequest,
+    db: Session = Depends(get_db),
+    student: User = Depends(require_student),
+    clock: Clock = Depends(get_clock),
+) -> StudentSaveAnswerResponse:
+    """Auto-saves student answer for a question with client_seq serialization (Step 5.4)."""
+    return save_student_answer(db, student, attempt_id, question_id, payload, clock)
 
 
 @router.get("/exams/{exam_id}/questions", status_code=status.HTTP_200_OK)

@@ -9,19 +9,24 @@ import secrets
 import uuid
 from datetime import datetime, timedelta
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import and_, func, or_, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.core.errors import AppError
+from app.core.question_utils import parse_number
 from app.core.time import Clock, compute_deadline, remaining_seconds
-from app.models import Attempt, ClassMember, Exam, ExamClass, Question, User
+from app.models import Answer, Attempt, ClassMember, Exam, ExamClass, Question, User
 from app.schemas.student_exam_schema import (
     StudentAnswerItem,
     StudentAttemptDetailResponse,
     StudentExamDetail,
     StudentExamListItem,
     StudentExamState,
+    StudentSaveAnswerRequest,
+    StudentSaveAnswerResponse,
     StudentStartAttemptResponse,
 )
 from app.schemas.student_question import student_view
@@ -518,3 +523,276 @@ def get_student_attempt_detail(
         questions=rendered_questions,
         answers=answers_dict,
     )
+
+
+def validate_answer_value(
+    question_type: str,
+    question_config: dict[str, Any],
+    value: Any,
+) -> None:
+    """Validates answer payload against the question's type and configuration (Step 5.4, TC-5.4-06).
+
+    Raises AppError(code="invalid_answer_schema", status_code=422) if invalid.
+    """
+    if not isinstance(value, dict):
+        raise AppError(
+            code="invalid_answer_schema",
+            message="Dữ liệu đáp án phải là một đối tượng JSON.",
+            status_code=422,
+        )
+
+    # Empty value is permitted (represents clearing an answer)
+    if not value:
+        return
+
+    if question_type == "mcq":
+        if "selected" not in value or not isinstance(value["selected"], str):
+            raise AppError(
+                code="invalid_answer_schema",
+                message="Câu hỏi trắc nghiệm yêu cầu trường 'selected' kiểu chuỗi.",
+                status_code=422,
+            )
+        options = question_config.get("options") or []
+        valid_ids = {opt["id"] for opt in options if isinstance(opt, dict) and "id" in opt}
+        if valid_ids and value["selected"] not in valid_ids:
+            raise AppError(
+                code="invalid_answer_schema",
+                message=f"Lựa chọn '{value['selected']}' không thuộc danh sách đáp án của câu hỏi.",
+                status_code=422,
+            )
+
+    elif question_type == "tf":
+        stmts = value.get("statements", value)
+        if not isinstance(stmts, dict) or not stmts:
+            raise AppError(
+                code="invalid_answer_schema",
+                message="Câu hỏi Đúng/Sai yêu cầu danh sách mệnh đề.",
+                status_code=422,
+            )
+        valid_stmts = {
+            s["id"]
+            for s in (question_config.get("statements") or [])
+            if isinstance(s, dict) and "id" in s
+        }
+        for stmt_id, stmt_val in stmts.items():
+            if valid_stmts and stmt_id not in valid_stmts:
+                raise AppError(
+                    code="invalid_answer_schema",
+                    message=f"Mệnh đề '{stmt_id}' không tồn tại trong câu hỏi.",
+                    status_code=422,
+                )
+            if type(stmt_val) is not bool:
+                raise AppError(
+                    code="invalid_answer_schema",
+                    message=f"Giá trị mệnh đề '{stmt_id}' phải là true hoặc false (boolean).",
+                    status_code=422,
+                )
+
+    elif question_type == "short_text":
+        txt = value.get("text", value.get("value"))
+        if txt is not None and not isinstance(txt, str):
+            raise AppError(
+                code="invalid_answer_schema",
+                message="Câu trả lời ngắn phải là chuỗi ký tự.",
+                status_code=422,
+            )
+        if isinstance(txt, str) and len(txt) > 5000:
+            raise AppError(
+                code="invalid_answer_schema",
+                message="Câu trả lời vượt quá độ dài tối đa 5000 ký tự.",
+                status_code=422,
+            )
+
+    elif question_type == "short_number":
+        num_val = value.get("value", value.get("number"))
+        if num_val is None:
+            raise AppError(
+                code="invalid_answer_schema",
+                message="Câu hỏi điền số yêu cầu trường 'value'.",
+                status_code=422,
+            )
+        try:
+            parse_number(num_val)
+        except ValueError as err:
+            raise AppError(
+                code="invalid_answer_schema",
+                message=f"Giá trị số không hợp lệ: {err}",
+                status_code=422,
+            ) from err
+
+    elif question_type == "file_upload":
+        file_id = value.get("file_id")
+        if file_id is not None:
+            try:
+                uuid.UUID(str(file_id))
+            except ValueError as err:
+                raise AppError(
+                    code="invalid_answer_schema",
+                    message="file_id không đúng định dạng UUID.",
+                    status_code=422,
+                ) from err
+
+
+def save_student_answer(
+    db: Session,
+    user: User,
+    attempt_id: uuid.UUID,
+    question_id: uuid.UUID,
+    payload: StudentSaveAnswerRequest,
+    clock: Clock,
+) -> StudentSaveAnswerResponse:
+    """Saves student answer for a question with client_seq serialization (Step 5.4).
+
+    Concurrency & Anti-cheat:
+    - Row-level lock: SELECT ... FOR SHARE on Attempt (allows parallel saves,
+      blocks concurrent finalization).
+    - Status check: If attempt is submitted -> 409 attempt_closed (TC-5.4-04).
+    - Deadline check: now > deadline + grace -> lazy finalize & 409 attempt_closed (TC-5.4-03).
+    - Ownership check: 404 attempt_not_found if not owned by student.
+    - Question check: 404 question_not_found if question not in attempt.exam_id (TC-5.4-05).
+    - Validation: 422 invalid_answer_schema if schema does not match type (TC-5.4-06).
+    - Serialization: Only updates if client_seq > existing.client_seq (TC-5.4-01, TC-5.4-02).
+    """
+    now = clock.now()
+
+    # 1. Inactive account check
+    if not user.is_active:
+        raise AppError(
+            code="inactive_account",
+            message="Tài khoản học sinh đã bị khóa.",
+            status_code=403,
+        )
+
+    # 2. Acquire FOR SHARE lock on attempt
+    attempt = db.scalars(
+        select(Attempt).where(Attempt.id == attempt_id).with_for_update(read=True)
+    ).first()
+
+    if not attempt or attempt.student_id != user.id:
+        raise AppError(code="attempt_not_found", message="Không tìm thấy bài làm.", status_code=404)
+
+    # 3. Check submitted status (TC-5.4-04)
+    if attempt.status == "submitted":
+        raise AppError(
+            code="attempt_closed",
+            message="Bài thi đã nộp hoặc đã kết thúc.",
+            status_code=409,
+        )
+
+    # 4. Check deadline + grace (10s) (TC-5.4-03)
+    deadline_at = (
+        attempt.deadline_at
+        if attempt.deadline_at.tzinfo is not None
+        else attempt.deadline_at.replace(tzinfo=now.tzinfo)
+    )
+    if now > deadline_at + timedelta(seconds=10):
+        attempt.status = "submitted"
+        attempt.submitted_at = deadline_at
+        db.commit()
+        raise AppError(
+            code="attempt_closed",
+            message="Đã hết thời gian làm bài thi.",
+            status_code=409,
+        )
+
+    # 5. Check question belongs to exam (TC-5.4-05)
+    question = db.scalars(
+        select(Question).where(
+            Question.id == question_id,
+            Question.exam_id == attempt.exam_id,
+        )
+    ).first()
+    if not question:
+        raise AppError(
+            code="question_not_found",
+            message="Câu hỏi không thuộc đề thi này.",
+            status_code=404,
+        )
+
+    # 6. Validate answer value schema (TC-5.4-06)
+    validate_answer_value(question.question_type, question.config or {}, payload.value)
+
+    # 7. Upsert answer with client_seq check (TC-5.4-01, TC-5.4-02)
+    existing_answer = db.scalars(
+        select(Answer)
+        .where(
+            Answer.attempt_id == attempt.id,
+            Answer.question_id == question.id,
+        )
+        .with_for_update()
+    ).first()
+
+    if existing_answer:
+        if payload.client_seq > existing_answer.client_seq:
+            existing_answer.value = payload.value
+            existing_answer.client_seq = payload.client_seq
+            existing_answer.updated_at = now
+            db.commit()
+            db.refresh(existing_answer)
+            return StudentSaveAnswerResponse(
+                question_id=question.id,
+                client_seq=existing_answer.client_seq,
+                status="saved",
+                updated_at=existing_answer.updated_at,
+                value=existing_answer.value,
+            )
+        else:
+            return StudentSaveAnswerResponse(
+                question_id=question.id,
+                client_seq=existing_answer.client_seq,
+                status="ignored",
+                updated_at=existing_answer.updated_at,
+                value=existing_answer.value,
+            )
+    else:
+        new_answer = Answer(
+            id=uuid.uuid4(),
+            attempt_id=attempt.id,
+            question_id=question.id,
+            value=payload.value,
+            client_seq=payload.client_seq,
+            updated_at=now,
+        )
+        try:
+            db.add(new_answer)
+            db.commit()
+            db.refresh(new_answer)
+            return StudentSaveAnswerResponse(
+                question_id=question.id,
+                client_seq=new_answer.client_seq,
+                status="saved",
+                updated_at=new_answer.updated_at,
+                value=new_answer.value,
+            )
+        except IntegrityError:
+            db.rollback()
+            existing = db.scalars(
+                select(Answer)
+                .where(
+                    Answer.attempt_id == attempt.id,
+                    Answer.question_id == question.id,
+                )
+                .with_for_update()
+            ).first()
+            if existing and payload.client_seq > existing.client_seq:
+                existing.value = payload.value
+                existing.client_seq = payload.client_seq
+                existing.updated_at = now
+                db.commit()
+                db.refresh(existing)
+                return StudentSaveAnswerResponse(
+                    question_id=question.id,
+                    client_seq=existing.client_seq,
+                    status="saved",
+                    updated_at=existing.updated_at,
+                    value=existing.value,
+                )
+            elif existing:
+                return StudentSaveAnswerResponse(
+                    question_id=question.id,
+                    client_seq=existing.client_seq,
+                    status="ignored",
+                    updated_at=existing.updated_at,
+                    value=existing.value,
+                )
+            raise

@@ -82,6 +82,14 @@ export interface StudentAttemptDetail {
   answers: Record<string, StudentAnswerItem>;
 }
 
+export interface StudentSaveAnswerResponse {
+  question_id: string;
+  client_seq: number;
+  status: 'saved' | 'ignored';
+  updated_at: string;
+  value: Record<string, unknown>;
+}
+
 export const studentApi = {
   listExams: async (): Promise<StudentExamListItem[]> => {
     return request<StudentExamListItem[]>('/api/v1/student/exams');
@@ -99,5 +107,20 @@ export const studentApi = {
 
   getAttempt: async (attemptId: string): Promise<StudentAttemptDetail> => {
     return request<StudentAttemptDetail>(`/api/v1/student/attempts/${attemptId}`);
+  },
+
+  saveAnswer: async (
+    attemptId: string,
+    questionId: string,
+    value: Record<string, unknown>,
+    clientSeq: number
+  ): Promise<StudentSaveAnswerResponse> => {
+    return request<StudentSaveAnswerResponse>(
+      `/api/v1/student/attempts/${attemptId}/answers/${questionId}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ value, client_seq: clientSeq }),
+      }
+    );
   },
 };
