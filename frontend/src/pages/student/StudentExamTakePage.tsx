@@ -24,6 +24,8 @@ import {
   Send,
   Check,
   Loader2,
+  WifiOff,
+  AlertTriangle,
 } from 'lucide-react';
 
 import {
@@ -33,6 +35,9 @@ import {
   StudentQuestionItem,
 } from '../../lib/studentApi';
 import { useMonotonicTimer } from '../../hooks/useMonotonicTimer';
+import { useOfflineOutbox } from '../../hooks/useOfflineOutbox';
+import { answerStore } from '../../lib/answerStore';
+import { ReAuthModal } from '../../components/exam/ReAuthModal';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -49,12 +54,12 @@ export const StudentExamTakePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState<StudentAttemptDetail | null>(null);
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
+  const [isReAuthOpen, setIsReAuthOpen] = useState(false);
 
   // Local answers state mapped by question_id: { value, client_seq }
   const [localAnswers, setLocalAnswers] = useState<
     Record<string, { value: Record<string, unknown>; client_seq: number }>
   >({});
-  const [saveStatus, setSaveStatus] = useState<Record<string, 'saving' | 'saved' | 'error'>>({});
 
   const isSubmitted = attempt?.status === 'submitted';
 
@@ -74,6 +79,23 @@ export const StudentExamTakePage: React.FC = () => {
     isSubmitted,
     onTimeUp: handleTimeUp,
     onStatusSync: handleStatusSync,
+  });
+
+  const {
+    outboxCount,
+    isOnline,
+    isStorageFallback,
+    saveStatusMap,
+    saveAnswerOptimistic,
+    manualRetrySync,
+    resumeAfterAuth,
+  } = useOfflineOutbox({
+    attemptId: attempt?.id,
+    isSubmitted,
+    onReAuthRequired: () => setIsReAuthOpen(true),
+    onAttemptClosed: () => {
+      setAttempt((prev) => (prev ? { ...prev, status: 'submitted' } : null));
+    },
   });
 
   // Fetch or resolve attempt
@@ -113,6 +135,18 @@ export const StudentExamTakePage: React.FC = () => {
             client_seq: ans.client_seq || 0,
           };
         }
+
+        // Merge any answers pending in local outbox (TC-5.6-03: F5/reload offline preserves answers)
+        const offlineItems = answerStore.getOutbox(targetAttemptId);
+        for (const item of offlineItems) {
+          if (!restored[item.questionId] || item.client_seq >= (restored[item.questionId]?.client_seq || 0)) {
+            restored[item.questionId] = {
+              value: item.value,
+              client_seq: item.client_seq,
+            };
+          }
+        }
+
         setLocalAnswers(restored);
       } catch (err: unknown) {
         if (!isMounted) return;
@@ -139,8 +173,8 @@ export const StudentExamTakePage: React.FC = () => {
     ).length;
   }, [localAnswers]);
 
-  // Handle saving an answer with client_seq serialization (Step 5.4)
-  const handleSaveAnswer = async (questionId: string, value: Record<string, unknown>) => {
+  // Handle saving an answer via Offline Outbox (Step 5.6)
+  const handleSaveAnswer = (questionId: string, value: Record<string, unknown>) => {
     if (!attempt || attempt.status === 'submitted') return;
 
     const nextSeq = (localAnswers[questionId]?.client_seq || 0) + 1;
@@ -152,19 +186,7 @@ export const StudentExamTakePage: React.FC = () => {
       },
     }));
 
-    setSaveStatus((prev) => ({ ...prev, [questionId]: 'saving' }));
-    try {
-      const res = await studentApi.saveAnswer(attempt.id, questionId, value, nextSeq);
-      if (res.status === 'saved' || res.status === 'ignored') {
-        setSaveStatus((prev) => ({ ...prev, [questionId]: 'saved' }));
-      }
-    } catch (err: unknown) {
-      setSaveStatus((prev) => ({ ...prev, [questionId]: 'error' }));
-      const msg = err instanceof Error ? err.message : '';
-      if (msg.includes('409') || msg.includes('attempt_closed')) {
-        setAttempt((prev) => (prev ? { ...prev, status: 'submitted' } : null));
-      }
-    }
+    saveAnswerOptimistic(questionId, value, nextSeq);
   };
 
   if (loading) {
@@ -200,10 +222,55 @@ export const StudentExamTakePage: React.FC = () => {
     );
   }
 
-  const currentSaveStatus = currentQuestion ? saveStatus[currentQuestion.id] : undefined;
+  const currentSaveStatus = currentQuestion ? saveStatusMap[currentQuestion.id] : undefined;
 
   return (
     <div className="min-h-screen bg-canvas text-text-primary flex flex-col">
+      {/* ================= OFFLINE ALERT BANNER (SC-04-VAR-OFFLINE) ================= */}
+      {(!isOnline || outboxCount > 0) && (
+        <div
+          role="status"
+          className="w-full bg-status-wrong-bg border-b border-status-wrong-border px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between text-xs text-status-wrong-text font-medium gap-2"
+        >
+          <div className="flex items-center gap-2">
+            <WifiOff className="w-4 h-4 shrink-0" />
+            <span>
+              {!isOnline
+                ? 'MẤT KẾT NỐI MẠNG - Đáp án đang được lưu an toàn trong máy. Vui lòng không tải lại trang!'
+                : 'Đang kết nối lại - Có đáp án chưa đồng bộ với máy chủ.'}
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 font-mono text-[11px]">
+              <span className="w-2 h-2 rounded-full bg-status-wrong-border animate-ping shrink-0" />
+              <span>Outbox: {outboxCount} câu chờ gửi</span>
+            </div>
+            <button
+              type="button"
+              onClick={manualRetrySync}
+              className="underline hover:text-text-primary transition-colors cursor-pointer"
+            >
+              Thử đồng bộ lại ngay
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= STORAGE FALLBACK WARNING BANNER (TC-5.6-06) ================= */}
+      {isStorageFallback && (
+        <div
+          role="alert"
+          className="w-full bg-status-flag-bg border-b border-status-flag-border px-4 sm:px-6 py-2 flex items-center justify-between text-xs text-status-flag-text font-medium"
+        >
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            <span>
+              Cảnh báo: Bộ nhớ trình duyệt bị hạn chế hoặc đã đầy. Bài thi đang được lưu tạm trên RAM. Vui lòng không tải lại trang hoặc đóng trình duyệt!
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Top Navbar */}
       <header className="sticky top-0 z-30 bg-surface border-b border-line-subtle px-4 sm:px-6 h-16 flex items-center justify-between shadow-xs">
         <div className="flex items-center space-x-3 overflow-hidden">
@@ -282,6 +349,11 @@ export const StudentExamTakePage: React.FC = () => {
                   {currentSaveStatus === 'saved' && (
                     <span className="text-xs text-brand flex items-center gap-1 font-mono">
                       <Check className="w-3.5 h-3.5" /> Đã lưu
+                    </span>
+                  )}
+                  {currentSaveStatus === 'pending' && (
+                    <span className="text-xs text-status-flag-text flex items-center gap-1 font-mono">
+                      <Clock className="w-3.5 h-3.5" /> Chưa lưu (ngoại tuyến)
                     </span>
                   )}
                   {currentSaveStatus === 'error' && (
@@ -562,6 +634,16 @@ export const StudentExamTakePage: React.FC = () => {
           </Card>
         </aside>
       </div>
+
+      {/* In-place Re-authentication Modal (Step 5.6 / TC-5.6-04) */}
+      <ReAuthModal
+        isOpen={isReAuthOpen}
+        username={attempt?.student_name}
+        onSuccess={() => {
+          setIsReAuthOpen(false);
+          resumeAfterAuth();
+        }}
+      />
     </div>
   );
 };

@@ -568,21 +568,21 @@
     - [X] `TC-5.5-04`: Khi hết giờ trên client, hàm tự nộp được gọi ngay lập tức.
     - [X] `TC-5.5-05`: Khi giáo viên cộng giờ, lần đồng bộ status tiếp theo cập nhật lại đồng hồ mượt mà.
     - [X] `TC-5.5-06`: Polling đồng bộ status dùng ít băng thông (< 1 KB) và không gây tải DB.
-- [ ] **Bước 5.6 — Hàng đợi lưu trữ Ngoại tuyến (Offline Outbox trong localStorage)**
+- [X] **Bước 5.6 — Hàng đợi lưu trữ Ngoại tuyến (Offline Outbox trong localStorage)**
 
-  - [ ] Xây dựng `AnswerStore` lưu trữ cục bộ trên `localStorage`.
-  - [ ] Khi học sinh chọn đáp án: Lưu ngay vào Outbox $\to$ Cập nhật UI $\to$ Gửi API ngầm.
-  - [ ] Cơ chế Retry: Backoff lũy tiến khi gặp lỗi mạng, tự động đồng bộ tuần tự khi có mạng lại.
-  - [ ] Chỉ báo trạng thái lưu trên UI: *Đã lưu / Đang lưu... / Chưa lưu (ngoại tuyến)*.
-  - [ ] Xử lý sự cố hết phiên (401) khi đang làm bài: Không điều hướng sang trang khác, hiển thị Modal nhập lại mật khẩu tại chỗ để tiếp tục gửi outbox.
+  - [X] Xây dựng `AnswerStore` lưu trữ cục bộ trên `localStorage`.
+  - [X] Khi học sinh chọn đáp án: Lưu ngay vào Outbox $\to$ Cập nhật UI $\to$ Gửi API ngầm.
+  - [X] Cơ chế Retry: Backoff lũy tiến khi gặp lỗi mạng, tự động đồng bộ tuần tự khi có mạng lại.
+  - [X] Chỉ báo trạng thái lưu trên UI: *Đã lưu / Đang lưu... / Chưa lưu (ngoại tuyến)*.
+  - [X] Xử lý sự cố hết phiên (401) khi đang làm bài: Không điều hướng sang trang khác, hiển thị Modal nhập lại mật khẩu tại chỗ để tiếp tục gửi outbox.
 
   - **Kiểm thử cần đạt:**
-    - [ ] `TC-5.6-01`: Tắt Wi-Fi, chọn 5 đáp án liên tiếp, dữ liệu được ghi nhận đầy đủ trong Outbox.
-    - [ ] `TC-5.6-02`: Bật Wi-Fi lại, hàng đợi outbox tự động gửi hết lên server và chuyển sang "Đã lưu".
-    - [ ] `TC-5.6-03`: F5 hoặc đóng trình duyệt khi mất mạng, mở lại bài thi outbox vẫn còn nguyên.
-    - [ ] `TC-5.6-04`: Token bị hết hạn hiện modal đăng nhập lại, đăng nhập xong tự gửi tiếp outbox.
-    - [ ] `TC-5.6-05`: Hai tab cùng mở 1 bài thi đồng bộ outbox qua sự kiện `storage` không xung đột.
-    - [ ] `TC-5.6-06`: Khi `localStorage` đầy hoặc bị chặn, chuyển sang lưu tạm trên RAM và cảnh báo học sinh.
+    - [X] `TC-5.6-01`: Tắt Wi-Fi, chọn 5 đáp án liên tiếp, dữ liệu được ghi nhận đầy đủ trong Outbox.
+    - [X] `TC-5.6-02`: Bật Wi-Fi lại, hàng đợi outbox tự động gửi hết lên server và chuyển sang "Đã lưu".
+    - [X] `TC-5.6-03`: F5 hoặc đóng trình duyệt khi mất mạng, mở lại bài thi outbox vẫn còn nguyên.
+    - [X] `TC-5.6-04`: Token bị hết hạn hiện modal đăng nhập lại, đăng nhập xong tự gửi tiếp outbox.
+    - [X] `TC-5.6-05`: Hai tab cùng mở 1 bài thi đồng bộ outbox qua sự kiện `storage` không xung đột.
+    - [X] `TC-5.6-06`: Khi `localStorage` đầy hoặc bị chặn, chuyển sang lưu tạm trên RAM và cảnh báo học sinh.
 - [ ] **Bước 5.7 — Nộp bài thi & Chốt bài (Finalize Attempt Idempotent)**
 
   - [ ] Endpoint `POST /student/attempts/{id}/submit` nhận kèm ảnh chụp snapshot Outbox còn sót lại.
